@@ -1,0 +1,28 @@
+eng:
+  application:
+    blueprint_ui: Blueprint UI
+    medidations: Medidations
+  medidations:
+    index:
+      medidation_heading: Medidations
+      first_name: First Name
+      last_name: Last Name
+      job_title: Job Title
+      edit: Edit
+      delete: Delete
+      create_medidation: Create Medidation
+    edit:
+      editing_medidation: Editing Medidation
+      back: Back
+    new:
+      new_medidation: New Medidation
+      back: Back
+    show:
+      medidation: Medidation
+      job_title: Job Title
+      edit: Edit
+      back: Back
+    medidation_form:
+      first_name: First Name
+      last_name: Last Name
+      job_title: Job Title

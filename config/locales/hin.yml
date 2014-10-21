@@ -1,0 +1,28 @@
+hin:
+  application:
+    blueprint_ui: "ब्लू प्रिंट यूआई"
+    medidations: "मेडिडेशनस"
+  medidations:
+    index:
+      medidation_heading: "मेडिडेशनस"
+      first_name: "प्रथम नाम"
+      last_name: "आखिरी नाम"
+      job_title: "कार्य शीर्षक"
+      edit: "संपादित करें"
+      delete: "हटाना"
+      create_medidation: "नई मेडिडेशन"
+    edit:
+      editing_medidation: "संपादन मेडिडेशन"
+      back: "वापस"
+    new:
+      new_medidation: "नई मेडिडेशन"
+      back: "वापस"
+    show:
+      medidation: "मेडिडेशन"
+      job_title: "कार्य शीर्षक"
+      edit: "संपादित करें"
+      back: "वापस"
+    medidation_form:
+      first_name: "प्रथम नाम"
+      last_name: "आखिरी नाम"
+      job_title: "कार्य शीर्षक"

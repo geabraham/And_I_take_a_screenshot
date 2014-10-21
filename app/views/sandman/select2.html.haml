@@ -1,0 +1,30 @@
+- content_for :page_header_text do
+  %h3= 'Select2'
+
+- content_for :page_header do
+  = render 'shared/page_header'
+
+- content_for :page_body do
+  .panel.panel-default
+    .panel-heading
+      Simple Select2
+    .panel-body
+      .col-md-6
+        %input#select2-1.form-control{ data: { prez: @prez.to_json } }
+
+  .panel.panel-default
+    .panel-heading
+      Select2 row templates
+    .panel-body
+      .col-md-6
+        %input#select2-2.form-control{ data: { prez: @prez.to_json } }
+
+  .panel.panel-default
+    .panel-heading
+      Select2 ajax
+    .panel-body
+      .col-md-6
+        %input#select2-3.form-control
+
+- content_for :javascript do
+  = cdn_javascript_include_tag 'select2'

@@ -1,0 +1,35 @@
+- content_for :page_header_text do
+  %h3= 'Two Column Layout'
+
+- content_for :page_header do
+  = render 'shared/page_header'
+
+- content_for :page_body do
+  .mcc-two-col
+    .mcc-left
+      %h3 left
+      %p Used for navigation, etc...
+    .mcc-content
+      %h3 content
+
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Two Column Layout
+        .panel-body
+          %p The two column layout has an anchored, full-height left sidebar that can be used for a variety of content. It has a fixed width of 250px,has a white background color and grey right border. It is can be used for flat or nested navigation.
+
+          %p This markup will render the two columns when used as the page body in the platform layout:
+          :kramdown
+            ~~~ html
+            <div class="mcc-two-col">
+              <div class="mcc-left">
+                <h3>left</h3>
+                <!-- Navigation -->
+              </div>
+              <div class="mcc-content">
+                <h3>content</h3>
+                <!-- Application Content -->
+              </div>
+            </div>
+            ~~~
+

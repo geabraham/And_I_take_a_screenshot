@@ -1,0 +1,15 @@
+.row
+  .col-md-4
+    = search(%w(all protocol_id name))
+
+%br
+
+%p
+  %b NOTE:
+  %br
+  search_by_options = %w(all protocol_id name)
+  %br
+  %br
+  Additional Javascript may be needed to make the button text change when selected.
+  %br
+  %script{ src: 'https://gist.github.com/ayong-mdsol/9b14e85a00c61c868dc1.js' }

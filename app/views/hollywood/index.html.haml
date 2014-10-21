@@ -1,0 +1,14 @@
+- content_for :page_header_text do
+  %h3 Hollywood Demo
+
+- content_for :page_header do
+  = render 'shared/page_header'
+
+- content_for :page_body do
+  %p Hollywood content
+  -  nav = HollywoodController.action_methods.to_a
+  %ul
+  - nav.each do |nav_item|
+    - next if nav_item == 'index'
+    %li
+      = link_to "#{nav_item}", "hollywood/#{nav_item}"
