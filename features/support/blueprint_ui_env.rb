@@ -1,6 +1,6 @@
 # -------------------------------------------------------------------
 #
-# The main Blueprint_UI automation class - provides an interface to the
+# The main Minotaur automation class - provides an interface to the
 # browser testing library.
 #
 # -------------------------------------------------------------------

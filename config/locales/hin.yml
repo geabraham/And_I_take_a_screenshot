@@ -1,6 +1,6 @@
 hin:
   application:
-    blueprint_ui: "ब्लू प्रिंट यूआई"
+    minotaur: "ब्लू प्रिंट यूआई"
     medidations: "मेडिडेशनस"
   medidations:
     index:

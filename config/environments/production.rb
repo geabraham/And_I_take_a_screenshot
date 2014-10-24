@@ -21,7 +21,7 @@ BlueprintUI::Application.configure do
   config.assets.digest = true
 
   config.action_controller.asset_host = ENV['SANDMAN_HOST']
-  config.assets.prefix = "/apps/blueprint_ui/#{ENV['EUREKA_STAGE']}/assets"
+  config.assets.prefix = "/apps/minotaur/#{ENV['EUREKA_STAGE']}/assets"
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH

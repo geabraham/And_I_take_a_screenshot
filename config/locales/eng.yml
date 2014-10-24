@@ -1,6 +1,6 @@
 eng:
   application:
-    blueprint_ui: Blueprint UI
+    minotaur: Minotaur
     medidations: Medidations
   medidations:
     index:
