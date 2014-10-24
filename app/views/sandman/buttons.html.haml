@@ -1,0 +1,183 @@
+- content_for :page_header_text do
+  %h3= 'Buttons'
+
+- content_for :page_header do
+  = render 'shared/page_header'
+
+- content_for :page_body do
+  %p Buttons are styled via the <a href="http://getbootstrap.com/css/#buttons">Bootstrap 3 Button classes</a>
+
+  :kramdown
+    ~~~ html
+    <a class="btn btn-default">Button</a>
+    <button class="btn btn-default">Button</button>
+    ~~~
+
+  %p While Bootstrap provides seven kinds of buttons, only four of the classes are used in the MCC theme so far. These are the four button classes that are ok to use and should match the wireframes.
+
+  %table.buttons
+    %thead
+      %tr
+        %th
+        %th .btn-default
+        %th .btn-primary
+        %th .btn-danger
+        %th .btn-link
+    %tbody
+      %tr
+        %td
+          %b Normal
+        %td
+          %button.btn.btn-default Button
+        %td
+          %button.btn.btn-primary Button
+        %td
+          %button.btn.btn-danger Button
+        %td
+          %button.btn.btn-link Button
+      %tr
+        %td
+          %b Disabled
+        %td
+          %button.btn.btn-default.disabled Button
+        %td
+          %button.btn.btn-Primary.disabled Button
+        %td
+          %button.btn.btn-danger.disabled Button
+        %td
+          %button.btn.btn-link.disabled Button
+  %hr
+  %h3 Button Tags
+  %p Buttons are styled by adding the .btn classes to to one of a variety of HTML tag - links, buttons or inputs. It is important to follow certain rules for using buttons.
+  %ul
+    %li Use A tags for regular links that need to look like buttons
+    %li Use buttons instead of input type="submit" for forms
+    %li Make sure that submit buttons are inside the form tag
+  %hr
+  %h3 Disabled Buttons
+  %p Disabled buttons are styled via the disabled class and the use of the disabled attribute(only available on button elements). Standard link tags do not respect the disabled attribute, and therefore do not automatically disable the click action. This needs to be handled with additional JavaScript.
+  %p
+    %button.btn.btn-default.disabled{disabled:true} Button
+
+  :kramdown
+    ~~~ html
+    <button class="btn btn-default disabled" disabled>Button</button>
+    ~~~
+
+  %hr
+  %h3 Buttons with icons
+  %p Icons inside buttons are achieved by nesting an empty i or span tag with the correct icon classes applied. The icon should always appear before the text in the button.
+
+  %p
+    %button.btn.btn-default
+      %span.fa.fa-plus
+      Add Button
+
+
+  :kramdown
+    ~~~ html
+    <button class="btn btn-default"><span class="fa fa-plus"></span> Add Button</button>
+    ~~~
+
+  %hr
+  %h3 Button Groups
+  %p Button groups are another pattern used to group related buttons such as filters.
+
+  %p
+    .btn-group
+      %button.btn.btn-default Button
+      %button.btn.btn-default Button
+      %button.btn.btn-default Button
+  :kramdown
+    ~~~ html
+    <div class="btn-group">
+      <button type="button" class="btn btn-default">Left</button>
+      <button type="button" class="btn btn-default">Middle</button>
+      <button type="button" class="btn btn-default">Right</button>
+    </div>
+    ~~~
+
+  %hr
+  %h3 Button Dropdowns
+  %p Buttons can also used for dropown menus. Drodown menus utilize an empty span with the caret class after the button text to indicate a dropdown.
+
+  %p
+    .btn-group
+      %button.btn.btn-default.dropdown-toggle{data: {toggle: 'dropdown'}}
+        Action
+        %span.caret
+      %ul.dropdown-menu{role: 'menu'}
+        %li
+          %a Menu Item
+          %a Menu Item
+          %a Menu Item
+          %a Menu Item
+
+    :kramdown
+      ~~~ html
+      <!-- Single button -->
+      <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          Action <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+      ~~~
+
+
+  %h4 Spit dropdown buttons
+  %p Button dropdowns can also have split style created using 2 buttons
+
+  %p
+    .btn-group
+      %button.btn.btn-default Action
+      %button.btn.btn-default.dropdown-toggle{data: {toggle: 'dropdown'}}
+        %span.caret
+        %span.sr-only Dropdown Toggle
+      %ul.dropdown-menu{role: 'menu'}
+        %li
+          %a Menu Item
+          %a Menu Item
+          %a Menu Item
+          %a Menu Item
+  :kramdown
+    ~~~ html
+    <!-- Split button -->
+    <div class="btn-group">
+      <button type="button" class="btn btn-default>Action</button>
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+        <span class="sr-only">Dropdown toggle</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+      </ul>
+    </div>
+    ~~~
+
+
+  %hr
+  %h3 Button Sizes
+  %p Bootstrap provides some classes for various button sizes. Only the default and small classes are used in the MCC framework.
+
+  %p
+    %button.btn.btn-default Default Size
+    %button.btn.btn-default.btn-sm Small Size
+  :kramdown
+    ~~~ html
+    <button class="btn btn-default btn-sm">Small Size</button>
+    ~~~
+
+
+
+

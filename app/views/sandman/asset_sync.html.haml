@@ -1,0 +1,55 @@
+- content_for :page_header_text do
+  %h3= 'asset_sync'
+
+- content_for :page_header do
+  = render 'shared/page_header'
+
+- content_for :page_body do
+  .panel.panel-default
+    .panel-heading
+      %p Setting up cloudfront hosted platform assets
+    .panel-body
+      %ol
+        %li
+          Add the <code>SANDMAN_HOST</code> evironment variable in medistrano. The one listed here is the one for non-production stages.
+          %p
+            %code
+              "SANDMAN_HOST": "dsw6ye8s2ocl7.cloudfront.net"
+        %li
+          Change your rails asset helpers to use sandman-provided versions
+          %p
+            %code
+              cdn_javascript_include_tag 'platform.js'
+        %li 
+          This will use the normal helpers in development and test mode so you can develop locally, but will use the assets at SANDMAN_HOST in production mode.
+
+  .panel.panel-default
+    .panel-heading
+      %p Instructions for setting up cloudfront asset syncing.
+    .panel-body
+      You can sync assets to the same s3 bucket as sandman's assets. This lets you 
+      %ol
+        %li
+          Add the Gem:
+          %p
+            %code
+              gem 'asset_sync'
+        %li
+          Add your environmental variables in Medistrano
+          %p 
+            %code
+              "AWS_ACCESS_KEY_ID": "aws key" 
+              %br
+              "AWS_SECRET_ACCESS_KEY": "aws secret"
+              %br
+              "FOG_DIRECTORY": "s3 bucket, probably mdsol-resources for non-production stages"
+              %br
+              "FOG_PROVIDER": "AWS"
+        %li 
+          Configure your rails <code>config/environments/production.rb</code> file. If you have the sandman CDN assets set up, you can use SANDMAN_HOST as your asset_host. EUREKA_STAGE is a good way to seperate your stages so they can have seperate assets versions.
+          %p
+            %code
+              config.action_controller.asset_host = ENV['SANDMAN_HOST'] 
+              %br
+              config.assets.prefix = "/apps/app_oid/\#{ENV['EUREKA_STAGE']}/assets"
+

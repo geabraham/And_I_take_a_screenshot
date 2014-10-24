@@ -1,0 +1,71 @@
+- content_for :page_header_text do
+  %h3= 'Filters and Search Box <span class="badge badge-alert">REFACTOR IN-PROGRESS</span>'.html_safe
+
+- content_for :page_header do
+  = render 'shared/page_header'
+
+- content_for :page_body do
+  = render 'sandman/shared/filter_search'
+
+  %h3 Filters
+  = render 'sandman/shared/filter'
+  :kramdown
+    ~~~ html
+        <div class="btn-group filters">
+          <div class="btn-group">
+            <a class="btn btn-default disabled selected white" href="" id="all_filter" type="button">All (500)</a>
+            <a class="btn btn-default" href="#" id="active_filter" type="button">
+              <i class="icon icon-active"></i>
+              Active (172)
+            </a>
+            <a class="btn btn-default" href="#" id="locked_filter" type="button">
+              <i class="fa fa-lock"></i>
+              Locked (164)
+            </a>
+            <a class="btn btn-default" href="#" id="inactive_filter" type="button">
+              <i class="icon icon-inactive"></i>
+              Inactive (164)
+            </a>
+          </div>
+        </div>
+    ~~~
+  %h3 Search
+  = render 'sandman/shared/search'
+  :kramdown
+    ~~~ html
+        <form class="search input-group">
+          <span class="input-group-btn">
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" name="search_by_attribute">
+              Search by All
+              <span class="caret"></span>
+            </button>
+            <ul aria-labelledby="dropdownmenu" class="dropdown-menu" role="menu">
+              <li>
+                <a data-value="all" href="#">Search by All</a>
+              </li>
+              <li>
+                <a data-value="protocol_id" href="#">Search by Protocol ID</a>
+              </li>
+              <li>
+                <a data-value="name" href="#">Search by Name</a>
+              </li>
+              <li>
+                <a data-value="indication" href="#">Search by Indication</a>
+              </li>
+              <li>
+                <a data-value="phase" href="#">Search by Phase</a>
+              </li>
+            </ul>
+          </span>
+          <input class="form-control" data-original-title="Find a blah blah blah" maxlength="255" name="search_by" placeholder="search" title="EMPTY TITLE" type="text">
+          <span class="input-group-btn">
+            <button class="btn btn-default disabled" disabled="" type="submit">
+              <div class="fa fa-search"></div>
+              <span class="sr-only">Search</span>
+            </button>
+          </span>
+        </form>
+
+    ~~~
+    
+    

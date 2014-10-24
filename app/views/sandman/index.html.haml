@@ -1,0 +1,33 @@
+- content_for :page_header_text do
+  %h3= 'Platform UI Framework'
+
+- content_for :page_header do
+  = render 'shared/page_header'
+
+- content_for :page_body do
+  %p This section demonstrates the Platform UI framework and associated utilities such as:
+  %ul
+    %li JavaScript Utilities
+    %li Sass Mixins and Variables
+    %li Hollywood Helper Gem
+
+  %h3 Getting Started
+  %p Core components of the UI framework are the CSS and JavaScript files that provide all the styling and basic interactivity described in the HTML documentation. While most of the extra utilities of Sandman are focused on the Ruby on Rails framework, the use of standard front-end technology to create the final product makes it available any web application stack that generates HTML and is targeted to a web browser.
+
+  %p The <a href="/sandman/platfonr_layout">Platform Layout</a> page describes how the base HTML page should be structured and the layout of the MCC design elements for the header and navigation.
+
+  %p The <a href="sandman/generator">Sandman Generator Page</a> contains instructions for starting a new rails application from scratch and setting up the framework using the asset pipeline.
+
+
+
+
+  %hr
+  %p Sandman content
+  -  nav = SandmanController.action_methods.to_a
+  %ul
+  - nav.each do |nav_item|
+    - next if nav_item == 'index'
+    %li
+      = link_to "#{nav_item}", "/sandman/#{nav_item}"
+
+

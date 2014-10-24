@@ -1,0 +1,56 @@
+- content_for :page_header_text do
+  %h3= 'Sandman Rails Generator'
+
+- content_for :page_header do
+  = render 'shared/page_header'
+
+- content_for :page_body do
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Creating a new Platform UI app with the generator
+      %p This is the fastest way to get an application started using the platform ui framework as a base.
+    .panel-body.sandman-docs
+      %ol.list-unstyled
+        %li
+          %p
+            %b Create a new rails application
+          %code
+            $ rails new myapp
+
+          %p change into the newly created app directory
+          %code cd myapp
+
+        %li
+          %p
+            %b Add the sandman-rails and haml-rails gems to the generated gem file by adding the following lines:
+          %code
+            gem 'sandman-rails', git: 'git@github.com:mdsol/sandman-rails.git', branch: 'v0.2.9'
+            %br
+            gem 'haml-rails', '~> 0.4'
+          %p then run bundle install
+        %li
+          %p
+            %b Run the sandman generator with the following command:
+          %code
+            bundle exec rails generate sandman
+
+        %li
+          %p
+            %b Run the rails server
+          %code
+            bundle exec rails s
+        %li
+          %p
+            %b The resulting application should be a raw rails application with the basic platform layout applied and a generated example controller.
+          %p This app will very closely resemble what you see here in Blueprint UI, and is a rails app ready for building according to platform ui standards.
+          = image_tag('sandman/sandman_generated_app.png')
+    .panel-heading
+      %h3.panel-title What the generator does
+    .panel-body
+      %ul
+        %li Sets up the application layout to use the platform base layout
+        %li Adds the shared partials for the header and navigation
+        %li Creates the application.scss file and adds the _mxins.scss partial
+        %li Creates an example controller
+        %li Deletes default rails files for css and layout

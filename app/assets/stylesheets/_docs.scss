@@ -1,0 +1,109 @@
+@mixin list-numbers($count) {
+  @for $item from 1 to ($count + 1) {
+    &:nth-child(#{$item}):before {
+      content: "#{$item}"
+    }
+  }
+}
+
+.sandman-docs {
+  padding: 0 !important;
+  > ol, ul {
+    > li {
+      &.row {
+        margin: 0;
+      }
+      border-bottom: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+      padding: 10px 0;
+      position: relative;
+      .code {
+        outline: 1px dotted red;
+      }
+    }
+  }
+  > ol {
+    > li {
+      padding: 10px 10px 10px 70px;
+      &:before {
+        content: '01';
+        display: block;
+        font-size: 200%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 10px;
+        background-color: #999;
+        color: #eee;
+      }
+      @include list-numbers(5);
+
+    }
+  }
+}
+
+// Test pattern for split panel body
+.panel-split {
+  padding: 0 !important;
+  border-top: 1px solid #ddd;
+  display: table;
+  height: 100%;
+  .panel-split-pane {
+    display: table-cell;
+    padding: 20px;
+  }
+  .panel-split-pane-left {
+    border-left: 1px solid #ddd;
+  }
+}
+
+hr {
+  border-color: #999;
+}
+
+.buttons {
+  width: 100%;
+  min-width: 800px;
+  td, th {
+    text-align: center;
+  }
+  td {
+    padding: 10px;
+    border: 1px dotted #ddd;
+    b {
+      color: #999;
+    }
+  }
+  th {
+    padding-bottom: 10px;
+  }
+}
+
+// TEMP: Full height grid debug
+#main {
+  height: 90%;
+  > .container-fluid {
+    height: 100%;
+  }
+}
+.mcc-two-col {
+  margin-top: -15px;
+  margin-left: -15px;
+  margin-right: -15px;
+  display: table;
+  width: 101%;
+  height: 100%;
+  .mcc-left, .mcc-content {
+    display: table-cell;
+  }
+  .mcc-left {
+    width: 250px;
+    background-color: #fff;
+    border-right: 1px solid #ddd;
+  }
+  .mcc-content {
+    padding-left: 15px;
+  }
+}
+
+
