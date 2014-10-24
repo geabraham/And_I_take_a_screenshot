@@ -1,9 +1,9 @@
-id: blueprint:v1.0.0
-name: blueprint
+id: minotaur:v1.0.0
+name: minotaur
 version: v1.0.0
-title: Blueprint
+title: Minotaur
 description: Sample Web Service for the MCC
-documentationLink: https://github.com/mdsol/blueprint_service
+documentationLink: https://github.com/mdsol/minotaur_service
 protocol: rest
 basePath: /v1/
 schemas:

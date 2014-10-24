@@ -18,7 +18,7 @@ end
 require "i18n/backend/fallbacks"
 I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
 
-module BlueprintUI
+module Minotaur
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

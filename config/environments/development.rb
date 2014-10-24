@@ -1,4 +1,4 @@
-BlueprintUI::Application.configure do
+Minotaur::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -6,8 +6,7 @@ BlueprintUI::Application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
-  # Log error messages when you accidentally call methods on nil.
-  config.whiny_nils = true
+  config.eager_load = false
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true

@@ -1,4 +1,4 @@
-BlueprintUI::Application.routes.draw do
+Minotaur::Application.routes.draw do
 
   root to: 'medidations#index'
 

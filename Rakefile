@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-BlueprintUI::Application.load_tasks
+Minotaur::Application.load_tasks

@@ -1,8 +1,10 @@
-BlueprintUI::Application.configure do
+Minotaur::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
   config.cache_classes = true
+
+  config.eager_load = true
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
