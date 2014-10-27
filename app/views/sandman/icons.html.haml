@@ -1,0 +1,70 @@
+- content_for :page_header_text do
+  %h3= 'Platform Icons'
+
+- content_for :page_header do
+  = render 'shared/page_header'
+
+- content_for :page_body do
+  %p All icons used throughout the platform are created via an icon font. We provide the Font Awesome and Glyphicons(Bootstrap Default) icon fonts in the css, but prefer to use the Font Awesome icons.
+  %p Icons are inserted into the html by placing an empty span or i tag with the appropriate classes:
+
+  %h1
+    %span.fa.fa-pied-piper-alt
+  :kramdown
+    ~~~ html
+    <span class="fa fa-pied-piper-alt"></span>
+    ~~~
+
+  %p Icon classes should not be applied directly to link tags. Link tags require text for accessibility reasons. If you need to hide the text within a link or button and only show the icon, use an sr-only span.
+
+  %p
+    %a.btn.btn-default
+      %span.fa.fa-pied-piper-alt
+      %span.sr-only Pied Piper
+  :kramdown
+    ~~~ html
+    <a class="btn btn-default">
+      <span class="fa fa-pied-piper-alt"></span>
+      <span class="sr-only">Pied Piper</span>
+    </a>
+    ~~~
+  %hr
+  %h2 Font Awesome
+  %p The icon font of choice for the platform is Font Awesome (<a href="http://fortawesome.github.io/Font-Awesome/">http://fortawesome.github.io/Font-Awesome/</a>). Font Awesome provides a more complete set of icons than the default Bootstrap icons, Glyphicons, and has a design that was preferable for the UI design of the platform.
+
+  %p The <a href="http://fortawesome.github.io/Font-Awesome/cheatsheet/">Font Awesome Cheatsheet</a>gst is the easiest way to look at all the icons and get the character codes and classes required for the icons.
+
+  %hr
+  %h2 Custom platform Icons
+  %p We have created a custom icon font to provide icons of platform design where the other icon fonts did not meet our needs. We use the base class of mcc-icon for the pcustom platform icons.
+
+  %p
+    %b active:
+    <i class="mcc-icon mcc-icon-active"></i>
+  :kramdown
+    ~~~ html
+    <i class="mcc-icon mcc-icon-active"></i>
+    ~~~
+  %p
+    %b inactive:
+    <i class="mcc-icon mcc-icon-inactive"></i>
+  :kramdown
+    ~~~ html
+    <i class="mcc-icon mcc-icon-inactive"></i>
+    ~~~
+  %p
+    %b locked:
+    <i class="mcc-icon mcc-icon-locked"></i>
+  :kramdown
+    ~~~ html
+    <i class="mcc-icon mcc-icon-locked"></i>
+    ~~~
+  %p
+    %b
+      unlocked:
+    <i class="mcc-icon mcc-icon-unlocked"></i>
+  :kramdown
+    ~~~ html
+    <i class="mcc-icon mcc-icon-unlocked"></i>
+    ~~~
+

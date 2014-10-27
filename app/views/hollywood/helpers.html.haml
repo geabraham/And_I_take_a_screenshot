@@ -1,0 +1,20 @@
+- content_for :page_header_text do
+  %h3= 'Hollywood Rails Helpers'
+
+- content_for :page_header do
+  = render 'shared/page_header'
+
+- content_for :page_body do
+  .panel.panel-default.test-helper
+    .panel-heading
+      %p These are the Rails Helpers provided by Hollywood for general use in views and presenters.
+    .panel-body
+      %ul.mixins.list-unstyled
+        - @helpers_data.each do |row|
+          %li.mixin
+            %h3.heading= row['helper']
+            .row
+              .code.col-xs-12.col-sm-4= row['code'].html_safe
+              .description.col-xs-12.col-sm-8.text-info= row['description'].html_safe
+            .example
+              = render row['example']

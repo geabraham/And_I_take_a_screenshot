@@ -1,0 +1,165 @@
+id: minotaur:v1.0.0
+name: minotaur
+version: v1.0.0
+title: Minotaur
+description: Sample Web Service for the MCC
+documentationLink: https://github.com/mdsol/minotaur_service
+protocol: rest
+basePath: /v1/
+schemas:
+  Medidation:
+    id: schemas/Medidation/v1.0.0
+    resource: medidations
+    type: object
+    properties:
+      uuid:
+        type: string
+        description: The unique identifier for a medidation.
+        readonly: true
+      first_name:
+        type: string
+        description: The first name of a medidation.
+      last_name:
+        type: string
+        description: The last name of a medidation.
+      indication_uuid:
+        type: string
+        description: The identifier for the indication associated with this medidation.
+      job_title_uuid:
+        type: string
+        description: The identifier for the job_title associated with this medidation.
+
+aliases:
+  slts:
+    slt_1: &single_resource       # For standard single resource show/update/delete endpoints.
+      99th_percentile: 100ms
+      std_dev: 25ms
+      requests_per_second: 50
+    slt_2: &multiple_resources    # For slower index routes with filter and sort options.
+      99th_percentile: 250ms
+      std_dev: 50ms
+      requests_per_second: 25
+
+  pagination_params:
+    pagination_params_1: &paginate_20 # For standard index endpoints
+      page: &page_param
+        description: The page number for the results to display
+        required: false
+        location: query
+      per_page: &per_page_param
+        description: The number of results per page
+        required: false
+        location: query
+        default: 20
+      include_count: &include_count
+        description: Whether or not to include the total count of result entities
+        required: false
+        location: query
+        default: false
+    pagination_params_2: &paginate_15 # For slower index endpoints
+      page: *page_param
+      per_page:
+        <<: *per_page_param
+        default: 15
+      include_count: *include_count
+
+resources:
+  medidations:
+    methods:
+      create:
+        id: medidations.create
+        path: medidations
+        httpMethod: POST
+        description: Create a medidation.
+        request:
+          $ref: schemas/Medidation/v1.0.0
+        response:
+          $ref: schemas/Medidation/v1.0.0
+        workflows:
+          - can_manage_medidations
+          - can_review_medidations
+        slt: *single_resource
+      update:
+        id: medidations.update
+        path: medidations/{uuid}
+        httpMethod: PUT
+        description: Edit a medidation.
+        parameters:
+          uuid:
+            type: string
+            description: The unique identifier for a medidation.
+            required: true
+            location: path
+        request:
+          $ref: schemas/Medidation/v1.0.0
+        response:
+          $ref: schemas/Medidation/v1.0.0
+        workflows:
+          - can_manage_medidations
+          - can_review_medidations
+        slt: *single_resource
+      show:
+        id: medidations.show
+        path: medidations/{uuid}
+        httpMethod: GET
+        description: View a medidation.
+        parameters:
+          uuid:
+            type: string
+            description: The unique identifier for a medidation.
+            required: true
+            location: path
+        response:
+          $ref: schemas/Medidation/v1.0.0
+        workflows:
+          - can_manage_medidations
+          - can_review_medidations
+        slt: *single_resource
+      index:
+        id: medidations.index
+        path: medidations
+        httpMethod: GET
+        description: View all medidations.
+        parameters:
+          first_name:
+            type: string
+            description: The first name of the medidation
+            minLength: 1
+            required: false
+          last_name:
+            type: string
+            description: The last name of the medidation
+            minLength: 1
+            required: false
+          sort_by:
+            type: string
+            description: The key on which the resulting medidations should be sorted (indication, last_name, or job_title)
+            minLength: 1
+            required: false
+          search_term:
+            type: string
+            description: Only medidations whose last name contains this string as a substring will be returned
+            required: false
+          <<: *paginate_15
+        response:
+          type: array
+          items:
+            $ref: schemas/Medidation/v1.0.0
+        workflows:
+          - can_manage_medidations
+          - can_review_medidations
+        slt: *multiple_resources
+      destroy:
+        id: medidations.destroy
+        path: medidations/{uuid}
+        httpMethod: DELETE
+        description: Delete a medidation.
+        parameters:
+          uuid:
+            type: string
+            description: The unique identifier for a medidation.
+            required: true
+            location: path
+        workflows:
+          - can_manage_medidations
+        slt: *single_resource      

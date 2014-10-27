@@ -1,0 +1,115 @@
+- content_for :page_header_text do
+  %h3= 'jQuery Validation Plugin'
+
+- content_for :page_header do
+  = render 'shared/page_header'
+
+- content_for :page_body do
+  %p This jQuery plugin makes simple clientside form validation easy, whilst still offering plenty of customization options. The plugin comes bundled with a useful set of validation methods, including URL and email validation, while providing an API to write your own methods. All bundled methods come with default error messages in english and translations into 37 other languages.
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Simple form validation
+    .panel-body
+      %form#form1{ role: 'form', novalidate: 'novalidate' }
+        .form-group
+          %label{ for: 'exampleInputEmail1' }
+            = 'Email address'
+          %input#exampleInputEmail1.form-control{ type: 'email', placeholder: 'Enter email', required: 'required' }
+        .form-group
+          %label{ for: 'exampleInputPassword1' }
+            = 'Password'
+          %input#exampleInputPassword1.form-control{ type: 'password', placeholder: 'Password', required: 'required' }
+        .form-group
+          %label{ for: 'city' }
+            = 'City'
+          %select#city.form-control{ required: 'required' }
+            %option= ''
+            %option{ value: 1 }= 'London'
+            %option{ value: 2 }= 'New York'
+        %button.btn.btn-default{ type: 'submit' }= 'Submit'
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Customized validation
+    .panel-body
+      %form#form2{ role: 'form', novalidate: 'novalidate' }
+        .form-group
+          %label{ for: 'username' }
+            = 'Username'
+          %input#username.form-control{ type: 'text', placeholder: 'Username', name: 'username' }
+        .form-group
+          %label{ for: 'password' }
+            = 'Password'
+          %input#password.form-control{ type: 'password', placeholder: 'Password', name: 'password' }
+        .form-group
+          %label{ for: 'confirmPassword' }
+            = 'Confirm Password'
+          %input#confirmPassword.form-control{ type: 'password', placeholder: 'Confirm Password', name: 'confirmPassword' }
+        .form-group
+          %label{ for: 'email' }
+            = 'Email address'
+          %input#email.form-control{ type: 'email', placeholder: 'Enter email', name: 'email' }
+        .form-group
+          %label{ for: 'exampleInputFile' }
+            = 'File input'
+          %input#exampleInputFile{ type: 'file', name: 'exampleInputFile' }
+        .checkbox
+          %label{ for: 'agree' }
+            %input#agree{ type: 'checkbox', name: 'agree' }
+            = 'I Agree'
+        .checkbox
+          %label{ for: 'newsletter' }
+            %input#newsletter{ type: 'checkbox', name: 'newsletter' }
+            = 'Subscribe to Newsletter'
+        %button.btn.btn-default{ type: 'submit' }= 'Submit'
+
+- content_for :javascript do
+  :javascript
+    $(function() {
+      $('#form1').validate();
+      $('#form2').validate({
+        rules: {
+          username: {
+            required: true,
+            minlength: 2
+          },
+          password: {
+            required: true,
+            minlength: 5
+          },
+          confirmPassword: {
+            required: true,
+            minlength: 5,
+            equalTo: "#password"
+          },
+          email: {
+            required: true,
+            email: true
+          },
+          agree: {
+            required: true,
+            errorPlacement: function(error, element) {
+              $(error).parents('.checkbox').append(error);
+            }
+          }
+        },
+        errorClass: 'text-danger',
+        messages: {
+          username: {
+            required: "Please enter a username",
+            minlength: "Your username must consist of at least 2 characters"
+          },
+          password: {
+            required: "Please provide a password",
+            minlength: "Your password must be at least 5 characters long"
+          },
+          confirm_password: {
+            required: "Please provide a password",
+            minlength: "Your password must be at least 5 characters long",
+            equalTo: "Please enter the same password as above"
+          },
+          email: "Please enter a valid email address",
+          agree: "Please accept our policy"
+        }
+      });
+    });

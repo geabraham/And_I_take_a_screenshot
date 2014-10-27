@@ -1,0 +1,45 @@
+.clearfix.filters#filters_and_search
+  #filters.pull-left.btn-group
+
+    %a.btn.btn-default.disabled.selected.white#all_filter{type: "button", href: "#{}"} All (500)
+    %a.btn.btn-default#active_filter{type: "button", href: "#"}
+      %i.icon.icon-active
+      Active (172)
+    %a.btn.btn-default#locked_filter{type: "button", href: "#"}
+      %i.fa.fa-lock
+      Locked (164)
+    %a.btn.btn-default#inactive_filter{type: "button", href: "#"}
+      %i.icon.icon-inactive
+      Inactive (164)
+
+  .pull-right.col-md-6#search
+    %form.input-group.form-search#search_list_form{action: "", method: "get", "accept-charset" => "UTF-8", data: {disable: {:submit => "auto"}}}
+      %input{name: "per_page", type: "hidden", value: "25"}
+      %input{name: "page", type: "hidden", value: "1"}
+      %input{name: "filter_by", type: "hidden", value: "all"}
+      %input{name: "sort_by", type: "hidden", value: "protocol_id,ASC"}
+      %input{name: "search_by_attribute", type: "hidden", value: "all"}
+
+      %span.input-group-btn#search_by_attribute
+        %button.btn.btn-default.dropdown-toggle{name: "search_by_attribute", data: {toggle: "dropdown"}}
+          Search by All
+          %span.caret
+
+        %ul.dropdown-menu{role: "menu", "aria-labelledby" => "dropdownMenu"}
+          %li
+            %a{href: "#", data: {value: "all"}} Search by All
+          %li
+            %a{href: "#", data: {value: "protocol_id"}} Search by Protocol ID
+          %li
+            %a{href: "#", data: {value: "name"}} Search by Name
+          %li
+            %a{href: "#", data: {value: "indication"}} Search by Indication
+          %li
+            %a{href: "#", data: {value: "phase"}} Search by Phase
+
+      %input.form-control#search_by{maxlength: "255", name: "search_by", placeholder: "Find a Study", title: "", type: "text", data: {original: {title: "Find a study by Protocol ID, Study Name, Indication or Phase."}}}
+
+      .input-group-btn
+        %button.btn.btn-default.submit.disabled#search_list_submit{disabled: "disabled"}
+          %i.fa.fa-search
+          %span.sr-only  Search
