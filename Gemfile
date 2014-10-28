@@ -41,7 +41,7 @@ gem 'dice_bag-mdsol', git: 'git@github.com:mdsol/dice_bag-mdsol.git'
 gem 'sass-rails',   '~> 4.0.3'
 gem 'therubyracer', '~> 0.12.0', platforms: :ruby
 gem 'uglifier', '>= 2.5.3'
-gem 'asset_sync', '~> 1.1.0'
+# gem 'asset_sync', '~> 1.1.0'
 
 group :development do
   gem 'guard-rspec'
