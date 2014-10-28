@@ -7,13 +7,18 @@
 // You're free to add application-wide styles to this file and they'll appear at the top of the
 // compiled file, but it's generally better to create a new file per style scope.
 
-@import 'mixins';
-@import 'doc-mixins';
-@import 'docs';
-@import 'datepicker3';
+//@import 'mixins';
+//@import 'doc-mixins';
+//@import 'docs';
+//@import 'datepicker3';
 
 .medidations {
   .table {
     border-top: none;
   }
 }
+
+// Just a bit of custom css to make sure it works.  We can delete it later.
+.construction {
+    color: red;
+  }
