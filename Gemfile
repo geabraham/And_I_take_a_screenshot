@@ -57,12 +57,12 @@ group :test do
 
 
   gem 'cucumber-rails', require: false
-  gem 'rspec', '~> 3.1'
-  gem 'rspec-rails', '~> 3.1'
   gem 'simplecov', require: false
 end
 
 group :test, :development do
+  gem 'rspec', '~> 3.1'
+  gem 'rspec-rails', '~> 3.1'
   gem 'kender', git: 'git@github.com:mdsol/kender.git', branch: 'master'
   gem 'shamus', git: 'git@github.com:mdsol/shamus.git', tag: '2013.3.0'
   gem 'brakeman', '~> 2.0'
