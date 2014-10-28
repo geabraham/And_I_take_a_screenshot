@@ -354,9 +354,6 @@ GEM
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    kramdown (1.4.2)
-    kramdown-rails (0.1.4)
-      kramdown
     launchy (2.4.2)
       addressable (~> 2.3)
     libv8 (3.16.14.7)
@@ -548,7 +545,6 @@ DEPENDENCIES
   jasmine-rails (~> 0.10.2)
   json (~> 1.8.1)
   kender!
-  kramdown-rails (~> 0.1.4)
   mauth-client!
   mdsol-tools!
   minitest

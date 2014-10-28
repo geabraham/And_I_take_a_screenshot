@@ -11,8 +11,4 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale] || I18n.default_locale
   end
 
-  def get_json_data(key = nil)
-    json_data = JSON.parse(File.read("#{Rails.root}/public/data.json"))
-    key ? json_data[key] : json_data
-  end
 end

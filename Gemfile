@@ -77,5 +77,4 @@ group :test, :development do
 end
 
 # Used in Blueprint/Sandman Docs
-gem 'kramdown-rails', '~> 0.1.4'
 gem 'simple-navigation'

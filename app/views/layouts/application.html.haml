@@ -11,7 +11,6 @@
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
     = cdn_javascript_include_tag 'modernizr'
     = cdn_stylesheet_link_tag    'platform'
-    = cdn_stylesheet_link_tag    'select2'
     = stylesheet_link_tag        'application'
     = csrf_meta_tags
   %body
@@ -23,7 +22,6 @@
 
     = cdn_javascript_include_tag 'jquery'
     = cdn_javascript_include_tag 'platform'
-    = cdn_javascript_include_tag 'jquery.validate'
     = javascript_include_tag :application
 
     = yield :javascript
