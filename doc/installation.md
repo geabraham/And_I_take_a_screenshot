@@ -36,13 +36,13 @@ Both of the following should be selected
 ```
 {
   "twelve_factor": {
-    "application": "minotaur-sandbox-app-DEFAULT"
+    "application": "minotaur-<stage>-app-DEFAULT"
   },
   "mdsol": {
     "logging": {
       "local_log_sources": [
         {
-          "name": "MinotaurSandboxAppLog",
+          "name": "Minotaur<Stage>AppLog",
           "description": "",
           "pathExpression": "/mnt/minotaur/current/log/web/current",
           "category": "Application",
@@ -53,15 +53,12 @@ Both of the following should be selected
   }
 }
 ```
-Note:
-1) twelve-factor.application needs to be changed as appropriate for the stage
-2) mdsol.logging.local_log_sources.name should be changed as appropriate for the stage.
 
 ## Twelve-factor databag settings
 
 ```
 {
-  "id": "minotaur-sandbox-app-DEFAULT",
+
   "deploy_env": {
     "deploy_id": "2014-10-29_18-51-57",
     "deploy_to": "/mnt/minotaur",
@@ -85,13 +82,11 @@ Note:
   },
   "application_env": {
     "HTTP_PORT": "3300",
-    "domain": "minotaur-sandbox.imedidata.net"
+    "domain": "minotaur-<stage>.imedidata.net"
   }
 }
 ```
 
 Note:
-1) id needs to be the same as twelve-factor.applicaton in the Chef Overrides above.
-2) deploy_env.deploy_id should be changed.
-3) deploy_env.source_gitref should be master in production.
-4) application_env.domain should be the domain selected in the ELB.
+1) deploy_env.source_gitref should be master in production.
+2) application_env.domain should be the domain selected in the ELB.
