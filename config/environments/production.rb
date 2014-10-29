@@ -22,11 +22,13 @@ Minotaur::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
+  # For asset_sync - to be enabled later
+ # config.assets.manifest = Rails.root.join("public/apps/[APP_OID]/assets/")
   config.action_controller.asset_host = ENV['SANDMAN_HOST']
   config.assets.prefix = "/apps/minotaur/#{ENV['EUREKA_STAGE']}/assets"
 
   # Defaults to nil and saved in location specified by config.assets.prefix
-  # config.assets.manifest = YOUR_PATH
+  config.assets.manifest = Rails.root.join("public/assets/")
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache

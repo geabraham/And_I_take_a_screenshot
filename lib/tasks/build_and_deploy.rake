@@ -1,6 +1,7 @@
 desc "Generate config files using dice_bag's rake tasks"
 task :release do
   Rake::Task['config:all'].invoke
+  Rake::Task['assets:precompile'].invoke
 end
 
 task :build do
