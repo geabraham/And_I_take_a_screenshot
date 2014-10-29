@@ -14,7 +14,8 @@ Minotaur::Application.configure do
   config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.js_compressor  = :uglifier
+  config.assets.css_compressor = :sass
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = true
@@ -22,11 +23,13 @@ Minotaur::Application.configure do
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  config.action_controller.asset_host = ENV['SANDMAN_HOST']
-  config.assets.prefix = "/apps/minotaur/#{ENV['EUREKA_STAGE']}/assets"
+  # For asset_sync - to be enabled later
+  # config.assets.manifest = Rails.root.join("public/apps/[APP_OID]/assets/")
+  # config.action_controller.asset_host = ENV['SANDMAN_HOST']
+  # config.assets.prefix = "/apps/minotaur/#{ENV['EUREKA_STAGE']}/assets"
 
   # Defaults to nil and saved in location specified by config.assets.prefix
-  # config.assets.manifest = YOUR_PATH
+  # config.assets.manifest = Rails.root.join("public/apps/minotaur/assets/")
 
   # Specifies the header that your server uses for sending files
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache

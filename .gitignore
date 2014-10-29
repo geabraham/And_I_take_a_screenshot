@@ -21,3 +21,5 @@
 /columbo/*
 .DS_Store
 cache/
+public/apps/*
+

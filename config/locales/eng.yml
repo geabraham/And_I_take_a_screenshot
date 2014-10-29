@@ -1,6 +1,6 @@
 eng:
   application:
-    minotaur: Minotaur
+    title: Minotaur
     medidations: Medidations
   medidations:
     index:
