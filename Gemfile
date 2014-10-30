@@ -65,7 +65,7 @@ group :test, :development do
   gem 'rspec-rails', '~> 3.1'
   gem 'kender', git: 'git@github.com:mdsol/kender.git', branch: 'master'
   gem 'shamus', git: 'git@github.com:mdsol/shamus.git', tag: '2013.3.0'
-  gem 'brakeman', '~> 2.0'
+  gem 'brakeman', '~> 2.6.3'
   gem 'pry'
   gem 'pry-nav'
   gem 'capybara', '~> 2.4.4'

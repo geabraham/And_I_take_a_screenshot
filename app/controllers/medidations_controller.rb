@@ -21,15 +21,15 @@ class MedidationsController < ApplicationController
 
   # Create a new medidation
   def create
-    @medidation = Medidation.post(params[:medidation])
-
-    respond_with(@medidation) do |format|
-      if @medidation.errors.empty?
-        format.html { redirect_to @medidation, notice: 'Medidation was successfully created.' }
-      else
-        format.html { render action: "new" }
-      end
-    end
+#    @medidation = Medidation.post(params[:medidation])
+#
+#    respond_with(@medidation) do |format|
+#      if @medidation.errors.empty?
+#        format.html { redirect_to @medidation, notice: 'Medidation was successfully created.'}
+#      else
+#        format.html { render action: "new" }
+#      end
+#    end
   end
 
   # Update an existing medidation
