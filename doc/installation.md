@@ -88,5 +88,5 @@ Both of the following should be selected
 ```
 
 Note:
-1) deploy_env.source_gitref should be master in production.
+1) deploy_env.source_gitref should be a tag in production.
 2) application_env.domain should be the domain selected in the ELB.
