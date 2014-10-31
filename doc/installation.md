@@ -36,7 +36,7 @@ Both of the following should be selected
 ```
 {
   "twelve_factor": {
-    "application": "minotaur-<stage>-app-DEFAULT"
+    "application": "minotaur-<stage>-app-web"
   },
   "mdsol": {
     "logging": {
@@ -58,7 +58,7 @@ Both of the following should be selected
 
 ```
 {
-
+  "id" : "minotaur-<stage>-app-web",
   "deploy_env": {
     "deploy_id": "2014-10-29_18-51-57",
     "deploy_to": "/mnt/minotaur",
@@ -90,3 +90,4 @@ Both of the following should be selected
 Note:
 1) deploy_env.source_gitref should be a tag in production.
 2) application_env.domain should be the domain selected in the ELB.
+3) id should match twelve_factor.application in chef overrides
