@@ -2,11 +2,13 @@
 Feature: Activation Code Page
   As a patient
   I want to submit registration info for a study
-  So I can be enrolled in that study
+  So I can be registered for that study
   
   @Release2015.1.0
   @Draft
-  Scenario: A patient should be able to visit the activation code page.
-    When I visit the activation code page
-    Then I should be on the activation code page
+  Scenario: A patient should be able to register for a study
+    When I fill in an activation code
+    And I accept the TOU/DPN
+    And I submit registration info
+    Then I should be registered for a study
     
