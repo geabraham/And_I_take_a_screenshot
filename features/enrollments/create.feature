@@ -11,4 +11,3 @@ Feature: Activation Code Page
     And I accept the TOU/DPN
     And I submit registration info
     Then I should be registered for a study
-    
