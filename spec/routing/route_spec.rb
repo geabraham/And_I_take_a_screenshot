@@ -1,7 +1,6 @@
-require 'rspec'
 require 'rails_helper'
 
-RSpec.describe 'Minotaur routes', type: :routing do
+describe 'Minotaur routes', type: :routing do
   describe 'PatientRegistrations' do
     
     it 'has a root route' do

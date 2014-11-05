@@ -1,7 +1,6 @@
-require 'rspec'
 require 'rails_helper'
 
-RSpec.describe PatientRegistrationsController do
+describe PatientRegistrationsController do
   
   describe "GET 'index'" do
     it 'returns http success' do
