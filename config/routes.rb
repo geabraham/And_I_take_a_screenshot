@@ -1,8 +1,7 @@
 Minotaur::Application.routes.draw do
 
-  root to: 'construction#index'
+  root to: 'patient_registrations#index'
 
-  resources :construction
-  resources :medidations
-
+  resources :patient_registrations, only: [:index]
+  
 end
