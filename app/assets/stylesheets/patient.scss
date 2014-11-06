@@ -6,14 +6,18 @@
 //  @include border-radius(5px);
 //}
 
+// height/width are sort of arbitrary for a "standard" mobile form factor
+$width: 400px;
+$height: 600px;
+
 .patient {
   color: red;
   position: fixed;
-  width: 400px;
-  height: 600px;
+  width: $width;
+  height: $height;
   background-color: white;
   top: 50%;
   left: 50%;
-  margin-top: -300px;
-  margin-left: -200px;
+  margin-top: -($height/2);
+  margin-left: -($width/2);
 }
