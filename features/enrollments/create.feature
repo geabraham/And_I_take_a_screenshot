@@ -14,7 +14,7 @@ Feature: Activation Code Page
     Then I should be registered for a study
 
   @Draft
-  @Release 2015.1.0
+  @Release2015.1.0
   @PB130359-002
   Scenario: A patient should not be able to register for a study if the Patient Service returns an error
     When I fill in an activation code

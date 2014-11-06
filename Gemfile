@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.6'
+gem 'rails', '~> 4.1.7'
 gem 'passenger', '~> 4.0'
 gem 'haml-rails', '~> 0.5.3'
 gem 'json', '~> 1.8.1'
