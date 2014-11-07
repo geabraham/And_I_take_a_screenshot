@@ -1,4 +1,5 @@
 %div.activation_code
+  =image_tag 'mdsol_patient_cloud_retina.png', :class => 'logo'
   %h2.code_enter="Please enter your activation code"
   %div.code_instruction="If you have already registered, please return to the Patient Cloud App. If you have not registered and do not have an activation code or email invite please contact your doctor."
   %input.code{:maxlength => 1}
@@ -7,3 +8,7 @@
   %input.code{:maxlength => 1}
   %input.code{:maxlength => 1}
   %input.code{:maxlength => 1}
+  %div.bottom
+    %span.back='<'
+    %span.center
+    %span.forward='>'

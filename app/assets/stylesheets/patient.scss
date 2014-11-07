@@ -8,6 +8,13 @@
 $width: 320px;
 $height: 568px;
 $inputWidth: $width/9;
+$logoWidth: $width*0.9;
+
+.logo {
+  margin: $logoWidth*0.05;
+  width: $logoWidth;
+  height: $logoWidth/4.18;
+}
 
 .patient {
   position: fixed;
@@ -22,7 +29,7 @@ $inputWidth: $width/9;
 
 h2.code_enter {
   color: #000066;
-  margin-top: ($height/5);
+  margin-top: ($height/20);
   margin-bottom: ($height/20);
   text-align: center;
 }
@@ -40,4 +47,20 @@ input.code {
   font-size: 24px;
   margin: ($inputWidth/6);
   text-align: center;
+}
+
+div.bottom {
+  position: absolute;
+  border-top: medium solid #bbbbbb;
+  background-color: #dddddd;
+  bottom: 0;
+  color: #aaaaaa;
+  font-size: 28px;
+  height: $height/13;
+  width: $width;
+}
+
+span.forward {
+  position: absolute;
+  right: 0;
 }
