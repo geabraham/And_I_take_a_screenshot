@@ -10,3 +10,5 @@ $(".code").keyup(function(e) {
       }
     }
 });
+
+//TODO validate that ALL inputs are alphanumeric, not just one field
