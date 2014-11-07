@@ -64,3 +64,11 @@ span.forward {
   position: absolute;
   right: 0;
 }
+
+.validation_error {
+  color: red;
+  border: medium solid red;
+  background-color: #ffcccc;
+  margin-top: ($height/15);
+  display: none;
+}
