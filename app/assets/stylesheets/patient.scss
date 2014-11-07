@@ -4,9 +4,10 @@
 //  @include border-radius(5px);
 //}
 
-// height/width are sort of arbitrary for a "standard" mobile form factor
+// iphone 5 pixel dimensions
 $width: 320px;
 $height: 568px;
+$inputWidth: $width/9;
 
 .patient {
   position: fixed;
@@ -19,10 +20,24 @@ $height: 568px;
   margin-left: -($width/2);
 }
 
-h4.enter_code {
+h2.code_enter {
+  color: #000066;
   margin-top: ($height/5);
+  margin-bottom: ($height/20);
+  text-align: center;
+}
+
+.code_instruction {
+  margin-bottom: ($height/30);
 }
 
 input.code {
-  width: 20px;
+  width: $inputWidth;
+  height: $inputWidth;
+  background-color: #efefef;
+  border-radius: 2px;
+  border: 0px;
+  font-size: 24px;
+  margin: ($inputWidth/6);
+  text-align: center;
 }
