@@ -12,4 +12,10 @@ describe ActivationCodesController do
       expect(response).to be_success
     end
   end
+  
+  describe "POST 'activate'" do
+    it 'returns http success' do
+      expect(response).to be_success
+    end
+  end
 end

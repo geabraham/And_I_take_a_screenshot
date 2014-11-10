@@ -3,4 +3,10 @@ class ActivationCodesController < ApplicationController
   
   def index
   end
+  
+  def activate
+    head :ok
+    
+    #TODO call to subject service here
+  end
 end
