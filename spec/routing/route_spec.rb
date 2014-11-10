@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 describe 'Minotaur routes', type: :routing do
-  describe 'PatientRegistrations' do
+  describe 'ActivationCodes' do
     
     it 'has a root route' do
-      expect(get('/')).to route_to('patient_registrations#index')
+      expect(get('/')).to route_to('activation_codes#index')
     end
     
     it 'has an index route' do
-      expect(get('/patient_registrations')).to route_to('patient_registrations#index')
+      expect(get('/activation_codes')).to route_to('activation_codes#index')
     end
   end
 end

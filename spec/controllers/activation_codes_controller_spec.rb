@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe PatientRegistrationsController do
+describe ActivationCodesController do
   
   describe "GET 'index'" do
     it 'uses the patient_registration template' do
