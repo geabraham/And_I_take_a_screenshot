@@ -27,7 +27,7 @@ $logoWidth: $width*0.9;
   margin-left: -($width/2);
 }
 
-h2.code_enter {
+.code_enter {
   color: #000066;
   margin-top: ($height/20);
   margin-bottom: ($height/20);
@@ -38,7 +38,7 @@ h2.code_enter {
   margin-bottom: ($height/30);
 }
 
-input.code {
+.code {
   width: $inputWidth;
   height: $inputWidth;
   background-color: #efefef;
@@ -49,7 +49,7 @@ input.code {
   text-align: center;
 }
 
-div.bottom {
+.bottom {
   position: absolute;
   border-top: medium solid #bbbbbb;
   background-color: #dddddd;
@@ -60,7 +60,7 @@ div.bottom {
   width: $width;
 }
 
-span.forward {
+.forward {
   position: absolute;
   right: 0;
 }
