@@ -12,7 +12,10 @@ describe 'Minotaur routes', type: :routing do
     end
     
     it 'has an activate route' do
-      expect(post('/activate')).to route_to('activation_codes#activate')
+      expect(post('/activation_codes/0xD42f/activate')).to route_to(
+      :controller =>'activation_codes',
+      :id => '0xD42f', 
+      :action => 'activate')
     end
   end
 end
