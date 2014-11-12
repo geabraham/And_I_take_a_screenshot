@@ -16,9 +16,7 @@ $(".code").keyup(function(e) {
         //TODO figure out what to stub out here for testing until the redirect
         //     to next screen is ready
         var post_url = "/activation_codes/" + str + "/activate";
-        $.post( post_url, function(data){
-          alert("hey it worked" + data);
-        });
+        $.post(post_url);
       }
     }
     else {
