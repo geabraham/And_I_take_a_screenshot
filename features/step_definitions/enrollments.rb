@@ -1,5 +1,6 @@
 Given(/^I fill in an activation code$/) do
-  pending
+  visit $BASE_URL
+  (1..6).each { |e| fill_in "code-#{e}", :with => "#{e}" }
 end
 
 And(/^I accept the TOU\/DPN$/) do
