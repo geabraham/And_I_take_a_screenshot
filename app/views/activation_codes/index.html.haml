@@ -1,8 +1,9 @@
 - content_for :page_header_text do
-  %h3= 'Construction Details'
+  %h3= 'Patient Registration'
 
 - content_for :page_header do
   = render 'shared/page_header'
 
 - content_for :page_body do
-  %p Extra construction details...
+  .patient
+    = render 'activation_code'
