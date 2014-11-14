@@ -75,5 +75,7 @@ config.profile_examples = 3
 # the seed, which is printed after each run.
 #     --seed 1234
 config.order = :random
+
+#WebMock.allow_net_connect!
   
 end
