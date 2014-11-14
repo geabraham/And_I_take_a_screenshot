@@ -8,7 +8,7 @@ Feature: Activation Code Page
   @Release2015.1.0
   @PB130359-001
   @Headed
-  Scenario: A patient should be able to register for a study
+  Scenario: A new iMedidata user should be able to register for a study
     When I fill in an activation code
     And I accept the TOU/DPN
     And I submit registration info for a new subject
@@ -16,8 +16,8 @@ Feature: Activation Code Page
 
   @Draft
   @Release2015.1.0
-  @PB???
-  Scenario: A patient should be able to register for a study
+  @PB130361-001
+  Scenario: An existing iMedidata user should be able to register for a study
     When I fill in an activation code
     And I accept the TOU/DPN
     And I submit registration info for an existing subject
