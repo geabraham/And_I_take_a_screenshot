@@ -1,5 +1,5 @@
 @Draft
-Feature: Activation Code Page
+Feature: Patient Registration
   As a patient
   I want to submit registration info for a study
   So I can be registered for that study
