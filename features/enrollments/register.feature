@@ -1,4 +1,4 @@
-Feature: Activation Code Page
+Feature: Patient Registration Flow
   As a patient
   I want to submit registration info for a study
   So I can be registered for that study
@@ -19,3 +19,4 @@ Feature: Activation Code Page
     And I submit registration info
     And the Subject Service returns an error
     Then I should see a representation of the error from Subject Service
+
