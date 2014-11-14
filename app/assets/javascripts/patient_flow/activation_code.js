@@ -1,12 +1,12 @@
+var str = ""
+
 $(".code").keyup(function(e) {
-  var str = "";
-  $(".code").each(function() {
-    str += $.trim($(this).val());
-  });
+  $(this).val($(this).val().toUpperCase());
+  
+  str = getInputString();
   
   if( str !== "" ) {
     var regx = /^[A-Za-z0-9]+$/;
-    $(this).val($(this).val().toUpperCase());
     
     if(regx.test(str)) {
       $(".validation_error").hide();
@@ -15,8 +15,7 @@ $(".code").keyup(function(e) {
       if(str.length === 6) {
         //TODO figure out what to stub out here for testing until the redirect
         //     to next screen is ready
-        var post_url = "/activation_codes/" + str + "/activate";
-        $.post(post_url);
+        $.post("/activation_codes/" + str + "/activate");
       }
     }
     else {
@@ -24,3 +23,11 @@ $(".code").keyup(function(e) {
     }
   }
 });
+
+function getInputString() {
+  var inputString = "";
+  $(".code").each(function() {
+    inputString += $.trim($(this).val());
+  });
+  return inputString;
+}
