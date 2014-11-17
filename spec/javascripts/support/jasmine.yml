@@ -13,8 +13,8 @@
 src_files:
 #  - assets/jquery.js
 #  - assets/platform.js
-  - assets/**/application.js
-  - assets/patient_flow/activation_code.js
+  - assets/application.js
+#  - assets/patient_flow/activation_code.js
 
 # stylesheets
 #
@@ -42,8 +42,8 @@ stylesheets:
 #   - helpers/**/*.js
 #
 helpers:
-  - 'helpers/jquery-2.1.1.js' #jquery must be loaded before jasmine-jquery
-  - 'helpers/**/*.js'
+ # - 'helpers/jquery-2.1.1.js' #jquery must be loaded before jasmine-jquery
+  - 'helpers/jasmine-jquery.js'
 
 # spec_files
 #
@@ -56,7 +56,7 @@ helpers:
 #   - **/*[sS]pec.js
 #
 spec_files:
-  - '**/*[sS]pec.js'
+#  - '**/*[sS]pec.js'
   - '**/*[sS]pec.js.coffee'
 
 # src_dir

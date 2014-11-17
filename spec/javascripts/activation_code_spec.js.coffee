@@ -10,6 +10,6 @@ describe 'activation code page', ->
     
   it 'determines the input string when one character is entered', ->
     setFixtures '<input class="code" id="code-1" maxlength="1" value="f" />'
-    expect(getInputString).toHaveValue 'f'
+    expect(getInputString()).toEqual 'f'
     return
   return

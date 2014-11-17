@@ -1,5 +1,3 @@
-var str = ""
-
 $(".code").keyup(function(e) {
   $(this).val($(this).val().toUpperCase());
   
