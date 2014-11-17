@@ -13,6 +13,26 @@ describe 'activation code page', ->
     loadFixtures 'activationCodeFixture.html'
     window.getInputString = jasmine.createSpy('getInputString spy').and.returnValue('H')
     $('.code').trigger 'keyup'
-    expect(window.getInputString).toHaveBeenCalled()
+    expect(getInputString).toHaveBeenCalled()
+    return
+    
+  it "doesn't show a validation error for a valid character", ->
+    window.getInputString = jasmine.createSpy('getInputString spy').and.returnValue('ox9D0q')
+    loadFixtures 'activationCodeFixture.html'
+    expect($('.validation_error')).toHaveCss({display: "none"})
+    return
+    
+  it 'shows a validation error for an invalid character', ->
+    loadFixtures 'activationCodeFixture.html'
+    window.getInputString = jasmine.createSpy('getInputString spy').and.returnValue('NOOO0!')
+    $('.code').trigger 'keyup'
+    expect($('.validation_error')).toHaveCss({display: "block"})
+    return
+    
+  it 'handles an empty input', ->
+    loadFixtures 'activationCodeFixture.html'
+    window.getInputString = jasmine.createSpy('getInputString spy').and.returnValue('')
+    $('.code').trigger 'keyup'
+    expect(getInputString).toHaveBeenCalled()
     return
   return
