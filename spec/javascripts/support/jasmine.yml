@@ -11,10 +11,10 @@
 #   - dist/**/*.js
 #
 src_files:
-#  - assets/jquery.js
-#  - assets/platform.js
+  - assets/jquery.js
+  - assets/platform.js
   - assets/application.js
-#  - assets/patient_flow/activation_code.js
+  - assets/patient_flow/activation_code.js
 
 # stylesheets
 #
