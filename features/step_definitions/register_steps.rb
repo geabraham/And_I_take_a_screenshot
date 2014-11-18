@@ -1,6 +1,6 @@
 When(/^I fill in an activation code$/) do
-  visit $BASE_URL
-  (1..6).each { |e| fill_in "code-#{e}", :with => "#{e}" }
+  visit '/'
+  (1..6).each { |e| fill_in "code-#{e}", with: "#{e}" }
 end
 
 When(/^I accept the TOU\/DPN$/) do
