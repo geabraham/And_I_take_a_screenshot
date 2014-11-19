@@ -14,41 +14,47 @@
     %strong='email address'
     ='in the username field.'
   
-  = form_for @patient_enrollment do |f|
-    = f.label :login, 'E-mail Address'
-    %br
-    = f.text_field :login
-    %br
-
-    = f.label :login_confirmation, 'Confirm E-mail Address'
-    %br
-    = f.text_field :login_confirmation
-    %br
-
-    = f.label :password
-    %br
-    = f.password_field :password
-    %br
-
-    = f.label :password_confirmation, 'Confirm Password'
-    %br
-    = f.password_field :password_confirmation
-    %br
-
-    = f.label :security_question, 'Security Question'
-    %br
-    = f.select :security_question, @security_questions, include_blank: true
-    %br
-
-    = f.label :answer
-    %br
-    = f.text_field :answer
-    %br
-
-    = f.submit 'Submit'
+  /.hide
+  .form-content
+    = form_tag @patient_enrollment
+    .email
+      = fields_for @patient_enrollment do |f|
+        = f.label :login, 'E-mail Address'
+        %br
+        = f.text_field :login
+        %br
+      
+        = f.label :login_confirmation, 'Confirm E-mail Address'
+        %br
+        = f.text_field :login_confirmation
+        %br
+    .password
+      = fields_for @patient_enrollment do |f|
+        = f.label :password
+        %br
+        = f.password_field :password
+        %br
+        
+        = f.label :password_confirmation, 'Confirm Password'
+        %br
+        = f.password_field :password_confirmation
+        %br
+    .security_question
+      =fields_for @patient_enrollment do |f|
+        = f.label :security_question, 'Security Question'
+        %br
+        = f.select :security_question, @security_questions, include_blank: true
+        %br
+        
+        = f.label :answer
+        %br
+        = f.text_field :answer
+        %br
+      
+        = f.submit 'Submit'
 
     .bottom
       %span.back
-        %a.bottom='<'
+        %a='<'
       %span.center
       %span.forward='>'
