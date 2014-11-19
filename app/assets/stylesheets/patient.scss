@@ -25,6 +25,11 @@ $logoWidth: $width*0.9;
   left: 50%;
   margin-top: -($height/2);
   margin-left: -($width/2);
+  z-index: 1000;
+}
+
+.modal-backdrop {
+    z-index: -1;
 }
 
 h2 {

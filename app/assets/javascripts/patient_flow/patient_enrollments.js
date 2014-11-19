@@ -1,9 +1,6 @@
-$('.trigger').popover({
-    html: true,
-    title: function () {
-        return "popover title";
-    },
-    content: function () {
-        return "popover content";
-    }
-});
+//$('.trigger').click(function() {
+//  $('.email').modal({
+//    modal: true,
+//    autoOpen: false,
+//  });
+//});

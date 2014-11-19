@@ -9,25 +9,32 @@
   
   %h2.registration_details='Registration Details'
   
-  .instruction
-    ='Enter and confirm your'
-    %strong='email address'
-    ='in the username field.'
-  
+  .instruction='Just some placeholder text. Click the button to see the first part of the form!'
   /.hide
   .form-content
     = form_tag @patient_enrollment
-    .email#email
-      = fields_for @patient_enrollment do |f|
-        = f.label :login, 'E-mail Address'
-        %br
-        = f.text_field :login
-        %br
-      
-        = f.label :login_confirmation, 'Re-enter Email'
-        %br
-        = f.text_field :login_confirmation
-        %br
+    .instruction.hide
+    .modal#email(role="dialog")
+      .modal-dialog
+        .modal-content
+          .modal-header
+            ='Enter and confirm your'
+            %strong='email address'
+            ='in the username field.'
+          .modal-body
+            = fields_for @patient_enrollment do |f|
+              = f.label :login, 'E-mail Address'
+              %br
+              = f.text_field :login
+              %br
+    
+              = f.label :login_confirmation, 'Re-enter Email'
+              %br
+              = f.text_field :login_confirmation
+              %br
+          .modal-footer
+            %button.btn.btn-default(data-dismiss="modal")
+              ='Close'
     .password.hide
       = fields_for @patient_enrollment do |f|
         = f.label :password
@@ -39,7 +46,7 @@
         %br
         = f.password_field :password_confirmation
         %br
-    .security_question
+    .security_question.hide
       =fields_for @patient_enrollment do |f|
         = f.label :security_question, 'Security Question'
         %br
@@ -53,10 +60,10 @@
       
         = f.submit 'Submit'
     
-    .next
-      .btn.btn-primary.trigger='Next'
-    .bottom
-      %span.back
-        %a='<'
-      %span.center
-      %span.forward='>'
+  .next
+    .btn.btn-primary.trigger(data-toggle="modal" data-target="#email")='Next'
+  .bottom
+    %span.back
+      %a='<'
+    %span.center
+    %span.forward='>'
