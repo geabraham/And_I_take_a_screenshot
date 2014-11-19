@@ -7,6 +7,13 @@
     %span.forward='?'
   %br
   
+  %h2.registration_details='Registration Details'
+  
+  .instruction
+    ='Enter and confirm your'
+    %strong='email address'
+    ='in the username field.'
+  
   = form_for @patient_enrollment do |f|
     = f.label :login, 'E-mail Address'
     %br
