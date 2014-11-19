@@ -14,11 +14,11 @@
   .form-content
     = form_tag @patient_enrollment
     .instruction.hide
-    .modal#email(role="dialog")
+    .modal#email(role="dialog" data-backdrop="static")
       = render 'email_form'
-    .modal#password(role="dialog")
+    .modal#password(role="dialog" data-backdrop="static")
       = render 'password_form'
-    .modal#security-question(role="dialog")
+    .modal#security-question(role="dialog" data-backdrop="static")
       = render 'security_question_form'
   .next
     .btn.btn-primary.trigger(data-toggle="modal" data-target="#email")='Next'
