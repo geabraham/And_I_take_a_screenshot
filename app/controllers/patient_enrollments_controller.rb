@@ -1,4 +1,5 @@
 class PatientEnrollmentsController < ApplicationController
+  layout "patient_registration"
 
   def new
     # NOTE: @security_questions has no test. It is, for now, faked.

@@ -7,6 +7,11 @@ describe PatientEnrollmentsController do
       get :new
       expect(response).to be_success
     end
+    
+    it 'uses the patient_registration template' do
+      get :new
+      expect(response).to render_template("patient_registration")
+    end
 
     it 'assigns @enrollment to a new PatientEnrollment object' do
       stubbed_enrollment = double PatientEnrollment
