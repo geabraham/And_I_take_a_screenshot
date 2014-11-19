@@ -49,6 +49,16 @@ $logoWidth: $width*0.9;
   text-align: center;
 }
 
+.top {
+  position: absolute;
+  background-color: #000066;
+  color: #ffffff;
+  height: $height/13;
+  width: $width;
+  font-size: 28px;
+  text-align: center;
+}
+
 .bottom {
   position: absolute;
   border-top: medium solid #bbbbbb;
@@ -58,6 +68,10 @@ $logoWidth: $width*0.9;
   font-size: 28px;
   height: $height/13;
   width: $width;
+}
+
+.bottom a {
+  color: #5585D7;
 }
 
 .forward {

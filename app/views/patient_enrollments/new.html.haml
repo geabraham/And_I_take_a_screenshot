@@ -2,6 +2,11 @@
 / It should have failed for password_confirmation for the same reason. It didn't. Why?
 
 - content_for :page_body do
+  .top
+    %span.center='medidata'
+    %span.forward='?'
+  %br
+  
   = form_for @patient_enrollment do |f|
     = f.label :login, 'E-mail Address'
     %br
@@ -34,3 +39,9 @@
     %br
 
     = f.submit 'Submit'
+
+    .bottom
+      %span.back
+        %a.bottom='<'
+      %span.center
+      %span.forward='>'
