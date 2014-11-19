@@ -28,7 +28,7 @@
         %br
         = f.text_field :login_confirmation
         %br
-    .password
+    .password.hide
       = fields_for @patient_enrollment do |f|
         = f.label :password
         %br
@@ -39,7 +39,7 @@
         %br
         = f.password_field :password_confirmation
         %br
-    .security_question
+    .security_question.hide
       =fields_for @patient_enrollment do |f|
         = f.label :security_question, 'Security Question'
         %br
@@ -52,7 +52,9 @@
         %br
       
         = f.submit 'Submit'
-
+    
+    .next
+      %button.btn.btn-primary='Next'
     .bottom
       %span.back
         %a='<'

@@ -59,6 +59,13 @@ h2 {
   text-align: center;
 }
 
+.next {
+  position: absolute;
+  border-top: medium solid #bbbbbb;
+  bottom: $height/13;
+  width: $width;
+}
+
 .bottom {
   position: absolute;
   border-top: medium solid #bbbbbb;
