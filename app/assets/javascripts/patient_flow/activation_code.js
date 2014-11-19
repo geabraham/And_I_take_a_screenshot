@@ -2,7 +2,7 @@ $(function() {
   $(".code").on('keyup', handleInput);
 });
 
-function handleInput() {
+var handleInput = function() {
   $(this).val($(this).val().toUpperCase());
   str = getInputString();
   if( str !== "" ) {
@@ -21,7 +21,7 @@ function handleInput() {
   }
 }
 
-function getInputString() {
+var getInputString = function() {
   var inputString = "";
   $(".code").each(function() {
     inputString += $.trim($(this).val());
