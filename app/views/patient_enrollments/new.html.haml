@@ -33,19 +33,26 @@
               = f.text_field :login_confirmation
               %br
           .modal-footer
-            %button.btn.btn-default(data-dismiss="modal")
+            %button.btn.btn-default(data-dismiss="modal" data-toggle="modal" data-target="#password")
               ='Close'
-    .password.hide
-      = fields_for @patient_enrollment do |f|
-        = f.label :password
-        %br
-        = f.password_field :password
-        %br
-        
-        = f.label :password_confirmation, 'Confirm Password'
-        %br
-        = f.password_field :password_confirmation
-        %br
+    .modal#password(role="dialog")
+      .modal-dialog
+        .modal-content
+          .modal-header="Let's enter a password and submit!"
+          .modal-body
+            = fields_for @patient_enrollment do |f|
+              = f.label :password
+              %br
+              = f.password_field :password
+              %br
+              
+              = f.label :password_confirmation, 'Confirm Password'
+              %br
+              = f.password_field :password_confirmation
+              %br
+          .modal-footer
+            = fields_for @patient_enrollment do |f|
+              = f.submit 'Submit'
     .security_question.hide
       =fields_for @patient_enrollment do |f|
         = f.label :security_question, 'Security Question'
