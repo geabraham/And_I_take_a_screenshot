@@ -17,14 +17,14 @@
   /.hide
   .form-content
     = form_tag @patient_enrollment
-    .email
+    .email#email
       = fields_for @patient_enrollment do |f|
         = f.label :login, 'E-mail Address'
         %br
         = f.text_field :login
         %br
       
-        = f.label :login_confirmation, 'Confirm E-mail Address'
+        = f.label :login_confirmation, 'Re-enter Email'
         %br
         = f.text_field :login_confirmation
         %br
@@ -39,7 +39,7 @@
         %br
         = f.password_field :password_confirmation
         %br
-    .security_question.hide
+    .security_question
       =fields_for @patient_enrollment do |f|
         = f.label :security_question, 'Security Question'
         %br
@@ -54,7 +54,7 @@
         = f.submit 'Submit'
     
     .next
-      %button.btn.btn-primary='Next'
+      .btn.btn-primary.trigger='Next'
     .bottom
       %span.back
         %a='<'
