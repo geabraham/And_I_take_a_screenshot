@@ -29,7 +29,17 @@ $logoWidth: $width*0.9;
 }
 
 .modal-backdrop {
-    z-index: -1;
+  z-index: -1;
+}
+
+body .modal-dialog {
+  width: $width;
+  height: $height;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -($height/2);
+  margin-left: -($width/2);
 }
 
 h2 {

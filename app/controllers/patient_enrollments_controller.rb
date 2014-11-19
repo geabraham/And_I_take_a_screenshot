@@ -6,4 +6,8 @@ class PatientEnrollmentsController < ApplicationController
     @security_questions = ["What's the worst band in the world?"]
     @patient_enrollment = PatientEnrollment.new
   end
+  
+  def create #TODO test this
+    
+  end
 end
