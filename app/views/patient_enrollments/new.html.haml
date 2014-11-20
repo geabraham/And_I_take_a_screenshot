@@ -9,19 +9,17 @@
   
   %h2.registration_details='Registration Details'
   
-  .instruction='Just some placeholder text. Click the button to see the first part of the form!'
-  /.hide
-  .form-content
-    = form_tag @patient_enrollment
-    .instruction.hide
-    #email
-      = render 'email_form'
-    #password
-      = render 'password_form'
-    #security-question
-      = render 'security_question_form'
+  = form_tag @patient_enrollment
+  .carousel.slide#registration-details
+    .carousel-inner(role="listbox")
+      .item.active
+        = render 'email_form'
+      .item
+        = render 'password_form'
+      .item
+        = render 'security_question_form'
   .next
-    .btn.btn-primary.trigger='Next'
+    %a.btn.btn-primary(href="#registration-details" data-slide="next" role="button")='Next'
   .bottom
     %span.back
       %a='<'

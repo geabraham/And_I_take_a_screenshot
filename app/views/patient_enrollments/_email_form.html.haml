@@ -1,6 +1,7 @@
 ='Enter and confirm your'
 %strong='email address'
 ='in the username field.'
+%br
 = fields_for @patient_enrollment do |f|
   = f.label :login, 'E-mail Address'
   %br
@@ -11,5 +12,5 @@
   %br
   = f.text_field :login_confirmation
   %br
-%button.btn.btn-default(data-dismiss="modal" data-toggle="modal" data-target="#password")
+%button.btn.btn-default(href="#registration-details" data-slide="next" role="button")
   ='Next'
