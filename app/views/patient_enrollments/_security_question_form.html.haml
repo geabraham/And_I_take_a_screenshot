@@ -1,18 +1,13 @@
-.patient
-  .modal-dialog
-    .modal-content
-      .modal-header='Select a security question.'
-      .modal-body
-        = fields_for @patient_enrollment do |f|
-          = f.label :security_question, 'Security Question'
-          %br
-          = f.select :security_question, @security_questions, include_blank: true
-          %br
-          
-          = f.label :answer
-          %br
-          = f.text_field :answer
-          %br
-        .modal-footer
-          = fields_for @patient_enrollment do |f|
-            = f.submit 'Submit'
+='Select a security question.'
+= fields_for @patient_enrollment do |f|
+  = f.label :security_question, 'Security Question'
+  %br
+  = f.select :security_question, @security_questions, include_blank: true
+  %br
+  
+  = f.label :answer
+  %br
+  = f.text_field :answer
+  %br
+  = fields_for @patient_enrollment do |f|
+    = f.submit 'Submit'

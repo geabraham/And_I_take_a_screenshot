@@ -1,21 +1,15 @@
-.modal-dialog
-  .patient
-    .modal-content
-      .modal-header
-        ='Enter and confirm your'
-        %strong='email address'
-        ='in the username field.'
-      .modal-body
-        = fields_for @patient_enrollment do |f|
-          = f.label :login, 'E-mail Address'
-          %br
-          = f.text_field :login
-          %br
-      
-          = f.label :login_confirmation, 'Re-enter Email'
-          %br
-          = f.text_field :login_confirmation
-          %br
-      .modal-footer
-        %button.btn.btn-default(data-dismiss="modal" data-toggle="modal" data-target="#password")
-          ='Next'
+='Enter and confirm your'
+%strong='email address'
+='in the username field.'
+= fields_for @patient_enrollment do |f|
+  = f.label :login, 'E-mail Address'
+  %br
+  = f.text_field :login
+  %br
+
+  = f.label :login_confirmation, 'Re-enter Email'
+  %br
+  = f.text_field :login_confirmation
+  %br
+%button.btn.btn-default(data-dismiss="modal" data-toggle="modal" data-target="#password")
+  ='Next'
