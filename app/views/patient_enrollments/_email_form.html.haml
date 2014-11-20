@@ -3,11 +3,12 @@
 ='in the username field.'
 %br
 = fields_for @patient_enrollment do |f|
-  = f.label :login, 'E-mail Address'
+  = f.label :login, 'Email'
   %br
-  = f.text_field :login
+  = f.text_field :login, class: 'registration-input'
   %br
 
   = f.label :login_confirmation, 'Re-enter Email'
   %br
-  = f.text_field :login_confirmation
+  = f.text_field :login_confirmation, class: 'registration-input'
+  %br

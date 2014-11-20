@@ -4,11 +4,17 @@
 //  @include border-radius(5px);
 //}
 
-// iphone 5 pixel dimensions
-$width: 320px;
-$height: 568px;
+// iphone 6 dimensions scaled in half for web
+$width: 375px;
+$height: 667px;
 $inputWidth: $width/9;
 $logoWidth: $width*0.9;
+$global_lr_margin: $width/30;
+$global_tb_margin: $width/60;
+
+body {
+  background-color: #555555;
+}
 
 .logo {
   margin: $logoWidth*0.05;
@@ -25,7 +31,6 @@ $logoWidth: $width*0.9;
   left: 50%;
   margin-top: -($height/2);
   margin-left: -($width/2);
-  z-index: 1000;
 }
 
 h2 {
@@ -35,19 +40,41 @@ h2 {
   text-align: center;
 }
 
+.registration_details {
+  margin-left: $global_lr_margin;
+  margin-bottom: $global_tb_margin;
+  text-align:left;
+}
+
 .instruction {
-  margin-bottom: ($height/30);
+  margin-left: $global_lr_margin;
+  margin-right: $global_lr_margin;
+}
+
+.item {
+  margin: $global_lr_margin;
 }
 
 .code {
   width: $inputWidth;
   height: $inputWidth;
-  background-color: #efefef;
+  background-color: #dddddd;
   border-radius: 2px;
   border: 0px;
   font-size: 24px;
   margin: ($inputWidth/6);
   text-align: center;
+}
+
+.registration-input {
+  background-color: #dddddd;
+  border-radius: 2px;
+  border: 0px;
+  margin: $height/42;
+  height: $height/14;
+  width: 0.9*$width;
+  padding: 12px;
+  color: #333333;
 }
 
 .top {
@@ -60,17 +87,26 @@ h2 {
   text-align: center;
 }
 
+.btn {
+  align: center;
+  height: $height/8;
+  font-size: 22px;
+  width: 0.9*$width;
+  margin: $global_lr_margin;
+  vertical-align: center;
+}
+
 .next {
   position: absolute;
-  border-top: medium solid #bbbbbb;
-  bottom: $height/13;
+  border-top: thin solid #bbbbbb;
+  bottom: $height/7;
   width: $width;
 }
 
 .bottom {
   position: absolute;
-  border-top: medium solid #bbbbbb;
-  background-color: #dddddd;
+  border-top: thin solid #cccccc;
+  background-color: #eeeeee;
   bottom: 0;
   color: #aaaaaa;
   font-size: 28px;
