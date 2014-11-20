@@ -10,7 +10,7 @@
   %h2.registration_details='Registration Details'
   
   = form_tag @patient_enrollment
-  .carousel.slide#registration-details
+  .carousel.slide#registration-details(data-interval="false")
     .carousel-inner(role="listbox")
       .item.active
         = render 'email_form'
