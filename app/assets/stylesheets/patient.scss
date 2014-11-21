@@ -89,17 +89,17 @@ h2 {
 
 .btn {
   align: center;
-  height: $height/8;
+  height: $height/13;
   font-size: 22px;
-  width: 0.9*$width;
+  width: 0.93*$width;
   margin: $global_lr_margin;
-  vertical-align: center;
+  margin-bottom: $global_tb_margin;
 }
 
 .next {
   position: absolute;
   border-top: thin solid #bbbbbb;
-  bottom: $height/7;
+  bottom: $height/10;
   width: $width;
 }
 
