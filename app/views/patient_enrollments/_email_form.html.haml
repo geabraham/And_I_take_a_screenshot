@@ -1,6 +1,8 @@
-='Enter and confirm your'
-%strong='email address'
-='in the username field.'
+%h2.form_header='Email'
+.form_instruction
+  ='Enter and confirm your'
+  %strong='email address'
+  ='in the username field.'
 %br
 = fields_for @patient_enrollment do |f|
   = f.label :login, 'Email'

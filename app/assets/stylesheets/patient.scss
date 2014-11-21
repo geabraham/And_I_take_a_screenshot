@@ -10,7 +10,7 @@ $height: 667px;
 $inputWidth: $width/9;
 $logoWidth: $width*0.9;
 $global_lr_margin: $width/30;
-$global_tb_margin: $width/60;
+$global_tb_margin: $width/50;
 
 body {
   background-color: #555555;
@@ -35,13 +35,12 @@ body {
 
 h2 {
   color: #000066;
-  margin-top: ($height/20);
+  margin-top: ($height/15);
   margin-bottom: ($height/20);
   text-align: center;
 }
 
-.registration_details {
-  margin-left: $global_lr_margin;
+.form_header {
   margin-bottom: $global_tb_margin;
   text-align:left;
 }
@@ -49,6 +48,11 @@ h2 {
 .instruction {
   margin-left: $global_lr_margin;
   margin-right: $global_lr_margin;
+}
+
+.form_instruction {
+  margin-top: $global_tb_margin;
+  margin-bottom: $global_tb_margin;
 }
 
 .item {

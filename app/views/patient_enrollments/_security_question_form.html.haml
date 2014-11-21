@@ -1,5 +1,7 @@
-='Select a security question.'
-%br
+%h2.form_header='Security Question'
+.form_instruction
+  ='Select a security question.'
+  %br
 = fields_for @patient_enrollment do |f|
   = f.label :security_question, 'Security Question'
   %br
