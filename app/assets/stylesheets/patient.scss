@@ -55,6 +55,16 @@ h2 {
   margin-bottom: $global_tb_margin;
 }
 
+ul {
+  margin-left: -$width/15;
+}
+
+.password_instructions {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  list-style-type: dot;
+}
+
 .item {
   margin: $global_lr_margin;
 }
