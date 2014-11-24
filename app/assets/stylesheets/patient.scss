@@ -117,6 +117,10 @@ ul {
   width: $width;
 }
 
+#submit-button {
+  display: none;
+}
+
 .bottom {
   position: absolute;
   border-top: thin solid #cccccc;

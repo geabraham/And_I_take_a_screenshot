@@ -19,6 +19,9 @@
         = render 'security_question_form'
   .next
     %a.btn.btn-primary#next-button(href="#registration-details" role="button")='Next'
+    .submit#submit-button
+      = fields_for @patient_enrollment do |f|
+        = f.submit 'Create account', class: 'btn btn-primary'
   .bottom
     %span.back
       %a='<'

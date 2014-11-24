@@ -39,10 +39,19 @@ $(function () {
        addPasswordRules();
     } else if(currentPage === 'password' && form.valid()) {
       carousel.carousel('next');
+      $('#next-button').hide();
+      $('#submit-button').show(); //TODO need to disable this too?
     } else if(currentPage === 'security_question' && form.valid()) {
       carousel.carousel('next');
     }
   })
+  
+  $('.back').click(function() {
+    // TODO add handling for switching out the next/create buttons.
+    if ($('.item.active').attr('id') !== 'email') {
+      $('.carousel').carousel('prev');
+    }
+  });
 })
 
 var addPasswordRules = function() {
