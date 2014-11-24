@@ -11,14 +11,14 @@
   = form_tag @patient_enrollment
   .carousel.slide#registration-details(data-interval="false")
     .carousel-inner(role="listbox")
-      .item.active
+      .item.active#email
         = render 'email_form'
-      .item
+      .item#password
         = render 'password_form'
-      .item
+      .item#security_question
         = render 'security_question_form'
   .next
-    %a.btn.btn-primary(href="#registration-details" data-slide="next" role="button")='Next'
+    %a.btn.btn-primary#next-button(href="#registration-details" role="button")='Next'
   .bottom
     %span.back
       %a='<'
