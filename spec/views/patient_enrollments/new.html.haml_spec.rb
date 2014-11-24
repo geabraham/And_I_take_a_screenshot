@@ -9,11 +9,11 @@ describe 'patient_enrollments/new.html.haml' do
   end
 
   it 'contains an email input' do
-    expect(html).to have_field('E-mail Address', type: 'text', exact: true)
+    expect(html).to have_field('Email', type: 'text', exact: true)
   end
 
   it 'contains an email confirmation input' do
-    expect(html).to have_field('Confirm E-mail Address', type: 'text', exact: true)
+    expect(html).to have_field('Re-enter Email', type: 'text', exact: true)
   end
 
   it 'contains a password input' do
