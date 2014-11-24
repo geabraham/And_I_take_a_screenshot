@@ -8,7 +8,7 @@
     %span.forward='?'
   %br
   
-  = form_tag @patient_enrollment
+  = form_tag @patient_enrollment, id: 'reg-form'
   .carousel.slide#registration-details(data-interval="false")
     .carousel-inner(role="listbox")
       .item.active#email
