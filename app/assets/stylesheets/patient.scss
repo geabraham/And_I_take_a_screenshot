@@ -91,6 +91,10 @@ ul {
   color: #333333;
 }
 
+#question-label {
+  display: none;
+}
+
 #patient_enrollment_security_question {
   border-radius: 2px;
   margin: $height/42;
