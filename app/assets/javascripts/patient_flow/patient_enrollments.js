@@ -1,7 +1,7 @@
 $(function () {
-  $('.carousel').carousel();
+  $('.carousel').carousel(); //initialize the carousel
   
-  $('#reg-form').validate({
+  $('#reg-form').validate({ //initialize the form validator
     errorPlacement: function(error, element) {
       $('.active .validation_error').html(error);
     },
@@ -22,7 +22,8 @@ $(function () {
     }
   })
   
-  $.validator.addMethod("pwcheck", function(value) {
+  // custom validation for our password rules
+  $.validator.addMethod("pwcheck", function(value) { 
     return  /[a-z]/.test(value) // has a lowercase letter
       && /[A-Z]/.test(value) // has an uppercase letter
       && /\d/.test(value) // has a digit
@@ -47,9 +48,14 @@ $(function () {
   })
   
   $('.back').click(function() {
-    // TODO add handling for switching out the next/create buttons.
-    if ($('.item.active').attr('id') !== 'email') {
+    var currentPage = $('.item.active').attr('id');
+    
+    if (currentPage !== 'email') {
       $('.carousel').carousel('prev');
+      if (currentPage === 'security_question') {
+        $('#submit-button').hide();
+        $('#next-button').show();
+      }
     }
   });
 })
