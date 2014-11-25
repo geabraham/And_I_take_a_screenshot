@@ -34,51 +34,13 @@ $(function () {
     return $('#patient_enrollment_security_question').val() !== '';
   });
   
-  $('#next-button').click(function() {
-    var currentPage = $('.item.active').attr('id');
-    var form = $('#reg-form');
-    var carousel = $('.carousel');
-    
-    //TODO check out how much validation to do here; for now just check length/matching
-    if(currentPage === 'email' && form.valid()) {
-       carousel.carousel('next');
-       addPasswordRules();
-    } else if(currentPage === 'password' && form.valid()) {
-      carousel.carousel('next');
-      $('#next-button').hide();
-      $('#submit-button').show(); //TODO need to disable this too?
-    } else if(currentPage === 'security_question' && form.valid()) {
-      carousel.carousel('next');
-    }
-  })
+  $('#next-button').on('click', nextButtonClick);
   
-  $('.back').click(function() {
-    var currentPage = $('.item.active').attr('id');
-    
-    if (currentPage !== 'email') {
-      $('.carousel').carousel('prev');
-      if (currentPage === 'security_question') {
-        $('#submit-button').hide();
-        $('#next-button').show();
-      }
-    }
-  });
+  $('.back').on('click', backClick);
   
-  $('#patient_enrollment_answer').keyup(function() {
-    if (validateSecurityQuestions() && $('#reg-form').valid()) {
-      $('#create-account').removeAttr('disabled');
-    } else {
-      $('#create-account').attr('disabled', 'disabled');
-    }
-  });
+  $('#patient_enrollment_answer').on('keyup', answerKeyup);
   
-  $('#patient_enrollment_security_question').change(function() {
-    if (validateSecurityQuestions() && $('#reg-form').valid()) {
-      $('#create-account').removeAttr('disabled');
-    } else {
-      $('#create-account').attr('disabled', 'disabled');
-    }
-  });
+  $('#patient_enrollment_security_question').on('change', questionChange);
 })
 
 var addPasswordRules = function() {
@@ -109,4 +71,50 @@ var validateSecurityQuestions = function() {
   //issues with the rails dropdown
   return ($('#patient_enrollment_answer').val().length > 0 &&
           $('#patient_enrollment_security_question').val() !== '');
+}
+
+var nextButtonClick = function() {
+  var currentPage = $('.item.active').attr('id');
+  var form = $('#reg-form');
+  var carousel = $('.carousel');
+  
+  //TODO check out how much validation to do here; for now just check length/matching
+  if(currentPage === 'email' && form.valid()) {
+     carousel.carousel('next');
+     addPasswordRules();
+  } else if(currentPage === 'password' && form.valid()) {
+    carousel.carousel('next');
+    $('#next-button').hide();
+    $('#submit-button').show(); //TODO need to disable this too?
+  } else if(currentPage === 'security_question' && form.valid()) {
+    carousel.carousel('next');
+  }
+}
+
+var backClick = function() {
+  var currentPage = $('.item.active').attr('id');
+  
+  if (currentPage !== 'email') {
+    $('.carousel').carousel('prev');
+    if (currentPage === 'security_question') {
+      $('#submit-button').hide();
+      $('#next-button').show();
+    }
+  }
+}
+
+var answerKeyup = function() {
+  if (validateSecurityQuestions() && $('#reg-form').valid()) {
+    $('#create-account').removeAttr('disabled');
+  } else {
+    $('#create-account').attr('disabled', 'disabled');
+  }
+}
+
+var questionChange = function() {
+  if (validateSecurityQuestions() && $('#reg-form').valid()) {
+    $('#create-account').removeAttr('disabled');
+  } else {
+    $('#create-account').attr('disabled', 'disabled');
+  }
 }

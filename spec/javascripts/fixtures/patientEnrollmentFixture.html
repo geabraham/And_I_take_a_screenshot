@@ -1,12 +1,23 @@
 <script>
+$(function() {
+  $('.carousel').carousel(); //initialize the carousel
+  
+  $('#next-button').on('click', nextButtonClick);
+  
+  $('.back').on('click', backClick);
+  
+  $('#patient_enrollment_answer').on('keyup', answerKeyup);
+  
+  $('#patient_enrollment_security_question').on('change', questionChange);
+});
 </script>
 
 <div class="top" />
 <div class="carousel slide" id="registration-details">
   <div class="carousel-inner" role="listbox">
-    <div class="item active" id="email">
+    <div class="item" id="email">
     </div>
-    <div class="item" id="password">
+    <div class="item active" id="password">
     </div>
     <div class="item" id="security_question">
     </div>

@@ -3,7 +3,8 @@ describe 'patient enrollments form', ->
     describe 'when back button is clicked', ->
       it 'stays on the email page', ->
         loadFixtures 'patientEnrollmentFixture.html'
-        pending
+        $('.back').trigger 'click'
+        expect($('.active').attr('id')).toEqual 'email'
         return
           
     describe 'next button', ->
