@@ -2,6 +2,39 @@
 $(function() {
   $('.carousel').carousel(); //initialize the carousel
   
+  $('#reg-form').validate({ //initialize the form validator
+    errorPlacement: function(error, element) {
+      $('.active .validation_error').html(error);
+    },
+    rules: { //TODO add validation for email address
+      'patient_enrollment[login]': {
+        required: true,
+        email: true
+      },
+      'patient_enrollment[login_confirmation]' : {
+        equalTo: '#patient_enrollment_login' }
+    },
+    messages: {
+      'patient_enrollment[login]': 'Enter a valid email.',
+      'patient_enrollment[login_confirmation]': 'Your Emails do not match.'
+    },
+    invalidHandler: function() {
+      $('.validation_error').show();
+    }
+  })
+  
+  // custom validation for our password rules
+  $.validator.addMethod("pwcheck", function(value) { 
+    return  /[a-z]/.test(value) // has a lowercase letter
+      && /[A-Z]/.test(value) // has an uppercase letter
+      && /\d/.test(value) // has a digit
+  });
+  
+  // custom validation for dropdown
+  $.validator.addMethod("question_dd", function(value) {
+    return $('#patient_enrollment_security_question').val() !== '';
+  });
+  
   $('#next-button').on('click', nextButtonClick);
   
   $('.back').on('click', backClick);
@@ -13,21 +46,25 @@ $(function() {
 </script>
 
 <div class="top" />
-<div class="carousel slide" id="registration-details">
-  <div class="carousel-inner" role="listbox">
-    <div class="item" id="email">
+  <form id="reg-form" method="post" novalidate="novalidate">
+    <div class="carousel slide" id="registration-details">
+      <div class="carousel-inner" role="listbox">
+        <div class="item active" id="email">
+          <div class="validation_error" style="display: none"/>
+        </div>
+        <div class="item" id="password">
+        </div>
+        <div class="item" id="security_question">
+        </div>
+      </div>
     </div>
-    <div class="item active" id="password">
+    <div class="next">
+      <a class="btn btn-primary" id="next-button" href="#registration-details" role="button">Next</a>
+      <div class="submit" id="submit-button">
+        <input class="btn btn-primary" disabled="disabled" id="create-account" name="commit" type="submit" value="Create account" />
+      </div>
     </div>
-    <div class="item" id="security_question">
+    <div class="bottom">
+      <span class="back" />
     </div>
-  </div>
-</div>
-<div class="next">
-  <a class="btn btn-primary" id="next-button" href="#registration-details" role="button">Next</a>
-  <div class="submit" id="submit-button">
-    <input class="btn btn-primary" disabled="disabled" id="create-account" name="commit" type="submit" value="Create account" />
-  </div>
-</div>
-<div class="bottom">
-</div>
+  </form>
