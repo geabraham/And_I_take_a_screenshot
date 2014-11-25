@@ -29,6 +29,11 @@ $(function () {
       && /\d/.test(value) // has a digit
   });
   
+  // custom validation for dropdown
+  $.validator.addMethod("question_dd", function(value) {
+    return $('#patient_enrollment_security_question').val() !== '';
+  });
+  
   $('#next-button').click(function() {
     var currentPage = $('.item.active').attr('id');
     var form = $('#reg-form');
@@ -58,6 +63,22 @@ $(function () {
       }
     }
   });
+  
+  $('#patient_enrollment_answer').keyup(function() {
+    if (validateSecurityQuestions() && $('#reg-form').valid()) {
+      $('#create-account').removeAttr('disabled');
+    } else {
+      $('#create-account').attr('disabled', 'disabled');
+    }
+  });
+  
+  $('#patient_enrollment_security_question').change(function() {
+    if (validateSecurityQuestions() && $('#reg-form').valid()) {
+      $('#create-account').removeAttr('disabled');
+    } else {
+      $('#create-account').attr('disabled', 'disabled');
+    }
+  });
 })
 
 var addPasswordRules = function() {
@@ -80,4 +101,12 @@ var addPasswordRules = function() {
       equalTo: 'Your passwords do not match.'
     }
   });
+}
+
+var validateSecurityQuestions = function() {
+  //custom validation works better than jQuery validate 
+  //because there are fewer edge cases and .validate has
+  //issues with the rails dropdown
+  return ($('#patient_enrollment_answer').val().length > 0 &&
+          $('#patient_enrollment_security_question').val() !== '');
 }
