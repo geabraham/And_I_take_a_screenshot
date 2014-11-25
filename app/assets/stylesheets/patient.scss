@@ -10,7 +10,7 @@ $height: 667px;
 $inputWidth: $width/9;
 $logoWidth: $width*0.9;
 $global_lr_margin: $width/30;
-$global_tb_margin: $width/50;
+$global_tb_margin: $width/48;
 
 body {
   background-color: #555555;
@@ -41,7 +41,7 @@ h2 {
 }
 
 .form_header {
-  margin-bottom: $global_tb_margin;
+  margin-bottom: 3*$global_tb_margin;
   text-align:left;
 }
 
@@ -89,6 +89,14 @@ ul {
   width: 0.9*$width;
   padding: 12px;
   color: #333333;
+}
+
+#patient_enrollment_security_question {
+  border-radius: 2px;
+  margin: $height/42;
+  height: $height/14;
+  width: 0.9*$width;
+  padding: 12px;
 }
 
 .top {
