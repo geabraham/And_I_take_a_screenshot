@@ -78,14 +78,13 @@ var nextButtonClick = function() {
   var form = $('#reg-form');
   var carousel = $('.carousel');
   
-  //TODO check out how much validation to do here; for now just check length/matching
   if(currentPage === 'email' && form.valid()) {
      carousel.carousel('next');
      addPasswordRules();
   } else if(currentPage === 'password' && form.valid()) {
     carousel.carousel('next');
     $('#next-button').hide();
-    $('#submit-button').show(); //TODO need to disable this too?
+    $('#submit-button').show();
   } else if(currentPage === 'security_question' && form.valid()) {
     carousel.carousel('next');
   }
@@ -93,7 +92,6 @@ var nextButtonClick = function() {
 
 var backClick = function() {
   var currentPage = $('.item.active').attr('id');
-  
   if (currentPage !== 'email') {
     $('.carousel').carousel('prev');
     if (currentPage === 'security_question') {

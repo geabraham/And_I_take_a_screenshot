@@ -8,6 +8,11 @@ describe 'patient enrollments form', ->
     carouselSpy.calls.reset()
     
   describe 'email page', ->
+    beforeEach ->
+      $('#email').addClass('active')
+      # unlike on the actual page, set the active div manually since we're mocking the 
+      # jQuery carousel call that would normally do so
+      
     describe 'when back button is clicked', ->
       it 'stays on the email page', ->
         $('.back').trigger 'click'
@@ -52,11 +57,15 @@ describe 'patient enrollments form', ->
           expect(carouselSpy.calls.allArgs()).toEqual [['next']]
           return
         
-  #describe 'password page', ->
-  #  describe 'when back button is clicked', ->
-  #    it 'returns to the email page', ->
-  #      pending
-  #      return
+  describe 'password page', ->
+    beforeEach ->
+      $('#password').addClass('active')
+      
+    describe 'when back button is clicked', ->
+      it 'returns to the email page', ->
+        $('.back').trigger 'click'
+        expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
+        return
   #        
   #  describe 'next button', ->
   #    describe 'for a blank input', ->
