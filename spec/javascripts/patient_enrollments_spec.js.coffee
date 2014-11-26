@@ -2,7 +2,7 @@ describe 'patient enrollments form', ->
   carouselSpy = undefined
   beforeEach ->
     loadFixtures 'patientEnrollmentFixture.html'
-    carouselSpy = spyOn(jQuery.fn, 'carousel')
+    carouselSpy = spyOn($.fn, 'carousel')
     
   afterEach ->
     carouselSpy.calls.reset()
@@ -12,34 +12,41 @@ describe 'patient enrollments form', ->
       it 'stays on the email page', ->
         $('.back').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false # page should not advance
-        pending #this could have all sorts of odd dependencies on carousel being loaded by jasmine
         return
           
-#    describe 'next button', ->
-#      describe 'for a blank input', ->
-#        it 'shows a validation error', ->
-#          pending
-#          return
-          
+    describe 'next button', ->
       describe 'for an invalid input', ->
         it 'shows a validation error', ->
-          # this html sets up a blank input which should set off the validator
-          $('#reg-form').append('<input name="patient_enrollment[login]" value="" />')
-          window.addPasswordRules = jasmine.createSpy('addPasswordRules spy')
+          $('#reg-form').append('<input name="patient_enrollment[login]" value="not_an_email" />')
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false
           expect($('.validation_error')).toHaveCss({display: 'block'})
+          expect($('.validation_error')).toHaveText('Enter a valid email.')
           return
-#      
-#      describe 'for a mismatching input', ->
-#        it 'shows a mismatch error', ->
-#          pending
-#          return
+          
+      describe 'for a blank input', ->
+        it 'shows a validation error', ->
+          $('#reg-form').append('<input name="patient_enrollment[login]" value="" />')
+          $('#next-button').trigger 'click'
+          expect(carouselSpy.calls.any()).toEqual false
+          expect($('.validation_error')).toHaveCss({display: 'block'})
+          expect($('.validation_error')).toHaveText('Enter a valid email.')
+          return
+      
+      describe 'for a mismatching input', ->
+        it 'shows a mismatch error', ->
+          $('#reg-form').append('<input name="patient_enrollment[login]" value="email@todd.gov" />')
+          $('#reg-form').append('<input name="patient_enrollment[login_confirmation]" value="email2@todd.gov" />')
+          $('#next-button').trigger 'click'
+          expect(carouselSpy.calls.any()).toEqual false
+          expect($('.validation_error')).toHaveCss({display: 'block'})
+          expect($('.validation_error')).toHaveText('Your Emails do not match.')
+          return
           
       describe 'for a valid input', ->
         it 'advances to the password page', ->
           window.addPasswordRules = jasmine.createSpy('addPasswordRules spy')
-          validSpy= spyOn(jQuery.fn, 'valid').and.returnValue(true)
+          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
           $('#next-button').trigger 'click'
           expect(addPasswordRules).toHaveBeenCalled()
           expect(carouselSpy.calls.allArgs()).toEqual [['next']]

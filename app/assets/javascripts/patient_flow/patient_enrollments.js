@@ -18,7 +18,6 @@ $(function () {
       'patient_enrollment[login_confirmation]': 'Your Emails do not match.'
     },
     invalidHandler: function() {
-      console.log('in the invalidHandler');
       $('.validation_error').show();
     }
   })
