@@ -66,7 +66,7 @@ var addPasswordRules = function() {
 }
 
 var validateSecurityQuestions = function() {
-  //custom validation works better than jQuery validate 
+  //custom validation works better than jQuery validate here
   //because there are fewer edge cases and .validate has
   //issues with the rails dropdown
   return ($('#patient_enrollment_answer').val().length > 0 &&

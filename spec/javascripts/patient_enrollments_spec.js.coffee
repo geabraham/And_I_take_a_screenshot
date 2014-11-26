@@ -10,28 +10,28 @@ describe 'patient enrollments form', ->
   describe 'email page', ->
     beforeEach ->
       $('#email').addClass('active')
-      # unlike on the actual page, set the active div manually since we're mocking the 
-      # jQuery carousel call that would normally do so
+      # unlike on the actual page, set the fixture's active div manually since we're  
+      # mocking the jQuery carousel call that would normally do so
       
     describe 'when back button is clicked', ->
       it 'stays on the email page', ->
         $('.back').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false # page should not advance
         return
+        
+    describe 'for a blank input', ->
+      it 'shows a validation error', ->
+        $('#reg-form').append('<input name="patient_enrollment[login]" value="" />')
+        $('#next-button').trigger 'click'
+        expect(carouselSpy.calls.any()).toEqual false
+        expect($('.validation_error')).toHaveCss({display: 'block'})
+        expect($('.validation_error')).toHaveText('Enter a valid email.')
+        return
           
     describe 'next button', ->
       describe 'for an invalid input', ->
         it 'shows a validation error', ->
           $('#reg-form').append('<input name="patient_enrollment[login]" value="not_an_email" />')
-          $('#next-button').trigger 'click'
-          expect(carouselSpy.calls.any()).toEqual false
-          expect($('.validation_error')).toHaveCss({display: 'block'})
-          expect($('.validation_error')).toHaveText('Enter a valid email.')
-          return
-          
-      describe 'for a blank input', ->
-        it 'shows a validation error', ->
-          $('#reg-form').append('<input name="patient_enrollment[login]" value="" />')
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false
           expect($('.validation_error')).toHaveCss({display: 'block'})
@@ -50,7 +50,7 @@ describe 'patient enrollments form', ->
           
       describe 'for a valid input', ->
         it 'advances to the password page', ->
-          window.addPasswordRules = jasmine.createSpy('addPasswordRules spy')
+          passwordRulesSpy = spyOn(window, 'addPasswordRules')
           validSpy= spyOn($.fn, 'valid').and.returnValue(true)
           $('#next-button').trigger 'click'
           expect(addPasswordRules).toHaveBeenCalled()
@@ -60,19 +60,25 @@ describe 'patient enrollments form', ->
   describe 'password page', ->
     beforeEach ->
       $('#password').addClass('active')
+      $('#reg-form').append('<input id="patient_enrollment_password" />')
+      $('#reg-form').append('<input id="patient_enrollment_password_confirmation" />')
+      addPasswordRules()
       
     describe 'when back button is clicked', ->
       it 'returns to the email page', ->
         $('.back').trigger 'click'
         expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
         return
-  #        
-  #  describe 'next button', ->
-  #    describe 'for a blank input', ->
-  #      it 'shows a validation error', ->
-  #        pending
-  #        return
-  #        
+          
+    describe 'next button', ->
+      describe 'for a blank input', ->
+        it 'shows a validation error', ->
+          $('#next-button').trigger 'click'
+          expect(carouselSpy.calls.any()).toEqual false
+          expect($('.validation_error')).toHaveCss({display: 'block'})
+          expect($('.validation_error')).toHaveText('Enter a valid password.')
+          return
+          
   #    describe 'invalid input', ->
   #      it 'determines the input string', ->
   #        pending
@@ -83,10 +89,12 @@ describe 'patient enrollments form', ->
   #        pending
   #        return
   #        
-  #    describe 'for a valid input', ->
-  #      it 'advances to the security question page', ->
-  #        pending
-  #        return
+    describe 'for a valid input', ->
+      it 'advances to the security question page', ->
+        validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+        $('#next-button').trigger 'click'
+        expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+        return
   #        
   #      it 'hides the "Next" button', ->
   #        pending
