@@ -14,9 +14,9 @@ describe 'patient enrollments form', ->
       # mocking the jQuery carousel call that would normally do so
       
     describe 'when back button is clicked', ->
-      it 'stays on the email page', ->
+      it 'stays on the current page', ->
         $('.back').trigger 'click'
-        expect(carouselSpy.calls.any()).toEqual false # page should not advance
+        expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
         return
         
     describe 'for a blank input', ->
@@ -37,16 +37,6 @@ describe 'patient enrollments form', ->
           expect($('.validation_error')).toHaveCss({display: 'block'})
           expect($('.validation_error')).toHaveText('Enter a valid email.')
           return
-      
-      describe 'for a mismatching input', ->
-        it 'shows a mismatch error', ->
-          $('#reg-form').append('<input name="patient_enrollment[login]" value="email@todd.gov" />')
-          $('#reg-form').append('<input name="patient_enrollment[login_confirmation]" value="email2@todd.gov" />')
-          $('#next-button').trigger 'click'
-          expect(carouselSpy.calls.any()).toEqual false
-          expect($('.validation_error')).toHaveCss({display: 'block'})
-          expect($('.validation_error')).toHaveText('Your Emails do not match.')
-          return
           
       describe 'for a valid input', ->
         it 'advances to the password page', ->
@@ -65,7 +55,7 @@ describe 'patient enrollments form', ->
       addPasswordRules()
       
     describe 'when back button is clicked', ->
-      it 'returns to the email page', ->
+      it 'returns to the previous page', ->
         $('.back').trigger 'click'
         expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
         return
@@ -79,36 +69,47 @@ describe 'patient enrollments form', ->
           expect($('.validation_error')).toHaveText('Enter a valid password.')
           return
           
-  #    describe 'invalid input', ->
-  #      it 'determines the input string', ->
-  #        pending
-  #        return
-  #        
-  #    describe 'for a mismatching input', ->
-  #      it 'shows a mismatch error', ->
-  #        pending
-  #        return
-  #        
+      describe 'for an invalid input', ->
+        it 'shows a validation error', ->
+          $('#patient_enrollment_password').attr('value', 'Notagoodpassword')
+          $('#patient_enrollment_password_confirmation').attr('value', 'Notagoodpassword')
+          $('#next-button').trigger 'click'
+          expect(carouselSpy.calls.any()).toEqual false
+          expect($('.validation_error')).toHaveCss({display: 'block'})
+          expect($('.validation_error')).toHaveText('Enter a valid password.')
+          return
+          
     describe 'for a valid input', ->
       it 'advances to the security question page', ->
-        validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+        $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw0rd')
+        $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw0rd')
         $('#next-button').trigger 'click'
         expect(carouselSpy.calls.allArgs()).toEqual [['next']]
         return
-  #        
-  #      it 'hides the "Next" button', ->
-  #        pending
-  #        return
-  #        
-  #      it 'displays the "Create account" button', ->
-  #        pending
-  #        return
-  #      
-  #describe 'security question page', ->
-  #  describe 'when back button is clicked', ->
-  #    it 'returns to the password page', ->
-  #      pending
-  #      return
+          
+      it 'hides the "Next" button', ->
+        validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+        $('#next-button').trigger 'click'
+        expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+        expect($('#next-button')).toHaveCss({display: 'none'})
+        return
+        
+      it 'displays the "Create account" button', ->
+        validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+        $('#next-button').trigger 'click'
+        expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+        expect($('#submit-button')).toHaveCss({display: 'block'})
+        return
+      
+  describe 'security question page', ->
+    beforeEach ->
+      $('#security-question').addClass('active')
+      
+    describe 'when back button is clicked', ->
+      it 'returns to the previous page', ->
+        $('.back').trigger 'click'
+        expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
+        return
   #      
   #    it 'displays the "Next" button', ->
   #      pending
