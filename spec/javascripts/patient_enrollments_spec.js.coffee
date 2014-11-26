@@ -110,37 +110,37 @@ describe 'patient enrollments form', ->
         $('.back').trigger 'click'
         expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
         return
-  #      
-  #    it 'displays the "Next" button', ->
-  #      pending
-  #      return
-  #      
-  #    it 'hides the "Create account" button', ->
-  #      pending
-  #      return
-  #      
-  #    it 'returns to the password page', ->
-  #      pending
-  #      return
-  #      
-  #  describe 'create account button', ->
-  #    describe 'when security question is blank', ->
-  #      it 'is disabled', ->
-  #        pending
-  #        return
-  #        
-  #    describe 'when security answer is blank', ->
-  #      it 'is disabled', ->
-  #        pending
-  #        return
-  #        
-  #    describe 'when both fields are filled', ->
-  #      it 'is enabled', ->
-  #        pending
-  #        return
-  #        
-  #    describe 'when "Create account" button is clicked', ->
-  #      it 'validates and submits the form', ->
-  #        pending
-  #        return
+        
+      it 'displays the "Next" button', ->
+        $('.back').trigger 'click'
+        expect($('#submit-button')).toHaveCss({display: 'none'})
+        return
+        
+      it 'hides the "Create account" button', ->
+        $('.back').trigger 'click'
+        expect($('#submit-button')).toHaveCss({display: 'none'})
+        return
+        
+    describe 'create account button', ->
+      describe 'when security question is blank', ->
+        it 'is disabled', ->
+          $('#patient_enrollment_answer').val("the worst band is...")
+          $('#patient_enrollment_security_question').trigger 'change'
+          expect($('#create-account')).toHaveAttr('disabled', 'disabled')
+          return
+          
+      describe 'when security answer is blank', ->
+        it 'is disabled', ->
+          $('#patient_enrollment_security_question').val("What's the worst band in the world?")
+          $('#patient_enrollment_security_question').trigger 'change'
+          expect($('#create-account')).toHaveAttr('disabled', 'disabled')
+          return
+          
+      describe 'when both fields are filled', ->
+        it 'is enabled', ->
+          $('#patient_enrollment_security_question').val("What's the worst band in the world?")
+          $('#patient_enrollment_answer').val("...")
+          $('#patient_enrollment_security_question').trigger 'change'
+          expect($('#create-account')).not.toHaveAttr('disabled', 'disabled')
+          return
   return
