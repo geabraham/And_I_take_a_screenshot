@@ -80,9 +80,18 @@ ul {
   text-align: center;
 }
 
+label.invalid {
+  color: red;
+}
+
+input.invalid {
+  background-color: #dddddd;
+  border: 1px solid red;
+}
+
 .registration-input {
   background-color: #dddddd;
-  border-radius: 2px;
+  border-radius: 4px;
   border: 0px;
   margin: $height/42;
   height: $height/14;
@@ -154,6 +163,7 @@ ul {
 }
 
 .validation_error {
+  border: 1px solid red;
   color: red;
   margin-top: ($height/15);
   display: none;

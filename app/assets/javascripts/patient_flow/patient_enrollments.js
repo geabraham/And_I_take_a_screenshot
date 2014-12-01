@@ -19,6 +19,7 @@ $(function () {
     },
     invalidHandler: function() {
       $('.validation_error').show();
+      $('.active .registration-input, .active label').addClass('invalid');
     }
   })
   
@@ -27,11 +28,6 @@ $(function () {
     return  /[a-z]/.test(value) // has a lowercase letter
       && /[A-Z]/.test(value) // has an uppercase letter
       && /\d/.test(value) // has a digit
-  });
-  
-  // custom validation for dropdown
-  $.validator.addMethod("question_dd", function(value) {
-    return $('#patient_enrollment_security_question').val() !== '';
   });
   
   $('#next-button').on('click', nextButtonClick);
@@ -75,28 +71,31 @@ var validateSecurityQuestions = function() {
 
 var nextButtonClick = function() {
   var currentPage = $('.item.active').attr('id');
-  var form = $('#reg-form');
   var carousel = $('.carousel');
   
-  if(currentPage === 'email' && form.valid()) {
-     carousel.carousel('next');
-     addPasswordRules();
-  } else if(currentPage === 'password' && form.valid()) {
+  if($('#reg-form').valid()) {
+    hideErrors();
     carousel.carousel('next');
-    $('#next-button').hide();
-    $('#submit-button').show();
-  } else if(currentPage === 'security_question' && form.valid()) {
-    carousel.carousel('next');
+    if(currentPage === 'email') {
+      addPasswordRules();
+    } else if(currentPage === 'password') {
+      $('#next-button').hide();
+      $('#submit-button').show();
+    }
   }
 }
 
 var backClick = function() {
-  var currentPage = $('.item.active').attr('id');
-  if (currentPage !== 'email') {
-    $('.carousel').carousel('prev');
-    if (currentPage === 'security_question') {
-      $('#submit-button').hide();
-      $('#next-button').show();
+  if($('#reg-form').valid() || isBlankEntry()) {
+    hideErrors();
+    var currentPage = $('.item.active').attr('id');
+    
+    if (currentPage !== 'email') {
+      $('.carousel').carousel('prev');
+      if (currentPage === 'security_question') {
+        $('#submit-button').hide();
+        $('#next-button').show();
+      }
     }
   }
 }
@@ -115,4 +114,14 @@ var questionChange = function() {
   } else {
     $('#create-account').attr('disabled', 'disabled');
   }
+}
+
+var hideErrors = function() {
+  $('.validation_error').hide();
+  $('.active .registration-input, .active label').removeClass('invalid');
+}
+
+var isBlankEntry = function() {
+  return (($('.active .registration-input').first().val().length == 0) 
+       && ($('.active .registration-input').last().val().length == 0));
 }
