@@ -21,5 +21,17 @@ describe PatientEnrollmentsController do
       expect(assigns(:patient_enrollment)).to eq stubbed_enrollment
     end
   end
+  
+  describe 'POST patient_enrollments' do
+    it 'returns success' do
+      post :create
+      expect(response).to be_success
+    end
+    
+    it 'uses the patient_registration template' do
+      post :create
+      expect(response).to render_template("patient_registration")
+    end
+  end
 
 end
