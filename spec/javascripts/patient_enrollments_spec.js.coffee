@@ -50,15 +50,9 @@ describe 'patient enrollments form', ->
   describe 'password page', ->
     beforeEach ->
       $('#password').addClass('active')
-      $('#reg-form').append('<input id="patient_enrollment_password" />')
-      $('#reg-form').append('<input id="patient_enrollment_password_confirmation" />')
+      $('#password').append('<input id="patient_enrollment_password" class="registration-input" />')
+      $('#password').append('<input id="patient_enrollment_password_confirmation" class="registration-input" />')
       addPasswordRules()
-      
-    describe 'when back button is clicked', ->
-      it 'returns to the previous page', ->
-        $('.back').trigger 'click'
-        expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
-        return
           
     describe 'next button', ->
       describe 'for a blank input', ->
@@ -100,6 +94,28 @@ describe 'patient enrollments form', ->
         expect(carouselSpy.calls.allArgs()).toEqual [['next']]
         expect($('#submit-button')).toHaveCss({display: 'block'})
         return
+        
+    describe 'back arrow', ->
+      describe 'for a blank input', ->
+        it 'returns to the previous page', ->
+          $('.back').trigger 'click'
+          expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
+          return
+          
+      describe 'for an invalid input', ->
+        it 'stays on the current page', ->
+          $('#patient_enrollment_password').attr('value', 'badpass')
+          validSpy= spyOn($.fn, 'valid').and.returnValue(false)
+          $('.back').trigger 'click'
+          expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
+          return
+          
+      describe 'for a valid input', ->
+        it 'returns to the previous page', ->
+          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+          $('.back').trigger 'click'
+          expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
+          return
       
   describe 'security question page', ->
     beforeEach ->
