@@ -59,7 +59,7 @@ describe 'patient enrollments form', ->
         it 'shows a validation error', ->
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false
-          expect($('.validation_error')).toHaveCss({display: 'block'})
+          expect($('.validation_error')).toHaveCss({display: 'block'}) # this tests that the element is made visible
           expect($('.validation_error')).toHaveText('Enter a valid password.')
           return
           
