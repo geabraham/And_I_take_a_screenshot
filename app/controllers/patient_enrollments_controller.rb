@@ -1,5 +1,8 @@
 class PatientEnrollmentsController < ApplicationController
   layout "patient_registration"
+  
+  def download
+  end
 
   def new
     # NOTE: @security_questions has no test. It is, for now, faked.
@@ -8,6 +11,8 @@ class PatientEnrollmentsController < ApplicationController
   end
   
   def create #TODO test this
+    # TODO PATCH: /v1/patient_enrollments/:patient_enrollment_uuid/register
     
+    render 'download'
   end
 end

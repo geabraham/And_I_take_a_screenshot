@@ -4,7 +4,7 @@ When(/^I fill in an activation code$/) do
 end
 
 When(/^I accept the TOU\/DPN$/) do
-  pending
+  #TODO pending
 end
 
 When(/^I submit registration info for a new subject$/) do
