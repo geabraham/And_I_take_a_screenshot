@@ -8,6 +8,12 @@ describe 'patient_enrollments/new.html.haml' do
     render
   end
   
+  context 'carousel markup' do
+    it 'has auto-scroll disabled' do
+      expect(html).to have_selector('div.carousel.slide#registration-details[@data-interval="false"]')
+    end
+  end
+  
   context 'email page' do
     it 'contains an email input' do
       expect(html).to have_field('Email', type: 'text', exact: true)
