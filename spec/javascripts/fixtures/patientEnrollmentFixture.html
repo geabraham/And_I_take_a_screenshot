@@ -19,7 +19,8 @@ $(function() {
       'patient_enrollment[login_confirmation]': 'Your Emails do not match.'
     },
     invalidHandler: function() {
-      $('.validation_error').show();
+      $('.active .validation_error').removeClass('invisible');
+      $('.active .registration-input, .active label').addClass('invalid');
     }
   })
   
@@ -66,7 +67,7 @@ $(function() {
     <div class="next">
       <a class="btn btn-primary" id="next-button" href="#registration-details" role="button">Next</a>
       <div class="submit" id="submit-button">
-        <input class="btn btn-primary" disabled="disabled" id="create-account" name="commit" type="submit" value="Create account" />
+        <input class="btn btn-primary invisible" disabled="disabled" id="create-account" name="commit" type="submit" value="Create account" />
       </div>
     </div>
     <div class="bottom">

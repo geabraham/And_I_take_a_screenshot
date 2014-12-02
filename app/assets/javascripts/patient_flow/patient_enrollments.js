@@ -18,7 +18,7 @@ $(function () {
       'patient_enrollment[login_confirmation]': 'Your Emails do not match.'
     },
     invalidHandler: function() {
-      $('.validation_error').show();
+      $('.active .validation_error').removeClass('invisible');
       $('.active .registration-input, .active label').addClass('invalid');
     }
   })
@@ -79,8 +79,8 @@ var nextButtonClick = function() {
     if(currentPage === 'email') {
       addPasswordRules();
     } else if(currentPage === 'password') {
-      $('#next-button').hide();
-      $('#submit-button').show();
+      $('#next-button').addClass('invisible');
+      $('#create-account').removeClass('invisible');
     }
   }
 }
@@ -93,8 +93,8 @@ var backClick = function() {
     if (currentPage !== 'email') {
       $('.carousel').carousel('prev');
       if (currentPage === 'security_question') {
-        $('#submit-button').hide();
-        $('#next-button').show();
+        $('#create-account').addClass('invisible');
+        $('#next-button').removeClass('invisible');
       }
     }
   }
@@ -117,7 +117,7 @@ var questionChange = function() {
 }
 
 var hideErrors = function() {
-  $('.validation_error').hide();
+  $('.active .validation_error').addClass('invisible');
   $('.active .registration-input, .active label').removeClass('invalid');
 }
 

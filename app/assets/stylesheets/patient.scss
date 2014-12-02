@@ -138,10 +138,6 @@ input.invalid {
   width: $width;
 }
 
-#submit-button {
-  display: none;
-}
-
 .bottom {
   position: absolute;
   border-top: thin solid #cccccc;
@@ -165,5 +161,8 @@ input.invalid {
 .validation_error {
   color: red;
   margin-top: ($height/15);
+}
+
+.invisible {
   display: none;
 }

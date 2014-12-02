@@ -21,7 +21,7 @@
     %a.btn.btn-primary#next-button(href="#registration-details" role="button")='Next'
     .submit#submit-button
       = fields_for @patient_enrollment do |f|
-        = f.submit 'Create account', class: 'btn btn-primary', disabled: true, id: 'create-account'
+        = f.submit 'Create account', class: 'btn btn-primary invisible', disabled: true, id: 'create-account'
   .bottom
     %span.back
       %a.back_arrow='<'

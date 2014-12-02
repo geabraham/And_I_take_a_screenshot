@@ -23,7 +23,7 @@ describe 'patient enrollments form', ->
         $('#reg-form').append('<input name="patient_enrollment[login]" value="" />')
         $('#next-button').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false
-        expect($('.validation_error')).toHaveCss({display: 'block'})
+        expect($('.validation_error')).not.toHaveClass('invisible')
         expect($('.validation_error')).toHaveText('Enter a valid email.')
           
     describe 'next button', ->
@@ -32,7 +32,7 @@ describe 'patient enrollments form', ->
           $('#reg-form').append('<input name="patient_enrollment[login]" value="not_an_email" />')
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false
-          expect($('.validation_error')).toHaveCss({display: 'block'})
+          expect($('.validation_error')).not.toHaveClass('invisible')
           expect($('.validation_error')).toHaveText('Enter a valid email.')
           
       describe 'for a valid input', ->
@@ -55,7 +55,7 @@ describe 'patient enrollments form', ->
         it 'shows a validation error', ->
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false
-          expect($('.validation_error')).toHaveCss({display: 'block'}) # this tests that the element is made visible
+          expect($('.validation_error')).not.toHaveClass('invisible')
           expect($('.validation_error')).toHaveText('Enter a valid password.')
           
       describe 'for an invalid input', ->
@@ -64,27 +64,27 @@ describe 'patient enrollments form', ->
           $('#patient_enrollment_password_confirmation').attr('value', 'Notagoodpassword')
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false
-          expect($('.validation_error')).toHaveCss({display: 'block'})
+          expect($('.validation_error')).not.toHaveClass('invisible')
           expect($('.validation_error')).toHaveText('Enter a valid password.')
           
-    describe 'for a valid input', ->
-      it 'advances to the security question page', ->
-        $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw0rd')
-        $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw0rd')
-        $('#next-button').trigger 'click'
-        expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+      describe 'for a valid input', ->
+        it 'advances to the security question page', ->
+          $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw0rd')
+          $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw0rd')
+          $('#next-button').trigger 'click'
+          expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+            
+        it 'hides the "Next" button', ->
+          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+          $('#next-button').trigger 'click'
+          expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+          expect($('#next-button')).toHaveClass('invisible')
           
-      it 'hides the "Next" button', ->
-        validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-        $('#next-button').trigger 'click'
-        expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-        expect($('#next-button')).toHaveCss({display: 'none'})
-        
-      it 'displays the "Create account" button', ->
-        validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-        $('#next-button').trigger 'click'
-        expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-        expect($('#submit-button')).toHaveCss({display: 'block'})
+        it 'displays the "Create account" button', ->
+          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+          $('#next-button').trigger 'click'
+          expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+          expect($('#submit-button')).not.toHaveClass('invisible')
         
     describe 'back arrow', ->
       describe 'for a blank input', ->
@@ -116,11 +116,11 @@ describe 'patient enrollments form', ->
         
       it 'displays the "Next" button', ->
         $('.back').trigger 'click'
-        expect($('#submit-button')).toHaveCss({display: 'none'})
+        expect($('#next-button')).not.toHaveClass('invisible')
         
       it 'hides the "Create account" button', ->
         $('.back').trigger 'click'
-        expect($('#submit-button')).toHaveCss({display: 'none'})
+        expect($('#create-account')).toHaveClass('invisible')
         
     describe 'create account button', ->
       describe 'when security question is blank', ->
