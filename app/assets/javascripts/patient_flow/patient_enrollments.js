@@ -86,6 +86,11 @@ var nextButtonClick = function() {
 }
 
 var backClick = function() {
+  //TODO currently we are validating on back button click
+  //to prevent a confusing UX issue where the error message
+  //disappears (on back click) and cannot be restored
+  //unless the form is corrected and rebroken
+  //there might be a better workaround, discuss
   if($('#reg-form').valid() || isBlankEntry()) {
     hideErrors();
     var currentPage = $('.item.active').attr('id');
