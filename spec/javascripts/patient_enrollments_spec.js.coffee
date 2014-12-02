@@ -17,7 +17,6 @@ describe 'patient enrollments form', ->
       it 'stays on the current page', ->
         $('.back').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
-        return
         
     describe 'for a blank input', ->
       it 'shows a validation error', ->
@@ -26,7 +25,6 @@ describe 'patient enrollments form', ->
         expect(carouselSpy.calls.any()).toEqual false
         expect($('.validation_error')).toHaveCss({display: 'block'})
         expect($('.validation_error')).toHaveText('Enter a valid email.')
-        return
           
     describe 'next button', ->
       describe 'for an invalid input', ->
@@ -36,7 +34,6 @@ describe 'patient enrollments form', ->
           expect(carouselSpy.calls.any()).toEqual false
           expect($('.validation_error')).toHaveCss({display: 'block'})
           expect($('.validation_error')).toHaveText('Enter a valid email.')
-          return
           
       describe 'for a valid input', ->
         it 'advances to the password page', ->
@@ -45,7 +42,6 @@ describe 'patient enrollments form', ->
           $('#next-button').trigger 'click'
           expect(addPasswordRules).toHaveBeenCalled()
           expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-          return
         
   describe 'password page', ->
     beforeEach ->
@@ -61,7 +57,6 @@ describe 'patient enrollments form', ->
           expect(carouselSpy.calls.any()).toEqual false
           expect($('.validation_error')).toHaveCss({display: 'block'}) # this tests that the element is made visible
           expect($('.validation_error')).toHaveText('Enter a valid password.')
-          return
           
       describe 'for an invalid input', ->
         it 'shows a validation error', ->
@@ -71,7 +66,6 @@ describe 'patient enrollments form', ->
           expect(carouselSpy.calls.any()).toEqual false
           expect($('.validation_error')).toHaveCss({display: 'block'})
           expect($('.validation_error')).toHaveText('Enter a valid password.')
-          return
           
     describe 'for a valid input', ->
       it 'advances to the security question page', ->
@@ -79,28 +73,24 @@ describe 'patient enrollments form', ->
         $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw0rd')
         $('#next-button').trigger 'click'
         expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-        return
           
       it 'hides the "Next" button', ->
         validSpy= spyOn($.fn, 'valid').and.returnValue(true)
         $('#next-button').trigger 'click'
         expect(carouselSpy.calls.allArgs()).toEqual [['next']]
         expect($('#next-button')).toHaveCss({display: 'none'})
-        return
         
       it 'displays the "Create account" button', ->
         validSpy= spyOn($.fn, 'valid').and.returnValue(true)
         $('#next-button').trigger 'click'
         expect(carouselSpy.calls.allArgs()).toEqual [['next']]
         expect($('#submit-button')).toHaveCss({display: 'block'})
-        return
         
     describe 'back arrow', ->
       describe 'for a blank input', ->
         it 'returns to the previous page', ->
           $('.back').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
-          return
           
       describe 'for an invalid input', ->
         it 'stays on the current page', ->
@@ -108,14 +98,12 @@ describe 'patient enrollments form', ->
           validSpy= spyOn($.fn, 'valid').and.returnValue(false)
           $('.back').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
-          return
           
       describe 'for a valid input', ->
         it 'returns to the previous page', ->
           validSpy= spyOn($.fn, 'valid').and.returnValue(true)
           $('.back').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
-          return
       
   describe 'security question page', ->
     beforeEach ->
@@ -125,17 +113,14 @@ describe 'patient enrollments form', ->
       it 'returns to the previous page', ->
         $('.back').trigger 'click'
         expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
-        return
         
       it 'displays the "Next" button', ->
         $('.back').trigger 'click'
         expect($('#submit-button')).toHaveCss({display: 'none'})
-        return
         
       it 'hides the "Create account" button', ->
         $('.back').trigger 'click'
         expect($('#submit-button')).toHaveCss({display: 'none'})
-        return
         
     describe 'create account button', ->
       describe 'when security question is blank', ->
@@ -143,14 +128,12 @@ describe 'patient enrollments form', ->
           $('#patient_enrollment_answer').val("the worst band is...")
           $('#patient_enrollment_security_question').trigger 'change'
           expect($('#create-account')).toHaveAttr('disabled', 'disabled')
-          return
           
       describe 'when security answer is blank', ->
         it 'is disabled', ->
           $('#patient_enrollment_security_question').val("What's the worst band in the world?")
           $('#patient_enrollment_security_question').trigger 'change'
           expect($('#create-account')).toHaveAttr('disabled', 'disabled')
-          return
           
       describe 'when both fields are filled', ->
         it 'is enabled', ->
@@ -158,5 +141,4 @@ describe 'patient enrollments form', ->
           $('#patient_enrollment_answer').val("...")
           $('#patient_enrollment_security_question').trigger 'change'
           expect($('#create-account')).not.toHaveAttr('disabled', 'disabled')
-          return
   return
