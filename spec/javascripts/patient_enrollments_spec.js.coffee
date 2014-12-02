@@ -26,7 +26,7 @@ describe 'patient enrollments form', ->
         expect($('.validation_error')).not.toHaveClass('invisible')
         expect($('.validation_error')).toHaveText('Enter a valid email.')
           
-    describe 'next button', ->
+    describe 'next button click', ->
       describe 'for an invalid input', ->
         it 'shows a validation error', ->
           $('#reg-form').append('<input name="patient_enrollment[login]" value="not_an_email" />')
@@ -50,7 +50,7 @@ describe 'patient enrollments form', ->
       $('#password').append('<input id="patient_enrollment_password_confirmation" class="registration-input" />')
       addPasswordRules()
           
-    describe 'next button', ->
+    describe 'next button click', ->
       describe 'for a blank input', ->
         it 'shows a validation error', ->
           $('#next-button').trigger 'click'
@@ -86,7 +86,7 @@ describe 'patient enrollments form', ->
           expect(carouselSpy.calls.allArgs()).toEqual [['next']]
           expect($('#submit-button')).not.toHaveClass('invisible')
         
-    describe 'back arrow', ->
+    describe 'back arrow click', ->
       describe 'for a blank input', ->
         it 'returns to the previous page', ->
           $('.back').trigger 'click'
@@ -109,7 +109,7 @@ describe 'patient enrollments form', ->
     beforeEach ->
       $('#security-question').addClass('active')
       
-    describe 'when back button is clicked', ->
+    describe 'back arrow click', ->
       it 'returns to the previous page', ->
         $('.back').trigger 'click'
         expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
@@ -122,7 +122,7 @@ describe 'patient enrollments form', ->
         $('.back').trigger 'click'
         expect($('#create-account')).toHaveClass('invisible')
         
-    describe 'create account button', ->
+    describe 'create account button click', ->
       describe 'when security question is blank', ->
         it 'is disabled', ->
           $('#patient_enrollment_answer').val("the worst band is...")

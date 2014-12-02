@@ -5,7 +5,8 @@
   .top
     %span.center
       =image_tag 'Medidata_Logo_white_RGB_2.png'
-    %span.forward='?'
+    %span.forward
+      =image_tag 'question.png', class: 'question'
   %br
   
   = form_tag @patient_enrollment, id: 'reg-form'
