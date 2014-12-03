@@ -17,14 +17,14 @@ var handleInput = function() {
     var regx = /^[A-Za-z0-9]+$/;
 
     if(regx.test(str)) {
-      $(".validation_error").hide();
+      $(".validation_error").addClass('invisible');
   
       if(str.length === 6) {
         $.post("/activation_codes/" + str + "/activate");
       }
     }
     else {
-      $(".validation_error").show();
+      $(".validation_error").removeClass('invisible');
     }
   }
 }

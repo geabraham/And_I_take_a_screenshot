@@ -11,7 +11,7 @@ describe 'activation_codes/_activation_code.html.haml' do
     end
     
     it 'displays the expected instruction text' do
-      expect(rendered).to have_selector('div.code_instruction', text: 'If you have already registered, please return to the Patient Cloud App. If you have not registered and do not have an activation code or email invite please contact your doctor.')
+      expect(rendered).to have_selector('div.instruction', text: 'If you have already registered, please return to the Patient Cloud App. If you have not registered and do not have an activation code or email invite please contact your doctor.')
     end
     
     it 'displays the activation code input fields' do
