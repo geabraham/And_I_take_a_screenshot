@@ -70,8 +70,8 @@ var validateSecurityQuestions = function() {
 }
 
 var nextButtonClick = function() {
-  var currentPage = $('.item.active').attr('id');
-  var carousel = $('.carousel');
+  var currentPage = $('.item.active').attr('id'),
+  carousel = $('.carousel');
   
   if($('#reg-form').valid()) {
     hideErrors();
