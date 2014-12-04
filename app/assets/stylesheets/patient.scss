@@ -53,8 +53,8 @@ h2 {
 }
 
 .form_instruction {
-  margin-top: $global_tb_margin;
-  margin-bottom: $global_tb_margin;
+  // margin-top: $global_tb_margin;
+  // margin-bottom: $global_tb_margin;
 }
 
 ul {
@@ -93,11 +93,7 @@ input.invalid {
 
 .registration-input {
   background-color: #dddddd;
-  border-radius: 4px;
-  border: 0px;
-  margin: $height/42;
-  height: $height/14;
-  width: 0.9*$width;
+  border-color: transparent;
   padding: 12px;
   color: #333333;
 }
@@ -115,61 +111,70 @@ input.invalid {
 }
 
 .header {
-  // position: absolute;
+  position: relative;
   background-color: #002855;
   color: #ffffff;
-  // height: $height/13;
-  // width: $width;
   font-size: 28px;
   text-align: center;
   padding: 5px 0 10px;
+  .help {
+    padding-right: 10px;
+  }
+
 }
 
-.btn {
-  align: center;
+.btn-block {
   height: $height/13;
   font-size: 22px;
-  width: 0.93*$width;
-  margin: $global_lr_margin;
-  margin-bottom: $global_tb_margin;
 }
 
 .next {
+  padding: 10px;
   position: absolute;
-  border-top: thin solid #bbbbbb;
+  border-top: 1px solid #bbbbbb;
   bottom: $height/10;
   width: $width;
 }
 
 .footer {
+  display: block;
   position: absolute;
-  border-top: thin solid #cccccc;
-  background-color: #eeeeee;
+  left: 0;
   bottom: 0;
-  color: #aaaaaa;
-  font-size: 28px;
+  border-top: 1px solid #ddd;
+  background-color: #eeeeee;
+  
+  
   height: $height/13;
-  width: $width;
+  width: 100%;
+  .forward_arrow, .back_arrow {
+    font-size: 34px;
+    color: #999;  
+    position: absolute;
+    top: 0;
+  }
+  .forward_arrow {
+    right: 10px;
+  }
+  .back_arrow {
+    left: 10px;
+  }
+
 }
 
 .bottom a {
   color: #5585D7;
 }
 
-.forward {
-  position: absolute;
-  right: 10px;
-  top: 8px;
-}
 
 .validation_error {
   color: red;
   margin-top: ($height/15);
 }
 
-.invisible {
-  display: none;
-}
+// .invisible {
+//   display: none;
+// }
 
 .question {
   height: 65%;
