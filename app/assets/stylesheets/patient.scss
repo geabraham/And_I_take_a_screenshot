@@ -31,18 +31,8 @@ h2 {
   color: #002855;
 }
 
-.form_header {
-  margin-bottom: 3*$global_tb_margin;
-  text-align:left;
-}
-
-.instruction {
-  margin-left: $global_lr_margin;
-  margin-right: $global_lr_margin;
-}
-
 ul {
-  margin-left: -$width/15;
+  margin-left: -$width/15; //prevent bullet indent
 }
 
 .password_instructions {
@@ -51,7 +41,7 @@ ul {
   list-style-type: dot;
 }
 
-.item {
+.item, .activation-code-content {
   margin: $global_lr_margin;
 }
 
@@ -62,7 +52,7 @@ ul {
   border-radius: 2px;
   border: 0px;
   font-size: 24px;
-  margin: ($inputWidth/6);
+  margin: ($inputWidth/7);
   text-align: center;
 }
 
@@ -92,6 +82,11 @@ input.invalid {
   .help {
     padding-right: 10px;
   }
+}
+
+.activation-header {
+  position: relative;
+  text-align: center;
 }
 
 .btn-block {
@@ -131,10 +126,6 @@ input.invalid {
     left: 10px;
     color: #5585D7;
   }
-}
-
-.bottom a {
-  color: #5585D7;
 }
 
 .validation_error {
