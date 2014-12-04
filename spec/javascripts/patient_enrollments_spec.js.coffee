@@ -78,13 +78,13 @@ describe 'patient enrollments form', ->
           validSpy= spyOn($.fn, 'valid').and.returnValue(true)
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-          expect($('#next-button')).toHaveClass('invisible')
+          expect($('#next-button')).toHaveClass('hidden')
           
         it 'displays the "Create account" button', ->
           validSpy= spyOn($.fn, 'valid').and.returnValue(true)
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-          expect($('#submit-button')).not.toHaveClass('invisible')
+          expect($('#submit-button')).not.toHaveClass('hidden')
         
     describe 'back arrow click', ->
       describe 'for a blank input', ->
@@ -116,11 +116,11 @@ describe 'patient enrollments form', ->
         
       it 'displays the "Next" button', ->
         $('.back').trigger 'click'
-        expect($('#next-button')).not.toHaveClass('invisible')
+        expect($('#next-button')).not.toHaveClass('hidden')
         
       it 'hides the "Create account" button', ->
         $('.back').trigger 'click'
-        expect($('#create-account')).toHaveClass('invisible')
+        expect($('#create-account')).toHaveClass('hidden')
         
     describe 'create account button click', ->
       describe 'when security question is blank', ->
