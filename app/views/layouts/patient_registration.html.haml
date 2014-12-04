@@ -14,10 +14,9 @@
     = stylesheet_link_tag        'application'
     = csrf_meta_tags
   %body
-    #main
-      .container-fluid
-        .patient
-          = yield :page_body
+    #main.clearfix
+      .patient
+        = yield :page_body
 
     = cdn_javascript_include_tag 'jquery'
     = cdn_javascript_include_tag 'platform'

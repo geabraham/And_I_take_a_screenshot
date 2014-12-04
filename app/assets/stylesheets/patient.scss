@@ -12,17 +12,19 @@ $logoWidth: $width*0.9;
 $global_lr_margin: $width/30;
 $global_tb_margin: $width/48;
 
-body {
+#main {
+  height: 100%;
   background-color: #555555;
 }
 
 .logo {
-  margin: $logoWidth*0.05;
-  width: $logoWidth;
-  height: $logoWidth/4.18;
+  // margin: $logoWidth*0.05;
+  // width: $logoWidth;
+  // height: $logoWidth/4.18;
 }
 
 .patient {
+  outline: 2px dashed red;
   position: fixed;
   width: $width;
   height: $height;
@@ -112,14 +114,15 @@ input.invalid {
   padding: 12px;
 }
 
-.top {
-  position: absolute;
+.header {
+  // position: absolute;
   background-color: #002855;
   color: #ffffff;
-  height: $height/13;
-  width: $width;
+  // height: $height/13;
+  // width: $width;
   font-size: 28px;
   text-align: center;
+  padding: 5px 0 10px;
 }
 
 .btn {
@@ -138,7 +141,7 @@ input.invalid {
   width: $width;
 }
 
-.bottom {
+.footer {
   position: absolute;
   border-top: thin solid #cccccc;
   background-color: #eeeeee;
@@ -155,7 +158,8 @@ input.invalid {
 
 .forward {
   position: absolute;
-  right: 0;
+  right: 10px;
+  top: 8px;
 }
 
 .validation_error {
