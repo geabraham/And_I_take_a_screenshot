@@ -32,7 +32,7 @@ $(function () {
   
   $('#next-button').on('click', nextButtonClick);
   
-  $('.back').on('click', backClick);
+  $('.back_arrow').on('click', backClick);
   
   $('#patient_enrollment_answer').on('keyup', answerKeyup);
   

@@ -4,7 +4,6 @@
 //  @include border-radius(5px);
 //}
 
-// iphone 6 dimensions scaled in half for web
 $width: 375px;
 $height: 667px;
 $inputWidth: $width/9;
@@ -17,14 +16,7 @@ $global_tb_margin: $width/48;
   background-color: #555555;
 }
 
-.logo {
-  // margin: $logoWidth*0.05;
-  // width: $logoWidth;
-  // height: $logoWidth/4.18;
-}
-
 .patient {
-  outline: 2px dashed red;
   position: fixed;
   width: $width;
   height: $height;
@@ -37,9 +29,6 @@ $global_tb_margin: $width/48;
 
 h2 {
   color: #002855;
-  margin-top: ($height/15);
-  margin-bottom: ($height/20);
-  text-align: center;
 }
 
 .form_header {
@@ -50,11 +39,6 @@ h2 {
 .instruction {
   margin-left: $global_lr_margin;
   margin-right: $global_lr_margin;
-}
-
-.form_instruction {
-  // margin-top: $global_tb_margin;
-  // margin-bottom: $global_tb_margin;
 }
 
 ul {
@@ -98,18 +82,6 @@ input.invalid {
   color: #333333;
 }
 
-#question-label {
-  display: none;
-}
-
-#patient_enrollment_security_question {
-  border-radius: 2px;
-  margin: $height/42;
-  height: $height/14;
-  width: 0.9*$width;
-  padding: 12px;
-}
-
 .header {
   position: relative;
   background-color: #002855;
@@ -120,7 +92,6 @@ input.invalid {
   .help {
     padding-right: 10px;
   }
-
 }
 
 .btn-block {
@@ -158,25 +129,14 @@ input.invalid {
   }
   .back_arrow {
     left: 10px;
+    color: #5585D7;
   }
-
 }
 
 .bottom a {
   color: #5585D7;
 }
 
-
 .validation_error {
   color: red;
-  margin-top: ($height/15);
-}
-
-// .invisible {
-//   display: none;
-// }
-
-.question {
-  height: 65%;
-  width: 65%;
 }
