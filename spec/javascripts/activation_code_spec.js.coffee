@@ -50,8 +50,6 @@ describe 'activation code page', ->
   describe 'when a field is selected', ->
     it 'highlights the existing character', ->
       loadFixtures 'activationCodeFixture.html'
-      event = $.Event('keyup')
-      event.which = 9 #tab
       $('#code-3').trigger 'focus'
       expect(window.getSelection().toString()).toEqual('y')
   return

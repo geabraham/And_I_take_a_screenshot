@@ -1,4 +1,6 @@
 $(function() {
+  $('#code-1').focus();
+  
   $(".code").on('keyup', function(e) { 
     var keyPressed = e.which; 
     
