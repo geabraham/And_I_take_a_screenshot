@@ -39,7 +39,7 @@ var handleInput = function() {
   var str = getCodeString();
   
   if( str !== "" ) {
-    var regx = /^[A-Za-z0-9]+$/; //TODO swap this
+    var regx = /^[A-Za-z0-9]+$/;
 
     if(regx.test(str)) {
       $(".validation_error").addClass('invisible');
