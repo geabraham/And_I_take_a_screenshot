@@ -1,5 +1,18 @@
 $(function() {
-  $(".code").on('keyup', handleInput);
+  $(".code").on('keyup', function(e) { 
+    var keyPressed = e.which; 
+    
+    // for a tab (ascii 9) or a shift-tab (ascii 9 & 16) between fields,
+    // prevent handleInput() from deselecting the field and thus
+    // requiring the user to backspace before fixing an inputted character
+    if (keyPressed !== 9 && keyPressed !== 16) { 
+      handleInput(); 
+    }
+  });
+  
+  $(".code").focus(function () {
+    this.select();
+  })
 });
 
 var getCodeString = function() {

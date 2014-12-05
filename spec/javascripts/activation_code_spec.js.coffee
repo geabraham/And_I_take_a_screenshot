@@ -46,4 +46,12 @@ describe 'activation code page', ->
         window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('NOOO0!')
         $('.code').trigger 'keyup'
         expect($('.validation_error')).not.toHaveClass 'invisible'
+        
+  describe 'when a field is selected', ->
+    it 'highlights the existing character', ->
+      loadFixtures 'activationCodeFixture.html'
+      event = $.Event('keyup')
+      event.which = 9 #tab
+      $('#code-3').trigger 'focus'
+      expect(window.getSelection().toString()).toEqual('y')
   return
