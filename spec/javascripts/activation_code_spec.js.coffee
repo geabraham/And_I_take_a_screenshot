@@ -1,33 +1,41 @@
 describe 'activation code page', ->
-  describe 'getInputString', ->
+  describe 'getCodeString', ->
     describe 'when one character is entered', ->
       it 'determines the input string', ->
         setFixtures '<input class="code" id="code-1" maxlength="1" value="7" />'
-        expect(getInputString()).toEqual '7'
+        expect(getCodeString()).toEqual '7'
     
     describe 'when multiple characters are entered', -> 
       it 'determines the input string', ->
         loadFixtures 'activationCodeFixture.html'
-        expect(getInputString()).toEqual 'heyman'
+        expect(getCodeString()).toEqual 'HEYMAN'
+        
+    describe "when o's or i's are entered", -> 
+      it "autocorrects them to 0's or 1's", ->
+        setFixtures '<input class="code" id="code-1" maxlength="1" value="o" />'
+        appendSetFixtures '<input class="code" id="code-1" maxlength="1" value="i" />'
+        appendSetFixtures '<input class="code" id="code-1" maxlength="1" value="O" />'
+        appendSetFixtures '<input class="code" id="code-1" maxlength="1" value="I" />'
+        expect(getCodeString()).toEqual '0101'
     
   describe 'on keyup event', ->
     describe 'for a character input', ->
-      it 'calls getInputString', ->
+      it 'calls getCodeString', ->
         loadFixtures 'activationCodeFixture.html'
-        window.getInputString = jasmine.createSpy('getInputString spy').and.returnValue('H')
+        window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('H')
         $('.code').trigger 'keyup'
-        expect(getInputString).toHaveBeenCalled()
+        expect(getCodeString).toHaveBeenCalled()
     
     describe 'for an empty input', ->  
-      it 'calls getInputString', ->
+      it 'calls getCodeString', ->
         loadFixtures 'activationCodeFixture.html'
-        window.getInputString = jasmine.createSpy('getInputString spy').and.returnValue('')
+        window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('')
         $('.code').trigger 'keyup'
-        expect(getInputString).toHaveBeenCalled()
+        expect(getCodeString).toHaveBeenCalled()
         
     describe 'for a valid character', ->
       it "doesn't show a validation error", ->
-        window.getInputString = jasmine.createSpy('getInputString spy').and.returnValue('ox9D0q')
+        window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('ox9D0q')
         loadFixtures 'activationCodeFixture.html'
         $('.code').trigger 'keyup'
         expect($('.validation_error')).toHaveClass 'invisible'
@@ -35,7 +43,7 @@ describe 'activation code page', ->
     describe 'for an invalid character', ->
       it 'shows a validation error', ->
         loadFixtures 'activationCodeFixture.html'
-        window.getInputString = jasmine.createSpy('getInputString spy').and.returnValue('NOOO0!')
+        window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('NOOO0!')
         $('.code').trigger 'keyup'
         expect($('.validation_error')).not.toHaveClass 'invisible'
   return

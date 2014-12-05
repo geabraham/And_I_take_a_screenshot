@@ -2,19 +2,29 @@ $(function() {
   $(".code").on('keyup', handleInput);
 });
 
-var getInputString = function() {
-  var inputString = "";
+var getCodeString = function() {
+  var codeString = "";
+  
   $(".code").each(function() {
-    inputString += $.trim($(this).val());
+    var input = $.trim($(this).val().toUpperCase());
+    
+    if (input.length > 0) {
+      if (input === 'O') { input = '0'; }
+      else if (input === 'I') { input = '1'; }
+    }
+    
+    $(this).val(input);
+    codeString += input;
   });
-  return inputString;
+  
+  return codeString;
 }
 
 var handleInput = function() {
-  $(this).val($(this).val().toUpperCase());
-  str = getInputString();
+  var str = getCodeString();
+  
   if( str !== "" ) {
-    var regx = /^[A-Za-z0-9]+$/;
+    var regx = /^[A-Za-z0-9]+$/; //TODO swap this
 
     if(regx.test(str)) {
       $(".validation_error").addClass('invisible');
