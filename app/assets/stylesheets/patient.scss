@@ -56,6 +56,16 @@ ul {
   text-align: center;
 }
 
+#progress-img {
+  padding-left: 5%;
+  width: 95%;
+}
+
+#badge-img {
+  width: 75%;
+  padding: 20px 0 20px 25%;
+}
+
 label.invalid {
   color: red;
 }
@@ -86,6 +96,12 @@ input.invalid {
 
 .activation-header {
   position: relative;
+  text-align: center;
+}
+
+#download-instruction {
+  font-size: 18px;
+  margin: $global_lr_margin;
   text-align: center;
 }
 

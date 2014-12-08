@@ -1,2 +1,16 @@
 - content_for :page_body do
-  %h2= 'Congratulations, you\'re ready to download the app!'
+  .header
+    =image_tag 'Medidata_Logo_white_RGB_2.png'
+    %span.help.pull-right
+      %i.fa.fa-question-circle
+  %p
+  #download-instruction="Congratulations, you are registered as a participant in this study. Now it's time to download the Patient Cloud app."
+  =image_tag 'Progress_bar_download.png', id: 'progress-img'
+  =image_tag 'App_Store_Badge_US-UK.svg', id: 'badge-img'
+  .footer
+    %a.back_arrow
+      %i.fa.fa-angle-left
+      %span.sr-only='Back'
+    %span.forward_arrow
+      %i.fa.fa-angle-right
+      %span.sr-only= 'Forward'
