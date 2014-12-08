@@ -3,9 +3,13 @@
 
 - content_for :page_body do
   .header
+    %a.back_arrow.pull-left
+      %i.fa.fa-angle-left
+      %span.sr-only='Back'
     =image_tag 'Medidata_Logo_white_RGB_2.png'
-    %span.help.pull-right
-      %i.fa.fa-question-circle
+    %span.forward_arrow.pull-right
+      %i.fa.fa-angle-right
+      %span.sr-only= 'Forward'
   
   = form_tag @patient_enrollment, id: 'reg-form'
   .carousel.slide#registration-details(data-interval="false")
@@ -21,10 +25,3 @@
     .submit#submit-button
       = fields_for @patient_enrollment do |f|
         = f.submit 'Create account', class: 'btn btn-primary btn-block hidden', disabled: true, id: 'create-account'
-  .footer
-    %a.back_arrow
-      %i.fa.fa-angle-left
-      %span.sr-only='Back'
-    %span.forward_arrow
-      %i.fa.fa-angle-right
-      %span.sr-only= 'Forward'

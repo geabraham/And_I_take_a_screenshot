@@ -93,8 +93,13 @@ input.invalid {
   font-size: 28px;
   text-align: center;
   padding: 5px 0 10px;
-  .help {
-    padding-right: 10px;
+  .forward_arrow {
+    padding-right: 15px;
+    color: #999999;
+  }
+  .back_arrow {
+    padding-left: 15px;
+    color: #ffffff;
   }
 }
 
@@ -118,34 +123,8 @@ input.invalid {
   padding: 10px;
   position: absolute;
   border-top: 1px solid #bbbbbb;
-  bottom: $height/10;
-  width: $width;
-}
-
-.footer {
-  display: block;
-  position: absolute;
-  left: 0;
   bottom: 0;
-  border-top: 1px solid #ddd;
-  background-color: #eeeeee;
-  
-  
-  height: $height/13;
-  width: 100%;
-  .forward_arrow, .back_arrow {
-    font-size: 34px;
-    color: #999;  
-    position: absolute;
-    top: 0;
-  }
-  .forward_arrow {
-    right: 10px;
-  }
-  .back_arrow {
-    left: 10px;
-    color: #5585D7;
-  }
+  width: $width;
 }
 
 .validation_error {
