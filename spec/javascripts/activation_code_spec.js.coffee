@@ -9,14 +9,6 @@ describe 'activation code page', ->
       it 'determines the input string', ->
         loadFixtures 'activationCodeFixture.html'
         expect(getCodeString()).toEqual 'HEYMAN'
-        
-    describe "when o's or i's are entered", -> 
-      it "autocorrects them to 0's or 1's", ->
-        setFixtures '<input class="code" id="code-1" maxlength="1" value="o" />'
-        appendSetFixtures '<input class="code" id="code-1" maxlength="1" value="i" />'
-        appendSetFixtures '<input class="code" id="code-1" maxlength="1" value="O" />'
-        appendSetFixtures '<input class="code" id="code-1" maxlength="1" value="I" />'
-        expect(getCodeString()).toEqual '0101'
     
   describe 'on keyup event', ->
     describe 'for a character input', ->

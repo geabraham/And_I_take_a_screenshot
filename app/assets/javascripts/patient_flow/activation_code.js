@@ -23,11 +23,6 @@ var getCodeString = function() {
   $(".code").each(function() {
     var input = $.trim($(this).val().toUpperCase());
     
-    if (input.length > 0) {
-      if (input === 'O') { input = '0'; }
-      else if (input === 'I') { input = '1'; }
-    }
-    
     $(this).val(input);
     codeString += input;
   });
