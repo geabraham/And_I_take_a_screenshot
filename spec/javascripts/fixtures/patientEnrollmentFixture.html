@@ -38,7 +38,7 @@ $(function() {
   
   $('#next-button').on('click', nextButtonClick);
   
-  $('.back').on('click', backClick);
+  $('.back_arrow').on('click', backClick);
   
   $('#patient_enrollment_answer').on('keyup', answerKeyup);
   
@@ -46,7 +46,9 @@ $(function() {
 });
 </script>
 
-<div class="top" />
+<div class="header">
+  <a class="back_arrow" />
+</div>
   <form id="reg-form" method="post" novalidate="novalidate">
     <div class="carousel slide" id="registration-details">
       <div class="carousel-inner" role="listbox">
@@ -69,8 +71,5 @@ $(function() {
       <div class="submit" id="submit-button">
         <input class="btn btn-primary hidden" disabled="disabled" id="create-account" name="commit" type="submit" value="Create account" />
       </div>
-    </div>
-    <div class="bottom">
-      <span class="back" />
     </div>
   </form>

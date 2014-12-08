@@ -15,7 +15,7 @@ describe 'patient enrollments form', ->
       
     describe 'when back button is clicked', ->
       it 'stays on the current page', ->
-        $('.back').trigger 'click'
+        $('.back_arrow').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
         
     describe 'for a blank input', ->
@@ -89,20 +89,20 @@ describe 'patient enrollments form', ->
     describe 'back arrow click', ->
       describe 'for a blank input', ->
         it 'returns to the previous page', ->
-          $('.back').trigger 'click'
+          $('.back_arrow').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
           
       describe 'for an invalid input', ->
         it 'stays on the current page', ->
           $('#patient_enrollment_password').attr('value', 'badpass')
           validSpy= spyOn($.fn, 'valid').and.returnValue(false)
-          $('.back').trigger 'click'
+          $('.back_arrow').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
           
       describe 'for a valid input', ->
         it 'returns to the previous page', ->
           validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-          $('.back').trigger 'click'
+          $('.back_arrow').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
       
   describe 'security question page', ->
@@ -111,15 +111,15 @@ describe 'patient enrollments form', ->
       
     describe 'back arrow click', ->
       it 'returns to the previous page', ->
-        $('.back').trigger 'click'
+        $('.back_arrow').trigger 'click'
         expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
         
       it 'displays the "Next" button', ->
-        $('.back').trigger 'click'
+        $('.back_arrow').trigger 'click'
         expect($('#next-button')).not.toHaveClass('hidden')
         
       it 'hides the "Create account" button', ->
-        $('.back').trigger 'click'
+        $('.back_arrow').trigger 'click'
         expect($('#create-account')).toHaveClass('hidden')
         
     describe 'create account button click', ->
