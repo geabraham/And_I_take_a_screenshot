@@ -6,6 +6,19 @@
     =image_tag 'Medidata_Logo_white_RGB_2.png'
     %span.help.pull-right
       %i.fa.fa-question-circle
+      
+  .progress
+    .progress-bar.progress-bar-default
+      %span.sr-only='25% Complete'
+    .progress-bar.progress-bar-spacer
+    .progress-bar.progress-bar-default
+      %span.sr-only='25% Complete'
+    .progress-bar.progress-bar-spacer
+    .progress-bar.progress-bar-incomplete
+      %span.sr-only='25% Complete'
+    .progress-bar.progress-bar-spacer
+    .progress-bar.progress-bar-incomplete
+      %span.sr-only='25% Complete'
   
   = form_tag @patient_enrollment, id: 'reg-form'
   .carousel.slide#registration-details(data-interval="false")

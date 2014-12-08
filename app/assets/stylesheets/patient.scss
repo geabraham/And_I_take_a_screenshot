@@ -90,6 +90,24 @@ input.invalid {
   text-align: center;
 }
 
+.progress {
+  border-radius: 0;
+  border: none;
+  height: 1.25%;
+  padding-top: 2px;
+  .progress-bar-default {
+    width: 24.25%;
+  }
+  .progress-bar-incomplete {
+    background-color: #999999;
+    width: 24.25%;
+  }
+  .progress-bar-spacer {
+    background-color: #ffffff;
+    width: 1%;
+  }
+}
+
 .btn-block {
   height: $height/13;
   font-size: 22px;
