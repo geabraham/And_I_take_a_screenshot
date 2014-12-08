@@ -55,9 +55,8 @@ group :test do
   gem 'cucumber', '~> 1.3.17'
   gem 'selenium-webdriver', '~> 2.43.0'
 
-
   gem 'cucumber-rails', require: false
-  gem 'simplecov', require: false
+  gem 'simplecov'
 end
 
 group :test, :development do
