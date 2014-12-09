@@ -9,7 +9,7 @@
       %span.sr-only= 'Forward'
   %p
   #download-instruction="Congratulations, you are registered as a participant in this study. Now it's time to download the Patient Cloud app."
-  %a.download-link(role="dialog" data-toggle='modal' data-target='#downloadModal')
+  %a.download-link(role="dialog" data-toggle='modal' data-target='#downloadModal' data-backdrop="static" data-keyboard="false")
     =image_tag 'Progress_bar_download.png', id: 'progress-img'
     =image_tag 'App_Store_Badge_US-UK.svg', id: 'badge-img'
     =image_tag 'Log_in_Screen.jpg', id: 'login-screen-img'
@@ -19,6 +19,6 @@
         .modal-body
           ='Download the Patient Cloud app from the app store?'
         .modal-footer
-          %span.btn.modal-btn#cancel-btn='Cancel'
+          %span.btn.modal-btn#cancel-btn(data-dismiss='modal')='Cancel'
           %span.btn.modal-btn#open-btn
             %strong='Open'
