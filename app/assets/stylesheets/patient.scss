@@ -149,3 +149,26 @@ input.invalid {
 .validation_error {
   color: red;
 }
+
+.modal {
+  position: absolute;
+  padding-top: 45%;
+  .modal-dialog {
+    width: 90%;
+    .modal-content {
+      background-color: #eeeeee;
+      border-style: none;
+      .modal-body {
+        font-size: 18px;
+      }
+      .modal-footer {
+        text-align: center;
+        border-top: 1px solid #aaaaaa;
+        .modal-btn{
+          background-color: inherit;
+          font-size: 19px;
+        }
+      }
+    }
+  }
+}
