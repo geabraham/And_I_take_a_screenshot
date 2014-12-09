@@ -6,25 +6,13 @@ class PatientEnrollmentsController < ApplicationController
 
   def new
     patient_enrollment_uuid = session[:patient_enrollment_uuid]
-    unless patient_enrollment_uuid
-      # TODO: This should go to some error template
-      #
-      return render json: {message: 'Unable to continue'}, status: 422
-    end
-    tou_dpn_agreement_response = Euresource::PatientEnrollment.invoke(:tou_dpn_agreement, {uuid: patient_enrollment_uuid})
-
-    unless tou_dpn_agreement_response.status == 200
-      raise "Error trying to retrieve TOU/DPN agreement. #{tou_dpn_agreement_response.status} Response: #{tou_dpn_agreement_response.body}"
-    else
-      if tou_dpn_agreement = JSON.parse(tou_dpn_agreement_response.body)
-        @tou_dpn_agreement_html = tou_dpn_agreement['html']
-      end
-    end
-    # TODO: Add Euresource integration here
+    @patient_enrollment = PatientEnrollment.new(uuid: patient_enrollment_uuid)
+    @tou_dpn_agreement_html = @patient_enrollment.tou_dpn_agreement_html
 
     # NOTE: @security_questions has no test. It is, for now, faked.
     @security_questions = ["What's the worst band in the world?"]
-    @patient_enrollment = PatientEnrollment.new
+  rescue StandardError => e
+    return render json: {message: 'Unable to continue'}, status: 422
   end
   
   def create #TODO test this
