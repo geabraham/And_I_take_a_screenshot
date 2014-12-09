@@ -43,5 +43,7 @@ describe 'activation code page', ->
     it 'highlights the existing character', ->
       loadFixtures 'activationCodeFixture.html'
       $('#code-3').trigger 'focus'
-      expect(window.getSelection().toString()).toEqual('y')
+      expect(window.getSelection().toString()).toEqual('y') #expected to fail in the browser because
+      #window.getSelection() will be blank. is there a better way to test?
+      
   return
