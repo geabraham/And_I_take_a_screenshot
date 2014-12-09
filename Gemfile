@@ -59,6 +59,7 @@ group :test do
 
   gem 'cucumber-rails', require: false
   gem 'simplecov'
+  gem 'rack_session_access', '~> 0.1.1'
 end
 
 group :test, :development do
