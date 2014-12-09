@@ -5,8 +5,14 @@ class ActivationCodesController < ApplicationController
   end
   
   def activate
-    session[:patient_enrollment_uuid] = '2592319a-d3fe-48ef-a5ef-2ed8aa4c87ca'
-    redirect_to controller: :patient_enrollments, action: :new
-    #TODO call to subject service here
+    # TODO call to subject service for the activation code from the form
+    # @activation_code = Euresource::ActivationCode.get(params[:id]).body
+    #
+    # raise unless @activation_code['state'] == 'active'
+    #
+    # session[:patient_enrollment_uuid] = @activation_code['patient_enrollment_uuid']
+    # redirect_to controller: :patient_enrollments, action: :new
+
+    head :ok
   end
 end
