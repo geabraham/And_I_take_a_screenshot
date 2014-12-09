@@ -1,20 +1,41 @@
 class PatientEnrollment
   include ActiveModel::Model
   attr_accessor :uuid, :login, :password, :security_question, :answer, :activation_code, :login_confirmation
-  define_model_callbacks :initializer, only: :after
-  after_initializer :validate_presence_of_uuid
-
-  def validate_presence_of_uuid
-    raise ActiveModel::Errors.new("No uuid provided") unless self.uuid.present?
-  end
 
   def tou_dpn_agreement_html
-    tou_dpn_agreement['html']
+    remote_tou_dpn_agreement['html']
+  end
+
+  # Returns the body of the remote tou dpn agreement.
+  # raises an error if there is no uuid present
+  #
+  def remote_tou_dpn_agreement
+    validate_presence_of_attribute!(:uuid, 'Cannot request TOU/DPN agreement without attribute:')
+    response = Euresource::PatientEnrollment.invoke(:tou_dpn_agreement, {uuid: uuid})
+    response_body_or_raise!(response)
   end
 
   private
-  def tou_dpn_agreement
-    response = Euresource::PatientEnrollment.invoke(:tou_dpn_agreement, {uuid: uuid})
-    JSON.parse(response.body)
+
+  def validate_presence_of_attribute!(attribute, message = 'Presence validation failed for attribute:')
+    unless self.send(attribute).present?
+      raise PatientEnrollmentError.new("#{message} #{attribute}")
+    end
   end
+
+  # Takes a response object argument.
+  #   If response is successful, returns body of the response object
+  #   otherwise raises an error with the response status and body.
+  #
+  def response_body_or_raise!(response)
+    if response.status == 200
+      JSON.parse(response.body)
+    else
+      raise RemotePatientEnrollmentError.new("Received unexpected response for tou_dpn_agreement. " <<
+        "Response status: #{response.status}. Response body: #{response.body}")
+    end
+  end
+
+  class PatientEnrollmentError < StandardError; end
+  class RemotePatientEnrollmentError < StandardError; end
 end
