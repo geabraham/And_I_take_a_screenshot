@@ -17,6 +17,8 @@ class PatientEnrollment
 
   private
 
+  # Takes a attribute argument and validates the attribute as being present or raises an error.
+  #
   def validate_presence_of_attribute!(attribute, message = 'Presence validation failed for attribute:')
     unless self.send(attribute).present?
       raise PatientEnrollmentError.new("#{message} #{attribute}")

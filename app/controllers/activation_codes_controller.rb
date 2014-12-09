@@ -11,7 +11,7 @@ class ActivationCodesController < ApplicationController
     #
     # raise unless @activation_code['state'] == 'active'
     #
-    # session[:patient_enrollment_uuid] = @activation_code['patient_enrollment_uuid']
+    session[:patient_enrollment_uuid] = '04b7207a-49ee-4b35-bd1c-cd35980cd865' #@activation_code['patient_enrollment_uuid']
     # redirect_to controller: :patient_enrollments, action: :new
 
     head :ok
