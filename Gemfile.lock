@@ -499,6 +499,7 @@ DEPENDENCIES
   mauth-client!
   mdsol-tools!
   minitest
+  nokogiri (~> 1.6.3)
   passenger (~> 4.0)
   pry
   pry-nav
