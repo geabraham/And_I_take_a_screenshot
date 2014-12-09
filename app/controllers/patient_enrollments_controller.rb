@@ -7,7 +7,9 @@ class PatientEnrollmentsController < ApplicationController
   def new
     patient_enrollment_uuid = session[:patient_enrollment_uuid]
     unless patient_enrollment_uuid
-      raise PatientEnrollmentError.new("No patient enrollment provided")
+      # TODO: This should go to some error template
+      #
+      return render json: {message: 'Unable to continue'}, status: 422
     end
     tou_dpn_agreement_response = Euresource::PatientEnrollment.invoke(:tou_dpn_agreement, {uuid: patient_enrollment_uuid})
 
