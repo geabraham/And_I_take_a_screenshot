@@ -75,6 +75,7 @@ var nextButtonClick = function() {
   
   if($('#reg-form').valid()) {
     hideErrors();
+    advanceProgressBar();
     carousel.carousel('next');
     if(currentPage === 'email') {
       addPasswordRules();
@@ -96,6 +97,7 @@ var backClick = function() {
     var currentPage = $('.item.active').attr('id');
     
     if (currentPage !== 'email') {
+      reverseProgressBar();
       $('.carousel').carousel('prev');
       if (currentPage === 'security_question') {
         $('#create-account').addClass('hidden');
@@ -103,6 +105,16 @@ var backClick = function() {
       }
     }
   }
+}
+
+var advanceProgressBar = function() {
+  $('.progress-bar-incomplete').first().addClass('progress-bar-default');
+  $('.progress-bar-incomplete').first().removeClass('progress-bar-incomplete');
+}
+
+var reverseProgressBar = function() {
+  $('.progress-bar-default').last().addClass('progress-bar-incomplete');
+  $('.progress-bar-default').last().removeClass('progress-bar-default');
 }
 
 var answerKeyup = function() {
