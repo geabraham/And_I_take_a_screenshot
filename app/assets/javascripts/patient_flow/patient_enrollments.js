@@ -1,6 +1,6 @@
 $(function () {
   $('.carousel').carousel(); //initialize the carousel
-  
+
   $('#reg-form').validate({ //initialize the form validator
     errorPlacement: function(error, element) {
       $('.active .validation_error').html(error);
@@ -70,6 +70,8 @@ var validateSecurityQuestions = function() {
 }
 
 var nextButtonClick = function() {
+  $('a#next-button').text('Next')
+
   var currentPage = $('.item.active').attr('id'),
   carousel = $('.carousel');
   
