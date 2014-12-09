@@ -10,12 +10,15 @@ Feature: Patient Registration
   Scenario: A new iMedidata user should be able to register for a study
     When I fill in an activation code
     And I accept the TOU/DPN
-    And I submit registration info for a new subject
+    And I enter my email
+    And I enter a password
+    And I enter a security question and answer
     Then I should be registered for a study
 
   @Review[SQA]
   @Release2015.1.0
   @PB130361-001
+  @Headed
   Scenario: An existing iMedidata user should be able to register for a study
     When I fill in an activation code
     And I accept the TOU/DPN
@@ -25,6 +28,7 @@ Feature: Patient Registration
   @Review[SQA]
   @Release2015.1.0
   @PB130359-002
+  @Headed
   Scenario: A patient should not be able to register for a study if the Subject Service returns an error
     When I fill in an activation code
     And I accept the TOU/DPN
