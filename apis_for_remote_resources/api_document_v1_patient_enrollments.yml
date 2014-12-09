@@ -117,7 +117,10 @@ resources:
       register:
         id: patient_enrollments.register
         path: patient_enrollments/{uuid}/register
-        httpMethod: PATCH
+        # TODO: Add patch to eureka tools
+        # This is WRONG WRONG WRONG
+        #
+        httpMethod: POST
         description: Register a patient_enrollment.
         parameters:
           uuid:
