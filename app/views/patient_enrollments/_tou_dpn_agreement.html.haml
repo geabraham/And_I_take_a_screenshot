@@ -1,4 +1,2 @@
 %h2.form_header='Privacy Policy / Terms of Use'
-= @tou_dpn_agreement_html.html_safe
-
-.validation_error.invisible
+= Nokogiri::HTML(@tou_dpn_agreement_html.html_safe).css('body').to_s.html_safe

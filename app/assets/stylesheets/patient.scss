@@ -44,6 +44,13 @@ ul {
 
 .item, .activation-code-content {
   margin: $global_lr_margin;
+  display: none;
+}
+
+.active {
+  height: 480px;
+  overflow: scroll;
+  display: block;
 }
 
 .code {
