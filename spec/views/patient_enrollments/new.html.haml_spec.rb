@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'patient_enrollments/new.html.haml' do
   let(:html) { view.content_for(:page_body) }
   before do
+    assign(:tou_dpn_agreement_html, '<html><body>Consider yourself warned.</body></html>')
     assign(:security_questions, [['What?', 1], ['Who?', 2]])
     assign(:patient_enrollment, PatientEnrollment.new)
     render
@@ -14,6 +15,12 @@ describe 'patient_enrollments/new.html.haml' do
     end
   end
   
+  context 'tou_dpn_agreement page' do
+    it 'contains tou dpn agreement' do
+      expect(html).to have_text('Consider yourself warned.')
+    end
+  end
+
   context 'email page' do
     it 'contains an email input' do
       expect(html).to have_field('Email', type: 'text', exact: true)

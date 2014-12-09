@@ -1,3 +1,3 @@
 %h2.form_header='Privacy Policy / Terms of Use'
 - if @tou_dpn_agreement_html.present?
-  = Nokogiri::HTML(@tou_dpn_agreement_html.html_safe).css('body').to_s.html_safe
+  .tou_dpn_agreement= Nokogiri::HTML(@tou_dpn_agreement_html.html_safe).css('body').to_s.html_safe
