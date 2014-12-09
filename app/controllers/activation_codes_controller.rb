@@ -5,8 +5,8 @@ class ActivationCodesController < ApplicationController
   end
   
   def activate
-    head :ok
-    
+    session[:patient_enrollment_uuid] = '2592319a-d3fe-48ef-a5ef-2ed8aa4c87ca'
+    redirect_to controller: :patient_enrollments, action: :new
     #TODO call to subject service here
   end
 end

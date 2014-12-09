@@ -5,8 +5,11 @@ class PatientEnrollmentsController < ApplicationController
   end
 
   def new
-    patient_enrollment_uuid = params[:id].presence || SecureRandom.uuid
-    tou_dpn_agreement_response = Euresource::PatientEnrollment.invoke(:tou_dpn_agreement, {uuid: '04b7207a-49ee-4b35-bd1c-cd35980cd865'})
+    patient_enrollment_uuid = session[:patient_enrollment_uuid]
+    unless patient_enrollment_uuid
+      raise PatientEnrollmentError.new("No patient enrollment provided")
+    end
+    tou_dpn_agreement_response = Euresource::PatientEnrollment.invoke(:tou_dpn_agreement, {uuid: patient_enrollment_uuid})
 
     unless tou_dpn_agreement_response.status == 200
       raise "Error trying to retrieve TOU/DPN agreement. #{tou_dpn_agreement_response.status} Response: #{tou_dpn_agreement_response.body}"
