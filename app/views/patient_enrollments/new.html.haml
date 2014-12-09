@@ -2,12 +2,10 @@
 / It should have failed for password_confirmation for the same reason. It didn't. Why?
 
 - content_for :page_body do
-  .top
-    %span.center
-      =image_tag 'Medidata_Logo_white_RGB_2.png'
-    %span.forward
-      =image_tag 'question.png', class: 'question'
-  %br
+  .header
+    =image_tag 'Medidata_Logo_white_RGB_2.png'
+    %span.help.pull-right
+      %i.fa.fa-question-circle
   
   = form_tag @patient_enrollment, id: 'reg-form'
   .carousel.slide#registration-details(data-interval="false")
@@ -19,12 +17,14 @@
       .item#security_question
         = render 'security_question_form'
   .next
-    %a.btn.btn-primary#next-button(href="#registration-details" role="button")='Next'
+    %a.btn.btn-primary.btn-block#next-button(href="#registration-details" role="button")='Next'
     .submit#submit-button
       = fields_for @patient_enrollment do |f|
-        = f.submit 'Create account', class: 'btn btn-primary invisible', disabled: true, id: 'create-account'
-  .bottom
-    %span.back
-      %a.back_arrow='<'
-    %span.center
-    %span.forward='>'
+        = f.submit 'Create account', class: 'btn btn-primary btn-block hidden', disabled: true, id: 'create-account'
+  .footer
+    %a.back_arrow
+      %i.fa.fa-angle-left
+      %span.sr-only='Back'
+    %span.forward_arrow
+      %i.fa.fa-angle-right
+      %span.sr-only= 'Forward'

@@ -1,15 +1,13 @@
-%h2.form_header='Email'
-.form_instruction
+%h2.form_header
+  ='Email'
+%p.form_instruction
   ='Enter and confirm your email address below.'
-%br
-= fields_for @patient_enrollment do |f|
-  = f.label :login, 'Email'
-  %br
-  = f.text_field :login, class: 'registration-input'
-  %br
 
-  = f.label :login_confirmation, 'Re-enter Email'
-  %br
-  = f.text_field :login_confirmation, class: 'registration-input'
-  %br
+= fields_for @patient_enrollment do |f|
+  .form-group
+    = f.label :login, 'Email'
+    = f.text_field :login, class: 'registration-input form-control'
+  .form-group  
+    = f.label :login_confirmation, 'Re-enter Email'
+    = f.text_field :login_confirmation, class: 'registration-input form-control'
 .validation_error.invisible

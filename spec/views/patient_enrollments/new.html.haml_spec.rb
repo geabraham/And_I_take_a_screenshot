@@ -59,7 +59,7 @@ describe 'patient_enrollments/new.html.haml' do
     end
   
     it 'contains a back arrow' do
-      expect(html).to have_selector('a.back_arrow', text: '<')
+      expect(html).to have_selector('a.back_arrow', text: 'Back')
     end
   
     it 'contains a next button' do

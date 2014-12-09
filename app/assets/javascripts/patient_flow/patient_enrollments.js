@@ -32,7 +32,7 @@ $(function () {
   
   $('#next-button').on('click', nextButtonClick);
   
-  $('.back').on('click', backClick);
+  $('.back_arrow').on('click', backClick);
   
   $('#patient_enrollment_answer').on('keyup', answerKeyup);
   
@@ -79,8 +79,8 @@ var nextButtonClick = function() {
     if(currentPage === 'email') {
       addPasswordRules();
     } else if(currentPage === 'password') {
-      $('#next-button').addClass('invisible');
-      $('#create-account').removeClass('invisible');
+      $('#next-button').addClass('hidden');
+      $('#create-account').removeClass('hidden');
     }
   }
 }
@@ -98,8 +98,8 @@ var backClick = function() {
     if (currentPage !== 'email') {
       $('.carousel').carousel('prev');
       if (currentPage === 'security_question') {
-        $('#create-account').addClass('invisible');
-        $('#next-button').removeClass('invisible');
+        $('#create-account').addClass('hidden');
+        $('#next-button').removeClass('hidden');
       }
     }
   }

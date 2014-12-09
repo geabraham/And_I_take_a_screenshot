@@ -1,18 +1,38 @@
 $(function() {
-  $(".code").on('keyup', handleInput);
+  $('#code-1').focus();
+  
+  $(".code").on('keyup', function(e) { 
+    var keyPressed = e.which; 
+    
+    // for a tab (ascii 9) or a shift-tab (ascii 9 & 16) between fields,
+    // prevent handleInput() from deselecting the field and thus
+    // requiring the user to backspace before fixing an inputted character
+    if (keyPressed !== 9 && keyPressed !== 16) { 
+      handleInput(); 
+    }
+  });
+  
+  $(".code").focus(function () {
+    this.select();
+  })
 });
 
-var getInputString = function() {
-  var inputString = "";
+var getCodeString = function() {
+  var codeString = "";
+  
   $(".code").each(function() {
-    inputString += $.trim($(this).val());
+    var input = $.trim($(this).val().toUpperCase());
+    
+    $(this).val(input);
+    codeString += input;
   });
-  return inputString;
+  
+  return codeString;
 }
 
 var handleInput = function() {
-  $(this).val($(this).val().toUpperCase());
-  str = getInputString();
+  var str = getCodeString();
+  
   if( str !== "" ) {
     var regx = /^[A-Za-z0-9]+$/;
 
