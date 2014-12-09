@@ -5,7 +5,8 @@ class ActivationCodesController < ApplicationController
   end
   
   def activate
-    # TODO call to subject service for the activation code from the form
+    # TODO:
+    # Make euresource request for activation code representation
     # @activation_code = Euresource::ActivationCode.get(params[:id]).body
     #
     # raise unless @activation_code['state'] == 'active'
