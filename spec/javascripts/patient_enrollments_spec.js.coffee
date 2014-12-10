@@ -1,3 +1,6 @@
+# include spec/javascripts/helpers/jquery-2.1.1.min.js
+# include spec/javascripts/helpers/jasmine-jquery.js
+#
 describe 'patient enrollments form', ->
   carouselSpy = undefined
   advanceProgressBarSpy = undefined
@@ -19,7 +22,11 @@ describe 'patient enrollments form', ->
       $('#email').addClass('active')
       # unlike on the actual page, set the fixture's active div manually since we're  
       # mocking the jQuery carousel call that would normally do so
-      
+
+    describe 'button text', ->
+      it 'displays Next', ->
+        expect($('#next-button').text).toEqual 'Next'
+
     describe 'when back button is clicked', ->
       it 'stays on the current page', ->
         $('.back_arrow').trigger 'click'

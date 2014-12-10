@@ -31,9 +31,10 @@ $(function () {
   });
   
   $('#next-button').on('click', nextButtonClick);
-  
+  $('#agree-button').on('click', nextButtonClick);
+
   $('.back_arrow').on('click', backClick);
-  
+
   $('#patient_enrollment_answer').on('keyup', answerKeyup);
   
   $('#patient_enrollment_security_question').on('change', questionChange);
@@ -69,12 +70,17 @@ var validateSecurityQuestions = function() {
           $('#patient_enrollment_security_question').val() !== '');
 }
 
-var nextButtonClick = function() {
-  $('a#next-button').text('Next')
+var getCurrentPage = function() {
+  return $('.item.active').attr('id')
+}
 
-  var currentPage = $('.item.active').attr('id'),
+var nextButtonClick = function() {
+  var currentPage = getCurrentPage(),
   carousel = $('.carousel');
-  
+
+  $('#agree-button').addClass('hidden');
+  $('#next-button').removeClass('hidden');
+
   if($('#reg-form').valid()) {
     hideErrors();
     advanceProgressBar();
@@ -96,14 +102,17 @@ var backClick = function() {
   //there might be a better workaround, discuss
   if($('#reg-form').valid() || isBlankEntry()) {
     hideErrors();
-    var currentPage = $('.item.active').attr('id');
+    var currentPage = getCurrentPage();
     
-    if (currentPage !== 'email') {
+    if (currentPage !== 'tou_dpn_agreement') {
       reverseProgressBar();
       $('.carousel').carousel('prev');
       if (currentPage === 'security_question') {
         $('#create-account').addClass('hidden');
         $('#next-button').removeClass('hidden');
+      } else if (currentPage === 'email') {
+        $('#agree-button').removeClass('hidden');
+        $('#next-button').addClass('hidden');
       }
     }
   }

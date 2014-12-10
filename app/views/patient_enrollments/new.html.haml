@@ -36,7 +36,8 @@
       .item#security_question
         = render 'security_question_form'
   .next
-    %a.btn.btn-primary.btn-block#next-button(href="#registration-details" role="button")='I agree'
+    %a.btn.btn-primary.btn-block#agree-button(href="#registration-details" role="button")='I agree'
+    %a.btn.btn-primary.btn-block#next-button.hidden(href="#registration-details" role="button")='Next'
     .submit#submit-button
       = fields_for @patient_enrollment do |f|
         = f.submit 'Create account', class: 'btn btn-primary btn-block hidden', disabled: true, id: 'create-account'
