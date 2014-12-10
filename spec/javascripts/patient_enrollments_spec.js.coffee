@@ -1,6 +1,3 @@
-# include spec/javascripts/helpers/jquery-2.1.1.min.js
-# include spec/javascripts/helpers/jasmine-jquery.js
-#
 describe 'patient enrollments form', ->
   carouselSpy = undefined
   advanceProgressBarSpy = undefined
@@ -22,14 +19,10 @@ describe 'patient enrollments form', ->
       $('#email').addClass('active')
       # unlike on the actual page, set the fixture's active div manually since we're  
       # mocking the jQuery carousel call that would normally do so
-
-    describe 'button text', ->
-      it 'displays Next', ->
-        expect($('#next-button').text).toEqual 'Next'
-
+      
     describe 'when back button is clicked', ->
       it 'stays on the current page', ->
-        $('.back_arrow').trigger 'click'
+        $('.back').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
         expect(reverseProgressBarSpy.calls.any()).toEqual false
         
@@ -99,18 +92,18 @@ describe 'patient enrollments form', ->
           validSpy= spyOn($.fn, 'valid').and.returnValue(true)
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-          expect($('#next-button')).toHaveClass('hidden')
+          expect($('#next-button')).toHaveClass('invisible')
           
         it 'displays the "Create account" button', ->
           validSpy= spyOn($.fn, 'valid').and.returnValue(true)
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-          expect($('#submit-button')).not.toHaveClass('hidden')
+          expect($('#submit-button')).not.toHaveClass('invisible')
         
     describe 'back arrow click', ->
       describe 'for a blank input', ->
         it 'returns to the previous page', ->
-          $('.back_arrow').trigger 'click'
+          $('.back').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
           expect(reverseProgressBarSpy.calls.count()).toEqual 1
           
@@ -118,14 +111,14 @@ describe 'patient enrollments form', ->
         it 'stays on the current page', ->
           $('#patient_enrollment_password').attr('value', 'badpass')
           validSpy= spyOn($.fn, 'valid').and.returnValue(false)
-          $('.back_arrow').trigger 'click'
+          $('.back').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
           expect(reverseProgressBarSpy.calls.any()).toEqual false
           
       describe 'for a valid input', ->
         it 'returns to the previous page', ->
           validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-          $('.back_arrow').trigger 'click'
+          $('.back').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
           expect(reverseProgressBarSpy.calls.count()).toEqual 1
       
@@ -135,17 +128,17 @@ describe 'patient enrollments form', ->
       
     describe 'back arrow click', ->
       it 'returns to the previous page', ->
-        $('.back_arrow').trigger 'click'
+        $('.back').trigger 'click'
         expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
         expect(reverseProgressBarSpy.calls.count()).toEqual 1
         
       it 'displays the "Next" button', ->
-        $('.back_arrow').trigger 'click'
-        expect($('#next-button')).not.toHaveClass('hidden')
+        $('.back').trigger 'click'
+        expect($('#next-button')).not.toHaveClass('invisible')
         
       it 'hides the "Create account" button', ->
-        $('.back_arrow').trigger 'click'
-        expect($('#create-account')).toHaveClass('hidden')
+        $('.back').trigger 'click'
+        expect($('#create-account')).toHaveClass('invisible')
         
     describe 'create account button click', ->
       describe 'when security question is blank', ->
