@@ -12,6 +12,7 @@ class PatientEnrollmentsController < ApplicationController
     # NOTE: @security_questions has no test. It is, for now, faked.
     @security_questions = ["What's the worst band in the world?"]
   rescue StandardError => e
+    # TODO: render error modal
     return render json: {message: "Unable to continue with registration. Error: #{e.message}"}, status: 422
   end
   
