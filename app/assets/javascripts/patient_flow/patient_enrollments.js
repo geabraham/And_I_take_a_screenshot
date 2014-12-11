@@ -105,11 +105,11 @@ var backClick = function() {
     var currentPage = getCurrentPage();
     
     if (currentPage !== 'tou_dpn_agreement') {
+      $('#next-button').removeClass('hidden');
       reverseProgressBar();
       $('.carousel').carousel('prev');
       if (currentPage === 'security_question') {
         $('#create-account').addClass('hidden');
-        $('#next-button').removeClass('hidden');
       } else if (currentPage === 'email') {
         $('#agree-button').removeClass('hidden');
         $('#next-button').addClass('hidden');

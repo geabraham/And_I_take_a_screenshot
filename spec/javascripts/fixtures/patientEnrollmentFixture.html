@@ -37,7 +37,9 @@ $(function() {
   });
   
   $('#next-button').on('click', nextButtonClick);
-  
+
+  $('#agree-button').on('click', nextButtonClick);
+
   $('.back_arrow').on('click', backClick);
   
   $('#patient_enrollment_answer').on('keyup', answerKeyup);
@@ -51,7 +53,7 @@ $(function() {
 </div>
 <div class="progress">
   <div class="progress-bar progress-bar-default" />
-  <div class="progress-bar progress-bar-default" />
+  <div class="progress-bar progress-bar-incomplete" />
   <div class="progress-bar progress-bar-incomplete" />
   <div class="progress-bar progress-bar-incomplete" />
 </div>
@@ -76,7 +78,7 @@ $(function() {
       </div>
     </div>
     <div class="next">
-      <a class="btn btn-primary" id="next-button" href="#registration-details" role="button">I agree</a>
+      <a class="btn btn-primary" id="agree-button" href="#registration-details" role="button">I agree</a>
       <a class="btn btn-primary hidden" id="next-button" href="#registration-details" role="button">Next</a>
       <div class="submit" id="submit-button">
         <input class="btn btn-primary hidden" disabled="disabled" id="create-account" name="commit" type="submit" value="Create account" />

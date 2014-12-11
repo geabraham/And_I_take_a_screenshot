@@ -25,6 +25,15 @@ describe 'patient enrollments form', ->
         expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
         expect(reverseProgressBarSpy.calls.any()).toEqual false
 
+    describe 'next button click', ->
+      it 'hides the agree button', ->
+        $('#agree-button').trigger 'click'
+        expect($('#agree-button')).toHaveClass('hidden')
+
+      it 'shows the next button', ->
+        $('#agree-button').trigger 'click'
+        expect($('#next-button')).not.toHaveClass('hidden')
+
   describe 'email page', ->
     beforeEach ->
       $('#email').addClass('active')
@@ -172,15 +181,15 @@ describe 'patient enrollments form', ->
   describe 'advanceProgressBar', ->
     it 'fills in the next segment of the bar', ->
       advanceProgressBarSpy.and.callThrough()
-      expect($('.progress-bar-default').length).toEqual 2
+      expect($('.progress-bar-default').length).toEqual 1
       advanceProgressBar()
-      expect($('.progress-bar-default').length).toEqual 3
+      expect($('.progress-bar-default').length).toEqual 2
       
   describe 'reverseProgressBar', ->
     it 'empties the last filled segment of the bar', ->
       reverseProgressBarSpy.and.callThrough()
-      expect($('.progress-bar-default').length).toEqual 2
-      do reverseProgressBar
       expect($('.progress-bar-default').length).toEqual 1
+      do reverseProgressBar
+      expect($('.progress-bar-default').length).toEqual 0
     
   return
