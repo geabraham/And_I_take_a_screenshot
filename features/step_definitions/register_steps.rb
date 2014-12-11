@@ -4,8 +4,6 @@ When(/^I fill in an activation code$/) do
 end
 
 When(/^I accept the TOU\/DPN$/) do
-  pe_uuid = SecureRandom.uuid
-  page.set_rack_session(patient_enrollment_uuid: pe_uuid)
   allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement_html).and_return('<html><body>We think in generalities, but we live in detail.</body></html>')
   visit '/patient_enrollments/new/'
   assert_text('We think in generalities, but we live in detail.')
