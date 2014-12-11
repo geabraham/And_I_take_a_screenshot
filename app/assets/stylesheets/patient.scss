@@ -47,10 +47,6 @@ ul {
   margin: $global_lr_margin;
 }
 
-.item {
-  display: none;
-}
-
 .active {
   height: $height - $height/13 - $height/16 - $height/100 - 48;
   overflow: scroll;
