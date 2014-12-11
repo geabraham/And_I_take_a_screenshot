@@ -70,7 +70,7 @@ describe 'patient_enrollments/new.html.haml' do
     end
   
     it 'contains a next button' do
-      expect(html).to have_selector('#next-button', text: 'I agree')
+      expect(html).to have_selector('#agree-button', text: 'I agree')
     end
   end
 end

@@ -35,6 +35,4 @@ Minotaur::Application.configure do
   config.after_initialize do
     FactoryGirl.find_definitions
   end
-
-  config.middleware.use RackSessionAccess::Middleware
 end

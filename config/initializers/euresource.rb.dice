@@ -55,9 +55,11 @@ Euresource.configure do
 
   # Load and parse all api_documents for mocked resources.
   mocked_api_documents = Dir["#{Rails.root}/apis_for_remote_resources/*.yml"].map{ |f| YAML.load_file(f) }
+  mocked_resources = %w(indications)
   # TODO: remove mocking in production
   # unless Rails.env.production?
-  mocked_resources = %w(patient_enrollments)
+  mocked_resources << 'job_titles'
+  mocked_resources << 'medidations'
   #end
   fake_middleware_classes = mocked_resources.map do |resource_name|
     EurekaTools::ResourceMockerManager.class_for_mocked_resource(resource_name, mocked_api_documents)
