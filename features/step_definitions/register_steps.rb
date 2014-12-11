@@ -15,14 +15,14 @@ When(/^I enter my email$/) do
     password: 'B0wl11ng', security_question: 3, answer: 'The Eagles', activation_code: '123456'
   fill_in 'Email', with: @patient_enrollment.login
   fill_in 'Re-enter Email', with: @patient_enrollment.login
-  sleep(1)
+  sleep(0.33)
   click_on 'Next'
 end
 
 When(/^I enter a password$/) do
   fill_in 'Password', with: @patient_enrollment.password
   fill_in 'Confirm Password', with: @patient_enrollment.password
-  sleep(1)
+  sleep(0.33)
   click_on 'Next'
 end
 
