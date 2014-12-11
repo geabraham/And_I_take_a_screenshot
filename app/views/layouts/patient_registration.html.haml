@@ -17,6 +17,15 @@
     #main.clearfix
       .patient
         = yield :page_body
+        .modal.fade#modal-speedbump
+          .modal-dialog
+            .modal-content
+              .modal-body
+                ='Download the Patient Cloud app from the app store?'
+              .modal-footer
+                %a.btn.modal-btn#cancel-btn(data-dismiss='modal')='Cancel'
+                %a.btn.modal-btn#open-btn
+                  %strong='Open'
 
     = cdn_javascript_include_tag 'jquery'
     = cdn_javascript_include_tag 'platform'
