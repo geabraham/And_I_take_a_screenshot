@@ -21,11 +21,11 @@
           .modal-dialog
             .modal-content
               .modal-body
-                ='Download the Patient Cloud app from the app store?'
+                =@speedbump_text
               .modal-footer
-                %a.btn.modal-btn#cancel-btn(data-dismiss='modal')='Cancel'
+                %a.btn.modal-btn#cancel-btn(data-dismiss='modal')=@cancel_text
                 %a.btn.modal-btn#open-btn
-                  %strong='Open'
+                  %strong=@proceed_text
 
     = cdn_javascript_include_tag 'jquery'
     = cdn_javascript_include_tag 'platform'
