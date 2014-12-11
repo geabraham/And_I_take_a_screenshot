@@ -57,6 +57,20 @@ ul {
   text-align: center;
 }
 
+#progress-img {
+  padding-left: 5%;
+  width: 95%;
+}
+
+#badge-img {
+  width: 75%;
+  padding: 20px 0 20px 25%;
+}
+
+#login-screen-img {
+  width: 100%;
+}
+
 label.invalid {
   color: red;
 }
@@ -80,14 +94,43 @@ input.invalid {
   font-size: 28px;
   text-align: center;
   padding: 5px 0 10px;
-  .help {
-    padding-right: 10px;
+  .forward_arrow {
+    padding-right: 15px;
+    color: #999999;
+  }
+  .back_arrow {
+    padding-left: 15px;
+    color: #ffffff;
   }
 }
 
 .activation-header {
   position: relative;
   text-align: center;
+}
+
+#download-instruction {
+  font-size: 18px;
+  margin: $global_lr_margin;
+  text-align: center;
+}
+
+.progress {
+  border-radius: 0;
+  border: none;
+  height: 1.25%;
+  padding-top: 2px;
+  .progress-bar-default {
+    width: 24.25%;
+  }
+  .progress-bar-incomplete {
+    background-color: #999999;
+    width: 24.25%;
+  }
+  .progress-bar-spacer {
+    background-color: #ffffff;
+    width: 1%;
+  }
 }
 
 .btn-block {
@@ -99,34 +142,8 @@ input.invalid {
   padding: 10px;
   position: absolute;
   border-top: 1px solid #bbbbbb;
-  bottom: $height/10;
   max-width: $max_width;
   width: $width;
-}
-
-.footer {
-  display: block;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  border-top: 1px solid #ddd;
-  background-color: #eeeeee;
-  height: $height/13;
-  max-width: $max_width;
-  width: 100%;
-  .forward_arrow, .back_arrow {
-    font-size: 34px;
-    color: #999;  
-    position: absolute;
-    top: 0;
-  }
-  .forward_arrow {
-    right: 10px;
-  }
-  .back_arrow {
-    left: 10px;
-    color: #5585D7;
-  }
 }
 
 .validation_error {

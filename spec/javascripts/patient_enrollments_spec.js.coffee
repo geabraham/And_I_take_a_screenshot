@@ -1,11 +1,18 @@
 describe 'patient enrollments form', ->
   carouselSpy = undefined
+  advanceProgressBarSpy = undefined
+  reverseProgressBarSpy = undefined
+    
   beforeEach ->
     loadFixtures 'patientEnrollmentFixture.html'
     carouselSpy = spyOn($.fn, 'carousel')
+    advanceProgressBarSpy = spyOn(window, 'advanceProgressBar')
+    reverseProgressBarSpy = spyOn(window, 'reverseProgressBar')
     
   afterEach ->
     carouselSpy.calls.reset()
+    advanceProgressBarSpy.calls.reset()
+    reverseProgressBarSpy.calls.reset()
     
   describe 'email page', ->
     beforeEach ->
@@ -15,14 +22,16 @@ describe 'patient enrollments form', ->
       
     describe 'when back button is clicked', ->
       it 'stays on the current page', ->
-        $('.back').trigger 'click'
+        $('.back_arrow').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
+        expect(reverseProgressBarSpy.calls.any()).toEqual false
         
     describe 'for a blank input', ->
       it 'shows a validation error', ->
         $('#reg-form').append('<input name="patient_enrollment[login]" value="" />')
         $('#next-button').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false
+        expect(advanceProgressBarSpy.calls.any()).toEqual false
         expect($('.validation_error')).not.toHaveClass('invisible')
         expect($('.validation_error')).toHaveText('Enter a valid email.')
           
@@ -32,6 +41,7 @@ describe 'patient enrollments form', ->
           $('#reg-form').append('<input name="patient_enrollment[login]" value="not_an_email" />')
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false
+          expect(advanceProgressBarSpy.calls.any()).toEqual false
           expect($('.validation_error')).not.toHaveClass('invisible')
           expect($('.validation_error')).toHaveText('Enter a valid email.')
           
@@ -42,7 +52,8 @@ describe 'patient enrollments form', ->
           $('#next-button').trigger 'click'
           expect(addPasswordRules).toHaveBeenCalled()
           expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-        
+          expect(advanceProgressBarSpy.calls.count()).toEqual 1
+          
   describe 'password page', ->
     beforeEach ->
       $('#password').addClass('active')
@@ -55,6 +66,7 @@ describe 'patient enrollments form', ->
         it 'shows a validation error', ->
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false
+          expect(advanceProgressBarSpy.calls.any()).toEqual false
           expect($('.validation_error')).not.toHaveClass('invisible')
           expect($('.validation_error')).toHaveText('Enter a valid password.')
           
@@ -64,6 +76,7 @@ describe 'patient enrollments form', ->
           $('#patient_enrollment_password_confirmation').attr('value', 'Notagoodpassword')
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false
+          expect(advanceProgressBarSpy.calls.any()).toEqual false
           expect($('.validation_error')).not.toHaveClass('invisible')
           expect($('.validation_error')).toHaveText('Enter a valid password.')
           
@@ -73,6 +86,7 @@ describe 'patient enrollments form', ->
           $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw0rd')
           $('#next-button').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+          expect(advanceProgressBarSpy.calls.count()).toEqual 1
             
         it 'hides the "Next" button', ->
           validSpy= spyOn($.fn, 'valid').and.returnValue(true)
@@ -89,21 +103,24 @@ describe 'patient enrollments form', ->
     describe 'back arrow click', ->
       describe 'for a blank input', ->
         it 'returns to the previous page', ->
-          $('.back').trigger 'click'
+          $('.back_arrow').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
+          expect(reverseProgressBarSpy.calls.count()).toEqual 1
           
       describe 'for an invalid input', ->
         it 'stays on the current page', ->
           $('#patient_enrollment_password').attr('value', 'badpass')
           validSpy= spyOn($.fn, 'valid').and.returnValue(false)
-          $('.back').trigger 'click'
+          $('.back_arrow').trigger 'click'
           expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
+          expect(reverseProgressBarSpy.calls.any()).toEqual false
           
       describe 'for a valid input', ->
         it 'returns to the previous page', ->
           validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-          $('.back').trigger 'click'
+          $('.back_arrow').trigger 'click'
           expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
+          expect(reverseProgressBarSpy.calls.count()).toEqual 1
       
   describe 'security question page', ->
     beforeEach ->
@@ -111,15 +128,16 @@ describe 'patient enrollments form', ->
       
     describe 'back arrow click', ->
       it 'returns to the previous page', ->
-        $('.back').trigger 'click'
+        $('.back_arrow').trigger 'click'
         expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
+        expect(reverseProgressBarSpy.calls.count()).toEqual 1
         
       it 'displays the "Next" button', ->
-        $('.back').trigger 'click'
+        $('.back_arrow').trigger 'click'
         expect($('#next-button')).not.toHaveClass('hidden')
         
       it 'hides the "Create account" button', ->
-        $('.back').trigger 'click'
+        $('.back_arrow').trigger 'click'
         expect($('#create-account')).toHaveClass('hidden')
         
     describe 'create account button click', ->
@@ -141,4 +159,19 @@ describe 'patient enrollments form', ->
           $('#patient_enrollment_answer').val("...")
           $('#patient_enrollment_security_question').trigger 'change'
           expect($('#create-account')).not.toHaveAttr('disabled', 'disabled')
+          
+  describe 'advanceProgressBar', ->
+    it 'fills in the next segment of the bar', ->
+      advanceProgressBarSpy.and.callThrough()
+      expect($('.progress-bar-default').length).toEqual 2
+      advanceProgressBar()
+      expect($('.progress-bar-default').length).toEqual 3
+      
+  describe 'reverseProgressBar', ->
+    it 'empties the last filled segment of the bar', ->
+      reverseProgressBarSpy.and.callThrough()
+      expect($('.progress-bar-default').length).toEqual 2
+      do reverseProgressBar
+      expect($('.progress-bar-default').length).toEqual 1
+    
   return
