@@ -6,8 +6,29 @@ describe PatientEnrollment do
       :login_confirmation ]
   end
 
-  describe 'tou_dpn_agreement' do
-    #before { Euresource::PatientEnrollment.stub(:invoke) }
+  describe 'tou_dpn_agreement_html' do
+    context 'when successful' do
+      let(:tou_dpn_agreement_body)  { "<body><p>Maybe Christmas, the Grinch thought, doesn't come from a store.</p></body>" }
+      let(:tou_dpn_agreement_html)       { "<html>#{tou_dpn_agreement_body}</html>"}
+      let(:patient_enrollment_uuid) { SecureRandom.uuid }
+      let(:status)                  { 200 }
+      let(:body)                    { {html: tou_dpn_agreement_html}.to_json }
+
+      before do
+        response_double = double('response').tap do |res|
+          res.stub(:status).and_return(status)
+          res.stub(:body).and_return(body)
+        end
+        Euresource::PatientEnrollment.stub(:invoke).with(:tou_dpn_agreement, {uuid: patient_enrollment_uuid}).and_return(response_double)
+      end
+
+      it 'returns the body' do
+        expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).tou_dpn_agreement_html).to eq(tou_dpn_agreement_body)
+      end
+    end
+  end
+
+  describe 'remote_tou_dpn_agreement' do
     context 'when no uuid provided' do
       it 'raises an error' do
         expect{
@@ -23,8 +44,8 @@ describe PatientEnrollment do
 
       before do
         response_double = double('response').tap do |res|
-          res.stub(:status).and_return(404)
-          res.stub(:body).and_return('remote service error')
+          res.stub(:status).and_return(status)
+          res.stub(:body).and_return(body)
         end
         Euresource::PatientEnrollment.stub(:invoke).with(:tou_dpn_agreement, {uuid: patient_enrollment_uuid}).and_return(response_double)
       end

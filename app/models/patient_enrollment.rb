@@ -3,7 +3,7 @@ class PatientEnrollment
   attr_accessor :uuid, :login, :password, :security_question, :answer, :activation_code, :login_confirmation
 
   def tou_dpn_agreement_html
-    remote_tou_dpn_agreement['html']
+    Nokogiri::HTML(remote_tou_dpn_agreement['html']).css('body').to_s.html_safe
   end
 
   # Returns the body of the remote tou dpn agreement.
