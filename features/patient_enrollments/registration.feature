@@ -3,7 +3,7 @@ Feature: Patient Registration
   I want to submit registration info for a study
   So I can be registered for that study
 
-  @Draft
+  @Review[ENG]
   @Release2015.1.0
   @PB130359-001
   @Headed
@@ -17,7 +17,7 @@ Feature: Patient Registration
     Then I should be registered for a study
     And I should see the download page
 
-  @Draft
+  @Review[ENG]
   @Release2015.1.0
   @PB130361-001
   @Headed
@@ -31,7 +31,7 @@ Feature: Patient Registration
     Then I should be registered for a study
     And I should see the download page
 
-  @Draft
+  @Review[ENG]
   @Release2015.1.0
   @PB130359-002
   @Headed
