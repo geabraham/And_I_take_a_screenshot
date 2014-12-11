@@ -26,6 +26,13 @@
                 %a.btn.modal-btn#cancel-btn(data-dismiss='modal')=@cancel_text
                 %a.btn.modal-btn#open-btn
                   %strong=@proceed_text
+        .modal.fade#modal-info
+          .modal-dialog
+            .modal-content
+              .modal-body
+                =@message_text
+              .modal-footer
+                %a.btn.modal-btn.btn-block#cancel-btn(data-dismiss='modal')='OK'
 
     = cdn_javascript_include_tag 'jquery'
     = cdn_javascript_include_tag 'platform'
