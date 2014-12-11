@@ -15,6 +15,12 @@ When(/^I enter my email$/) do
     password: 'B0wl11ng', security_question: 3, answer: 'The Eagles', activation_code: '123456'
   fill_in 'Email', with: @patient_enrollment.login
   fill_in 'Re-enter Email', with: @patient_enrollment.login
+  # FIXME.
+  # Sleeps are bad.
+  #   It appears click_on is suffering from something like a race condition, and without this sleep, 
+  #   the button is clicked but the transition is frozen, and javascript gets stuck.
+  # It seems this happens when nextButtonClick interrupts form validation
+  #   but its not entirely clear.
   sleep(0.33)
   click_on 'Next'
 end
@@ -22,7 +28,6 @@ end
 When(/^I enter a password$/) do
   fill_in 'Password', with: @patient_enrollment.password
   fill_in 'Confirm Password', with: @patient_enrollment.password
-  sleep(0.33)
   click_on 'Next'
 end
 
