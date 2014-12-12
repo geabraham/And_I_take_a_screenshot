@@ -10,11 +10,6 @@ class PatientEnrollmentsController < ApplicationController
   def create #TODO test this
     # TODO PATCH: /v1/patient_enrollments/:patient_enrollment_uuid/register
     
-    #if app is not installed
-    @speedbump_text = 'Download the Patient Cloud app from the app store?'
-    @cancel_text = 'Cancel'
-    @proceed_text = 'Open'
-    
     #TODO: verify that the user agent strings for Patient Cloud iOS/Android agree with this implementation
     if request.env['HTTP_USER_AGENT'].include?('Patient Cloud iOS')
       #link to an app URL defined by the iOS team
