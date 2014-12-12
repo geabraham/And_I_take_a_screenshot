@@ -2,7 +2,7 @@ class PatientEnrollment
   include ActiveModel::Model
   attr_accessor :uuid, :login, :password, :security_question, :answer, :activation_code, :login_confirmation
 
-  def tou_dpn_agreement_html
+  def tou_dpn_agreement
     Nokogiri::HTML(remote_tou_dpn_agreement['html']).css('body').to_s.html_safe
   end
 
@@ -30,7 +30,7 @@ class PatientEnrollment
   #   otherwise raises an error with the response status and body.
   #
   def response_body_or_raise!(response)
-    if response.status == 200
+   if response.status == 200
       JSON.parse(response.body)
     else
       raise RemotePatientEnrollmentError.new("Received unexpected response for tou_dpn_agreement. " <<

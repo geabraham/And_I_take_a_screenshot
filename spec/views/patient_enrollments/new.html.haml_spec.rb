@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'patient_enrollments/new.html.haml' do
   let(:html) { view.content_for(:page_body) }
   before do
-    assign(:tou_dpn_agreement_html, '<html><body>Consider yourself warned.</body></html>')
+    assign(:tou_dpn_agreement, '<html><body>Consider yourself warned.</body></html>')
     assign(:security_questions, [['What?', 1], ['Who?', 2]])
     assign(:patient_enrollment, PatientEnrollment.new)
     render

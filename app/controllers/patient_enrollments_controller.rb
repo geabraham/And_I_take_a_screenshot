@@ -7,7 +7,7 @@ class PatientEnrollmentsController < ApplicationController
   def new
     patient_enrollment_uuid = session[:patient_enrollment_uuid]
     @patient_enrollment = PatientEnrollment.new(uuid: patient_enrollment_uuid)
-    @tou_dpn_agreement_html = @patient_enrollment.tou_dpn_agreement_html
+    @tou_dpn_agreement = @patient_enrollment.tou_dpn_agreement
 
     # NOTE: @security_questions has no test. It is, for now, faked.
     @security_questions = ["What's the worst band in the world?"]

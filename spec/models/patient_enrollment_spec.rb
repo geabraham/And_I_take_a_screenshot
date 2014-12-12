@@ -6,11 +6,11 @@ describe PatientEnrollment do
       :login_confirmation ]
   end
 
-  describe 'tou_dpn_agreement_html' do
+  describe 'tou_dpn_agreement' do
     context 'when successful' do
       let(:tou_dpn_agreement_body)  { "<body><p>Maybe Christmas, the Grinch thought, doesn't come from a store.</p></body>" }
-      let(:tou_dpn_agreement_html)       { "<html>#{tou_dpn_agreement_body}</html>"}
-      let(:patient_enrollment_uuid) { SecureRandom.uuid }
+      let(:tou_dpn_agreement_html)  { "<html>#{tou_dpn_agreement_body}</html>"}
+      let(:patient_enrollment_uuid) { '34e147aa-c45d-4dc2-a434-786cca464cc7' }
       let(:status)                  { 200 }
       let(:body)                    { {html: tou_dpn_agreement_html}.to_json }
 
@@ -23,7 +23,7 @@ describe PatientEnrollment do
       end
 
       it 'returns the body' do
-        expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).tou_dpn_agreement_html).to eq(tou_dpn_agreement_body)
+        expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).tou_dpn_agreement).to eq(tou_dpn_agreement_body)
       end
     end
   end

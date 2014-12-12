@@ -4,16 +4,13 @@ describe PatientEnrollmentsController do
 
   describe 'GET new' do
     context 'when a patient enrollment uuid is present' do
-      let(:html)                    { '<html>hi</html>' }
+      let(:tou_dpn_agreement)       { 'Consider yourself warned.' }
+      let(:patient_enrollment)      { PatientEnrollment.new(uuid: patient_enrollment_uuid) }
       let(:patient_enrollment_uuid) { SecureRandom.uuid }
+
       before do
-        tou_dpn_agreement_body = { html: html }.to_json
-        tou_dpn_agreement_result = double('Google::APIClient::Result').tap do |res|
-          res.stub(:status).and_return(200)
-          res.stub(:body).and_return(tou_dpn_agreement_body)
-        end
         session[:patient_enrollment_uuid] = patient_enrollment_uuid
-        Euresource::PatientEnrollment.stub(:invoke).with(:tou_dpn_agreement, {uuid: patient_enrollment_uuid}).and_return(tou_dpn_agreement_result)
+        PatientEnrollment.any_instance.stub(:tou_dpn_agreement).and_return(tou_dpn_agreement)
       end
 
       it 'returns success' do
@@ -38,7 +35,7 @@ describe PatientEnrollmentsController do
 
       it 'assigns @tou_dpn_agreement_html' do
         get :new
-        expect(assigns(:tou_dpn_agreement_html)).to eq(html)
+        expect(assigns(:tou_dpn_agreement)).to eq(tou_dpn_agreement)
       end
     end
 
