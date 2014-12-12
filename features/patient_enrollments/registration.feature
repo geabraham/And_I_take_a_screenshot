@@ -43,4 +43,3 @@ Feature: Patient Registration
     And I click submit
     And the Subject Service returns an error
     Then I should see a representation of the error from Subject Service
-    And I should see the download page
