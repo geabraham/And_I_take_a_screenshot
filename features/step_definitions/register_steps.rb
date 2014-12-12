@@ -4,7 +4,7 @@ When(/^I fill in an activation code$/) do
 end
 
 When(/^I accept the TOU\/DPN$/) do
-  allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement_html).and_return('<html><body>We think in generalities, but we live in detail.</body></html>')
+  allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return('<body>We think in generalities, but we live in detail.</body>')
   visit '/patient_enrollments/new/'
   assert_text('We think in generalities, but we live in detail.')
   click_on 'I agree'
