@@ -69,8 +69,12 @@ describe 'patient_enrollments/new.html.haml' do
       expect(html).to have_selector('a.back_arrow', text: 'Back')
     end
   
-    it 'contains a next button' do
+    it 'contains an agree button' do
       expect(html).to have_selector('#agree-button', text: 'I agree')
+    end
+
+    it 'contains a next button' do
+      expect(html).to have_selector('#next-button', text: 'Next')
     end
   end
 end
