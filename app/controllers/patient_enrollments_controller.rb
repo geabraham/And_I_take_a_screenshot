@@ -6,9 +6,7 @@ class PatientEnrollmentsController < ApplicationController
 
   def new
     patient_enrollment_uuid = session[:patient_enrollment_uuid]
-    binding.pry
     @patient_enrollment = PatientEnrollment.new(uuid: patient_enrollment_uuid)
-    binding.pry
     @tou_dpn_agreement = @patient_enrollment.tou_dpn_agreement
 
     # NOTE: @security_questions has no test. It is, for now, faked.

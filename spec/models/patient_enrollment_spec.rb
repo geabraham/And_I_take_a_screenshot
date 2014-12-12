@@ -16,10 +16,10 @@ describe PatientEnrollment do
 
       before do
         response_double = double('response').tap do |res|
-          res.stub(:status).and_return(status)
-          res.stub(:body).and_return(body)
+          allow(res).to receive(:status).and_return(status)
+          allow(res).to receive(:body).and_return(body)
         end
-        Euresource::PatientEnrollment.stub(:invoke).with(:tou_dpn_agreement, {uuid: patient_enrollment_uuid}).and_return(response_double)
+        allow(Euresource::PatientEnrollment).to receive(:invoke).with(:tou_dpn_agreement, {uuid: patient_enrollment_uuid}).and_return(response_double)
       end
 
       it 'returns the body' do
@@ -44,10 +44,10 @@ describe PatientEnrollment do
 
       before do
         response_double = double('response').tap do |res|
-          res.stub(:status).and_return(status)
-          res.stub(:body).and_return(body)
+          allow(res).to receive(:status).and_return(status)
+          allow(res).to receive(:body).and_return(body)
         end
-        Euresource::PatientEnrollment.stub(:invoke).with(:tou_dpn_agreement, {uuid: patient_enrollment_uuid}).and_return(response_double)
+        allow(Euresource::PatientEnrollment).to receive(:invoke).with(:tou_dpn_agreement, {uuid: patient_enrollment_uuid}).and_return(response_double)
       end
 
       it 'raises an error' do
