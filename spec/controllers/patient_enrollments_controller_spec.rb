@@ -5,12 +5,13 @@ describe PatientEnrollmentsController do
   describe 'GET new' do
     context 'when a patient enrollment uuid is present' do
       let(:tou_dpn_agreement)       { 'Consider yourself warned.' }
-      let(:patient_enrollment)      { PatientEnrollment.new(uuid: patient_enrollment_uuid) }
+      let(:patient_enrollment)      { double('PatientEnrollment') }
       let(:patient_enrollment_uuid) { SecureRandom.uuid }
 
       before do
         session[:patient_enrollment_uuid] = patient_enrollment_uuid
-        PatientEnrollment.any_instance.stub(:tou_dpn_agreement).and_return(tou_dpn_agreement)
+        allow(PatientEnrollment).to receive(:new).with(uuid: patient_enrollment_uuid).and_return(patient_enrollment)
+        allow(patient_enrollment).to receive(:tou_dpn_agreement).and_return(tou_dpn_agreement)
       end
 
       it 'returns success' do
@@ -25,12 +26,7 @@ describe PatientEnrollmentsController do
 
       it 'assigns @enrollment to a new PatientEnrollment object' do
         get :new
-        expect(assigns(:patient_enrollment)).to be_a(PatientEnrollment)
-      end
-
-      it 'creates a PatientEnrollment with the session uuid' do
-        get :new
-        expect(assigns(:patient_enrollment).uuid).to eq(patient_enrollment_uuid)
+        expect(PatientEnrollment).to receive(:new).with(uuid: patient_enrollment_uuid)
       end
 
       it 'assigns @tou_dpn_agreement_html' do
