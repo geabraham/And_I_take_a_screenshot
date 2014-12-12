@@ -20,7 +20,7 @@ When(/^I enter my email$/) do
   #   It appears click_on is suffering from something like a race condition, and without this sleep, 
   #   the button is clicked but the transition is frozen.
   #   The test fails with error 'Unable to find field "Password" (Capybara::ElementNotFound)'
-  sleep(0.33)
+  sleep(1)
   click_on 'Next'
 end
 
