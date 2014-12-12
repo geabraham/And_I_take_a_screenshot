@@ -8,7 +8,7 @@ gem 'haml', '~> 4.0.5'
 
 gem 'faraday', '~> 0.8.9'
 gem 'coffee-script', '~> 2.3.0'
-
+gem 'node'
 
 gem 'rack-status', '~> 1.0.0'
 
