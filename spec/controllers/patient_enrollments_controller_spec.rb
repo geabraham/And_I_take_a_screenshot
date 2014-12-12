@@ -24,11 +24,6 @@ describe PatientEnrollmentsController do
         expect(response).to render_template("patient_registration")
       end
 
-      it 'assigns @enrollment to a new PatientEnrollment object' do
-        get :new
-        expect(PatientEnrollment).to receive(:new).with(uuid: patient_enrollment_uuid)
-      end
-
       it 'assigns @tou_dpn_agreement_html' do
         get :new
         expect(assigns(:tou_dpn_agreement)).to eq(tou_dpn_agreement)
