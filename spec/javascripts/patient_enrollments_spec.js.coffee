@@ -20,7 +20,7 @@ describe 'patient enrollments form', ->
       # mocking the jQuery carousel call that would normally do so
 
     describe 'when back button is clicked', ->
-      it 'stays on the current page backwards', ->
+      it 'stays on the current page', ->
         $('.back_arrow').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
         expect(reverseProgressBarSpy.calls.any()).toEqual false
