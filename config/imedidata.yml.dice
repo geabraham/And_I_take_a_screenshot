@@ -1,0 +1,16 @@
+<%
+  if Rails.env.production?
+    %w(imedidata_base_url).each do |attr|
+      raise(RuntimeError, "#{attr} must be configured") unless configured.send(attr)
+    end
+  end
+%>
+
+development: &dev
+  imedidata_base_url: <%= configured.imedidata_base_url || 'http://localhost:3001' %>
+
+test: &test
+  <<: *dev
+
+production:
+  imedidata_base_url: <%= configured.imedidata_base_url %>

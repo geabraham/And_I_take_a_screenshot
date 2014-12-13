@@ -41,6 +41,11 @@ describe PatientEnrollmentsController do
       it_behaves_like 'returns expected status'
       it_behaves_like 'returns expected error response body'
     end
+
+    describe 'security questions' do
+      it 'assigns @security_questions to a set of questions using the locale parameter'
+
+    end
   end
   
   describe 'POST patient_enrollments' do

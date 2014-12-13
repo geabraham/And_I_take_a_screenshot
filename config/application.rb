@@ -20,6 +20,9 @@ I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
 
 module Minotaur
   class Application < Rails::Application
+    Dir[Rails.root + 'lib/**/*.rb'].each do |file|
+      require file
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
