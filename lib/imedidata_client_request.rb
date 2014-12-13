@@ -32,7 +32,7 @@ module IMedidataClient
     def request_body; end
 
     def path
-      "/api/v2/user_security_questions/#{@locale}"
+      "api/v2/user_security_questions/#{@locale}.json"
     end
 
     def http_method
