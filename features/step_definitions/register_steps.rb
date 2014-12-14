@@ -11,8 +11,13 @@ When(/^I accept the TOU\/DPN$/) do
 end
 
 When(/^I submit registration info as a new subject$/) do
+  security_questions = [{name: 'What year were you born?', id: '1'},
+                        {name: 'Last four digits of SSN or Tax ID number?', id: '2'},
+                        {name: 'What is your father\'s middle name?', id: '3'}]
+  allow(RemoteSecurityQuestions).to receive(:find_or_fetch).with(I18n.default_locale).and_return(security_questions)
+  visit '/patient_enrollments/new/'
   @patient_enrollment ||= build :patient_enrollment, uuid: 'enrollment123', login: 'the-dude@mdsol.com', 
-    password: 'B0wl11ng', security_question: 3, answer: 'The Eagles', activation_code: '123456'
+    password: 'B0wl11ng', answer: 'The Eagles', activation_code: '123456'
   fill_in 'Email', with: @patient_enrollment.login
   fill_in 'Re-enter Email', with: @patient_enrollment.login
   # FIXME.
@@ -25,9 +30,10 @@ When(/^I submit registration info as a new subject$/) do
 
   fill_in 'Password', with: @patient_enrollment.password
   fill_in 'Confirm Password', with: @patient_enrollment.password
+  sleep(1)
   click_on 'Next'
 
-  select "What's the worst band in the world?", from: 'Security Question'
+  select security_questions.sample[:name], from: 'Security Question'
   fill_in 'Security Answer', with: @patient_enrollment.answer
   click_on 'Create account'
 end
