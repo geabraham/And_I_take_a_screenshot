@@ -9,13 +9,12 @@ class PatientEnrollmentsController < ApplicationController
     @patient_enrollment = PatientEnrollment.new(uuid: patient_enrollment_uuid)
     @tou_dpn_agreement = @patient_enrollment.tou_dpn_agreement
 
-    # NOTE: @security_questions has no test. It is, for now, faked.
-    @security_questions = ["What's the worst band in the world?"]
+    @security_questions = RemoteSecurityQuestions.find_or_fetch(params[:locale] || I18n.default_locale)
   rescue StandardError => e
     # TODO: render error modal
     return render json: {message: "Unable to continue with registration. Error: #{e.message}"}, status: 422
   end
-  
+
   def create #TODO test this
     # TODO PATCH: /v1/patient_enrollments/:patient_enrollment_uuid/register
     
