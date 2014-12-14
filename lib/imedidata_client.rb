@@ -4,7 +4,7 @@ require 'imedidata_client_request'
 #
 module IMedidataClient
 
-  # Returns hash of security questions
+  # Returns an array of security questions
   #
   def request_security_questions!(options = {})
     unless SecurityQuestionsRequest.required_attributes.all? {|p| options.include?(p) }
