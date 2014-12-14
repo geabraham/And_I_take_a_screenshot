@@ -52,8 +52,7 @@ describe PatientEnrollmentsController do
     describe 'security questions' do
       it 'assigns @security_questions to a set of questions using the locale parameter' do
         get :new, locale: 'jpn'
-        expect(assigns(:security_questions)).to eq(
-          [['生まれた年を入力してください。', '1'], ['ソーシャルセキュリティ番号、納税者ID、健康保険証番号の下4桁は何ですか?', '2']])
+        expect(assigns(:security_questions)).to eq(jpn_security_questions.map {|sq| sq.values})
       end
     end
   end
