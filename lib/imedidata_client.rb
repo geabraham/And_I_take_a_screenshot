@@ -17,7 +17,7 @@ module IMedidataClient
         "Response: #{security_questions_response.status} #{security_questions_response.body}")
     end
 
-    JSON.parse(security_questions_response.body)
+    JSON.parse(security_questions_response.body)['user_security_questions']
   end
 
   class IMedidataClientError < StandardError; end

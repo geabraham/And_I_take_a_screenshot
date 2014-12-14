@@ -30,7 +30,7 @@ class RemoteSecurityQuestions
     # Makes a request to the iMedidata API for the questions in the locale provided
     #
     def remote_fetch(locale)
-      response = request_security_questions!(locale: locale)['user_security_questions']
+      response = request_security_questions!(locale: locale)
       cache_write(locale, response)
       response
     end

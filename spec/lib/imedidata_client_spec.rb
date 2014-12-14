@@ -3,14 +3,19 @@ require 'imedidata_client'
 
 describe IMedidataClient do
   let(:test_class) { Class.new { extend IMedidataClient } }
-  let(:response)   { [{id: 1, text: 'Whats the secret to life the universe and everything?'}].to_json }
+  let(:response)   do
+    {user_security_questions: [{id: 1, text: 'Whats the secret to life the universe and everything?'}]}.to_json
+  end
   
   describe 'request_security_questions!' do
     context 'without required arguments' do
       it 'raises an error' do
         expect { 
           test_class.request_security_questions!({}) 
-        }.to raise_error(ArgumentError, "Invalid arguments. Please provide #{IMedidataClient::SecurityQuestionsRequest.required_attributes.join(', ')}.")
+        }.to raise_error(
+          ArgumentError,
+          "Invalid arguments. Please provide #{IMedidataClient::SecurityQuestionsRequest.required_attributes.join(', ')}."
+        )
       end
     end
 
@@ -29,7 +34,7 @@ describe IMedidataClient do
 
       context 'when response is successful' do
         it 'returns the response body' do
-          expect(test_class.request_security_questions!({locale: 'zho'})).to eq(JSON.parse(response))
+          expect(test_class.request_security_questions!({locale: 'zho'})).to eq(JSON.parse(response)['user_security_questions'])
         end
       end
 
@@ -41,7 +46,10 @@ describe IMedidataClient do
         it 'raises an error' do
           expect { 
             test_class.request_security_questions!({locale: 'zho'}) 
-          }.to raise_error(IMedidataClient::IMedidataClientError, "Security Questions request failed for zho. Response: 303 Unexpected response")
+          }.to raise_error(
+            IMedidataClient::IMedidataClientError,
+            "Security Questions request failed for zho. Response: 303 Unexpected response"
+          )
         end
       end
     end
