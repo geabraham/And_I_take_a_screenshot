@@ -3,8 +3,8 @@ require 'spec_helper'
 describe PatientEnrollmentsController do
   let(:params) { nil }
   let(:jpn_security_questions) do
-    [{"name"=>"生まれた年を入力してください。", "id"=>"1"},
-     {"name"=>"ソーシャルセキュリティ番号、納税者ID、健康保険証番号の下4桁は何ですか?", "id"=>"2"}]
+    [{'name'=>'生まれた年を入力してください。', 'id'=>'1'},
+     {'name'=>'ソーシャルセキュリティ番号、納税者ID、健康保険証番号の下4桁は何ですか?', 'id'=>'2'}]
   end
   before do
     allow(RemoteSecurityQuestions).to receive(:find_or_fetch).with(I18n.default_locale).and_return([{}])
@@ -53,7 +53,7 @@ describe PatientEnrollmentsController do
       it 'assigns @security_questions to a set of questions using the locale parameter' do
         get :new, locale: 'jpn'
         expect(assigns(:security_questions)).to eq(
-          [["生まれた年を入力してください。", 1], ["ソーシャルセキュリティ番号、納税者ID、健康保険証番号の下4桁は何ですか?", 2]])
+          [['生まれた年を入力してください。', '1'], ['ソーシャルセキュリティ番号、納税者ID、健康保険証番号の下4桁は何ですか?', '2']])
       end
     end
   end
