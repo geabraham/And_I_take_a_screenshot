@@ -13,18 +13,36 @@ describe 'patient enrollments form', ->
     carouselSpy.calls.reset()
     advanceProgressBarSpy.calls.reset()
     reverseProgressBarSpy.calls.reset()
-    
-  describe 'email page', ->
+
     beforeEach ->
-      $('#email').addClass('active')
-      # unlike on the actual page, set the fixture's active div manually since we're  
+      $('#tou_dpn_agreement').addClass('active')
+      # unlike on the actual page, set the fixture's active div manually since we're
       # mocking the jQuery carousel call that would normally do so
-      
+
     describe 'when back button is clicked', ->
       it 'stays on the current page', ->
         $('.back_arrow').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
         expect(reverseProgressBarSpy.calls.any()).toEqual false
+
+    describe 'next button click', ->
+      it 'hides the agree button', ->
+        $('#agree-button').trigger 'click'
+        expect($('#agree-button')).toHaveClass('hidden')
+
+      it 'shows the next button', ->
+        $('#agree-button').trigger 'click'
+        expect($('#next-button')).not.toHaveClass('hidden')
+
+  describe 'email page', ->
+    beforeEach ->
+      $('#email').addClass('active')
+
+    describe 'when back button is clicked', ->
+      it 'goes backwards', ->
+        $('.back_arrow').trigger 'click'
+        expect(carouselSpy.calls.any()).toEqual true # carousel should not change divs
+        expect(reverseProgressBarSpy.calls.any()).toEqual true
         
     describe 'for a blank input', ->
       it 'shows a validation error', ->
@@ -163,15 +181,15 @@ describe 'patient enrollments form', ->
   describe 'advanceProgressBar', ->
     it 'fills in the next segment of the bar', ->
       advanceProgressBarSpy.and.callThrough()
-      expect($('.progress-bar-default').length).toEqual 2
+      expect($('.progress-bar-default').length).toEqual 1
       advanceProgressBar()
-      expect($('.progress-bar-default').length).toEqual 3
+      expect($('.progress-bar-default').length).toEqual 2
       
   describe 'reverseProgressBar', ->
     it 'empties the last filled segment of the bar', ->
       reverseProgressBarSpy.and.callThrough()
-      expect($('.progress-bar-default').length).toEqual 2
-      do reverseProgressBar
       expect($('.progress-bar-default').length).toEqual 1
+      do reverseProgressBar
+      expect($('.progress-bar-default').length).toEqual 0
     
   return

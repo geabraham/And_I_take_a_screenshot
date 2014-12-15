@@ -1,1 +1,1 @@
-SimpleCov.start 'rails' if ENV['COVERAGE'] == 'true'
+SimpleCov.start 'rails'

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 describe 'Minotaur routes', type: :routing do
   describe 'ActivationCodes' do
