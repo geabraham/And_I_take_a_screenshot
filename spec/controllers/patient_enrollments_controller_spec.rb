@@ -1,13 +1,18 @@
 require 'spec_helper'
 
 describe PatientEnrollmentsController do
+  let(:params)                  { nil }
 
   describe 'GET new' do
+    let(:verb)                 { :get }
+    let(:action)               { :new }
+    let(:expected_template)    { 'patient_registration' }
+
     context 'when a patient enrollment uuid is present' do
       let(:tou_dpn_agreement)       { 'Consider yourself warned.' }
       let(:patient_enrollment)      { double('PatientEnrollment') }
       let(:patient_enrollment_uuid) { SecureRandom.uuid }
-      let(:params)                  { nil }
+
       before do
         session[:patient_enrollment_uuid] = patient_enrollment_uuid
         allow(PatientEnrollment).to receive(:new).with(uuid: patient_enrollment_uuid).and_return(patient_enrollment)
@@ -15,10 +20,7 @@ describe PatientEnrollmentsController do
       end
 
       context 'when successful' do
-        let(:verb)                 { :get }
-        let(:action)               { :new }
         let(:expected_status_code) { 200 }
-        let(:expected_template)    { 'patient_registration' }
 
         it_behaves_like 'returns expected status'
         it_behaves_like 'renders expected template'
@@ -31,22 +33,20 @@ describe PatientEnrollmentsController do
     end
 
     context 'when no patient enrollment uuid is present in the request' do
-      it 'returns an error' do
-        get :new
-        expect(response.status).to eq(422)
-      end
+      let(:expected_status_code) { 422 }
+      it_behaves_like 'returns expected status'
     end
   end
   
   describe 'POST patient_enrollments' do
-    it 'returns success' do
-      post :create
-      expect(response).to be_success
-    end
-    
-    it 'uses the patient_registration template' do
-      post :create
-      expect(response).to render_template("patient_registration")
+    context 'when successful' do
+      let(:verb)                 { :post }
+      let(:action)               { :create }
+      let(:expected_status_code) { 200 }
+      let(:expected_template)    { 'patient_registration' }
+
+      it_behaves_like 'returns expected status'
+      it_behaves_like 'renders expected template'
     end
   end
 end
