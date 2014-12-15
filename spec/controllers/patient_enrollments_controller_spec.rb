@@ -34,7 +34,12 @@ describe PatientEnrollmentsController do
 
     context 'when no patient enrollment uuid is present in the request' do
       let(:expected_status_code) { 422 }
+      let(:error_response_body)  do 
+        {message: 'Unable to continue with registration. Error: Cannot request TOU/DPN agreement without attribute: uuid'}.to_json
+      end
+
       it_behaves_like 'returns expected status'
+      it_behaves_like 'returns expected error response body'
     end
   end
   
