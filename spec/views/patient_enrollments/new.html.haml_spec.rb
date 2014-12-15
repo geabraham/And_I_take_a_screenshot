@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 describe 'patient_enrollments/new.html.haml' do
   let(:html) { view.content_for(:page_body) }
