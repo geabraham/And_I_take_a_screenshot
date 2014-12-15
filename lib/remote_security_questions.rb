@@ -1,7 +1,10 @@
 require 'imedidata_client'
 require 'json'
 
-# Class handles writing and fetching security questions into cache
+# Class handles writing and fetching security questions into cache.
+# Currently, Rails cache is the default ActiveSupport::Cache::FileStore
+# TODO: Use another cache store. While it is not likely this will use much disk space,
+#   if anything goes awry it could eat up disk space on an app server.
 #
 # RemoteSecurityQuestions.find_or_fetch('jpn')
 # => [{"name"=>"您在哪一年出生？", "id"=>"1"}, 
@@ -35,11 +38,11 @@ class RemoteSecurityQuestions
       response
     end
 
-    private
     def key_for_locale(locale)
       "#{locale}_security_questions"
     end
 
+    private
     def cache_fetch(locale)
       Rails.cache.fetch(key_for_locale(locale))
     end
