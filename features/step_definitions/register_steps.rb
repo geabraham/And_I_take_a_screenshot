@@ -1,6 +1,6 @@
 When(/^I fill in an activation code$/) do
   visit '/'
-  (1..6).each { |e| fill_in "code-#{e}", with: "#{e}" }
+  (1..6).each { |e| fill_in "code-#{e}", with: "#{e+1}" }
 end
 
 When(/^I accept the TOU\/DPN$/) do
