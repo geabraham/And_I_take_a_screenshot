@@ -34,7 +34,7 @@ describe 'activation code page', ->
         
     describe 'for a valid character', ->
       it "doesn't show a validation error", ->
-        window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('ox9D0q')
+        window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('bx9Dgq')
         loadFixtures 'activationCodeFixture.html'
         $('.code').trigger 'keyup'
         expect($('.validation_error')).toHaveClass 'invisible'

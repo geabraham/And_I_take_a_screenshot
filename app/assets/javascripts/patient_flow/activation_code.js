@@ -35,7 +35,7 @@ var handleInput = function() {
     currentInput = $('#' + document.activeElement.id);
   
   if( str !== "" ) {
-    var regx = /^[A-Za-z0-9]+$/;
+    var regx = /^[A-HJ-NP-Za-hj-np-z2-9]+$/;
 
     if(regx.test(str)) {
       $(".validation_error").addClass('invisible');
