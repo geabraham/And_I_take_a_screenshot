@@ -6,6 +6,7 @@ class PatientEnrollment
     Nokogiri::HTML(remote_tou_dpn_agreement['html']).css('body').to_s.html_safe
   end
 
+  private
   # Returns the body of the remote tou dpn agreement.
   # raises an error if there is no uuid present
   #
@@ -14,8 +15,6 @@ class PatientEnrollment
     response = Euresource::PatientEnrollment.invoke(:tou_dpn_agreement, {uuid: uuid})
     response_body_or_raise!(response)
   end
-
-  private
 
   # Takes a attribute argument and validates the attribute as being present or raises an error.
   #

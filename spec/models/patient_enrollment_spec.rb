@@ -39,7 +39,7 @@ describe PatientEnrollment do
     context 'when no uuid provided' do
       it 'raises an error' do
         expect {
-          PatientEnrollment.new.remote_tou_dpn_agreement
+          PatientEnrollment.new.send(:remote_tou_dpn_agreement)
         }.to raise_error(PatientEnrollment::PatientEnrollmentError, 'Cannot request TOU/DPN agreement without attribute: uuid')
       end
     end
@@ -51,7 +51,7 @@ describe PatientEnrollment do
 
       it 'raises an error' do
         expect{
-          PatientEnrollment.new(uuid: patient_enrollment_uuid).remote_tou_dpn_agreement
+          PatientEnrollment.new(uuid: patient_enrollment_uuid).send(:remote_tou_dpn_agreement)
         }.to raise_error(
           PatientEnrollment::RemotePatientEnrollmentError,
           "Received unexpected response for tou_dpn_agreement. " <<
