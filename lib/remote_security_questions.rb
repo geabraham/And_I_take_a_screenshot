@@ -54,14 +54,16 @@ class RemoteSecurityQuestions
   end
 end
 #
+# Remote Security Questions as of Dec 2014:
+#
 # [{"name"=>"What year were you born?", "id"=>"1"},
-# {"name"=>"Last four digits of SSN or Tax ID number?", "id"=>"2"},
-# {"name"=>"What is your father's middle name?", "id"=>"3"},
-# {"name"=>"What was the name of your first school?", "id"=>"4"},
-# {"name"=>"Who was your childhood hero?", "id"=>"5"},
-# {"name"=>"What is your favorite pastime?", "id"=>"6"},
-# {"name"=>"What is your all-time favorite sports team?", "id"=>"7"},
-# {"name"=>"What was your high school team or mascot?", "id"=>"8"},
-# {"name"=>"What make was your first car or bike?", "id"=>"9"},
-# {"name"=>"What is your pets name?", "id"=>"10"},
-# {"name"=>"What is your mother's middle name?", "id"=>"11"}]
+#  {"name"=>"Last four digits of SSN or Tax ID number?", "id"=>"2"},
+#  {"name"=>"What is your father's middle name?", "id"=>"3"},
+#  {"name"=>"What was the name of your first school?", "id"=>"4"},
+#  {"name"=>"Who was your childhood hero?", "id"=>"5"},
+#  {"name"=>"What is your favorite pastime?", "id"=>"6"},
+#  {"name"=>"What is your all-time favorite sports team?", "id"=>"7"},
+#  {"name"=>"What was your high school team or mascot?", "id"=>"8"},
+#  {"name"=>"What make was your first car or bike?", "id"=>"9"},
+#  {"name"=>"What is your pets name?", "id"=>"10"},
+#  {"name"=>"What is your mother's middle name?", "id"=>"11"}]
