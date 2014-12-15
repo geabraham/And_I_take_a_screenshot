@@ -17,6 +17,13 @@ describe 'activation code page', ->
         window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('H')
         $('.code').trigger 'keyup'
         expect(getCodeString).toHaveBeenCalled()
+        
+      it 'focuses on the next input', ->
+        loadFixtures 'activationCodeFixture.html'
+        window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('H')
+        $('#code-1').trigger 'focus'
+        $('#code-1').trigger 'keyup'
+        expect(document.activeElement.id).toEqual('code-2')
     
     describe 'for an empty input', ->  
       it 'calls getCodeString', ->
