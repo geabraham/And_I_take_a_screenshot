@@ -74,7 +74,6 @@ group :test, :development do
   gem 'jasmine-jquery-rails'
   gem 'pry', '~> 0.9'
   gem 'pry-nav', '~> 0.2'
-  gem 'pry-stack_explorer', '~> 0.4.9'
 end
 
 # Used in Blueprint/Sandman Docs
