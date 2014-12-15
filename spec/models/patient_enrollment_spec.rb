@@ -7,10 +7,11 @@ describe PatientEnrollment do
   end
 
   describe 'tou_dpn_agreement' do
-    context 'when successful' do
+    let(:patient_enrollment_uuid) { '34e147aa-c45d-4dc2-a434-786cca464cc7' }
+
+    context 'when remote_tou_dpn_agreement exists' do
       let(:tou_dpn_agreement_body)  { "<body><p>Maybe Christmas, the Grinch thought, doesn't come from a store.</p></body>" }
       let(:tou_dpn_agreement_html)  { "<html>#{tou_dpn_agreement_body}</html>"}
-      let(:patient_enrollment_uuid) { '34e147aa-c45d-4dc2-a434-786cca464cc7' }
       let(:status)                  { 200 }
       let(:body)                    { {html: tou_dpn_agreement_html}.to_json }
 
@@ -24,6 +25,24 @@ describe PatientEnrollment do
 
       it 'returns the body' do
         expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).tou_dpn_agreement).to eq(tou_dpn_agreement_body)
+      end
+    end
+
+    context 'when remote_tou_dpn_agreement does not exist' do
+      let(:error_body)    { 'None found' }
+      let(:error_message) { "Received unexpected response for tou_dpn_agreement. Response status: 404. Response body: #{error_body}" }
+      before do
+        response_double = double('response').tap do |res|
+          allow(res).to receive(:status).and_return(404)
+          allow(res).to receive(:body).and_return(error_body)
+        end
+        allow(Euresource::PatientEnrollment).to receive(:invoke).with(:tou_dpn_agreement, {uuid: patient_enrollment_uuid}).and_return(response_double)
+      end
+
+      it 'raises an error' do
+        expect {
+          PatientEnrollment.new(uuid: patient_enrollment_uuid).tou_dpn_agreement
+        }.to raise_error(PatientEnrollment::RemotePatientEnrollmentError, error_message)
       end
     end
   end
