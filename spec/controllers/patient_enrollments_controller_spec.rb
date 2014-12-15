@@ -32,6 +32,14 @@ describe PatientEnrollmentsController do
       post :create
       expect(response).to render_template("patient_registration")
     end
+    
+    describe 'download_link' do
+      it 'defaults to the iTunes store' do
+        @request.env['HTTP_USER_AGENT']='Rails Testing'
+        post :create
+        expect(assigns(:download_link)).to eq 'https://itunes.apple.com/us/app/patient-cloud/id554170114?mt=8'
+      end
+    end
   end
 
 end
