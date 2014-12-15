@@ -10,7 +10,7 @@ When(/^I accept the TOU\/DPN$/) do
   click_on 'I agree'
 end
 
-When(/^I enter my email$/) do
+When(/^I submit registration info as a new subject$/) do
   @patient_enrollment ||= build :patient_enrollment, uuid: 'enrollment123', login: 'the-dude@mdsol.com', 
     password: 'B0wl11ng', security_question: 3, answer: 'The Eagles', activation_code: '123456'
   fill_in 'Email', with: @patient_enrollment.login
@@ -22,15 +22,11 @@ When(/^I enter my email$/) do
   #   The test fails with error 'Unable to find field "Password" (Capybara::ElementNotFound)'
   sleep(1)
   click_on 'Next'
-end
 
-When(/^I enter a password$/) do
   fill_in 'Password', with: @patient_enrollment.password
   fill_in 'Confirm Password', with: @patient_enrollment.password
   click_on 'Next'
-end
 
-When(/^I enter a security question and answer$/) do
   select "What's the worst band in the world?", from: 'Security Question'
   fill_in 'Security Answer', with: @patient_enrollment.answer
   click_on 'Create account'
