@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe PatientEnrollmentsController do
-  let(:params)                  { nil }
+  let(:params) { nil }
 
   describe 'GET new' do
-    let(:verb)                 { :get }
-    let(:action)               { :new }
-    let(:expected_template)    { 'patient_registration' }
+    let(:verb)              { :get }
+    let(:action)            { :new }
+    let(:expected_template) { 'patient_registration' }
 
     context 'when a patient enrollment uuid is present' do
       let(:tou_dpn_agreement)       { 'Consider yourself warned.' }

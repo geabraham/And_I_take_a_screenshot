@@ -1,21 +1,23 @@
 require 'spec_helper'
 
 describe ActivationCodesController do
-  
   describe "GET 'index'" do
-    it 'uses the patient_registration template' do
-      get :index
-      expect(response).to render_template("patient_registration")
-    end
-    
-    it 'returns http success' do
-      expect(response).to be_success
-    end
+    let(:params)               { nil }
+    let(:verb)                 { :get }
+    let(:action)               { :index }
+    let(:expected_template)    { 'patient_registration' }
+    let(:expected_status_code) { 200 }
+
+    it_behaves_like 'returns expected status'
+    it_behaves_like 'renders expected template'
   end
   
   describe "POST 'activate'" do
-    it 'returns http success' do
-      expect(response).to be_success
-    end
+    let(:params)               { {id: SecureRandom.uuid} }
+    let(:verb)                 { :post }
+    let(:action)               { :activate }
+    let(:expected_status_code) { 200 }
+
+    it_behaves_like 'returns expected status'
   end
 end
