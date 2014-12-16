@@ -4,6 +4,10 @@ require 'imedidata_client_request'
 describe IMedidataClient::Request do
   let(:request) { IMedidataClient::Request.new }
 
+  describe '.required_attributes' do
+    it('defaults to the empty array') { expect(IMedidataClient::Request.required_attributes).to eq([]) }
+  end
+
   describe 'http_method' do
     context 'when undefined' do
       it 'raises an error' do
