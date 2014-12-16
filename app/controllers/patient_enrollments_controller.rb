@@ -10,14 +10,6 @@ class PatientEnrollmentsController < ApplicationController
   def create #TODO test this
     # TODO PATCH: /v1/patient_enrollments/:patient_enrollment_uuid/register
     
-    if request.env['HTTP_USER_AGENT'].include?('Patient Cloud iOS')
-      #TODO link to an app URL defined by the iOS team
-    elsif request.env['HTTP_USER_AGENT'].include?('Patient Cloud Android')
-      #TODO link to an app URL defined by the Android team
-    else 
-      @download_link = 'https://itunes.apple.com/app/patient-cloud/id554170114?mt=8'
-    end
-    
     render 'download'
   end
 end
