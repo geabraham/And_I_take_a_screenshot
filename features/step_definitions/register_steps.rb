@@ -1,7 +1,7 @@
 Before do
   @security_questions = [{name: 'What year were you born?', id: '1'},
-                        {name: 'Last four digits of SSN or Tax ID number?', id: '2'},
-                        {name: 'What is your father\'s middle name?', id: '3'}]
+                         {name: 'Last four digits of SSN or Tax ID number?', id: '2'},
+                         {name: 'What is your father\'s middle name?', id: '3'}]
   allow(RemoteSecurityQuestions).to receive(:find_or_fetch).with(I18n.default_locale).and_return(@security_questions)
 end
 
