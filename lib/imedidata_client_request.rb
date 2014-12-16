@@ -12,6 +12,10 @@ module IMedidataClient
       raise IMedidataClientError.new("No default request body. Please define an request body for the subclass.")
     end
 
+    def path
+      raise IMedidataClientError.new("No default request path. Please define an request path for the subclass.")
+    end
+
     def imedidata_connection
       @connection ||= Faraday.new(url: IMED_BASE_URL) do |builder|
         builder.use MAuth::Faraday::RequestSigner, mauth_client: MAUTH_CLIENT
