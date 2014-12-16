@@ -15,7 +15,7 @@
     .progress-bar.progress-bar-default
       %span.sr-only='Page 1 of 4'
     .progress-bar.progress-bar-spacer
-    .progress-bar.progress-bar-default
+    .progress-bar.progress-bar-incomplete
       %span.sr-only='Page 2 of 4'
     .progress-bar.progress-bar-spacer
     .progress-bar.progress-bar-incomplete
@@ -27,14 +27,17 @@
   = form_tag @patient_enrollment, id: 'reg-form'
   .carousel.slide#registration-details(data-interval="false")
     .carousel-inner(role="listbox")
-      .item.active#email
+      .item.active#tou_dpn_agreement
+        = render 'tou_dpn_agreement'
+      .item#email
         = render 'email_form'
       .item#password
         = render 'password_form'
       .item#security_question
         = render 'security_question_form'
   .next
-    %a.btn.btn-primary.btn-block#next-button(href="#registration-details" role="button")='Next'
+    %a.btn.btn-primary.btn-block#agree-button(href="#registration-details" role="button")='I agree'
+    %a.btn.btn-primary.btn-block#next-button.hidden(href="#registration-details" role="button")='Next'
     .submit#submit-button
       = fields_for @patient_enrollment do |f|
         = f.submit 'Create account', class: 'btn btn-primary btn-block hidden', disabled: true, id: 'create-account'
