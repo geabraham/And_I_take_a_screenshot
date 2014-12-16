@@ -2,7 +2,7 @@ Before do
   @security_questions = [{name: 'What year were you born?', id: '1'},
                          {name: 'Last four digits of SSN or Tax ID number?', id: '2'},
                          {name: 'What is your father\'s middle name?', id: '3'}]
-  allow(RemoteSecurityQuestions).to receive(:find_or_fetch).with(I18n.default_locale).and_return(@security_questions)
+  allow(RemoteSecurityQuestions).to receive(:find_or_fetch).and_return(@security_questions)
 end
 
 When(/^I fill in an activation code$/) do
@@ -11,7 +11,12 @@ When(/^I fill in an activation code$/) do
 end
 
 When(/^I accept the TOU\/DPN$/) do
-  allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return('<body>We think in generalities, but we live in detail.</body>')
+  tou_dpn_agreement = {
+    'html' => '<html><body>We think in generalities, but we live in detail.</body></html>', 
+    'language_code' => 'eng'
+  }
+
+  allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(tou_dpn_agreement)
   visit '/patient_enrollments/new/'
   assert_text('We think in generalities, but we live in detail.')
   click_on 'I agree'
