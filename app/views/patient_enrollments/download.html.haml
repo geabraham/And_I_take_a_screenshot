@@ -12,7 +12,8 @@
   =image_tag 'Progress_bar_download.png', id: 'progress-img'
   .row
     .col-xs-6
-      =image_tag 'google_play_logo_thumb.png', class: 'badge-img', id: 'android-badge'
+      %a.download-android=image_tag 'google_play_logo_thumb.png', class: 'badge-img', id: 'android-badge'
     .col-xs-6
-      =image_tag 'App_Store_Badge_US-UK.svg', class: 'badge-img', id: 'ios-badge'
+      %a.download-ios(href='https://itunes.apple.com/app/patient-cloud/id554170114?mt=8')
+        =image_tag 'App_Store_Badge_US-UK.svg', class: 'badge-img', id: 'ios-badge'
   =image_tag 'Log_in_Screen.png', id: 'login-screen-img'

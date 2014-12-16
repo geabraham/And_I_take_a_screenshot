@@ -6,8 +6,12 @@ describe 'patient_enrollments/download.html.haml' do
     render
   end
   
-  it 'contains a download link' do
-    expect(html).to have_selector('a.download-link')
+  it 'contains a Play Store download link' do
+    expect(html).to have_selector('a.download-android')
+  end
+  
+  it 'contains an iTunes Store download link' do
+    expect(html).to have_selector('a.download-ios')
   end
   
   context 'shared controls' do
