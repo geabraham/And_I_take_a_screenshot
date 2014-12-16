@@ -12,10 +12,7 @@ describe IMedidataClient do
       it 'raises an error' do
         expect { 
           test_class.request_security_questions!({}) 
-        }.to raise_error(
-          ArgumentError,
-          "Invalid arguments. Please provide #{IMedidataClient::SecurityQuestionsRequest.required_attributes.join(', ')}."
-        )
+        }.to raise_error(IMedidataClient::Request::RequestArgumentError, 'Invalid arguments. Please provide locale.')
       end
     end
 

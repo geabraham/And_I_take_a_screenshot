@@ -29,7 +29,7 @@ describe IMedidataClient::Request do
       it 'raises an error' do
         expect { request.path }.to raise_error(
           IMedidataClient::IMedidataClientError,
-          "No default request path. Please define an request path for the subclass.")
+          "No default request path. Please define a request path for the subclass.")
       end
     end
   end

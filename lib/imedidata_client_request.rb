@@ -1,5 +1,9 @@
 module IMedidataClient
   class Request
+    def self.required_attributes
+      []
+    end
+
     def response
       imedidata_connection.send(http_method, path) { |req| req.body = request_body.to_json }
     end
@@ -22,6 +26,12 @@ module IMedidataClient
         builder.adapter Faraday.default_adapter
       end
     end
+
+    def argument_error
+      RequestArgumentError.new("Invalid arguments. Please provide #{self.class.required_attributes.join(', ')}.")
+    end
+
+    class RequestArgumentError < ArgumentError; end
   end
 
   class SecurityQuestionsRequest < Request
@@ -30,9 +40,7 @@ module IMedidataClient
     end
 
     def initialize(attrs = {})
-      unless self.class.required_attributes.all? {|p| attrs[p].present? }
-        raise ArgumentError.new("Invalid arguments. Please provide #{self.class.required_attributes.join(', ')}.")
-      end
+      raise argument_error unless self.class.required_attributes.all? {|p| attrs[p].present? }
       @locale = attrs[:locale]
     end
 
