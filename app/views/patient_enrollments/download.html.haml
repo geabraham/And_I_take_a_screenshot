@@ -9,8 +9,10 @@
       %span.sr-only= 'Forward'
   %p
   #download-instruction="Congratulations, you are registered as a participant in this study. Now it's time to download the Patient Cloud app."
-  %a.download-link(href=@download_link data-backdrop="static" data-keyboard="false")
-    =image_tag 'Progress_bar_download.png', id: 'progress-img'
-    =image_tag 'google_play_logo_thumb.png', class: 'badge-img'
-    =image_tag 'App_Store_Badge_US-UK.svg', class: 'badge-img'
-    =image_tag 'Log_in_Screen.png', id: 'login-screen-img'
+  =image_tag 'Progress_bar_download.png', id: 'progress-img'
+  .row
+    .col-xs-6
+      =image_tag 'google_play_logo_thumb.png', class: 'badge-img', id: 'android-badge'
+    .col-xs-6
+      =image_tag 'App_Store_Badge_US-UK.svg', class: 'badge-img', id: 'ios-badge'
+  =image_tag 'Log_in_Screen.png', id: 'login-screen-img'
