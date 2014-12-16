@@ -13,7 +13,7 @@ module IMedidataClient
     end
 
     def path
-      raise IMedidataClientError.new("No default request path. Please define an request path for the subclass.")
+      raise IMedidataClientError.new("No default request path. Please define a request path for the subclass.")
     end
 
     def imedidata_connection
