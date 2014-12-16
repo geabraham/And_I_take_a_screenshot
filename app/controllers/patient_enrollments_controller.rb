@@ -15,7 +15,7 @@ class PatientEnrollmentsController < ApplicationController
     elsif request.env['HTTP_USER_AGENT'].include?('Patient Cloud Android')
       #TODO link to an app URL defined by the Android team
     else 
-      @download_link = 'https://itunes.apple.com/us/app/patient-cloud/id554170114?mt=8'
+      @download_link = 'https://itunes.apple.com/app/patient-cloud/id554170114?mt=8'
     end
     
     render 'download'
