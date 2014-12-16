@@ -1,3 +1,10 @@
+Before do
+  @security_questions = [{name: 'What year were you born?', id: '1'},
+                        {name: 'Last four digits of SSN or Tax ID number?', id: '2'},
+                        {name: 'What is your father\'s middle name?', id: '3'}]
+  allow(RemoteSecurityQuestions).to receive(:find_or_fetch).with(I18n.default_locale).and_return(@security_questions)
+end
+
 When(/^I fill in an activation code$/) do
   visit '/'
   (1..6).each { |e| fill_in "code-#{e}", with: "#{e}" }
@@ -11,11 +18,6 @@ When(/^I accept the TOU\/DPN$/) do
 end
 
 When(/^I submit registration info as a new subject$/) do
-  security_questions = [{name: 'What year were you born?', id: '1'},
-                        {name: 'Last four digits of SSN or Tax ID number?', id: '2'},
-                        {name: 'What is your father\'s middle name?', id: '3'}]
-  allow(RemoteSecurityQuestions).to receive(:find_or_fetch).with(I18n.default_locale).and_return(security_questions)
-  visit '/patient_enrollments/new/'
   @patient_enrollment ||= build :patient_enrollment, uuid: 'enrollment123', login: 'the-dude@mdsol.com', 
     password: 'B0wl11ng', answer: 'The Eagles', activation_code: '123456'
   fill_in 'Email', with: @patient_enrollment.login
@@ -33,7 +35,7 @@ When(/^I submit registration info as a new subject$/) do
   sleep(1)
   click_on 'Next'
 
-  select security_questions.sample[:name], from: 'Security Question'
+  select @security_questions.sample[:name], from: 'Security Question'
   fill_in 'Security Answer', with: @patient_enrollment.answer
   click_on 'Create account'
 end

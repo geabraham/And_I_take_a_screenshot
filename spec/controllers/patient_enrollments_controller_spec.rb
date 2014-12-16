@@ -37,6 +37,13 @@ describe PatientEnrollmentsController do
         get :new
         expect(assigns(:tou_dpn_agreement)).to eq(tou_dpn_agreement)
       end
+
+      describe 'security questions' do
+        it 'assigns @security_questions to a set of questions using the locale parameter' do
+          get :new, locale: 'jpn'
+          expect(assigns(:security_questions)).to eq(jpn_security_questions.map {|sq| sq.values})
+        end
+      end
     end
 
     context 'when no patient enrollment uuid is present in the request' do
@@ -47,13 +54,6 @@ describe PatientEnrollmentsController do
 
       it_behaves_like 'returns expected status'
       it_behaves_like 'returns expected error response body'
-    end
-
-    describe 'security questions' do
-      it 'assigns @security_questions to a set of questions using the locale parameter' do
-        get :new, locale: 'jpn'
-        expect(assigns(:security_questions)).to eq(jpn_security_questions.map {|sq| sq.values})
-      end
     end
   end
   
