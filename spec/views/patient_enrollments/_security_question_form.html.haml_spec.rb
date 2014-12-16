@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'rails_helper'
+
 describe 'patient_enrollments/_security_question_form.html.haml' do
   describe 'rendering form' do
     before do
