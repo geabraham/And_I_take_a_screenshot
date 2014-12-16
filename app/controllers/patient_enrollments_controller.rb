@@ -9,7 +9,7 @@ class PatientEnrollmentsController < ApplicationController
     @patient_enrollment = PatientEnrollment.new(uuid: patient_enrollment_uuid)
     @tou_dpn_agreement_body = @patient_enrollment.tou_dpn_agreement_body
 
-    @security_questions = RemoteSecurityQuestions.find_or_fetch(@patient_enrollment.language_code).map { |sq| sq.values }
+    @security_questions = RemoteSecurityQuestions.find_or_fetch(@patient_enrollment.language_code || I18n.default_locale).map { |sq| sq.values }
   rescue StandardError => e
     # TODO: render error modal
     return render json: {message: "Unable to continue with registration. Error: #{e.message}"}, status: 422
