@@ -17,7 +17,7 @@ describe PatientEnrollment do
 
     context 'when remote_tou_dpn_agreement exists' do
       it 'returns the body' do
-        expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).tou_dpn_agreement).to eq(tou_dpn_agreement_body)
+        expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).tou_dpn_agreement_body).to eq(tou_dpn_agreement_body)
       end
     end
 

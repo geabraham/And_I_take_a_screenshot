@@ -1,9 +1,18 @@
 class PatientEnrollment
   include ActiveModel::Model
-  attr_accessor :uuid, :login, :password, :security_question, :answer, :activation_code, :login_confirmation
+  attr_accessor :uuid, :login, :password, :security_question, :answer, :activation_code, :login_confirmation,
+                :tou_dpn_agreement
+
+  def tou_dpn_agreement_body
+    Nokogiri::HTML(tou_dpn_agreement['html']).css('body').to_s.html_safe
+  end
+
+  def language_code
+    tou_dpn_agreement['language_code']
+  end
 
   def tou_dpn_agreement
-    Nokogiri::HTML(remote_tou_dpn_agreement['html']).css('body').to_s.html_safe
+    @tou_dpn_agreement ||= remote_tou_dpn_agreement
   end
 
   private
