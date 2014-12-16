@@ -24,32 +24,11 @@ class RemoteSecurityQuestions
     # Returns cached security questions or fetches them from remote location
     #
     def find_or_fetch(locale)
-      if !!(security_questions = cache_fetch(locale) rescue nil)
-        security_questions
-      else
-        remote_fetch(locale)
-      end
-    end
-
-    # Makes a request to the iMedidata API for the questions in the locale provided
-    #
-    def remote_fetch(locale)
-      response = request_security_questions!(locale: locale)
-      cache_write(locale, response)
-      response
+      Rails.cache.fetch(key_for_locale(locale)) { request_security_questions!(locale: locale) }
     end
 
     def key_for_locale(locale)
       "#{locale}_security_questions"
-    end
-
-    private
-    def cache_fetch(locale)
-      Rails.cache.fetch(key_for_locale(locale))
-    end
-
-    def cache_write(locale, value)
-      Rails.cache.write(key_for_locale(locale), value)
     end
   end
 end
