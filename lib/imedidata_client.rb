@@ -7,10 +7,8 @@ module IMedidataClient
   # Returns an array of security questions
   #
   def request_security_questions!(options = {})
-    unless SecurityQuestionsRequest.required_attributes.all? {|p| options.include?(p) }
-      raise ArgumentError.new("Invalid arguments. Please provide #{SecurityQuestionsRequest.required_attributes.join(', ')}.")
-    end
-    security_questions_response = SecurityQuestionsRequest.new(locale: options[:locale]).response
+    request = SecurityQuestionsRequest.new(locale: options[:locale])
+    security_questions_response = request.response
 
     unless security_questions_response.status == 200
       raise IMedidataClientError.new("Security Questions request failed for #{options[:locale]}. " <<

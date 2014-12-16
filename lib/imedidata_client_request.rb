@@ -30,6 +30,9 @@ module IMedidataClient
     end
 
     def initialize(attrs = {})
+      unless self.class.required_attributes.all? {|p| attrs[p].present? }
+        raise ArgumentError.new("Invalid arguments. Please provide #{self.class.required_attributes.join(', ')}.")
+      end
       @locale = attrs[:locale]
     end
 
