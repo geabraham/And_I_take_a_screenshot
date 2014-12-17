@@ -41,7 +41,7 @@ var handleInput = function() {
       $(".validation_error").addClass('invisible');
   
       if(str.length === 6) {
-        $.post("/activation_codes/" + str + "/activate");
+        $.get("/activation_codes/" + str + "/activate");
       }
       else {
         currentInput.next().focus();
