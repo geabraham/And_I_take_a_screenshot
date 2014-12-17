@@ -32,7 +32,7 @@ var getCodeString = function() {
 
 var handleInput = function() {
   var str = getCodeString(),
-    currentInput = $('#' + document.activeElement.id);
+    currentInput = $(document.activeElement);
   
   if( str !== "" ) {
     var regx = /^[A-HJ-NP-Za-hj-np-z2-9]+$/;
