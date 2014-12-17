@@ -8,38 +8,45 @@ describe PatientEnrollment do
       :login_confirmation ]
   end
 
-  describe 'tou_dpn_agreement' do
+  describe 'instance methods' do
     include_context 'Euresource::PatientEnrollment#tou_dpn_agreement response'
     let(:tou_dpn_agreement_body)     { "<body><p>Maybe Christmas, the Grinch thought, doesn't come from a store.</p></body>" }
     let(:tou_dpn_agreement_html)     { "<html>#{tou_dpn_agreement_body}</html>"}
     let(:euresource_response_status) { 200 }
-    let(:euresource_response_body)   { {html: tou_dpn_agreement_html}.to_json }
+    let(:euresource_response_body)   { {html: tou_dpn_agreement_html, language_code: 'jpn'}.to_json }
+    describe 'tou_dpn_agreement_body' do
+      context 'when remote_tou_dpn_agreement exists' do
+        it 'returns the body' do
+          expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).tou_dpn_agreement_body).to eq(tou_dpn_agreement_body)
+        end
+      end
 
-    context 'when remote_tou_dpn_agreement exists' do
-      it 'returns the body' do
-        expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).tou_dpn_agreement).to eq(tou_dpn_agreement_body)
+      context 'when no uuid provided' do
+        it 'raises an error' do
+          expect {
+            PatientEnrollment.new.send(:tou_dpn_agreement)
+          }.to raise_error(PatientEnrollment::PatientEnrollmentError, 'Cannot request TOU/DPN agreement without attribute: uuid')
+        end
+      end
+
+      context 'when remote_tou_dpn_agreement does not exist' do
+        let(:euresource_response_status) { 404 }
+        let(:euresource_response_body)   { 'None found' }
+        let(:error_message)              do
+          "Received unexpected response for tou_dpn_agreement. Response status: 404. Response body: #{euresource_response_body}"
+        end
+
+        it 'raises an error' do
+          expect {
+            PatientEnrollment.new(uuid: patient_enrollment_uuid).tou_dpn_agreement
+          }.to raise_error(PatientEnrollment::RemotePatientEnrollmentError, error_message)
+        end
       end
     end
 
-    context 'when no uuid provided' do
-      it 'raises an error' do
-        expect {
-          PatientEnrollment.new.send(:tou_dpn_agreement)
-        }.to raise_error(PatientEnrollment::PatientEnrollmentError, 'Cannot request TOU/DPN agreement without attribute: uuid')
-      end
-    end
-
-    context 'when remote_tou_dpn_agreement does not exist' do
-      let(:euresource_response_status) { 404 }
-      let(:euresource_response_body)   { 'None found' }
-      let(:error_message)              do
-        "Received unexpected response for tou_dpn_agreement. Response status: 404. Response body: #{euresource_response_body}"
-      end
-
-      it 'raises an error' do
-        expect {
-          PatientEnrollment.new(uuid: patient_enrollment_uuid).tou_dpn_agreement
-        }.to raise_error(PatientEnrollment::RemotePatientEnrollmentError, error_message)
+    describe 'language_code' do
+      it 'returns the language_code of the tou dpn agreement' do
+        expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).language_code).to eq('jpn')
       end
     end
   end

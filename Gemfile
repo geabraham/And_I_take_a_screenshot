@@ -66,14 +66,14 @@ group :test, :development do
   gem 'kender', git: 'git@github.com:mdsol/kender.git', branch: 'master'
   gem 'shamus', git: 'git@github.com:mdsol/shamus.git', tag: '2013.3.0'
   gem 'brakeman', '~> 2.6.3'
-  gem 'pry'
-  gem 'pry-nav'
   gem 'capybara', '~> 2.4.4'
   gem 'factory_girl', '~> 3.5'
   gem 'gem_goblin', git: 'git@github.com:mdsol/gem_goblin.git', branch: 'develop'
   gem 'jasmine'
   gem 'jasmine-rails', '~> 0.10.2'
   gem 'jasmine-jquery-rails'
+  gem 'pry', '~> 0.9'
+  gem 'pry-nav', '~> 0.2'
 end
 
 # Used in Blueprint/Sandman Docs

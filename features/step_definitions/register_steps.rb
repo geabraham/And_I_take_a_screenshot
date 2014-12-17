@@ -1,10 +1,22 @@
+Before do
+  @security_questions = [{name: 'What year were you born?', id: '1'},
+                         {name: 'Last four digits of SSN or Tax ID number?', id: '2'},
+                         {name: 'What is your father\'s middle name?', id: '3'}]
+  allow(RemoteSecurityQuestions).to receive(:find_or_fetch).and_return(@security_questions)
+end
+
 When(/^I fill in an activation code$/) do
   visit '/'
   (1..6).each { |e| fill_in "code-#{e}", with: "#{e}" }
 end
 
 When(/^I accept the TOU\/DPN$/) do
-  allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return('<body>We think in generalities, but we live in detail.</body>')
+  tou_dpn_agreement = {
+    'html' => '<html><body>We think in generalities, but we live in detail.</body></html>', 
+    'language_code' => 'eng'
+  }
+
+  allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(tou_dpn_agreement)
   visit '/patient_enrollments/new/'
   assert_text('We think in generalities, but we live in detail.')
   click_on 'I agree'
@@ -12,7 +24,7 @@ end
 
 When(/^I submit registration info as a new subject$/) do
   @patient_enrollment ||= build :patient_enrollment, uuid: 'enrollment123', login: 'the-dude@mdsol.com', 
-    password: 'B0wl11ng', security_question: 3, answer: 'The Eagles', activation_code: '123456'
+    password: 'B0wl11ng', answer: 'The Eagles', activation_code: '123456'
   fill_in 'Email', with: @patient_enrollment.login
   fill_in 'Re-enter Email', with: @patient_enrollment.login
   # FIXME.
@@ -25,9 +37,10 @@ When(/^I submit registration info as a new subject$/) do
 
   fill_in 'Password', with: @patient_enrollment.password
   fill_in 'Confirm Password', with: @patient_enrollment.password
+  sleep(1)
   click_on 'Next'
 
-  select "What's the worst band in the world?", from: 'Security Question'
+  select @security_questions.sample[:name], from: 'Security Question'
   fill_in 'Security Answer', with: @patient_enrollment.answer
   click_on 'Create account'
 end

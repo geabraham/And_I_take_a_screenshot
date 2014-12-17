@@ -500,8 +500,8 @@ DEPENDENCIES
   node
   nokogiri (~> 1.6.3)
   passenger (~> 4.0)
-  pry
-  pry-nav
+  pry (~> 0.9)
+  pry-nav (~> 0.2)
   rack-cache!
   rack-status (~> 1.0.0)
   rails (~> 4.1.7)
