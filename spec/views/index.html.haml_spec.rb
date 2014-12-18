@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'activation_codes/_activation_code.html.haml' do
+describe 'activation_codes/index.html.haml' do
   describe 'enter code' do
     before do
       render
