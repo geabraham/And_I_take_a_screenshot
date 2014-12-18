@@ -1,112 +1,26 @@
-// Example of mixins in action
-//body {
-//  @include square(10px);
-//  @include border-radius(5px);
-//}
 
-$width: 100%;
-$max_width: 375px;
-$height: 667px;
-$inputWidth: $width/9;
-$global_lr_margin: $width/30;
-$global_tb_margin: $width/48;
 
-#main {
-  height: 100%;
-  background-color: #555555;
-}
+// $width: 100%;
+// $max_width: 375px;
+// $height: 667px;
+// $inputWidth: $width/9;
+// $global_lr_margin: $width/30;
+// $global_tb_margin: $width/48;
 
-.patient {
-  position: relative;
-  width: $width;
-  max-width: $max_width;
-  height: $height;
-  background-color: white;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-}
 
-.logo {
-  width: 100%;
-}
 
-h2 {
-  color: #002855;
-}
-
-ul {
-  margin-left: -$width/15; //prevent bullet indent
-}
-
-.password_instructions {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  list-style-type: dot;
-}
-
-.item, .activation-code-content {
-  margin: $global_lr_margin;
-}
-
-.active {
-  height: $height - $height/13 - $height/16 - $height/100 - 48;
-  overflow: scroll;
-  display: block;
-}
-
-h3.form_header {
-  margin-top: 5px;
-  margin-bottom: 23px;
-}
-
-.code {
-  width: $inputWidth;
-  height: $inputWidth;
-  background-color: #dddddd;
-  border-radius: 2px;
-  border: 0px;
-  font-size: 20px;
-  margin: ($inputWidth/7);
-  text-align: center;
-}
-
-#progress-img {
-  padding-left: 5%;
-  width: 95%;
-}
-
-#badge-img {
-  width: 75%;
-  padding: 20px 0 20px 25%;
-}
-
-#login-screen-img {
-  width: 100%;
-}
-
-label.invalid {
-  color: red;
-}
-
-input.invalid {
-  background-color: #dddddd;
-  border: 1px solid red;
-}
-
-.registration-input {
-  background-color: #dddddd;
-  border-color: transparent;
-  padding: 6px;
-  color: #333333;
+#main {  
+  background-color: #eff;
 }
 
 .header {
-  position: relative;
+  border-radius: 0;
   background-color: #002855;
   color: #ffffff;
   font-size: 28px;
   text-align: center;
   padding: 5px 0 10px;
-  height: $height/13;
+  height: 50px;
   .forward_arrow {
     padding-right: 15px;
     color: #999999;
@@ -117,24 +31,30 @@ input.invalid {
   }
 }
 
-.activation-header {
-  position: relative;
-  text-align: center;
+.patient {  
+  form {
+    padding: 0 15px;
+    .carousel {
+      margin-top: 50px;
+    }
+    .tou_dpn_agreement {
+      padding-bottom: 70px;
+    }
+    h3 {
+      margin-top: 10px;
+      font-weight: 200;
+    }
+  }
 }
 
-#download-instruction {
-  font-size: 18px;
-  margin: $global_lr_margin;
-  text-align: center;
-}
+
 
 .progress {
   border-radius: 0;
   border: none;
-  height: 1.25%;
-  padding-top: 2px;
+  margin-top: 3px;
   margin-bottom: 0px;
-  height: $height/100;
+  height: 5px;
   .progress-bar-default {
     width: 24.25%;
   }
@@ -148,47 +68,132 @@ input.invalid {
   }
 }
 
-.btn-block {
-  height: $height/16;
-  font-size: 22px;
-}
-
-#next-button {
-  margin-top: 0px;
-}
+// // footer
+// .btn-block {
+//   // height: $height/16;
+//   font-size: 22px;
+// }
 
 .next {
-  padding: 17px;
-  position: absolute;
-  bottom: 0px;
+  background-color: #fff;
+  padding: 15px;
   border-top: 1px solid #bbbbbb;
-  max-width: $max_width;
-  width: $width;
+  
 }
 
-.validation_error {
-  color: red;
-}
+// 
+// .logo {
+//   width: 100%;
+// }
 
-.modal {
-  position: absolute;
-  padding-top: 45%;
-  .modal-dialog {
-    width: 90%;
-    .modal-content {
-      background-color: #eeeeee;
-      border-style: none;
-      .modal-body {
-        font-size: 18px;
-      }
-      .modal-footer {
-        text-align: center;
-        border-top: 1px solid #aaaaaa;
-        .modal-btn{
-          background-color: inherit;
-          font-size: 19px;
-        }
-      }
-    }
-  }
-}
+
+// ul {
+//   margin-left: -$width/15; //prevent bullet indent
+// }
+
+// .password_instructions {
+//   margin-top: 5px;
+//   margin-bottom: 5px;
+//   list-style-type: dot;
+// }
+
+// .item, .activation-code-content {
+//   margin: $global_lr_margin;
+// }
+
+// .active {
+//   height: $height - $height/13 - $height/16 - $height/100 - 48;
+//   overflow: scroll;
+//   display: block;
+// }
+
+// h3.form_header {
+//   margin-top: 0;
+//   // margin-bottom: 23px;
+//   font-weight: 200;
+// }
+
+// .code {
+//   width: $inputWidth;
+//   height: $inputWidth;
+//   background-color: #dddddd;
+//   border-radius: 2px;
+//   border: 0px;
+//   font-size: 20px;
+//   margin: ($inputWidth/7);
+//   text-align: center;
+// }
+
+// #progress-img {
+//   padding-left: 5%;
+//   width: 95%;
+// }
+
+// #badge-img {
+//   width: 75%;
+//   padding: 20px 0 20px 25%;
+// }
+
+// #login-screen-img {
+//   width: 100%;
+// }
+
+// label.invalid {
+//   color: red;
+// }
+
+// input.invalid {
+//   background-color: #dddddd;
+//   border: 1px solid red;
+// }
+
+// .registration-input {
+//   background-color: #dddddd;
+//   border-color: transparent;
+//   padding: 6px;
+//   color: #333333;
+// }
+
+
+
+// .activation-header {
+//   position: relative;
+//   text-align: center;
+// }
+
+// #download-instruction {
+//   font-size: 18px;
+//   margin: $global_lr_margin;
+//   text-align: center;
+// }
+
+
+
+
+
+// .validation_error {
+//   color: red;
+// }
+
+// .modal {
+//   position: absolute;
+//   padding-top: 45%;
+//   .modal-dialog {
+//     width: 90%;
+//     .modal-content {
+//       background-color: #eeeeee;
+//       border-style: none;
+//       .modal-body {
+//         font-size: 18px;
+//       }
+//       .modal-footer {
+//         text-align: center;
+//         border-top: 1px solid #aaaaaa;
+//         .modal-btn{
+//           background-color: inherit;
+//           font-size: 19px;
+//         }
+//       }
+//     }
+//   }
+// }

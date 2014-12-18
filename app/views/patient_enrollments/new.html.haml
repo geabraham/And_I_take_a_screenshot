@@ -2,7 +2,7 @@
 / It should have failed for password_confirmation for the same reason. It didn't. Why?
 
 - content_for :page_body do
-  .header
+  .header.navbar-fixed-top
     %a.back_arrow.pull-left
       %i.fa.fa-angle-left
       %span.sr-only='Back'
@@ -11,18 +11,18 @@
       %i.fa.fa-angle-right
       %span.sr-only= 'Forward'
       
-  .progress
-    .progress-bar.progress-bar-default
-      %span.sr-only='Page 1 of 4'
-    .progress-bar.progress-bar-spacer
-    .progress-bar.progress-bar-incomplete
-      %span.sr-only='Page 2 of 4'
-    .progress-bar.progress-bar-spacer
-    .progress-bar.progress-bar-incomplete
-      %span.sr-only='Page 3 of 4'
-    .progress-bar.progress-bar-spacer
-    .progress-bar.progress-bar-incomplete
-      %span.sr-only='Page 4 of 4'
+    .progress
+      .progress-bar.progress-bar-default
+        %span.sr-only='Page 1 of 4'
+      .progress-bar.progress-bar-spacer
+      .progress-bar.progress-bar-incomplete
+        %span.sr-only='Page 2 of 4'
+      .progress-bar.progress-bar-spacer
+      .progress-bar.progress-bar-incomplete
+        %span.sr-only='Page 3 of 4'
+      .progress-bar.progress-bar-spacer
+      .progress-bar.progress-bar-incomplete
+        %span.sr-only='Page 4 of 4'
   
   = form_tag @patient_enrollment, id: 'reg-form'
   .carousel.slide#registration-details(data-interval="false")
@@ -35,7 +35,7 @@
         = render 'password_form'
       .item#security_question
         = render 'security_question_form'
-  .next
+  .next.navbar-fixed-bottom
     %a.btn.btn-primary.btn-block#agree-button(href="#registration-details" role="button")='I agree'
     %a.btn.btn-primary.btn-block#next-button.hidden(href="#registration-details" role="button")='Next'
     .submit#submit-button
