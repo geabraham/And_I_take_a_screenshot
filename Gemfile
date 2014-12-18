@@ -8,7 +8,7 @@ gem 'haml', '~> 4.0.5'
 
 gem 'faraday', '~> 0.8.9'
 gem 'coffee-script', '~> 2.3.0'
-
+gem 'node'
 
 gem 'rack-status', '~> 1.0.0'
 
@@ -39,9 +39,10 @@ gem 'dice_bag-mdsol', git: 'git@github.com:mdsol/dice_bag-mdsol.git'
 # Gems used only for assets and not required
 # in production environments by default.
 gem 'sass-rails',   '~> 4.0.3'
-gem 'therubyracer', '~> 0.12.0', platforms: :ruby
 gem 'uglifier', '>= 2.5.3'
 # gem 'asset_sync', '~> 1.1.0'
+
+gem 'nokogiri', '~> 1.6.3'
 
 group :development do
   gem 'guard-rspec'
@@ -65,14 +66,14 @@ group :test, :development do
   gem 'kender', git: 'git@github.com:mdsol/kender.git', branch: 'master'
   gem 'shamus', git: 'git@github.com:mdsol/shamus.git', tag: '2013.3.0'
   gem 'brakeman', '~> 2.6.3'
-  gem 'pry'
-  gem 'pry-nav'
   gem 'capybara', '~> 2.4.4'
   gem 'factory_girl', '~> 3.5'
   gem 'gem_goblin', git: 'git@github.com:mdsol/gem_goblin.git', branch: 'develop'
   gem 'jasmine'
   gem 'jasmine-rails', '~> 0.10.2'
   gem 'jasmine-jquery-rails'
+  gem 'pry', '~> 0.9'
+  gem 'pry-nav', '~> 0.2'
 end
 
 # Used in Blueprint/Sandman Docs

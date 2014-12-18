@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 describe 'Minotaur routes', type: :routing do
   describe 'ActivationCodes' do
@@ -12,9 +12,9 @@ describe 'Minotaur routes', type: :routing do
     end
     
     it 'has an activate route' do
-      expect(post('/activation_codes/0xD42f/activate')).to route_to(
+      expect(get('/activation_codes/3xD42f/activate')).to route_to(
       :controller =>'activation_codes',
-      :id => '0xD42f', 
+      :id => '3xD42f', 
       :action => 'activate')
     end
   end

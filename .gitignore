@@ -23,3 +23,5 @@
 cache/
 public/apps/*
 
+coverage/
+config/imedidata.yml

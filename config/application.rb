@@ -20,6 +20,9 @@ I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
 
 module Minotaur
   class Application < Rails::Application
+    Dir[Rails.root + 'lib/**/*.rb'].each do |file|
+      require file
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -47,7 +50,7 @@ module Minotaur
     config.i18n.fallbacks = true
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :eng
 
     # Configure the default encoding used in templates for Ruby 1.9.

@@ -22,6 +22,7 @@ $global_tb_margin: $width/48;
   max-width: $max_width;
   height: $height;
   background-color: white;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 .logo {
@@ -46,13 +47,24 @@ ul {
   margin: $global_lr_margin;
 }
 
+.active {
+  height: $height - $height/13 - $height/16 - $height/100 - 48;
+  overflow: scroll;
+  display: block;
+}
+
+h3.form_header {
+  margin-top: 5px;
+  margin-bottom: 23px;
+}
+
 .code {
   width: $inputWidth;
   height: $inputWidth;
   background-color: #dddddd;
   border-radius: 2px;
   border: 0px;
-  font-size: 24px;
+  font-size: 20px;
   margin: ($inputWidth/7);
   text-align: center;
 }
@@ -90,7 +102,7 @@ input.invalid {
 .registration-input {
   background-color: #dddddd;
   border-color: transparent;
-  padding: 12px;
+  padding: 6px;
   color: #333333;
 }
 
@@ -101,6 +113,7 @@ input.invalid {
   font-size: 28px;
   text-align: center;
   padding: 5px 0 10px;
+  height: $height/13;
   .forward_arrow {
     padding-right: 15px;
     color: #999999;
@@ -127,6 +140,8 @@ input.invalid {
   border: none;
   height: 1.25%;
   padding-top: 2px;
+  margin-bottom: 0px;
+  height: $height/100;
   .progress-bar-default {
     width: 24.25%;
   }
@@ -141,13 +156,18 @@ input.invalid {
 }
 
 .btn-block {
-  height: $height/13;
+  height: $height/16;
   font-size: 22px;
 }
 
+#next-button {
+  margin-top: 0px;
+}
+
 .next {
-  padding: 10px;
+  padding: 17px;
   position: absolute;
+  bottom: 0px;
   border-top: 1px solid #bbbbbb;
   max-width: $max_width;
   width: $width;
