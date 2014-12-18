@@ -22,6 +22,7 @@
   }
   img {
     vertical-align: top;
+    margin-top: 5px;
   }
 }
 
@@ -30,6 +31,7 @@
     padding: 0 15px;
     .carousel {
       margin-top: 60px;
+      padding-bottom: 70px;
     }
     .tou_dpn_agreement {
       padding-bottom: 70px;
@@ -96,7 +98,11 @@
   font-size: 18px;
   text-align: center;
 }
-
+#progress-img {
+  display: block;
+  width: 90%;
+  margin: 20px auto;
+}
 label.invalid {
   color: red;
 }
@@ -110,22 +116,23 @@ input.invalid {
   color: red;
 }
 
-// .registration-input {
-//   background-color: #dddddd;
-//   border-color: transparent;
-//   padding: 6px;
-//   color: #333333;
-// }
+.downloads {
+  text-align: center;
+  a {
+    display: inline-block;
+    margin: 0 10px;
+  }
+}
 
-// .activation-header {
-//   position: relative;
-//   text-align: center;
-// }
-
-
-// ul {
-//   margin-left: -$width/15; //prevent bullet indent
-// }
+#login-screen-img {
+    margin-top: 50px;
+  img {
+    margin: 0 auto;
+    width: 90%;
+    display: block;
+      
+  }
+}
 
 // .password_instructions {
 //   margin-top: 5px;
@@ -141,27 +148,6 @@ input.invalid {
 //   height: $height - $height/13 - $height/16 - $height/100 - 48;
 //   overflow: scroll;
 //   display: block;
-// }
-
-
-// .code {
-//   width: $inputWidth;
-//   height: $inputWidth;
-//   background-color: #dddddd;
-//   border-radius: 2px;
-//   border: 0px;
-//   font-size: 20px;
-//   margin: ($inputWidth/7);
-//   text-align: center;
-// }
-
-// #badge-img {
-//   width: 75%;
-//   padding: 20px 0 20px 25%;
-// }
-
-// #login-screen-img {
-//   width: 100%;
 // }
 
 // .modal {

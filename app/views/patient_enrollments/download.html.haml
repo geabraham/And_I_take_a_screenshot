@@ -10,10 +10,12 @@
   %p
   #download-instruction="Congratulations, you are registered as a participant in this study. Now it's time to download the Patient Cloud app."
   =image_tag 'Progress_bar_download.png', id: 'progress-img'
-  %a.download-android
-    =image_tag 'app_badge_google.png', class: 'badge-img', id: 'android-badge'
-    %span.sr-only='Download for Android'
-  %a.download-ios(href='https://itunes.apple.com/app/patient-cloud/id554170114?mt=8')
-    =image_tag 'app_badge_ios.png', class: 'badge-img', id: 'ios-badge'
-    %span.sr-only='Download for iOS'
-  =image_tag 'Log_in_Screen.png', id: 'login-screen-img'
+  .downloads
+    %a.download-android
+      =image_tag 'app_badge_google.png', class: 'badge-img', id: 'android-badge'
+      %span.sr-only='Download for Android'
+    %a.download-ios(href='https://itunes.apple.com/app/patient-cloud/id554170114?mt=8')
+      =image_tag 'app_badge_ios.png', class: 'badge-img', id: 'ios-badge'
+      %span.sr-only='Download for iOS'
+  #login-screen-img
+    =image_tag 'phone.png'

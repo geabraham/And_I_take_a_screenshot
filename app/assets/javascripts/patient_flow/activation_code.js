@@ -49,6 +49,7 @@ var handleInput = function() {
     }
     else {
       $(".validation_error").removeClass('invisible');
+      $(".activation-code").addClass('has-error');
     }
   }
 }
