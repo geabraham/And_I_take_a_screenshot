@@ -6,8 +6,8 @@
 = fields_for @patient_enrollment do |f|
   .form-group
     = f.label :login, 'Email'
-    = f.text_field :login, class: 'registration-input form-control'
+    = f.email_field :login, class: 'registration-input form-control'
   .form-group  
     = f.label :login_confirmation, 'Re-enter Email'
-    = f.text_field :login_confirmation, class: 'registration-input form-control'
+    = f.email_field :login_confirmation, class: 'registration-input form-control'
 .validation_error.invisible

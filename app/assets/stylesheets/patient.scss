@@ -1,16 +1,7 @@
 
 
-// $width: 100%;
-// $max_width: 375px;
-// $height: 667px;
-// $inputWidth: $width/9;
-// $global_lr_margin: $width/30;
-// $global_tb_margin: $width/48;
-
-
-
-#main {  
-  background-color: #eff;
+#main, body {  
+  background-color: #fff;
 }
 
 .header {
@@ -29,13 +20,16 @@
     padding-left: 15px;
     color: #ffffff;
   }
+  img {
+    vertical-align: top;
+  }
 }
 
 .patient {  
   form {
     padding: 0 15px;
     .carousel {
-      margin-top: 50px;
+      margin-top: 60px;
     }
     .tou_dpn_agreement {
       padding-bottom: 70px;
@@ -47,20 +41,22 @@
   }
 }
 
-
-
+// Top progress bar
 .progress {
+  padding-top: 3px;
+  background-color: #fff;
   border-radius: 0;
   border: none;
-  margin-top: 3px;
-  margin-bottom: 0px;
-  height: 5px;
+  // margin-top: 10px;
+  margin-bottom: 5px;
+  height: 10px;
   .progress-bar-default {
     width: 24.25%;
+    height: 5px;
   }
   .progress-bar-incomplete {
     background-color: #999999;
-    width: 24.25%;
+    width: 24.25%;height: 5px;
   }
   .progress-bar-spacer {
     background-color: #ffffff;
@@ -68,11 +64,10 @@
   }
 }
 
-// // footer
-// .btn-block {
-//   // height: $height/16;
-//   font-size: 22px;
-// }
+// footer
+.btn-block {
+  font-size: 18px;
+}
 
 .next {
   background-color: #fff;
@@ -81,9 +76,50 @@
   
 }
 
-// 
-// .logo {
-//   width: 100%;
+
+.download-link {
+  display: block;
+  img {
+    display: block;
+    width: 100%;
+    &#badge-img {
+      width: auto;
+    }
+    &#login-screen-img {
+      width: 90%;
+    }
+  }
+}
+
+#download-instruction {
+  width: 100%;
+  font-size: 18px;
+  text-align: center;
+}
+
+label.invalid {
+  color: red;
+}
+
+input.invalid {
+  background-color: #dddddd;
+  border: 1px solid red;
+}
+
+.validation_error {
+  color: red;
+}
+
+// .registration-input {
+//   background-color: #dddddd;
+//   border-color: transparent;
+//   padding: 6px;
+//   color: #333333;
+// }
+
+// .activation-header {
+//   position: relative;
+//   text-align: center;
 // }
 
 
@@ -107,11 +143,6 @@
 //   display: block;
 // }
 
-// h3.form_header {
-//   margin-top: 0;
-//   // margin-bottom: 23px;
-//   font-weight: 200;
-// }
 
 // .code {
 //   width: $inputWidth;
@@ -124,11 +155,6 @@
 //   text-align: center;
 // }
 
-// #progress-img {
-//   padding-left: 5%;
-//   width: 95%;
-// }
-
 // #badge-img {
 //   width: 75%;
 //   padding: 20px 0 20px 25%;
@@ -136,43 +162,6 @@
 
 // #login-screen-img {
 //   width: 100%;
-// }
-
-// label.invalid {
-//   color: red;
-// }
-
-// input.invalid {
-//   background-color: #dddddd;
-//   border: 1px solid red;
-// }
-
-// .registration-input {
-//   background-color: #dddddd;
-//   border-color: transparent;
-//   padding: 6px;
-//   color: #333333;
-// }
-
-
-
-// .activation-header {
-//   position: relative;
-//   text-align: center;
-// }
-
-// #download-instruction {
-//   font-size: 18px;
-//   margin: $global_lr_margin;
-//   text-align: center;
-// }
-
-
-
-
-
-// .validation_error {
-//   color: red;
 // }
 
 // .modal {
