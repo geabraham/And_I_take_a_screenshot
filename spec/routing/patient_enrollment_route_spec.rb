@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 describe 'PatientEnrollment Routes' do
   it 'has a GET new route' do
