@@ -45,6 +45,10 @@ When(/^I submit registration info as a new subject$/) do
   click_on 'Create account'
 end
 
-Then(/^I should be registered for a study$/) do
+Then(/^I should see a link to download the Patient Cloud app$/) do
+  find_link 'Download for iOS'
+end
+
+And(/^I should be registered for a study$/) do
   pending
 end
