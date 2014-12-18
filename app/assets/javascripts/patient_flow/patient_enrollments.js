@@ -38,6 +38,12 @@ $(function () {
   $('#patient_enrollment_answer').on('keyup', answerKeyup);
   
   $('#patient_enrollment_security_question').on('change', questionChange);
+  
+  $(document).keypress(function(e){
+      if (e.which == 13){
+          $("#next-button").click();
+      }
+  });
 })
 
 var addPasswordRules = function() {
