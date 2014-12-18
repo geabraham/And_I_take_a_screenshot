@@ -1,0 +1,188 @@
+
+
+#main, body {  
+  background-color: #fff;
+}
+
+.header {
+  border-radius: 0;
+  background-color: #002855;
+  color: #ffffff;
+  font-size: 28px;
+  text-align: center;
+  padding: 5px 0 10px;
+  height: 50px;
+  .forward_arrow {
+    padding-right: 15px;
+    color: #999999;
+  }
+  .back_arrow {
+    padding-left: 15px;
+    color: #ffffff;
+  }
+  img {
+    vertical-align: top;
+  }
+}
+
+.patient {  
+  form {
+    padding: 0 15px;
+    .carousel {
+      margin-top: 60px;
+    }
+    .tou_dpn_agreement {
+      padding-bottom: 70px;
+    }
+  }
+  h3 {
+    margin-top: 10px;
+    font-weight: 200;
+  }
+}
+
+// Top progress bar
+.progress {
+  padding-top: 3px;
+  background-color: #fff;
+  border-radius: 0;
+  border: none;
+  // margin-top: 10px;
+  margin-bottom: 5px;
+  height: 10px;
+  .progress-bar-default {
+    width: 24.25%;
+    height: 5px;
+  }
+  .progress-bar-incomplete {
+    background-color: #999999;
+    width: 24.25%;height: 5px;
+  }
+  .progress-bar-spacer {
+    background-color: #ffffff;
+    width: 1%;
+  }
+}
+
+// footer
+.btn-block {
+  font-size: 18px;
+}
+
+.next {
+  background-color: #fff;
+  padding: 15px;
+  border-top: 1px solid #bbbbbb;
+  
+}
+
+
+.download-link {
+  display: block;
+  img {
+    display: block;
+    width: 100%;
+    &#badge-img {
+      width: auto;
+    }
+    &#login-screen-img {
+      width: 90%;
+    }
+  }
+}
+
+#download-instruction {
+  width: 100%;
+  font-size: 18px;
+  text-align: center;
+}
+
+label.invalid {
+  color: red;
+}
+
+input.invalid {
+  background-color: #dddddd;
+  border: 1px solid red;
+}
+
+.validation_error {
+  color: red;
+}
+
+// .registration-input {
+//   background-color: #dddddd;
+//   border-color: transparent;
+//   padding: 6px;
+//   color: #333333;
+// }
+
+// .activation-header {
+//   position: relative;
+//   text-align: center;
+// }
+
+
+// ul {
+//   margin-left: -$width/15; //prevent bullet indent
+// }
+
+// .password_instructions {
+//   margin-top: 5px;
+//   margin-bottom: 5px;
+//   list-style-type: dot;
+// }
+
+// .item, .activation-code-content {
+//   margin: $global_lr_margin;
+// }
+
+// .active {
+//   height: $height - $height/13 - $height/16 - $height/100 - 48;
+//   overflow: scroll;
+//   display: block;
+// }
+
+
+// .code {
+//   width: $inputWidth;
+//   height: $inputWidth;
+//   background-color: #dddddd;
+//   border-radius: 2px;
+//   border: 0px;
+//   font-size: 20px;
+//   margin: ($inputWidth/7);
+//   text-align: center;
+// }
+
+// #badge-img {
+//   width: 75%;
+//   padding: 20px 0 20px 25%;
+// }
+
+// #login-screen-img {
+//   width: 100%;
+// }
+
+// .modal {
+//   position: absolute;
+//   padding-top: 45%;
+//   .modal-dialog {
+//     width: 90%;
+//     .modal-content {
+//       background-color: #eeeeee;
+//       border-style: none;
+//       .modal-body {
+//         font-size: 18px;
+//       }
+//       .modal-footer {
+//         text-align: center;
+//         border-top: 1px solid #aaaaaa;
+//         .modal-btn{
+//           background-color: inherit;
+//           font-size: 19px;
+//         }
+//       }
+//     }
+//   }
+// }
