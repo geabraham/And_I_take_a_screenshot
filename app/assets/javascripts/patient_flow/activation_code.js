@@ -39,6 +39,7 @@ var handleInput = function() {
 
     if(regx.test(str)) {
       $(".validation_error").addClass('invisible');
+      $(".activation-code").removeClass('has-error');
   
       if(str.length === 6) {
         $.get("/activation_codes/" + str + "/activate");

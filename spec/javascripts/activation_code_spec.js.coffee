@@ -38,6 +38,7 @@ describe 'activation code page', ->
         loadFixtures 'activationCodeFixture.html'
         $('.code').trigger 'keyup'
         expect($('.validation_error')).toHaveClass 'invisible'
+        expect($('.activation-code')).not.toHaveClass 'has-error'
       
     describe 'for an invalid character', ->
       it 'shows a validation error', ->
@@ -45,6 +46,7 @@ describe 'activation code page', ->
         window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('NOOO0!')
         $('.code').trigger 'keyup'
         expect($('.validation_error')).not.toHaveClass 'invisible'
+        expect($('.activation-code')).toHaveClass 'has-error'
         
   describe 'when a field is selected', ->
     it 'highlights the existing character', ->
