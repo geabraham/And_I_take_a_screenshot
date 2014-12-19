@@ -14,6 +14,7 @@ describe 'patient enrollments form', ->
     advanceProgressBarSpy.calls.reset()
     reverseProgressBarSpy.calls.reset()
 
+  describe 'tou_dpn_page', ->
     beforeEach ->
       $('#tou_dpn_agreement').addClass('active')
       # unlike on the actual page, set the fixture's active div manually since we're
@@ -41,7 +42,7 @@ describe 'patient enrollments form', ->
     describe 'when back button is clicked', ->
       it 'goes backwards', ->
         $('.back_arrow').trigger 'click'
-        expect(carouselSpy.calls.any()).toEqual true # carousel should not change divs
+        expect(carouselSpy.calls.any()).toEqual true
         expect(reverseProgressBarSpy.calls.any()).toEqual true
         
     describe 'for a blank input', ->
