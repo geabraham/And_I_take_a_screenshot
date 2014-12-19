@@ -72,6 +72,27 @@ describe 'patient enrollments form', ->
           expect(carouselSpy.calls.allArgs()).toEqual [['next']]
           expect(advanceProgressBarSpy.calls.count()).toEqual 1
           
+    describe 'pressing the Enter key', ->
+      describe 'for an invalid input', ->
+        it 'shows a validation error', ->
+          $('#reg-form').append('<input name="patient_enrollment[login]" value="not_an_email" />')
+          e = jQuery.Event("keypress", which: 13)
+          $(document).trigger e
+          expect(carouselSpy.calls.any()).toEqual false
+          expect(advanceProgressBarSpy.calls.any()).toEqual false
+          expect($('.validation_error')).not.toHaveClass('invisible')
+          expect($('.validation_error')).toHaveText('Enter a valid email.')
+          
+      describe 'for a valid input', ->
+        it 'advances to the password page', ->
+          passwordRulesSpy = spyOn(window, 'addPasswordRules')
+          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+          e = jQuery.Event("keypress", which: 13)
+          $(document).trigger e
+          expect(addPasswordRules).toHaveBeenCalled()
+          expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+          expect(advanceProgressBarSpy.calls.count()).toEqual 1
+          
   describe 'password page', ->
     beforeEach ->
       $('#password').addClass('active')
