@@ -168,8 +168,12 @@ describe 'patient enrollments form', ->
       describe 'when security answer is blank', ->
         it 'is disabled', ->
           $('#patient_enrollment_security_question').val("What's the worst band in the world?")
+          $('#patient_enrollment_answer').val("   ")
           $('#patient_enrollment_security_question').trigger 'change'
           expect($('#create-account')).toHaveAttr('disabled', 'disabled')
+          
+      describe 'when security answer is whitespace', ->
+        it 'is disabled', ->
           
       describe 'when both fields are filled', ->
         it 'is enabled', ->
