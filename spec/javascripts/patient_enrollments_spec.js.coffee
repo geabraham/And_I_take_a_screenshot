@@ -88,7 +88,7 @@ describe 'patient enrollments form', ->
           expect($('.validation_error')).not.toHaveClass('invisible')
           expect($('.validation_error')).toHaveText('Enter a valid password.')
           
-      describe 'for an invalid input', ->
+      describe 'for a weak password', ->
         it 'shows a validation error', ->
           $('#patient_enrollment_password').attr('value', 'Notagoodpassword')
           $('#patient_enrollment_password_confirmation').attr('value', 'Notagoodpassword')
@@ -97,6 +97,44 @@ describe 'patient enrollments form', ->
           expect(advanceProgressBarSpy.calls.any()).toEqual false
           expect($('.validation_error')).not.toHaveClass('invisible')
           expect($('.validation_error')).toHaveText('Enter a valid password.')
+          
+      describe 'for a password with leading whitespace', ->
+        it 'shows a validation error', ->
+          $('#patient_enrollment_password').attr('value', ' AB4ddPasswrd')
+          $('#patient_enrollment_password_confirmation').attr('value', ' AB4ddPasswrd')
+          $('#next-button').trigger 'click'
+          expect(carouselSpy.calls.any()).toEqual false
+          expect(advanceProgressBarSpy.calls.any()).toEqual false
+          expect($('.validation_error')).not.toHaveClass('invisible')
+          expect($('.validation_error')).toHaveText('Enter a valid password.')
+          
+      describe 'for a password with trailing whitespace', ->
+        it 'shows a validation error', ->
+          $('#patient_enrollment_password').attr('value', 'AB4ddPasswrd ')
+          $('#patient_enrollment_password_confirmation').attr('value', 'AB4ddPasswrd ')
+          $('#next-button').trigger 'click'
+          expect(carouselSpy.calls.any()).toEqual false
+          expect(advanceProgressBarSpy.calls.any()).toEqual false
+          expect($('.validation_error')).not.toHaveClass('invisible')
+          expect($('.validation_error')).toHaveText('Enter a valid password.')
+          
+      describe 'for a password with multiple consecutive spaces', ->
+        it 'shows a validation error', ->
+          $('#patient_enrollment_password').attr('value', 'Notag  dpassw0rd')
+          $('#patient_enrollment_password_confirmation').attr('value', 'Notag  dpassw0rd')
+          $('#next-button').trigger 'click'
+          expect(carouselSpy.calls.any()).toEqual false
+          expect(advanceProgressBarSpy.calls.any()).toEqual false
+          expect($('.validation_error')).not.toHaveClass('invisible')
+          expect($('.validation_error')).toHaveText('Enter a valid password.')
+          
+      describe 'for a password with one space not on either end', ->
+        it 'advances to the security question page', ->
+          $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw rd')
+          $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw rd')
+          $('#next-button').trigger 'click'
+          expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+          expect(advanceProgressBarSpy.calls.count()).toEqual 1
           
       describe 'for a valid input', ->
         it 'advances to the security question page', ->

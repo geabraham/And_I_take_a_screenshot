@@ -28,6 +28,9 @@ $(function () {
     return  /[a-z]/.test(value) // has a lowercase letter
       && /[A-Z]/.test(value) // has an uppercase letter
       && /\d/.test(value) // has a digit
+      && !(/(  )/.test(value)) //doesn't have consecutive whitespace
+      && (value.indexOf(' ') !== 0) //doesn't start with whitespace
+      && (value.lastIndexOf(' ') !== value.length - 1) //doesn't end with whitespace
   });
   
   $('#next-button').on('click', nextButtonClick);
