@@ -23,11 +23,11 @@ describe 'patient_enrollments/new.html.haml' do
 
   context 'email page' do
     it 'contains an email input' do
-      expect(html).to have_field('Email', type: 'text', exact: true)
+      expect(html).to have_field('Email', type: 'email', exact: true)
     end
     
     it 'contains an email confirmation input' do
-      expect(html).to have_field('Re-enter Email', type: 'text', exact: true)
+      expect(html).to have_field('Re-enter Email', type: 'email', exact: true)
     end
     
     it 'contains a validation error div' do
