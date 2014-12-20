@@ -5,15 +5,15 @@ module IMedidataClient
     end
 
     def response
-      imedidata_connection.send(http_method, path) { |req| req.body = request_body.to_json }
+      if defined?(request_body) && request_body.present?
+        imedidata_connection.send(http_method, path) { |req| req.body = request_body.to_json }
+      else
+        imedidata_connection.send(http_method, path)
+      end
     end
 
     def http_method
       raise IMedidataClientError.new("No default http method. Please define an http method for the subclass.")
-    end
-
-    def request_body
-      raise IMedidataClientError.new("No default request body. Please define an request body for the subclass.")
     end
 
     def path
@@ -43,8 +43,6 @@ module IMedidataClient
       raise argument_error unless self.class.required_attributes.all? {|p| attrs[p].present? }
       @locale = attrs[:locale]
     end
-
-    def request_body; end
 
     def path
       "/api/v2/user_security_questions/#{@locale}.json"

@@ -20,10 +20,10 @@ describe IMedidataClient::Request do
 
   describe 'request_body' do
     context 'when undefined' do
-      it 'raises an error' do
+      it 'raises a no method error' do
         expect { request.request_body }.to raise_error(
-          IMedidataClient::IMedidataClientError, 
-          "No default request body. Please define an request body for the subclass.")
+          NoMethodError,
+          "undefined method `request_body' for #{request}")
       end
     end
   end
