@@ -3,7 +3,7 @@
 <% stage                  = configured[:production].eureka_stage || :development %>
 <% deployment_base_uri    = configured[:production].eureka_deployment_baseuri || 'http://localhost:3000' %>
 <% mauth_base_uri         = configured[:production].mauth_url || 'http://localhost:7000' %>
-<% mauth_app_uuid         = configured[:production].app_uuid || 'f8b97914-82d0-4d7f-bc21-34950ab8a2e2' %>
+<% mauth_app_uuid         = configured[:production].mauth_app_uuid || '0a06c35a-4670-4fc9-81f6-4cadcda27807' %>
 <% mauth_private_key_file = 'config/mauth_key' %>
 <% entitystore            = configured[:production].entitystore || 'file:cache/rack/body' %>
 <% metastore              = configured[:production].metastore || 'file:cache/rack/meta' %>
