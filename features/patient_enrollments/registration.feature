@@ -12,8 +12,8 @@ Feature: Patient Registration
     And I accept the TOU/DPN
     And I submit registration info as a new subject
     And the request to create account is successful
-    Then I should be registered for a study
-    And I should see the download page
+    Then I should see a link to download the Patient Cloud app
+    And I should be registered for a study
 
   @Review[ENG]
   @Release2015.1.0
@@ -24,8 +24,8 @@ Feature: Patient Registration
     And I accept the TOU/DPN
     And I submit registration info as an existing subject
     And the request to submit is successful
-    Then I should be registered for a study
-    And I should see the download page
+    Then I should see a link to download the Patient Cloud app
+    And I should be registered for a study
 
   @Review[ENG]
   @Release2015.1.0

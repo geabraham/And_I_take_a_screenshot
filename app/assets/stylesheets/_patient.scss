@@ -1,0 +1,135 @@
+
+
+#main, body {  
+  background-color: #fff;
+}
+
+.header {
+  border-radius: 0;
+  background-color: #002855;
+  color: #ffffff;
+  font-size: 28px;
+  text-align: center;
+  padding: 5px 0 10px;
+  height: 50px;
+  .forward_arrow {
+    padding-right: 15px;
+    color: #999999;
+  }
+  .back_arrow {
+    padding-left: 15px;
+    color: #ffffff;
+  }
+  img {
+    vertical-align: top;
+    margin-top: 5px;
+  }
+}
+
+.patient {  
+  form {
+    padding: 0 15px;
+    .carousel {
+      margin-top: 60px;
+      padding-bottom: 70px;
+    }
+    .tou_dpn_agreement {
+      padding-bottom: 70px;
+    }
+  }
+  h3 {
+    margin-top: 10px;
+    font-weight: 200;
+  }
+}
+
+// Top progress bar
+.progress {
+  padding-top: 3px;
+  background-color: #fff;
+  border-radius: 0;
+  border: none;
+  // margin-top: 10px;
+  margin-bottom: 5px;
+  height: 10px;
+  .progress-bar-default {
+    width: 24.25%;
+    height: 5px;
+  }
+  .progress-bar-incomplete {
+    background-color: #999999;
+    width: 24.25%;height: 5px;
+  }
+  .progress-bar-spacer {
+    background-color: #ffffff;
+    width: 1%;
+  }
+}
+
+// footer
+.btn-block {
+  font-size: 18px;
+}
+
+.next {
+  background-color: #fff;
+  padding: 15px;
+  border-top: 1px solid #bbbbbb;
+  
+}
+
+
+.download-link {
+  display: block;
+  img {
+    display: block;
+    width: 100%;
+    &#badge-img {
+      width: auto;
+    }
+    &#login-screen-img {
+      width: 90%;
+    }
+  }
+}
+
+#download-instruction {
+  width: 100%;
+  font-size: 18px;
+  text-align: center;
+}
+#progress-img {
+  display: block;
+  width: 90%;
+  margin: 20px auto;
+}
+label.invalid {
+  color: red;
+}
+
+input.invalid {
+  background-color: #dddddd;
+  border: 1px solid red;
+}
+
+.validation_error {
+  color: red;
+}
+
+.downloads {
+  text-align: center;
+  a {
+    display: inline-block;
+    margin: 0 10px;
+  }
+}
+
+#login-screen-img {
+    margin-top: 50px;
+  img {
+    margin: 0 auto;
+    width: 90%;
+    display: block;
+      
+  }
+}

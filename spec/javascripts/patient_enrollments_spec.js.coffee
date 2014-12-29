@@ -14,6 +14,7 @@ describe 'patient enrollments form', ->
     advanceProgressBarSpy.calls.reset()
     reverseProgressBarSpy.calls.reset()
 
+  describe 'tou_dpn_page', ->
     beforeEach ->
       $('#tou_dpn_agreement').addClass('active')
       # unlike on the actual page, set the fixture's active div manually since we're
@@ -24,15 +25,19 @@ describe 'patient enrollments form', ->
         $('.back_arrow').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
         expect(reverseProgressBarSpy.calls.any()).toEqual false
+        
+    sharedBehaviorForEvent = (event) ->
+      describe event.name, ->
+        it 'hides the agree button', ->
+          $(event.selector).trigger event
+          expect($('#agree-button')).toHaveClass('hidden')
 
-    describe 'next button click', ->
-      it 'hides the agree button', ->
-        $('#agree-button').trigger 'click'
-        expect($('#agree-button')).toHaveClass('hidden')
-
-      it 'shows the next button', ->
-        $('#agree-button').trigger 'click'
-        expect($('#next-button')).not.toHaveClass('hidden')
+        it 'shows the next button', ->
+          $(event.selector).trigger event
+          expect($('#next-button')).not.toHaveClass('hidden')
+          
+    sharedBehaviorForEvent(jQuery.Event('click', name: 'agree button click', selector: '#agree-button'))
+    sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
 
   describe 'email page', ->
     beforeEach ->
@@ -41,7 +46,7 @@ describe 'patient enrollments form', ->
     describe 'when back button is clicked', ->
       it 'goes backwards', ->
         $('.back_arrow').trigger 'click'
-        expect(carouselSpy.calls.any()).toEqual true # carousel should not change divs
+        expect(carouselSpy.calls.any()).toEqual true
         expect(reverseProgressBarSpy.calls.any()).toEqual true
         
     describe 'for a blank input', ->
@@ -52,25 +57,29 @@ describe 'patient enrollments form', ->
         expect(advanceProgressBarSpy.calls.any()).toEqual false
         expect($('.validation_error')).not.toHaveClass('invisible')
         expect($('.validation_error')).toHaveText('Enter a valid email.')
-          
-    describe 'next button click', ->
-      describe 'for an invalid input', ->
-        it 'shows a validation error', ->
-          $('#reg-form').append('<input name="patient_enrollment[login]" value="not_an_email" />')
-          $('#next-button').trigger 'click'
-          expect(carouselSpy.calls.any()).toEqual false
-          expect(advanceProgressBarSpy.calls.any()).toEqual false
-          expect($('.validation_error')).not.toHaveClass('invisible')
-          expect($('.validation_error')).toHaveText('Enter a valid email.')
-          
-      describe 'for a valid input', ->
-        it 'advances to the password page', ->
-          passwordRulesSpy = spyOn(window, 'addPasswordRules')
-          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-          $('#next-button').trigger 'click'
-          expect(addPasswordRules).toHaveBeenCalled()
-          expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-          expect(advanceProgressBarSpy.calls.count()).toEqual 1
+    
+    sharedBehaviorForEvent = (event) ->      
+      describe event.name, ->
+        describe 'for an invalid input', ->
+          it 'shows a validation error', ->
+            $('#reg-form').append('<input name="patient_enrollment[login]" value="not_an_email" />')
+            $(event.selector).trigger event
+            expect(carouselSpy.calls.any()).toEqual false
+            expect(advanceProgressBarSpy.calls.any()).toEqual false
+            expect($('.validation_error')).not.toHaveClass('invisible')
+            expect($('.validation_error')).toHaveText('Enter a valid email.')
+            
+        describe 'for a valid input', ->
+          it 'advances to the password page', ->
+            passwordRulesSpy = spyOn(window, 'addPasswordRules')
+            validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+            $(event.selector).trigger event
+            expect(addPasswordRules).toHaveBeenCalled()
+            expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+            expect(advanceProgressBarSpy.calls.count()).toEqual 1
+            
+    sharedBehaviorForEvent(jQuery.Event('click', name: 'next button click', selector: '#next-button'))
+    sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
           
   describe 'password page', ->
     beforeEach ->
@@ -78,45 +87,87 @@ describe 'patient enrollments form', ->
       $('#password').append('<input id="patient_enrollment_password" class="registration-input" />')
       $('#password').append('<input id="patient_enrollment_password_confirmation" class="registration-input" />')
       addPasswordRules()
-          
-    describe 'next button click', ->
-      describe 'for a blank input', ->
-        it 'shows a validation error', ->
-          $('#next-button').trigger 'click'
-          expect(carouselSpy.calls.any()).toEqual false
-          expect(advanceProgressBarSpy.calls.any()).toEqual false
-          expect($('.validation_error')).not.toHaveClass('invisible')
-          expect($('.validation_error')).toHaveText('Enter a valid password.')
-          
-      describe 'for an invalid input', ->
-        it 'shows a validation error', ->
-          $('#patient_enrollment_password').attr('value', 'Notagoodpassword')
-          $('#patient_enrollment_password_confirmation').attr('value', 'Notagoodpassword')
-          $('#next-button').trigger 'click'
-          expect(carouselSpy.calls.any()).toEqual false
-          expect(advanceProgressBarSpy.calls.any()).toEqual false
-          expect($('.validation_error')).not.toHaveClass('invisible')
-          expect($('.validation_error')).toHaveText('Enter a valid password.')
-          
-      describe 'for a valid input', ->
-        it 'advances to the security question page', ->
-          $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw0rd')
-          $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw0rd')
-          $('#next-button').trigger 'click'
-          expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-          expect(advanceProgressBarSpy.calls.count()).toEqual 1
+    
+    sharedBehaviorForEvent = (event) ->      
+      describe event.name, ->
+        describe 'for a blank input', ->
+          it 'shows a validation error', ->
+            $(event.selector).trigger event
+            expect(carouselSpy.calls.any()).toEqual false
+            expect(advanceProgressBarSpy.calls.any()).toEqual false
+            expect($('.validation_error')).not.toHaveClass('invisible')
+            expect($('.validation_error')).toHaveText('Enter a valid password.')
             
-        it 'hides the "Next" button', ->
-          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-          $('#next-button').trigger 'click'
-          expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-          expect($('#next-button')).toHaveClass('hidden')
-          
-        it 'displays the "Create account" button', ->
-          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-          $('#next-button').trigger 'click'
-          expect(carouselSpy.calls.allArgs()).toEqual [['next']]
-          expect($('#submit-button')).not.toHaveClass('hidden')
+        describe 'for a weak password', ->
+          it 'shows a validation error', ->
+            $('#patient_enrollment_password').attr('value', 'Notagoodpassword')
+            $('#patient_enrollment_password_confirmation').attr('value', 'Notagoodpassword')
+            $(event.selector).trigger event
+            expect(carouselSpy.calls.any()).toEqual false
+            expect(advanceProgressBarSpy.calls.any()).toEqual false
+            expect($('.validation_error')).not.toHaveClass('invisible')
+            expect($('.validation_error')).toHaveText('Enter a valid password.')
+            
+        describe 'for a password with leading whitespace', ->
+          it 'shows a validation error', ->
+            $('#patient_enrollment_password').attr('value', ' AB4ddPasswrd')
+            $('#patient_enrollment_password_confirmation').attr('value', ' AB4ddPasswrd')
+            $(event.selector).trigger event
+            expect(carouselSpy.calls.any()).toEqual false
+            expect(advanceProgressBarSpy.calls.any()).toEqual false
+            expect($('.validation_error')).not.toHaveClass('invisible')
+            expect($('.validation_error')).toHaveText('Enter a valid password.')
+            
+        describe 'for a password with trailing whitespace', ->
+          it 'shows a validation error', ->
+            $('#patient_enrollment_password').attr('value', 'AB4ddPasswrd ')
+            $('#patient_enrollment_password_confirmation').attr('value', 'AB4ddPasswrd ')
+            $(event.selector).trigger event
+            expect(carouselSpy.calls.any()).toEqual false
+            expect(advanceProgressBarSpy.calls.any()).toEqual false
+            expect($('.validation_error')).not.toHaveClass('invisible')
+            expect($('.validation_error')).toHaveText('Enter a valid password.')
+            
+        describe 'for a password with multiple consecutive spaces', ->
+          it 'shows a validation error', ->
+            $('#patient_enrollment_password').attr('value', 'Notag  dpassw0rd')
+            $('#patient_enrollment_password_confirmation').attr('value', 'Notag  dpassw0rd')
+            $(event.selector).trigger event
+            expect(carouselSpy.calls.any()).toEqual false
+            expect(advanceProgressBarSpy.calls.any()).toEqual false
+            expect($('.validation_error')).not.toHaveClass('invisible')
+            expect($('.validation_error')).toHaveText('Enter a valid password.')
+            
+        describe 'for a password with one space not on either end', ->
+          it 'advances to the security question page', ->
+            $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw rd')
+            $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw rd')
+            $(event.selector).trigger event
+            expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+            expect(advanceProgressBarSpy.calls.count()).toEqual 1
+            
+        describe 'for a valid input', ->
+          it 'advances to the security question page', ->
+            $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw0rd')
+            $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw0rd')
+            $(event.selector).trigger event
+            expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+            expect(advanceProgressBarSpy.calls.count()).toEqual 1
+              
+          it 'hides the "Next" button', ->
+            validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+            $(event.selector).trigger event
+            expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+            expect($('#next-button')).toHaveClass('hidden')
+            
+          it 'displays the "Create account" button', ->
+            validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+            $(event.selector).trigger event
+            expect(carouselSpy.calls.allArgs()).toEqual [['next']]
+            expect($('#submit-button')).not.toHaveClass('hidden')
+            
+    sharedBehaviorForEvent(jQuery.Event('click', name: 'next button click', selector: '#next-button'))
+    sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
         
     describe 'back arrow click', ->
       describe 'for a blank input', ->
@@ -168,8 +219,12 @@ describe 'patient enrollments form', ->
       describe 'when security answer is blank', ->
         it 'is disabled', ->
           $('#patient_enrollment_security_question').val("What's the worst band in the world?")
+          $('#patient_enrollment_answer').val("   ")
           $('#patient_enrollment_security_question').trigger 'change'
           expect($('#create-account')).toHaveAttr('disabled', 'disabled')
+          
+      describe 'when security answer is whitespace', ->
+        it 'is disabled', ->
           
       describe 'when both fields are filled', ->
         it 'is enabled', ->

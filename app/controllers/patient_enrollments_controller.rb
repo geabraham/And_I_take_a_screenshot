@@ -1,9 +1,6 @@
 class PatientEnrollmentsController < ApplicationController
   layout "patient_registration"
   
-  def download
-  end
-
   def new
     patient_enrollment_uuid = session[:patient_enrollment_uuid]
     @patient_enrollment = PatientEnrollment.new(uuid: patient_enrollment_uuid)

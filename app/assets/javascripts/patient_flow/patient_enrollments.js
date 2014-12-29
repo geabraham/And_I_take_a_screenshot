@@ -28,6 +28,9 @@ $(function () {
     return  /[a-z]/.test(value) // has a lowercase letter
       && /[A-Z]/.test(value) // has an uppercase letter
       && /\d/.test(value) // has a digit
+      && !(/(  )/.test(value)) //doesn't have consecutive whitespace
+      && (value.indexOf(' ') !== 0) //doesn't start with whitespace
+      && (value.lastIndexOf(' ') !== value.length - 1) //doesn't end with whitespace
   });
   
   $('#next-button').on('click', nextButtonClick);
@@ -38,6 +41,12 @@ $(function () {
   $('#patient_enrollment_answer').on('keyup', answerKeyup);
   
   $('#patient_enrollment_security_question').on('change', questionChange);
+  
+  $(document).keypress(function(e){
+      if (e.which == 13){
+          $("#next-button").click();
+      }
+  });
 })
 
 var addPasswordRules = function() {
@@ -66,7 +75,7 @@ var validateSecurityQuestions = function() {
   //custom validation works better than jQuery validate here
   //because there are fewer edge cases and .validate has
   //issues with the rails dropdown
-  return ($('#patient_enrollment_answer').val().length > 0 &&
+  return ($('#patient_enrollment_answer').val().trim().length > 0 &&
           $('#patient_enrollment_security_question').val() !== '');
 }
 
