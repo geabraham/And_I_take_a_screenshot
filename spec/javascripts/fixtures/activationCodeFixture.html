@@ -1,6 +1,6 @@
 <script>
 $(function() {
-  $(".code").on('keyup', handleInput);
+  $("#code").on('keyup', handleInput);
 });
 </script>
 
@@ -10,10 +10,10 @@ $(function() {
   <div id="code_instruction">If you have already registered, please return to the Patient Cloud App. If you have not registered and do not have an activation code or email invite please contact your doctor.</div>
   <!-- we'll test the inputs here by loading them separately per test -->
   <div class="activation-code" >
-    <input class="code" maxlength="6" value="heyman" />
+    <input id="code" maxlength="6" value="heyman" />
   </div>
   
-  <div class="validation_error" style="display:none;">Invalid code. Contact your provider.</div>
+  <div class="validation_error invisible">Invalid code. Contact your provider.</div>
   <div id="bottom">
     <span id="back" />
     <span id="center" />

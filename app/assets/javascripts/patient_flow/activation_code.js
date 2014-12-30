@@ -1,20 +1,16 @@
 $(function() {
-  $('.code').focus();
+  $('#code').focus();
   
-  $(".code").on('keyup', handleInput);
+  $("#code").on('keyup', handleInput);
 });
 
 var getCodeString = function() {
-  var codeString = "";
+  var codeInput = $('#code'),
+      str = $.trim(codeInput.val().toUpperCase());
   
-  $(".code").each(function() {
-    var input = $.trim($(this).val().toUpperCase());
-    
-    $(this).val(input);
-    codeString += input;
-  });
+  codeInput.val(str);
   
-  return codeString;
+  return str;
 }
 
 var handleInput = function() {
@@ -23,17 +19,17 @@ var handleInput = function() {
   if( str !== "" ) {
     var regx = /^[A-HJ-NP-Za-hj-np-z2-9]+$/;
 
-    if(regx.test(str)) {
-      $(".validation_error").addClass('invisible');
-      $(".activation-code").removeClass('has-error');
-  
-      if(str.length === 6) {
+    if(str.length === 6) {
+      if(regx.test(str)) {
+        $(".validation_error").addClass('invisible');
+        $(".activation-code").removeClass('has-error');
+        
         $.get("/activation_codes/" + str + "/activate");
       }
-    }
-    else {
-      $(".validation_error").removeClass('invisible');
-      $(".activation-code").addClass('has-error');
+      else {
+        $(".validation_error").removeClass('invisible');
+        $(".activation-code").addClass('has-error');
+      }
     }
   }
 }

@@ -7,7 +7,7 @@ end
 
 When(/^I fill in an activation code$/) do
   visit '/'
-  (1..6).each { |e| fill_in "code-#{e}", with: "#{e+1}" }
+  fill_in "code", with: "fhs498"
 end
 
 When(/^I accept the TOU\/DPN$/) do
