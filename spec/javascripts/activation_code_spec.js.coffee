@@ -17,13 +17,6 @@ describe 'activation code page', ->
         window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('H')
         $('.code').trigger 'keyup'
         expect(getCodeString).toHaveBeenCalled()
-        
-      it 'focuses on the next input', ->
-        loadFixtures 'activationCodeFixture.html'
-        window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('H')
-        $('#code-1').trigger 'focus'
-        $('#code-1').trigger 'keyup'
-        expect(document.activeElement.id).toEqual('code-2')
     
     describe 'for an empty input', ->  
       it 'calls getCodeString', ->
@@ -46,13 +39,5 @@ describe 'activation code page', ->
         window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('NOOO0!')
         $('.code').trigger 'keyup'
         expect($('.validation_error')).not.toHaveClass 'invisible'
-        expect($('.activation-code')).toHaveClass 'has-error'
-        
-  describe 'when a field is selected', ->
-    it 'highlights the existing character', ->
-      loadFixtures 'activationCodeFixture.html'
-      $('#code-3').trigger 'focus'
-      expect(window.getSelection().toString()).toEqual('y') #expected to fail in the browser because
-      #window.getSelection() will be blank. is there a better way to test?
-      
+        expect($('.activation-code')).toHaveClass 'has-error'      
   return

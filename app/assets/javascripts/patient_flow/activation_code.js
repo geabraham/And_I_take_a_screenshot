@@ -1,20 +1,7 @@
 $(function() {
-  $('#code-1').focus();
+  $('.code').focus();
   
-  $(".code").on('keyup', function(e) { 
-    var keyPressed = e.which; 
-    
-    // for a tab (ascii 9), shift-tab, or backspace (ascii 9, 16, 8) in fields,
-    // prevent handleInput() from deselecting the field and thus
-    // requiring the user to backspace before fixing an inputted character
-    if (keyPressed !== 8 && keyPressed !== 9 && keyPressed !== 16) { 
-      handleInput(); 
-    }
-  });
-  
-  $(".code").focus(function () {
-    this.select();
-  })
+  $(".code").on('keyup', handleInput);
 });
 
 var getCodeString = function() {
@@ -31,8 +18,7 @@ var getCodeString = function() {
 }
 
 var handleInput = function() {
-  var str = getCodeString(),
-    currentInput = $(document.activeElement);
+  var str = getCodeString();
   
   if( str !== "" ) {
     var regx = /^[A-HJ-NP-Za-hj-np-z2-9]+$/;
@@ -43,9 +29,6 @@ var handleInput = function() {
   
       if(str.length === 6) {
         $.get("/activation_codes/" + str + "/activate");
-      }
-      else {
-        currentInput.next().focus();
       }
     }
     else {
