@@ -83,14 +83,26 @@ var getCurrentPage = function() {
   return $('.item.active').attr('id')
 }
 
+var confirmTermsAndAdvance = function() {
+  var proceed = confirm("Are you sure?");
+  
+  if (proceed === true) {
+    $('#agree-button').addClass('hidden');
+    $('#next-button').removeClass('hidden');
+    
+    advanceProgressBar();
+    $('.carousel').carousel('next');
+  }
+}
+
 var nextButtonClick = function() {
   var currentPage = getCurrentPage(),
   carousel = $('.carousel');
-
-  $('#agree-button').addClass('hidden');
-  $('#next-button').removeClass('hidden');
-
-  if($('#reg-form').valid()) {
+  
+  if (currentPage === 'tou_dpn_agreement') {
+    confirmTermsAndAdvance();
+  }
+  else if($('#reg-form').valid()) {
     hideErrors();
     advanceProgressBar();
     carousel.carousel('next');
