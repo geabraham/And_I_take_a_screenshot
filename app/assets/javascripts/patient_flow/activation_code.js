@@ -1,7 +1,15 @@
 $(function() {
   $('#code').focus();
   
-  $("#code").on('keyup', handleInput);
+  $("#code").on('keyup', function(e) { 
+      var keyPressed = e.which; 
+    
+      // for a backspace, left arrow, or right arrow (ascii 8, 37, or 39) in input,
+      // prevent handleInput() from jumping cursor to the end of the field
+      if (keyPressed !== 8 && keyPressed !== 37 && keyPressed !== 39) { 
+        handleInput(); 
+      }
+    });
 });
 
 var getCodeString = function() {
