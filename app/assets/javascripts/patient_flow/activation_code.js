@@ -1,56 +1,38 @@
 $(function() {
-  $('#code-1').focus();
+  $('#code').focus();
   
-  $(".code").on('keyup', function(e) { 
-    var keyPressed = e.which; 
-    
-    // for a tab (ascii 9), shift-tab, or backspace (ascii 9, 16, 8) in fields,
-    // prevent handleInput() from deselecting the field and thus
-    // requiring the user to backspace before fixing an inputted character
-    if (keyPressed !== 8 && keyPressed !== 9 && keyPressed !== 16) { 
-      handleInput(); 
-    }
-  });
-  
-  $(".code").focus(function () {
-    this.select();
-  })
+  $("#code").on('keyup', handleInput);
 });
 
 var getCodeString = function() {
-  var codeString = "";
-  
-  $(".code").each(function() {
-    var input = $.trim($(this).val().toUpperCase());
-    
-    $(this).val(input);
-    codeString += input;
-  });
-  
-  return codeString;
+  return $.trim($('#code').val().toUpperCase());
 }
 
 var handleInput = function() {
   var str = getCodeString(),
-    currentInput = $(document.activeElement);
+            codeInput = $('#code');
+  
+  // update the string with upcased, trimmed value and prevent cursor from jumping to end
+  selStart = codeInput.prop("selectionStart");
+  selEnd = codeInput.prop("selectionEnd");
+  codeInput.val(str);
+  codeInput.prop("selectionStart",selStart);
+  codeInput.prop("selectionEnd",selEnd);
   
   if( str !== "" ) {
     var regx = /^[A-HJ-NP-Za-hj-np-z2-9]+$/;
 
-    if(regx.test(str)) {
-      $(".validation_error").addClass('invisible');
-      $(".activation-code").removeClass('has-error');
-  
-      if(str.length === 6) {
+    if(str.length === 6) {
+      if(regx.test(str)) {
+        $(".validation_error").addClass('invisible');
+        $(".activation-code").removeClass('has-error');
+        
         $.get("/activation_codes/" + str + "/activate");
       }
       else {
-        currentInput.next().focus();
+        $(".validation_error").removeClass('invisible');
+        $(".activation-code").addClass('has-error');
       }
-    }
-    else {
-      $(".validation_error").removeClass('invisible');
-      $(".activation-code").addClass('has-error');
     }
   }
 }
