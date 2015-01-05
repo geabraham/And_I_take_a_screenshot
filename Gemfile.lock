@@ -134,10 +134,10 @@ GIT
 
 GIT
   remote: git@github.com:mdsol/rack-cache.git
-  revision: 15390785b682786376be7d9ae8ce0165dced84c2
+  revision: f7476a21e8c2b9be294eedb6d4681b8cfdaa90f2
   branch: 1.3-stable
   specs:
-    rack-cache (1.3)
+    rack-cache (1.3.1)
       rack (>= 0.4)
 
 GIT
