@@ -2,6 +2,8 @@ describe 'patient enrollments form', ->
   carouselSpy = undefined
   advanceProgressBarSpy = undefined
   reverseProgressBarSpy = undefined
+  confirmTermsSpy = undefined
+  confirmSpy = undefined
     
   beforeEach ->
     loadFixtures 'patientEnrollmentFixture.html'
@@ -28,16 +30,52 @@ describe 'patient enrollments form', ->
         
     sharedBehaviorForEvent = (event) ->
       describe event.name, ->
-        it 'hides the agree button', ->
+        beforeEach ->
+          confirmTermsSpy = spyOn(window, 'confirmTerms')
+          
+        it 'calls confirmTerms()', ->
           $(event.selector).trigger event
-          expect($('#agree-button')).toHaveClass('hidden')
-
-        it 'shows the next button', ->
-          $(event.selector).trigger event
-          expect($('#next-button')).not.toHaveClass('hidden')
+          expect(confirmTermsSpy.calls.count()).toEqual 1
           
     sharedBehaviorForEvent(jQuery.Event('click', name: 'agree button click', selector: '#agree-button'))
     sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
+    
+    describe 'when user is asked to confirm agreement with TOU/DPN', ->
+      describe 'when user clicks "OK"', ->
+        beforeEach ->
+          confirmSpy = spyOn(window, 'confirm').and.returnValue(true)
+          
+        it 'hides the agree button', ->
+          confirmTerms()
+          expect($('#agree-button')).toHaveClass('hidden')
+      
+        it 'shows the next button', ->
+          confirmTerms()
+          expect($('#next-button')).not.toHaveClass('hidden')
+          
+      describe 'when user clicks "Cancel" but confirms on the subsequent dialog box', ->
+        beforeEach ->
+          confirmSpy = spyOn(window, 'confirm').and.callFake( ->
+            confirmSpy.and.returnValue(true) # change the mocked return value for the following calls
+            false
+            )
+          
+        it 'hides the agree button', ->
+          confirmTerms()
+          expect($('#agree-button')).toHaveClass('hidden')
+      
+        it 'shows the next button', ->
+          confirmTerms()
+          expect($('#next-button')).not.toHaveClass('hidden')
+          
+      describe 'when user clicks "Cancel" on both dialogs', ->
+        beforeEach ->
+          confirmSpy = spyOn(window, 'confirm').and.returnValue(false)
+          
+        #it 'redirects to the activation code page', ->
+          #FIXME
+        #  confirmTerms()
+        #  expect($('#agree-button')).not.toHaveClass('hidden')
 
   describe 'email page', ->
     beforeEach ->
