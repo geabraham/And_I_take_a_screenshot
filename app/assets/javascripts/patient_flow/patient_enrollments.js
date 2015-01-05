@@ -83,16 +83,29 @@ var getCurrentPage = function() {
   return $('.item.active').attr('id')
 }
 
-var confirmTermsAndAdvance = function() {
-  var proceed = confirm("Are you sure?");
+var confirmTerms = function() {
+  var proceed = confirm("You acknowledge that you have read, understood, and agree to be bound by the Terms of Use and the Privacy Policy referenced herein.");
   
   if (proceed === true) {
-    $('#agree-button').addClass('hidden');
-    $('#next-button').removeClass('hidden');
-    
-    advanceProgressBar();
-    $('.carousel').carousel('next');
+    advanceToEmailPage();
   }
+  else {
+    proceed = confirm("If you tap 'Cancel', you will not be registered as a study participant for electronic patient reported outcomes and any information you entered will be erased. If you wish to continue the registration process, please tap 'OK'.");
+  }
+  if (proceed === true) {
+    advanceToEmailPage();
+  }
+  else {
+    window.location = window.location.origin + '/';
+  }
+}
+
+var advanceToEmailPage = function() {
+  $('#agree-button').addClass('hidden');
+  $('#next-button').removeClass('hidden');
+  
+  advanceProgressBar();
+  $('.carousel').carousel('next');
 }
 
 var nextButtonClick = function() {
@@ -100,7 +113,7 @@ var nextButtonClick = function() {
   carousel = $('.carousel');
   
   if (currentPage === 'tou_dpn_agreement') {
-    confirmTermsAndAdvance();
+    confirmTerms();
   }
   else if($('#reg-form').valid()) {
     hideErrors();
