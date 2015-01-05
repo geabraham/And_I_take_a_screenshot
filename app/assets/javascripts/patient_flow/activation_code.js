@@ -13,16 +13,13 @@ $(function() {
 });
 
 var getCodeString = function() {
-  var codeInput = $('#code'),
-      str = $.trim(codeInput.val().toUpperCase());
-  
-  codeInput.val(str);
-  
-  return str;
+  return $.trim($('#code').val().toUpperCase());
 }
 
 var handleInput = function() {
   var str = getCodeString();
+  
+  $('#code').val(str);
   
   if( str !== "" ) {
     var regx = /^[A-HJ-NP-Za-hj-np-z2-9]+$/;
