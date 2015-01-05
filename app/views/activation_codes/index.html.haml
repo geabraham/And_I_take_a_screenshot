@@ -5,11 +5,6 @@
     %h3 Please enter your activation code
     %p= "If you have already registered, please return to the Patient Cloud App. If you have not registered and do not have an activation code or email invite please contact your doctor."
     .activation-code
-      %input.code#code-1{maxlength: 1, tabindex: 1, size: 1}
-      %input.code#code-2{maxlength: 1, tabindex: 2, size: 1}
-      %input.code#code-3{maxlength: 1, tabindex: 3, size: 1}
-      %input.code#code-4{maxlength: 1, tabindex: 4, size: 1}
-      %input.code#code-5{maxlength: 1, tabindex: 5, size: 1}
-      %input.code#code-6{maxlength: 1, tabindex: 6, size: 1}
+      %input#code{maxlength: 6, tabindex: 1, size: 6}
     .validation_error.invisible="Incorrect code. Contact your provider."
 

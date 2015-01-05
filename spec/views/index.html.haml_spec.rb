@@ -15,13 +15,8 @@ describe 'activation_codes/index.html.haml' do
       expect(html).to have_selector('.activation-code-content p', text: 'If you have already registered, please return to the Patient Cloud App. If you have not registered and do not have an activation code or email invite please contact your doctor.')
     end
     
-    it 'displays the activation code input fields' do
-      expect(html).to have_selector("input#code-1")
-      expect(html).to have_selector("input#code-2")
-      expect(html).to have_selector("input#code-3")
-      expect(html).to have_selector("input#code-4")
-      expect(html).to have_selector("input#code-5")
-      expect(html).to have_selector("input#code-6")
+    it 'displays the activation code input field' do
+      expect(html).to have_selector("input#code")
     end
   end
 end
