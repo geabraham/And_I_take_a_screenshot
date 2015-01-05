@@ -1,15 +1,7 @@
 $(function() {
   $('#code').focus();
   
-  $("#code").on('keyup', function(e) { 
-      var keyPressed = e.which; 
-    
-      // for a backspace, left arrow, or right arrow (ascii 8, 37, or 39) in input,
-      // prevent handleInput() from jumping cursor to the end of the field
-      if (keyPressed !== 8 && keyPressed !== 37 && keyPressed !== 39) { 
-        handleInput(); 
-      }
-    });
+  $("#code").on('keyup', handleInput);
 });
 
 var getCodeString = function() {
@@ -17,9 +9,15 @@ var getCodeString = function() {
 }
 
 var handleInput = function() {
-  var str = getCodeString();
+  var str = getCodeString(),
+            codeInput = $('#code');
   
-  $('#code').val(str);
+  // update the string with upcased, trimmed value and prevent cursor from jumping to end
+  selStart = codeInput.prop("selectionStart");
+  selEnd = codeInput.prop("selectionEnd");
+  codeInput.val(str);
+  codeInput.prop("selectionStart",selStart);
+  codeInput.prop("selectionEnd",selEnd);
   
   if( str !== "" ) {
     var regx = /^[A-HJ-NP-Za-hj-np-z2-9]+$/;
