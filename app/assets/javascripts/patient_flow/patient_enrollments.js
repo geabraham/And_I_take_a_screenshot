@@ -25,8 +25,7 @@ $(function () {
   
   // validation rule for case insensitive comparison
   $.validator.addMethod("equalToIgnoreCase", function (value, element, param) {
-          return this.optional(element) || 
-               (value.toUpperCase() == $(param).val().toUpperCase());
+    return value.toUpperCase() === $(param).val().toUpperCase();
   });
   
   // custom validation for our password rules
