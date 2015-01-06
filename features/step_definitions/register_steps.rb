@@ -28,7 +28,7 @@ When(/^I submit registration info as a new subject$/) do
   @patient_enrollment ||= build :patient_enrollment, uuid: 'enrollment123', login: 'the-dude@mdsol.com', 
     password: 'B0wl11ng', answer: 'The Eagles', activation_code: '123456'
   fill_in 'Email', with: @patient_enrollment.login
-  fill_in 'Re-enter Email', with: @patient_enrollment.login
+  fill_in 'Re-enter Email', with: @patient_enrollment.login.upcase
   # FIXME.
   # Sleeps are bad.
   #   It appears click_on is suffering from something like a race condition, and without this sleep, 
