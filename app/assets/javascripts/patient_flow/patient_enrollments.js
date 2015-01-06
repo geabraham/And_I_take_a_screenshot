@@ -34,14 +34,12 @@ var confirmTerms = function() {
   
   if (proceed === true) {
     advanceToEmailPage();
-  }
-  else {
+  } else {
     proceed = confirm("If you tap 'Cancel', you will not be registered as a study participant for electronic patient reported outcomes and any information you entered will be erased. If you wish to continue the registration process, please tap 'OK'.");
     
     if (proceed === true) {
       advanceToEmailPage();
-    }
-    else {
+    } else {
       redirectUser();
     }
   }
@@ -61,9 +59,9 @@ var nextButtonClick = function() {
   
   if (currentPage === 'tou_dpn_agreement') {
     confirmTerms();
-  }
-  else if($('#reg-form').valid()) {
+  } else if($('#reg-form').valid()) {
     hideErrors();
+    
     if(currentPage === 'email') {
       addPasswordRules();
       advanceProgressBar();
