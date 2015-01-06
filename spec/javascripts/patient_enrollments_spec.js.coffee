@@ -87,18 +87,18 @@ describe 'patient enrollments form', ->
         $('.back_arrow').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual true
         expect(reverseProgressBarSpy.calls.any()).toEqual true
-        
-    describe 'for a blank input', ->
-      it 'shows a validation error', ->
-        $('#reg-form').append('<input name="patient_enrollment[login]" value="" />')
-        $('#next-button').trigger 'click'
-        expect(carouselSpy.calls.any()).toEqual false
-        expect(advanceProgressBarSpy.calls.any()).toEqual false
-        expect($('.validation_error')).not.toHaveClass('invisible')
-        expect($('.validation_error')).toHaveText('Enter a valid email.')
     
     sharedBehaviorForEvent = (event) ->      
       describe event.name, ->
+        describe 'for a blank input', ->
+          it 'shows a validation error', ->
+            $('#reg-form').append('<input name="patient_enrollment[login]" value="" />')
+            $(event.selector).trigger event
+            expect(carouselSpy.calls.any()).toEqual false
+            expect(advanceProgressBarSpy.calls.any()).toEqual false
+            expect($('.validation_error')).not.toHaveClass('invisible')
+            expect($('.validation_error')).toHaveText('Enter a valid email.')
+            
         describe 'for an invalid input', ->
           it 'shows a validation error', ->
             $('#reg-form').append('<input name="patient_enrollment[login]" value="not_an_email" />')
