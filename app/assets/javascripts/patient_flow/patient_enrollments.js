@@ -97,12 +97,13 @@ var confirmTerms = function() {
   }
   else {
     proceed = confirm("If you tap 'Cancel', you will not be registered as a study participant for electronic patient reported outcomes and any information you entered will be erased. If you wish to continue the registration process, please tap 'OK'.");
-  }
-  if (proceed === true) {
-    advanceToEmailPage();
-  }
-  else {
-    redirectUser();
+    
+    if (proceed === true) {
+      advanceToEmailPage();
+    }
+    else {
+      redirectUser();
+    }
   }
 }
 

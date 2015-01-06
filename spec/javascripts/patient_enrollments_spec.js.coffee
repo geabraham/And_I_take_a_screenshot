@@ -54,6 +54,10 @@ describe 'patient enrollments form', ->
           confirmTerms()
           expect($('#next-button')).not.toHaveClass('hidden')
           
+        it 'advances the progress bar', ->
+          confirmTerms()
+          expect(advanceProgressBarSpy.calls.count()).toEqual 1
+          
       describe 'when user clicks "Cancel" but confirms on the subsequent dialog box', ->
         beforeEach ->
           confirmSpy = spyOn(window, 'confirm').and.callFake( ->
@@ -68,6 +72,10 @@ describe 'patient enrollments form', ->
         it 'shows the next button', ->
           confirmTerms()
           expect($('#next-button')).not.toHaveClass('hidden')
+          
+        it 'advances the progress bar', ->
+          confirmTerms()
+          expect(advanceProgressBarSpy.calls.count()).toEqual 1
           
       describe 'when user clicks "Cancel" on both dialogs', ->
         beforeEach ->
