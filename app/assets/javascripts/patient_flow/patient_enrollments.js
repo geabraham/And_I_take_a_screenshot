@@ -5,13 +5,13 @@ $(function () {
     errorPlacement: function(error, element) {
       $('.active .validation_error').html(error);
     },
-    rules: { //TODO add validation for email address
+    rules: {
       'patient_enrollment[login]': {
         required: true,
         email: true
       },
       'patient_enrollment[login_confirmation]' : {
-        equalTo: '#patient_enrollment_login' }
+        equalToIgnoreCase: '#patient_enrollment_login' }
     },
     messages: {
       'patient_enrollment[login]': 'Enter a valid email.',
@@ -22,6 +22,12 @@ $(function () {
       $('.active .registration-input, .active label').addClass('invalid');
     }
   })
+  
+  // validation rule for case insensitive comparison
+  $.validator.addMethod("equalToIgnoreCase", function (value, element, param) {
+          return this.optional(element) || 
+               (value.toUpperCase() == $(param).val().toUpperCase());
+  });
   
   // custom validation for our password rules
   $.validator.addMethod("pwcheck", function(value) { 
