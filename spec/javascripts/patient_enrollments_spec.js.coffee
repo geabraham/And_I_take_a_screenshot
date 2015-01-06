@@ -4,6 +4,7 @@ describe 'patient enrollments form', ->
   reverseProgressBarSpy = undefined
   confirmTermsSpy = undefined
   confirmSpy = undefined
+  redirectUserSpy = undefined
     
   beforeEach ->
     loadFixtures 'patientEnrollmentFixture.html'
@@ -72,10 +73,10 @@ describe 'patient enrollments form', ->
         beforeEach ->
           confirmSpy = spyOn(window, 'confirm').and.returnValue(false)
           
-        #it 'redirects to the activation code page', ->
-          #FIXME
-        #  confirmTerms()
-        #  expect($('#agree-button')).not.toHaveClass('hidden')
+        it 'redirects to the activation code page', ->
+          redirectUserSpy = spyOn(window, 'redirectUser')
+          confirmTerms()
+          expect(redirectUserSpy.calls.count()).toEqual 1
 
   describe 'email page', ->
     beforeEach ->
