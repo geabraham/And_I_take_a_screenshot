@@ -123,13 +123,17 @@ var nextButtonClick = function() {
   }
   else if($('#reg-form').valid()) {
     hideErrors();
-    advanceProgressBar();
-    carousel.carousel('next');
     if(currentPage === 'email') {
       addPasswordRules();
+      advanceProgressBar();
+      carousel.carousel('next');
     } else if(currentPage === 'password') {
       $('#next-button').addClass('hidden');
       $('#create-account').removeClass('hidden');
+      advanceProgressBar();
+      carousel.carousel('next');
+    } else if(currentPage === 'security_question') {
+      $('#create-account').trigger('click');
     }
   }
 }

@@ -248,29 +248,33 @@ describe 'patient enrollments form', ->
         $('.back_arrow').trigger 'click'
         expect($('#create-account')).toHaveClass('hidden')
         
-    describe 'create account button click', ->
-      describe 'when security question is blank', ->
-        it 'is disabled', ->
-          $('#patient_enrollment_answer').val("the worst band is...")
-          $('#patient_enrollment_security_question').trigger 'change'
-          expect($('#create-account')).toHaveAttr('disabled', 'disabled')
+    sharedBehaviorForEvent = (event) ->      
+      describe event.name, ->
+        describe 'when security question is blank', ->
+          it 'is disabled', ->
+            $('#patient_enrollment_answer').val("the worst band is...")
+            $('#patient_enrollment_security_question').trigger 'change'
+            expect($('#create-account')).toHaveAttr('disabled', 'disabled')
           
-      describe 'when security answer is blank', ->
-        it 'is disabled', ->
-          $('#patient_enrollment_security_question').val("What's the worst band in the world?")
-          $('#patient_enrollment_answer').val("   ")
-          $('#patient_enrollment_security_question').trigger 'change'
-          expect($('#create-account')).toHaveAttr('disabled', 'disabled')
+        describe 'when security answer is blank', ->
+          it 'is disabled', ->
+            $('#patient_enrollment_security_question').val("What's the worst band in the world?")
+            $('#patient_enrollment_answer').val("   ")
+            $('#patient_enrollment_security_question').trigger 'change'
+            expect($('#create-account')).toHaveAttr('disabled', 'disabled')
           
-      describe 'when security answer is whitespace', ->
-        it 'is disabled', ->
+        describe 'when security answer is whitespace', ->
+          it 'is disabled', ->
           
-      describe 'when both fields are filled', ->
-        it 'is enabled', ->
-          $('#patient_enrollment_security_question').val("What's the worst band in the world?")
-          $('#patient_enrollment_answer').val("...")
-          $('#patient_enrollment_security_question').trigger 'change'
-          expect($('#create-account')).not.toHaveAttr('disabled', 'disabled')
+        describe 'when both fields are filled', ->
+          it 'is enabled', ->
+            $('#patient_enrollment_security_question').val("What's the worst band in the world?")
+            $('#patient_enrollment_answer').val("...")
+            $('#patient_enrollment_security_question').trigger 'change'
+            expect($('#create-account')).not.toHaveAttr('disabled', 'disabled')
+            
+    sharedBehaviorForEvent(jQuery.Event('click', name: 'create account button click', selector: '#create-account'))
+    sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
           
   describe 'advanceProgressBar', ->
     it 'fills in the next segment of the bar', ->
