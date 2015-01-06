@@ -20,6 +20,8 @@ When(/^I accept the TOU\/DPN$/) do
   visit '/patient_enrollments/new/'
   assert_text('We think in generalities, but we live in detail.')
   click_on 'I agree'
+  alert = page.driver.browser.switch_to.alert
+  alert.send(:accept)
 end
 
 When(/^I submit registration info as a new subject$/) do
