@@ -9,6 +9,7 @@ Feature: Patient Registration
   @Headed
   Scenario: A new iMedidata user should be able to register for a study
     When I fill in an activation code
+    And I visit the landing page
     And I accept the TOU/DPN
     And I submit registration info as a new subject
     And the request to create account is successful
@@ -21,6 +22,7 @@ Feature: Patient Registration
   @Headed
   Scenario: An existing iMedidata user should be able to register for a study
     When I fill in an activation code
+    And I visit the landing page
     And I accept the TOU/DPN
     And I submit registration info as an existing subject
     And the request to submit is successful
@@ -33,6 +35,7 @@ Feature: Patient Registration
   @Headed
   Scenario: A patient should not be able to register for a study if the back-end service returns an error
     When I fill in an activation code
+    And I visit the landing page
     And I accept the TOU/DPN
     And I submit registration info as a new subject
     And the back-end service returns an error

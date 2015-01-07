@@ -10,14 +10,19 @@ When(/^I fill in an activation code$/) do
   fill_in "code", with: "fhs498"
 end
 
-When(/^I accept the TOU\/DPN$/) do
+When(/^I visit the landing page$/) do
   tou_dpn_agreement = {
     'html' => '<html><body>We think in generalities, but we live in detail.</body></html>', 
     'language_code' => 'eng'
   }
 
   allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(tou_dpn_agreement)
+  
   visit '/patient_enrollments/new/'
+  click_on 'Next'
+end
+
+When(/^I accept the TOU\/DPN$/) do
   assert_text('We think in generalities, but we live in detail.')
   click_on 'I agree'
   alert = page.driver.browser.switch_to.alert
