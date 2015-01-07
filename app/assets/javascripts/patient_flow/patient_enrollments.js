@@ -57,7 +57,12 @@ var nextButtonClick = function() {
   var currentPage = getCurrentPage(),
   carousel = $('.carousel');
   
-  if (currentPage === 'tou_dpn_agreement') {
+  if (currentPage === 'landing_page') {
+    $('#next-button').addClass('hidden');
+    $('#agree-button').removeClass('hidden');
+    $('.progress').removeClass('hidden');
+    $('.carousel').carousel('next');
+  } else if (currentPage === 'tou_dpn_agreement') {
     confirmTerms();
   } else if($('#reg-form').valid()) {
     hideErrors();

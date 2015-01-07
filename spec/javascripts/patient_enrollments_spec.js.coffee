@@ -26,14 +26,15 @@ describe 'patient enrollments form', ->
     sharedBehaviorForEvent = (event) ->
       describe event.name, ->
         it 'shows the Progress bar', ->
+          $(event.selector).trigger event
           expect($('.progress')).not.toHaveClass('hidden')
         
         it 'hides the "Next" button', ->
-          $('.back_arrow').trigger 'click'
+          $(event.selector).trigger event
           expect($('#next-button')).toHaveClass('hidden')
         
         it 'shows the "I agree" button', ->
-          $('.back_arrow').trigger 'click'
+          $(event.selector).trigger event
           expect($('#agree-button')).not.toHaveClass('hidden')
           
     sharedBehaviorForEvent(jQuery.Event('click', name: 'next button click', selector: '#next-button'))
