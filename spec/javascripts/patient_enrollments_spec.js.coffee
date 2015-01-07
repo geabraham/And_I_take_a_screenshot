@@ -80,29 +80,8 @@ describe 'patient enrollments form', ->
           expect(advanceProgressBarSpy.calls.count()).toEqual 1
           
       describe 'when user clicks "Cancel" but confirms on the subsequent dialog box', ->
-        beforeEach ->
-          confirmSpy = spyOn(window, 'confirm').and.callFake( ->
-            confirmSpy.and.returnValue(true) # change the mocked return value for the following calls
-            false
-            )
-          
-        it 'hides the agree button', ->
-          confirmTerms()
-          expect($('#agree-button')).toHaveClass('hidden')
-      
-        it 'shows the next button', ->
-          confirmTerms()
-          expect($('#next-button')).not.toHaveClass('hidden')
-          
-        it 'advances the progress bar', ->
-          confirmTerms()
-          expect(advanceProgressBarSpy.calls.count()).toEqual 1
-          
-      describe 'when user clicks "Cancel" on both dialogs', ->
-        beforeEach ->
-          confirmSpy = spyOn(window, 'confirm').and.returnValue(false)
-          
         it 'redirects to the activation code page', ->
+          confirmSpy = spyOn(window, 'confirm').and.returnValue(false)
           redirectUserSpy = spyOn(window, 'redirectUser')
           confirmTerms()
           expect(redirectUserSpy.calls.count()).toEqual 1
