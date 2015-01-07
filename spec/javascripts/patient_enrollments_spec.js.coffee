@@ -2,6 +2,9 @@ describe 'patient enrollments form', ->
   carouselSpy = undefined
   advanceProgressBarSpy = undefined
   reverseProgressBarSpy = undefined
+  confirmTermsSpy = undefined
+  confirmSpy = undefined
+  redirectUserSpy = undefined
     
   beforeEach ->
     loadFixtures 'patientEnrollmentFixture.html'
@@ -28,16 +31,60 @@ describe 'patient enrollments form', ->
         
     sharedBehaviorForEvent = (event) ->
       describe event.name, ->
-        it 'hides the agree button', ->
+        beforeEach ->
+          confirmTermsSpy = spyOn(window, 'confirmTerms')
+          
+        it 'calls confirmTerms()', ->
           $(event.selector).trigger event
-          expect($('#agree-button')).toHaveClass('hidden')
-
-        it 'shows the next button', ->
-          $(event.selector).trigger event
-          expect($('#next-button')).not.toHaveClass('hidden')
+          expect(confirmTermsSpy.calls.count()).toEqual 1
           
     sharedBehaviorForEvent(jQuery.Event('click', name: 'agree button click', selector: '#agree-button'))
     sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
+    
+    describe 'when user is asked to confirm agreement with TOU/DPN', ->
+      describe 'when user clicks "OK"', ->
+        beforeEach ->
+          confirmSpy = spyOn(window, 'confirm').and.returnValue(true)
+          
+        it 'hides the agree button', ->
+          confirmTerms()
+          expect($('#agree-button')).toHaveClass('hidden')
+      
+        it 'shows the next button', ->
+          confirmTerms()
+          expect($('#next-button')).not.toHaveClass('hidden')
+          
+        it 'advances the progress bar', ->
+          confirmTerms()
+          expect(advanceProgressBarSpy.calls.count()).toEqual 1
+          
+      describe 'when user clicks "Cancel" but confirms on the subsequent dialog box', ->
+        beforeEach ->
+          confirmSpy = spyOn(window, 'confirm').and.callFake( ->
+            confirmSpy.and.returnValue(true) # change the mocked return value for the following calls
+            false
+            )
+          
+        it 'hides the agree button', ->
+          confirmTerms()
+          expect($('#agree-button')).toHaveClass('hidden')
+      
+        it 'shows the next button', ->
+          confirmTerms()
+          expect($('#next-button')).not.toHaveClass('hidden')
+          
+        it 'advances the progress bar', ->
+          confirmTerms()
+          expect(advanceProgressBarSpy.calls.count()).toEqual 1
+          
+      describe 'when user clicks "Cancel" on both dialogs', ->
+        beforeEach ->
+          confirmSpy = spyOn(window, 'confirm').and.returnValue(false)
+          
+        it 'redirects to the activation code page', ->
+          redirectUserSpy = spyOn(window, 'redirectUser')
+          confirmTerms()
+          expect(redirectUserSpy.calls.count()).toEqual 1
 
   describe 'email page', ->
     beforeEach ->
@@ -48,18 +95,18 @@ describe 'patient enrollments form', ->
         $('.back_arrow').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual true
         expect(reverseProgressBarSpy.calls.any()).toEqual true
-        
-    describe 'for a blank input', ->
-      it 'shows a validation error', ->
-        $('#reg-form').append('<input name="patient_enrollment[login]" value="" />')
-        $('#next-button').trigger 'click'
-        expect(carouselSpy.calls.any()).toEqual false
-        expect(advanceProgressBarSpy.calls.any()).toEqual false
-        expect($('.validation_error')).not.toHaveClass('invisible')
-        expect($('.validation_error')).toHaveText('Enter a valid email.')
     
     sharedBehaviorForEvent = (event) ->      
       describe event.name, ->
+        describe 'for a blank input', ->
+          it 'shows a validation error', ->
+            $('#reg-form').append('<input name="patient_enrollment[login]" value="" />')
+            $(event.selector).trigger event
+            expect(carouselSpy.calls.any()).toEqual false
+            expect(advanceProgressBarSpy.calls.any()).toEqual false
+            expect($('.validation_error')).not.toHaveClass('invisible')
+            expect($('.validation_error')).toHaveText('Enter a valid email.')
+            
         describe 'for an invalid input', ->
           it 'shows a validation error', ->
             $('#reg-form').append('<input name="patient_enrollment[login]" value="not_an_email" />')
@@ -209,29 +256,33 @@ describe 'patient enrollments form', ->
         $('.back_arrow').trigger 'click'
         expect($('#create-account')).toHaveClass('hidden')
         
-    describe 'create account button click', ->
-      describe 'when security question is blank', ->
-        it 'is disabled', ->
-          $('#patient_enrollment_answer').val("the worst band is...")
-          $('#patient_enrollment_security_question').trigger 'change'
-          expect($('#create-account')).toHaveAttr('disabled', 'disabled')
+    sharedBehaviorForEvent = (event) ->      
+      describe event.name, ->
+        describe 'when security question is blank', ->
+          it 'is disabled', ->
+            $('#patient_enrollment_answer').val("the worst band is...")
+            $('#patient_enrollment_security_question').trigger 'change'
+            expect($('#create-account')).toHaveAttr('disabled', 'disabled')
           
-      describe 'when security answer is blank', ->
-        it 'is disabled', ->
-          $('#patient_enrollment_security_question').val("What's the worst band in the world?")
-          $('#patient_enrollment_answer').val("   ")
-          $('#patient_enrollment_security_question').trigger 'change'
-          expect($('#create-account')).toHaveAttr('disabled', 'disabled')
+        describe 'when security answer is blank', ->
+          it 'is disabled', ->
+            $('#patient_enrollment_security_question').val("What's the worst band in the world?")
+            $('#patient_enrollment_answer').val("   ")
+            $('#patient_enrollment_security_question').trigger 'change'
+            expect($('#create-account')).toHaveAttr('disabled', 'disabled')
           
-      describe 'when security answer is whitespace', ->
-        it 'is disabled', ->
+        describe 'when security answer is whitespace', ->
+          it 'is disabled', ->
           
-      describe 'when both fields are filled', ->
-        it 'is enabled', ->
-          $('#patient_enrollment_security_question').val("What's the worst band in the world?")
-          $('#patient_enrollment_answer').val("...")
-          $('#patient_enrollment_security_question').trigger 'change'
-          expect($('#create-account')).not.toHaveAttr('disabled', 'disabled')
+        describe 'when both fields are filled', ->
+          it 'is enabled', ->
+            $('#patient_enrollment_security_question').val("What's the worst band in the world?")
+            $('#patient_enrollment_answer').val("...")
+            $('#patient_enrollment_security_question').trigger 'change'
+            expect($('#create-account')).not.toHaveAttr('disabled', 'disabled')
+            
+    sharedBehaviorForEvent(jQuery.Event('click', name: 'create account button click', selector: '#create-account'))
+    sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
           
   describe 'advanceProgressBar', ->
     it 'fills in the next segment of the bar', ->

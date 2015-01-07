@@ -1,37 +1,5 @@
 $(function () {
   $('.carousel').carousel(); //initialize the carousel
-
-  $('#reg-form').validate({ //initialize the form validator
-    errorPlacement: function(error, element) {
-      $('.active .validation_error').html(error);
-    },
-    rules: { //TODO add validation for email address
-      'patient_enrollment[login]': {
-        required: true,
-        email: true
-      },
-      'patient_enrollment[login_confirmation]' : {
-        equalTo: '#patient_enrollment_login' }
-    },
-    messages: {
-      'patient_enrollment[login]': 'Enter a valid email.',
-      'patient_enrollment[login_confirmation]': 'Your Emails do not match.'
-    },
-    invalidHandler: function() {
-      $('.active .validation_error').removeClass('invisible');
-      $('.active .registration-input, .active label').addClass('invalid');
-    }
-  })
-  
-  // custom validation for our password rules
-  $.validator.addMethod("pwcheck", function(value) { 
-    return  /[a-z]/.test(value) // has a lowercase letter
-      && /[A-Z]/.test(value) // has an uppercase letter
-      && /\d/.test(value) // has a digit
-      && !(/(  )/.test(value)) //doesn't have consecutive whitespace
-      && (value.indexOf(' ') !== 0) //doesn't start with whitespace
-      && (value.lastIndexOf(' ') !== value.length - 1) //doesn't end with whitespace
-  });
   
   $('#next-button').on('click', nextButtonClick);
   $('#agree-button').on('click', nextButtonClick);
@@ -47,29 +15,7 @@ $(function () {
           $("#next-button").click();
       }
   });
-})
-
-var addPasswordRules = function() {
-  //add validation rules for password fields
-  //this is done dynamically because only part of the larger
-  //form is checked at first
-  $('#patient_enrollment_password').rules('add', {
-    required: true,
-    minlength: 8,
-    pwcheck: true,
-    messages: {
-      required: 'Enter a valid password.',
-      minlength: 'Enter a valid password.',
-      pwcheck: 'Enter a valid password.'
-    }
-  });
-  $('#patient_enrollment_password_confirmation').rules('add', {
-    equalTo: '#patient_enrollment_password',
-    messages: {
-      equalTo: 'Your passwords do not match.'
-    }
-  });
-}
+});
 
 var validateSecurityQuestions = function() {
   //custom validation works better than jQuery validate here
@@ -83,22 +29,50 @@ var getCurrentPage = function() {
   return $('.item.active').attr('id')
 }
 
+var confirmTerms = function() {
+  var proceed = confirm("You acknowledge that you have read, understood, and agree to be bound by the Terms of Use and the Privacy Policy referenced herein.");
+  
+  if (proceed === true) {
+    advanceToEmailPage();
+  } else {
+    proceed = confirm("If you tap 'Cancel', you will not be registered as a study participant for electronic patient reported outcomes and any information you entered will be erased. If you wish to continue the registration process, please tap 'OK'.");
+    
+    if (proceed === true) {
+      advanceToEmailPage();
+    } else {
+      redirectUser();
+    }
+  }
+}
+
+var advanceToEmailPage = function() {
+  $('#agree-button').addClass('hidden');
+  $('#next-button').removeClass('hidden');
+  
+  advanceProgressBar();
+  $('.carousel').carousel('next');
+}
+
 var nextButtonClick = function() {
   var currentPage = getCurrentPage(),
   carousel = $('.carousel');
-
-  $('#agree-button').addClass('hidden');
-  $('#next-button').removeClass('hidden');
-
-  if($('#reg-form').valid()) {
+  
+  if (currentPage === 'tou_dpn_agreement') {
+    confirmTerms();
+  } else if($('#reg-form').valid()) {
     hideErrors();
-    advanceProgressBar();
-    carousel.carousel('next');
+    
     if(currentPage === 'email') {
       addPasswordRules();
+      advanceProgressBar();
+      carousel.carousel('next');
     } else if(currentPage === 'password') {
       $('#next-button').addClass('hidden');
       $('#create-account').removeClass('hidden');
+      advanceProgressBar();
+      carousel.carousel('next');
+    } else if(currentPage === 'security_question') {
+      $('#create-account').trigger('click');
     }
   }
 }
@@ -161,4 +135,8 @@ var hideErrors = function() {
 var isBlankEntry = function() {
   return (($('.active .registration-input').first().val().length == 0) 
        && ($('.active .registration-input').last().val().length == 0));
+}
+
+var redirectUser = function() {
+  window.location = window.location.origin + '/';
 }
