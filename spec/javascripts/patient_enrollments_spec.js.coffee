@@ -16,12 +16,32 @@ describe 'patient enrollments form', ->
     carouselSpy.calls.reset()
     advanceProgressBarSpy.calls.reset()
     reverseProgressBarSpy.calls.reset()
+    
+  describe 'landing_page', ->
+    beforeEach ->
+      # unlike on the actual page, set the fixture's active div manually since we're
+      # mocking the jQuery carousel call that would normally do so
+      $('#landing_page').addClass('active')
+      
+    sharedBehaviorForEvent = (event) ->
+      describe event.name, ->
+        it 'shows the Progress bar', ->
+          expect($('.progress')).not.toHaveClass('hidden')
+        
+        it 'hides the "Next" button', ->
+          $('.back_arrow').trigger 'click'
+          expect($('#next-button')).toHaveClass('hidden')
+        
+        it 'shows the "I agree" button', ->
+          $('.back_arrow').trigger 'click'
+          expect($('#agree-button')).not.toHaveClass('hidden')
+          
+    sharedBehaviorForEvent(jQuery.Event('click', name: 'next button click', selector: '#next-button'))
+    sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
 
   describe 'tou_dpn_page', ->
     beforeEach ->
       $('#tou_dpn_agreement').addClass('active')
-      # unlike on the actual page, set the fixture's active div manually since we're
-      # mocking the jQuery carousel call that would normally do so
 
     describe 'when back button is clicked', ->
       it 'stays on the current page', ->
