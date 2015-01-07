@@ -78,24 +78,23 @@ var nextButtonClick = function() {
 }
 
 var backClick = function() {
-  //TODO currently we are validating on back button click
-  //to prevent a confusing UX issue where the error message
-  //disappears (on back click) and cannot be restored
-  //unless the form is corrected and rebroken
-  //there might be a better workaround, discuss
-  if($('#reg-form').valid() || isBlankEntry()) {
-    hideErrors();
-    var currentPage = getCurrentPage();
-    
-    if (currentPage !== 'tou_dpn_agreement') {
-      $('#next-button').removeClass('hidden');
-      reverseProgressBar();
-      $('.carousel').carousel('prev');
-      if (currentPage === 'security_question') {
-        $('#create-account').addClass('hidden');
-      } else if (currentPage === 'email') {
-        $('#agree-button').removeClass('hidden');
-        $('#next-button').addClass('hidden');
+  var currentPage = getCurrentPage();
+  
+  if (currentPage !== 'email') {
+    //TODO currently we are validating on back button click
+    //to prevent a confusing UX issue where the error message
+    //disappears (on back click) and cannot be restored
+    //unless the form is corrected and rebroken
+    //there might be a better workaround, discuss
+    if($('#reg-form').valid() || isBlankEntry()) {
+      if (currentPage !== 'tou_dpn_agreement') {
+        hideErrors();
+        $('#next-button').removeClass('hidden');
+        reverseProgressBar();
+        $('.carousel').carousel('prev');
+        if (currentPage === 'security_question') {
+          $('#create-account').addClass('hidden');
+        }
       }
     }
   }

@@ -91,10 +91,10 @@ describe 'patient enrollments form', ->
       $('#email').addClass('active')
 
     describe 'when back button is clicked', ->
-      it 'goes backwards', ->
+      it 'does nothing', ->
         $('.back_arrow').trigger 'click'
-        expect(carouselSpy.calls.any()).toEqual true
-        expect(reverseProgressBarSpy.calls.any()).toEqual true
+        expect(carouselSpy.calls.any()).toEqual false
+        expect(reverseProgressBarSpy.calls.any()).toEqual false
     
     sharedBehaviorForEvent = (event) ->      
       describe event.name, ->
