@@ -22,6 +22,15 @@ describe 'patient enrollments form', ->
       # unlike on the actual page, set the fixture's active div manually since we're
       # mocking the jQuery carousel call that would normally do so
       $('#landing_page').addClass('active')
+    
+    describe 'back button', ->
+      it 'does nothing', ->
+        $('.back_arrow').trigger 'click'
+        expect(carouselSpy.calls.any()).toEqual false
+        expect(reverseProgressBarSpy.calls.any()).toEqual false
+        
+      it 'is hidden', ->
+        expect('.back_arrow').toHaveClass('hidden')
       
     sharedBehaviorForEvent = (event) ->
       describe event.name, ->

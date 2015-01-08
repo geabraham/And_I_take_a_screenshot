@@ -79,7 +79,7 @@ var nextButtonClick = function() {
 var backClick = function() {
   var currentPage = getCurrentPage();
   
-  if (currentPage !== 'email') {
+  if (currentPage !== 'landing_page' && currentPage !== 'email') {
     //TODO currently we are validating on back button click
     //to prevent a confusing UX issue where the error message
     //disappears (on back click) and cannot be restored
