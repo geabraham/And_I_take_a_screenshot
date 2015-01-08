@@ -1,0 +1,10 @@
+$desktop: 769px;
+#main {
+  .patient {
+    @media screen and (min-width: $desktop) {
+      background-color: red;
+      width: 768px;
+      margin: 0 auto;
+    }
+  }
+}
