@@ -23,14 +23,11 @@ describe 'patient enrollments form', ->
       # mocking the jQuery carousel call that would normally do so
       $('#landing_page').addClass('active')
     
-    describe 'back button', ->
-      it 'does nothing', ->
+    describe 'back arrow', ->
+      it 'is disabled', ->
         $('.back_arrow').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false
         expect(reverseProgressBarSpy.calls.any()).toEqual false
-        
-      it 'is hidden', ->
-        expect('.back_arrow').toHaveClass('hidden')
       
     sharedBehaviorForEvent = (event) ->
       describe event.name, ->
@@ -53,10 +50,10 @@ describe 'patient enrollments form', ->
     beforeEach ->
       $('#tou_dpn_agreement').addClass('active')
 
-    describe 'when back button is clicked', ->
-      it 'stays on the current page', ->
+    describe 'back arrow', ->
+      it 'is disabled', ->
         $('.back_arrow').trigger 'click'
-        expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
+        expect(carouselSpy.calls.any()).toEqual false
         expect(reverseProgressBarSpy.calls.any()).toEqual false
         
     sharedBehaviorForEvent = (event) ->
@@ -99,8 +96,8 @@ describe 'patient enrollments form', ->
     beforeEach ->
       $('#email').addClass('active')
 
-    describe 'when back button is clicked', ->
-      it 'does nothing', ->
+    describe 'back arrow', ->
+      it 'is disabled', ->
         $('.back_arrow').trigger 'click'
         expect(carouselSpy.calls.any()).toEqual false
         expect(reverseProgressBarSpy.calls.any()).toEqual false
@@ -225,45 +222,55 @@ describe 'patient enrollments form', ->
     sharedBehaviorForEvent(jQuery.Event('click', name: 'next button click', selector: '#next-button'))
     sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
         
-    describe 'back arrow click', ->
-      describe 'for a blank input', ->
-        it 'returns to the previous page', ->
-          $('.back_arrow').trigger 'click'
-          expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
-          expect(reverseProgressBarSpy.calls.count()).toEqual 1
-          
-      describe 'for an invalid input', ->
-        it 'stays on the current page', ->
-          $('#patient_enrollment_password').attr('value', 'badpass')
-          validSpy= spyOn($.fn, 'valid').and.returnValue(false)
-          $('.back_arrow').trigger 'click'
-          expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
-          expect(reverseProgressBarSpy.calls.any()).toEqual false
-          
-      describe 'for a valid input', ->
-        it 'returns to the previous page', ->
-          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-          $('.back_arrow').trigger 'click'
-          expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
-          expect(reverseProgressBarSpy.calls.count()).toEqual 1
+    describe 'back arrow', ->
+      describe 'on click', ->
+        describe 'for a blank input', ->
+          it 'returns to the previous page', ->
+            $('.back_arrow').trigger 'click'
+            expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
+            expect(reverseProgressBarSpy.calls.count()).toEqual 1
+            
+          it 'is hidden', ->
+            $('.back_arrow').trigger 'click'
+            expect($('.back_arrow')).toHaveClass 'hidden'
+            
+        describe 'for an invalid input', ->
+          it 'stays on the current page', ->
+            $('#patient_enrollment_password').attr('value', 'badpass')
+            validSpy= spyOn($.fn, 'valid').and.returnValue(false)
+            $('.back_arrow').trigger 'click'
+            expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
+            expect(reverseProgressBarSpy.calls.any()).toEqual false
+            
+        describe 'for a valid input', ->
+          it 'returns to the previous page', ->
+            validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+            $('.back_arrow').trigger 'click'
+            expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
+            expect(reverseProgressBarSpy.calls.count()).toEqual 1
+            
+          it 'is hidden', ->
+            $('.back_arrow').trigger 'click'
+            expect($('.back_arrow')).toHaveClass 'hidden'
       
   describe 'security question page', ->
     beforeEach ->
       $('#security-question').addClass('active')
       
-    describe 'back arrow click', ->
-      it 'returns to the previous page', ->
-        $('.back_arrow').trigger 'click'
-        expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
-        expect(reverseProgressBarSpy.calls.count()).toEqual 1
-        
-      it 'displays the "Next" button', ->
-        $('.back_arrow').trigger 'click'
-        expect($('#next-button')).not.toHaveClass('hidden')
-        
-      it 'hides the "Create account" button', ->
-        $('.back_arrow').trigger 'click'
-        expect($('#create-account')).toHaveClass('hidden')
+    describe 'back arrow', ->
+      describe 'on click', ->
+        it 'returns to the previous page', ->
+          $('.back_arrow').trigger 'click'
+          expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
+          expect(reverseProgressBarSpy.calls.count()).toEqual 1
+          
+        it 'displays the "Next" button', ->
+          $('.back_arrow').trigger 'click'
+          expect($('#next-button')).not.toHaveClass('hidden')
+          
+        it 'hides the "Create account" button', ->
+          $('.back_arrow').trigger 'click'
+          expect($('#create-account')).toHaveClass('hidden')
         
     sharedBehaviorForEvent = (event) ->      
       describe event.name, ->

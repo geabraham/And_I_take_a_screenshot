@@ -91,7 +91,7 @@ var backClick = function() {
       reverseProgressBar();
       $('.carousel').carousel('prev');
       if (currentPage === 'password') {
-        $('.back_arrow').removeClass('hidden');
+        $('.back_arrow').addClass('hidden');
       } else if (currentPage === 'security_question') {
         $('#create-account').addClass('hidden');
         $('#next-button').removeClass('hidden');
