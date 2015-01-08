@@ -9,4 +9,5 @@ Minotaur::Application.routes.draw do
 
   resource :patient_enrollments, only: [:new, :create]
 
+  get :patient_management, controller: :patient_management, to: :select_site_and_study
 end
