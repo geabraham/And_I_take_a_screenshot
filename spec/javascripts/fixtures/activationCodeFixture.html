@@ -1,6 +1,8 @@
 <script>
 $(function() {
   $("#code").on('keyup', handleInput);
+  
+  $('#activate-button').on('click', activate);
 });
 </script>
 
@@ -14,9 +16,7 @@ $(function() {
   </div>
   
   <div class="validation_error invisible">Invalid code. Contact your provider.</div>
-  <div id="bottom">
-    <span id="back" />
-    <span id="center" />
-    <span id="forward" />
+  <div class="next navbar-fixed-bottom" >
+    <a class="btn btn-primary btn-block" id="activate-button" href="#registration-details" role="button" disabled="disabled" >Activate</a>
   </div>
 </div>
