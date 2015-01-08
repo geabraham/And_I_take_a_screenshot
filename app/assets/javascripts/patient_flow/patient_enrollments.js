@@ -65,6 +65,7 @@ var nextButtonClick = function() {
       addPasswordRules();
       advanceProgressBar();
       carousel.carousel('next');
+      $('.back_arrow').removeClass('hidden');
     } else if(currentPage === 'password') {
       $('#next-button').addClass('hidden');
       $('#create-account').removeClass('hidden');
@@ -79,21 +80,21 @@ var nextButtonClick = function() {
 var backClick = function() {
   var currentPage = getCurrentPage();
   
-  if (currentPage !== 'landing_page' && currentPage !== 'email') {
+  if (currentPage !== 'landing_page' && currentPage !== 'tou_dpn_agreement' && currentPage !== 'email') {
     //TODO currently we are validating on back button click
     //to prevent a confusing UX issue where the error message
     //disappears (on back click) and cannot be restored
     //unless the form is corrected and rebroken
     //there might be a better workaround, discuss
     if($('#reg-form').valid() || isBlankEntry()) {
-      if (currentPage !== 'tou_dpn_agreement') {
-        hideErrors();
+      hideErrors();
+      reverseProgressBar();
+      $('.carousel').carousel('prev');
+      if (currentPage === 'password') {
+        $('.back_arrow').removeClass('hidden');
+      } else if (currentPage === 'security_question') {
+        $('#create-account').addClass('hidden');
         $('#next-button').removeClass('hidden');
-        reverseProgressBar();
-        $('.carousel').carousel('prev');
-        if (currentPage === 'security_question') {
-          $('#create-account').addClass('hidden');
-        }
       }
     }
   }
