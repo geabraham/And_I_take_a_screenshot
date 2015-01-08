@@ -1,12 +1,6 @@
 - content_for :page_body do
   .header
-    %a.back_arrow.pull-left
-      %i.fa.fa-angle-left
-      %span.sr-only='Back'
     =image_tag 'Medidata_Logo_white_RGB_2.png'
-    %span.forward_arrow.pull-right
-      %i.fa.fa-angle-right
-      %span.sr-only= 'Forward'
   %p
   #download-instruction="Congratulations, you are registered as a participant in this study. Now it's time to download the Patient Cloud app."
   =image_tag 'Progress_bar_download.png', id: 'progress-img'
