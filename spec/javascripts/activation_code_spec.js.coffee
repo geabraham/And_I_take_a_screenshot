@@ -1,4 +1,6 @@
 describe 'activation code page', ->
+  getSpy = undefined
+  
   beforeEach ->
     loadFixtures 'activationCodeFixture.html'
     
@@ -34,23 +36,42 @@ describe 'activation code page', ->
         expect($('.validation_error')).not.toHaveClass 'invisible'
         expect($('.activation-code')).toHaveClass 'has-error'
         
-  describe 'Activate button', ->
+  describe 'Activate button', ->      
     describe 'when less than six characters are entered', ->
       it 'is disabled', ->
         window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('N4')
-        $('#code').trigger 'keyup'
-        expect($('#activate-button')).toHaveAttr('disabled', 'disabled')
-        
+        handleInput()
+        expect($('#activate-button')).toHaveClass('disabled')
+  
     describe 'when six characters are entered', ->
       describe 'with invalid characters present', ->
         it 'is disabled', ->
           window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('NOOO0!')
-          $('#code').trigger 'keyup'
-          expect($('#activate-button')).toHaveAttr('disabled', 'disabled')
-          
+          handleInput()
+          expect($('#activate-button')).toHaveClass('disabled')
+    
       describe 'with no invalid characters present', ->
         it 'is enabled', ->
           window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('234567')
-          $('#code').trigger 'keyup'
-          expect($('#activate-button')).not.toHaveAttr('disabled', 'disabled')
+          handleInput()
+          expect($('#activate-button')).not.toHaveClass('disabled')
+          
+      sharedBehaviorForEvent = (event) ->
+        describe event.name, ->
+          beforeEach ->
+            getSpy = spyOn($.fn, 'get')
+            
+          describe 'when button is disabled', ->
+            it 'does nothing', ->
+              $(event.selector).trigger event
+              expect(getSpy).not.toHaveBeenCalled
+              
+          describe 'when button is enabled', ->
+            it 'submits the activation code', ->
+              $('#activate-button').removeClass('disabled')
+              $(event.selector).trigger event
+              expect(getSpy).not.toHaveBeenCalled
+                
+      sharedBehaviorForEvent(jQuery.Event('click', name: 'create account button click', selector: '#activate-button'))
+      sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
   return

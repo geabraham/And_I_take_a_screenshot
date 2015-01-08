@@ -3,6 +3,12 @@ $(function() {
   $("#code").on('keyup', handleInput);
   
   $('#activate-button').on('click', activate);
+  
+  $(document).keypress(function(e){
+      if (e.which == 13){
+          $('#activate-button').click();
+      }
+  });
 });
 </script>
 
@@ -17,6 +23,6 @@ $(function() {
   
   <div class="validation_error invisible">Invalid code. Contact your provider.</div>
   <div class="next navbar-fixed-bottom" >
-    <a class="btn btn-primary btn-block" id="activate-button" href="#registration-details" role="button" disabled="disabled" >Activate</a>
+    <a class="btn btn-primary btn-block disabled" id="activate-button" href="#registration-details" role="button">Activate</a>
   </div>
 </div>
