@@ -24,6 +24,7 @@ end
 
 When(/^I accept the TOU\/DPN$/) do
   assert_text('We think in generalities, but we live in detail.')
+  sleep(1)
   click_on 'I agree'
   alert = page.driver.browser.switch_to.alert
   alert.send(:accept)
