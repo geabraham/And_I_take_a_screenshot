@@ -10,7 +10,7 @@ When(/^I fill in an activation code$/) do
   fill_in "code", with: "fhs498"
 end
 
-When(/^I visit the landing page$/) do
+When(/^I accept the TOU\/DPN$/) do
   tou_dpn_agreement = {
     'html' => '<html><body>We think in generalities, but we live in detail.</body></html>', 
     'language_code' => 'eng'
@@ -20,9 +20,7 @@ When(/^I visit the landing page$/) do
   
   visit '/patient_enrollments/new/'
   click_on 'Next'
-end
-
-When(/^I accept the TOU\/DPN$/) do
+  
   assert_text('We think in generalities, but we live in detail.')
   sleep(1)
   click_on 'I agree'
