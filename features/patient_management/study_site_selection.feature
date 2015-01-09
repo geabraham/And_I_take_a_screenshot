@@ -67,7 +67,7 @@ Feature: Patient Management Study Site Selection
   @Release2015.1.0
   @PB130363-004
   @Headed
-  Scenario: An random user tries to navigate to the study site selection page is redirected to iMedidata.
+  Scenario: A random user tries to navigate to the study site selection page is redirected to iMedidata.
     Given I am a random user
     When I navigate to patient management via the apps pane in iMedidata
     Then I should be redirected to iMedidata
