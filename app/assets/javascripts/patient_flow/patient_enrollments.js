@@ -34,8 +34,6 @@ var confirmTerms = function() {
   
   if (proceed === true) {
     advanceToEmailPage();
-  } else {
-    redirectUser();
   }
 }
 
@@ -142,8 +140,4 @@ var hideErrors = function() {
 var isBlankEntry = function() {
   return (($('.active .registration-input').first().val().length == 0) 
        && ($('.active .registration-input').last().val().length == 0));
-}
-
-var redirectUser = function() {
-  window.location = window.location.origin + '/';
 }

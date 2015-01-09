@@ -4,7 +4,6 @@ describe 'patient enrollments form', ->
   reverseProgressBarSpy = undefined
   confirmTermsSpy = undefined
   confirmSpy = undefined
-  redirectUserSpy = undefined
     
   beforeEach ->
     loadFixtures 'patientEnrollmentFixture.html'
@@ -84,13 +83,6 @@ describe 'patient enrollments form', ->
         it 'advances the progress bar', ->
           confirmTerms()
           expect(advanceProgressBarSpy.calls.count()).toEqual 1
-          
-      describe 'when user clicks "Cancel" but confirms on the subsequent dialog box', ->
-        it 'redirects to the activation code page', ->
-          confirmSpy = spyOn(window, 'confirm').and.returnValue(false)
-          redirectUserSpy = spyOn(window, 'redirectUser')
-          confirmTerms()
-          expect(redirectUserSpy.calls.count()).toEqual 1
 
   describe 'email page', ->
     beforeEach ->
