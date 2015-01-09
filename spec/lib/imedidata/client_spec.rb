@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'imedidata_client'
+require 'imedidata/client'
 
 describe IMedidataClient do
   let(:test_class) { Class.new { extend IMedidataClient } }

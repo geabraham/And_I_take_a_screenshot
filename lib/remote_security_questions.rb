@@ -1,4 +1,4 @@
-require 'imedidata_client'
+require 'imedidata/client'
 require 'json'
 
 # Class handles writing and fetching security questions into cache.

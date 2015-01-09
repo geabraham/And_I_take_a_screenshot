@@ -1,4 +1,4 @@
-require 'imedidata_client_request'
+require 'imedidata/request'
 
 # Handles the business of sending requests to IMedidata API
 #
