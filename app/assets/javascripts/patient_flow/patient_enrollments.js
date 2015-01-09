@@ -44,7 +44,15 @@ var advanceToEmailPage = function() {
   $('#next-button').removeClass('hidden');
   
   advanceProgressBar();
+  advanceCarousel();
+}
+
+var advanceCarousel = function () {
   $('.carousel').carousel('next');
+  
+  //fix for mobile field focus cutting off top of page
+  window.scrollTo(0, 0);
+  document.body.scrollTop = 0;
 }
 
 var nextButtonClick = function() {
@@ -55,7 +63,7 @@ var nextButtonClick = function() {
     $('#next-button').addClass('hidden');
     $('#agree-button').removeClass('hidden');
     $('.progress').removeClass('hidden');
-    $('.carousel').carousel('next');
+    advanceCarousel();
   } else if (currentPage === 'tou_dpn_agreement') {
     confirmTerms();
   } else if($('#reg-form').valid()) {
@@ -64,13 +72,13 @@ var nextButtonClick = function() {
     if(currentPage === 'email') {
       addPasswordRules();
       advanceProgressBar();
-      carousel.carousel('next');
+      advanceCarousel();
       $('.back_arrow').removeClass('hidden');
     } else if(currentPage === 'password') {
       $('#next-button').addClass('hidden');
       $('#create-account').removeClass('hidden');
       advanceProgressBar();
-      carousel.carousel('next');
+      advanceCarousel();
     } else if(currentPage === 'security_question') {
       $('#create-account').trigger('click');
     }
