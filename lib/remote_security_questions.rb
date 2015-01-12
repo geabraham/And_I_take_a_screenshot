@@ -24,7 +24,7 @@ class RemoteSecurityQuestions
     # Returns cached security questions or fetches them from remote location
     #
     def find_or_fetch(locale)
-      Rails.cache.fetch(key_for_locale(locale)) { request_security_questions!(locale: locale) }
+      Rails.cache.fetch(key_for_locale(locale)) { request_security_questions!(locale: locale)['user_security_questions'] }
     end
 
     def key_for_locale(locale)

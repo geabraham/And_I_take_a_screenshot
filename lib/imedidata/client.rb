@@ -4,10 +4,12 @@ require 'imedidata/requests/invitation_request'
 #
 module IMedidataClient
 
+  [:security_questions, :invitation, :studies, :study_sites].each do |request_type|
+  end
   # Returns an array of security questions
   #
   def request_security_questions!(options = {})
-    request = SecurityQuestionsRequest.new(locale: options[:locale])
+    request = SecurityQuestionsRequest.new(options)
     security_questions_response = request.response
 
     unless security_questions_response.status == 200
@@ -15,7 +17,7 @@ module IMedidataClient
         "Response: #{security_questions_response.status} #{security_questions_response.body}")
     end
 
-    JSON.parse(security_questions_response.body)['user_security_questions']
+    JSON.parse(security_questions_response.body)
   end
 
   def request_invitation!(options = {})

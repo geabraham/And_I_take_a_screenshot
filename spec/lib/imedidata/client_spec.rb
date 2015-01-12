@@ -31,7 +31,7 @@ describe IMedidataClient do
 
       context 'when response is successful' do
         it 'returns the response body' do
-          expect(test_class.request_security_questions!({locale: 'zho'})).to eq(JSON.parse(response)['user_security_questions'])
+          expect(test_class.request_security_questions!({locale: 'zho'})).to eq(JSON.parse(response))
         end
       end
 
