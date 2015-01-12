@@ -1,15 +1,39 @@
+require 'spec_helper'
+
 describe PatientManagementController do
   before do
     # Create a provider who is authorized for Study X
   end
 
-  describe 'select_site_and_study' do
-    context 'without user logged in'
-      it 'redirects to iMedidata'
+  describe 'select_study_and_site' do
+    context 'without user logged in' do
+      it 'redirects to iMedidata' do
+        get 'select_study_and_site'
+        expect(response).to redirect_to("http://localhost:4567/login?service=http%3A%2F%2Ftest.host%2Fpatient_management")
+      end
+    end
 
     context 'with user logged in'
-      context 'without study or study group parameter'
-        it 'displays a helpful error message'
+      let(:verb)                 { :get }
+      let(:action)               { :select_study_and_site }
+      let(:params)               { {} }
+      let(:user_uuid)            { SecureRandom.uuid }
+      let(:cas_extra_attributes) { {user_uuid: user_uuid}.stringify_keys! }
+       
+      before do
+        allow(CASClient::Frameworks::Rails::Filter).to receive(:filter).and_return(true)
+        session[:cas_extra_attributes] = cas_extra_attributes
+      end
+
+      context 'without study or study group parameter' do
+        let(:expected_status_code) { 422 }
+        let(:error_response_body)  do 
+          {message: 'You are not authorized for patient management.'}.to_json
+        end
+
+        it_behaves_like 'returns expected status'
+        it_behaves_like 'returns expected error response body'
+      end
 
       context 'with study group parameter'
         it 'makes a roles request to iMedidata for the user for the study group'
