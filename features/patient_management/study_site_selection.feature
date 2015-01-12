@@ -47,7 +47,7 @@ Feature: Patient Management Study Site Selection
   @Headed
   Scenario: An authorized user navigates to the study site selection page in the context of a study only needs to select a site
     Given I am a user with login "lt-commander-data@gmail.com"
-    When I navigate to patient management via study "Test001" in iMedidata
+    When I navigate to patient management via study "TestStudy001" in iMedidata
     Then I should see "TestStudy001" pre-selected in the list of studies
     And I should see a list of sites:
       | name                 |
