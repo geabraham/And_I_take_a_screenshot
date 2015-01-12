@@ -21,14 +21,14 @@ module IMedidataClient
   def request_invitation!(options = {})
     request = InvitationRequest.new(user_uuid: options[:user_uuid], study_uuid: options[:study_uuid])
 
-    app_assignments_response = request.response
+    invitation_response = request.response
 
-    unless app_assignments_response.status == 200
-      raise IMedidataClientError.new("App Assignments request failed for #{options[:user_uuid]}." <<
-        "Response: #{app_assignments_response.status} #{app_assignments_response.body}")
+    unless invitation_response.status == 200
+      raise IMedidataClientError.new("Invitation request failed for #{options[:user_uuid]}. " <<
+        "Response: #{invitation_response.status} #{invitation_response.body}")
     end
 
-    JSON.parse(app_assignments_response.body)['apps']
+    JSON.parse(invitation_response.body)['apps']
   end
 
   class IMedidataClientError < StandardError; end

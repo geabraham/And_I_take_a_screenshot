@@ -26,9 +26,9 @@ module IMedidataClient
 
     def path
       if @study_uuid.present?
-        "api/v2/studies/#{@study_uuid}/users/#{@user_uuid}/invitation.json"
+        "/api/v2/studies/#{@study_uuid}/users/#{@user_uuid}/invitation.json"
       elsif @study_group_uuid.present?
-        "api/v2/study_groups/#{@study_group_uuid}/users/#{@user_uuid}/invitation.json"
+        "/api/v2/study_groups/#{@study_group_uuid}/users/#{@user_uuid}/invitation.json"
       end 
     end
 
