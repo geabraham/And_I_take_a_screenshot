@@ -14,31 +14,18 @@ class IMedidataUser
   end
 
   def has_accepted_invitation?(options = {})
-    study_object_uuid_symbol = "#{study_object(options)}_uuid".to_sym
-    study_object_uuid = options[study_object_uuid_symbol]
-
     # TODO: allow raise or rescue here? Otherwise this method raises.
     #
-    invitation = request_invitation!(user_uuid: imedidata_user_uuid, study_object_uuid_symbol => study_object_uuid)
+    invitation = request_invitation!(options.merge(user_uuid: imedidata_user_uuid))
     invitation_apps = invitation['apps'].presence
 
     unless invitation_apps.any? { |aa| aa['uuid'] == MAUTH_APP_UUID } && invitation['accepted_at'].present?
-      errors.add(:invitation, "User has no accepted invitation to #{study_object} #{study_object_uuid}")
+      errors.add(
+        :invitation,
+        "User has no accepted invitation to study or study group with uuid #{options[:study_uuid].presence || options[:study_group_uuid].presence}")
       false
     else
       true
-    end
-  end
-
-  private
-
-  def study_object(options = {})
-    @study_object ||= if options[:study_uuid].present?
-      'study'
-    elsif options[:study_group_uuid].present?
-      'study_group'
-    else
-      raise ArgumentError.new('No study or study group uuid provided.')
     end
   end
 end

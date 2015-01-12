@@ -19,7 +19,7 @@ module IMedidataClient
   end
 
   def request_invitation!(options = {})
-    request = InvitationRequest.new(user_uuid: options[:user_uuid], study_uuid: options[:study_uuid])
+    request = InvitationRequest.new(options)
 
     invitation_response = request.response
 
