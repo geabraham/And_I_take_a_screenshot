@@ -78,11 +78,11 @@ describe IMedidataUser do
 
     context 'when request raises an error' do
       before do
-        allow(user).to receive(:request_studies!).and_raise(IMedidataClientError.new('Failed to get studies'))
+        allow(user).to receive(:request_studies!).and_raise(IMedidataClient::IMedidataClientError.new('Failed to get studies'))
       end
 
       it 'raises the error' do
-        expect(user.get_user_studies!).to eq(studies)
+        expect { user.get_user_studies! }.to raise_error(IMedidataClient::IMedidataClientError, 'Failed to get studies')
       end
     end
   end
