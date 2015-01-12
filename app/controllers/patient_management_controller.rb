@@ -9,8 +9,8 @@ class PatientManagementController < ApplicationController
   before_filter :authorize_user, :check_app_assignment
 
   def select_study_and_site
-    @user_studies = imedidata_user.get_studies
-    render json: @user_studies
+    @user_studies = imedidata_user.get_studies!
+    render json: @user_studies, status: :ok
   end
 
   private
@@ -26,7 +26,7 @@ class PatientManagementController < ApplicationController
     # If the user is arriving from the studies pane, there will be a study parameter
     # App assignment request requires the context of a study
     #
-    unless [:study_uuid, :study_group_uuid].any? { |k| params.keys.include?(k) } && @imedidata_user.has_accepted_invitation?(params)
+    unless [:study_uuid, :study_group_uuid].any? { |k| params.include?(k) } && @imedidata_user.has_accepted_invitation?(params)
       render json: {message: no_app_assigment_error_message}, status: 422
     end
   end

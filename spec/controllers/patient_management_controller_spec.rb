@@ -41,7 +41,7 @@ describe PatientManagementController do
 
       context 'when user is not authorized for patient management' do
         let(:study_group_uuid)     { SecureRandom.uuid }
-        let(:params)               { {study_group_uuid: study_group_uuid, controller: 'patient_management', action: 'select_study_and_site'}.stringify_keys }
+        let(:params)               { {study_group_uuid: study_group_uuid, controller: 'patient_management', action: 'select_study_and_site'} }
         let(:expected_status_code) { 422 }
         let(:error_response_body)  do
           {message: 'You are not authorized for patient management.'}.to_json
@@ -56,21 +56,30 @@ describe PatientManagementController do
         it_behaves_like 'returns expected error response body'
       end
 
-      context 'when user is authorized for patient management'
-        context 'with study group parameter'
-          let(:study_group_uuid)  { SecureRandom.uuid }
-          let(:params)            { {study_group_uuid: study_group_uuid, controller: 'patient_management', action: 'select_study_and_site'}.stringify_keys }
+      context 'when user is authorized for patient management' do
+        context 'with study group parameter' do
+          let(:study_group_uuid)     { SecureRandom.uuid }
+          let(:params)               { {study_group_uuid: study_group_uuid, controller: 'patient_management', action: 'select_study_and_site'} }
+          let(:expected_status_code) { 200 }
+          let(:expected_body)        { studies.to_json }
+          let(:studies) do
+            {studies: [{name: 'TesStudy001', uuid: SecureRandom.uuid}, {name: 'TestStudy002', uuid: SecureRandom.uuid}]}
+          end
 
           before do
             allow(imedidata_user).to receive(:has_accepted_invitation?).with(params).and_return(true)
+            allow(imedidata_user).to receive(:get_studies!).and_return(studies)
             controller.instance_variable_set(:@imedidata_user, imedidata_user)
           end
 
-          it 'makes a request for the studies for that user'
+          it_behaves_like 'returns expected status'
+          it_behaves_like 'returns expected body'
+        end
+      end
 
-        context 'with study parameter'
+        context 'with study parameter' do
           let(:study_uuid) { SecureRandom.uuid }
-          let(:params)     { {study_uuid: study_uuid, controller: 'patient_management', action: 'select_study_and_site'}.stringify_keys }
+          let(:params)     { {study_uuid: study_uuid, controller: 'patient_management', action: 'select_study_and_site'} }
 
           before do
             allow(imedidata_user).to receive(:has_accepted_invitation?).with(params).and_return(true)
@@ -78,5 +87,6 @@ describe PatientManagementController do
           end
 
           it 'makes a request for the sites for that study and user'
+        end
   end
 end

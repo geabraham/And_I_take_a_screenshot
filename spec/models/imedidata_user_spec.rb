@@ -59,7 +59,7 @@ describe IMedidataUser do
     end
   end
 
-  describe '#get_user_studies!' do
+  describe '#get_studies!' do
     let(:uuid)    { SecureRandom.uuid }
     let(:user)    { IMedidataUser.new(imedidata_user_uuid: uuid) }
     let(:studies) do
@@ -72,7 +72,7 @@ describe IMedidataUser do
       end
 
       it 'makes a request for user\'s studies' do
-        expect(user.get_user_studies!).to eq(studies)
+        expect(user.get_studies!).to eq(studies)
       end
     end
 
@@ -82,7 +82,7 @@ describe IMedidataUser do
       end
 
       it 'raises the error' do
-        expect { user.get_user_studies! }.to raise_error(IMedidataClient::IMedidataClientError, 'Failed to get studies')
+        expect { user.get_studies! }.to raise_error(IMedidataClient::IMedidataClientError, 'Failed to get studies')
       end
     end
   end
