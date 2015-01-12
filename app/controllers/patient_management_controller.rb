@@ -9,8 +9,12 @@ class PatientManagementController < ApplicationController
   before_filter :authorize_user, :check_app_assignment
 
   def select_study_and_site
-    @user_studies = imedidata_user.get_studies!
-    render json: @user_studies, status: :ok
+    @studies_or_sites = if (study_uuid = params[:study_uuid])
+      imedidata_user.get_study_sites!(study_uuid)
+    else
+      imedidata_user.get_studies!
+    end
+    render json: @studies_or_sites, status: :ok
   end
 
   private

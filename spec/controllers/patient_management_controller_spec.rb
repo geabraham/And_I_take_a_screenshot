@@ -17,7 +17,7 @@ describe PatientManagementController do
       end
     end
 
-    context 'with user logged in'
+    context 'with user logged in' do
       let(:verb)                 { :get }
       let(:action)               { :select_study_and_site }
       let(:params)               { {} }
@@ -77,16 +77,25 @@ describe PatientManagementController do
         end
       end
 
-        context 'with study parameter' do
-          let(:study_uuid) { SecureRandom.uuid }
-          let(:params)     { {study_uuid: study_uuid, controller: 'patient_management', action: 'select_study_and_site'} }
+      context 'with study parameter' do
+        let(:study_uuid) { SecureRandom.uuid }
+        let(:params)     { {study_uuid: study_uuid, controller: 'patient_management', action: 'select_study_and_site'} }
 
-          before do
-            allow(imedidata_user).to receive(:has_accepted_invitation?).with(params).and_return(true)
-            controller.instance_variable_set(:@imedidata_user, imedidata_user)
-          end
-
-          it 'makes a request for the sites for that study and user'
+        before do
+          allow(imedidata_user).to receive(:has_accepted_invitation?).with(params).and_return(true)
+          controller.instance_variable_set(:@imedidata_user, imedidata_user)
         end
+
+        it 'does not make a request for the studies for that user' do
+          expect(imedidata_user).not_to receive(:get_studies!)
+          get 'select_study_and_site', params
+        end
+
+        it 'makes a request for the sites for that study and user' do
+          expect(imedidata_user).to receive(:get_study_sites!).with(study_uuid)
+          get 'select_study_and_site', params
+        end
+      end
+    end
   end
 end

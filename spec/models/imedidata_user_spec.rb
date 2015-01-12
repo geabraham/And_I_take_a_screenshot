@@ -86,4 +86,8 @@ describe IMedidataUser do
       end
     end
   end
+
+  describe '#get_study_sites!' do
+
+  end
 end
