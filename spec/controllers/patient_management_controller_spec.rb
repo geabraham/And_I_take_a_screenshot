@@ -58,17 +58,25 @@ describe PatientManagementController do
 
       context 'when user is authorized for patient management'
         context 'with study group parameter'
-          context 'when user has an invitation to the study group'
-            it 'makes a request for the studies for that study group and user'
+          let(:study_group_uuid)  { SecureRandom.uuid }
+          let(:params)            { {study_group_uuid: study_group_uuid, controller: 'patient_management', action: 'select_study_and_site'}.stringify_keys }
 
-          context 'when user is not an authorized provider for the study group'
-            it 'displays a helpful error message'
+          before do
+            allow(imedidata_user).to receive(:has_accepted_invitation?).with(params).and_return(true)
+            controller.instance_variable_set(:@imedidata_user, imedidata_user)
+          end
+
+          it 'makes a request for the studies for that user'
 
         context 'with study parameter'
-          context 'when user has an invitation to the study'
-            it 'makes a request for the studies for that study group and user'
+          let(:study_uuid) { SecureRandom.uuid }
+          let(:params)     { {study_uuid: study_uuid, controller: 'patient_management', action: 'select_study_and_site'}.stringify_keys }
 
-          context 'when user is not an authorized provider for the study'
-            it 'displays a helpful error message'
+          before do
+            allow(imedidata_user).to receive(:has_accepted_invitation?).with(params).and_return(true)
+            controller.instance_variable_set(:@imedidata_user, imedidata_user)
+          end
+
+          it 'makes a request for the sites for that study and user'
   end
 end

@@ -28,4 +28,8 @@ class IMedidataUser
       true
     end
   end
+
+  def get_user_studies!
+    request_studies!(user_uuid: imedidata_user_uuid)
+  end
 end

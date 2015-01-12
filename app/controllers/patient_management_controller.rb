@@ -9,6 +9,8 @@ class PatientManagementController < ApplicationController
   before_filter :authorize_user, :check_app_assignment
 
   def select_study_and_site
+    @user_studies = imedidata_user.get_studies
+    render json: @user_studies
   end
 
   private

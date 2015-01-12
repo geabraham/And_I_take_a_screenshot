@@ -58,4 +58,32 @@ describe IMedidataUser do
       end
     end
   end
+
+  describe '#get_user_studies!' do
+    let(:uuid)    { SecureRandom.uuid }
+    let(:user)    { IMedidataUser.new(imedidata_user_uuid: uuid) }
+    let(:studies) do
+      {studies: [{name: 'TesStudy001', uuid: SecureRandom.uuid}, {name: 'TestStudy002', uuid: SecureRandom.uuid}]}
+    end
+
+    context 'when request is successful' do
+      before do
+        allow(user).to receive(:request_studies!).and_return(studies)
+      end
+
+      it 'makes a request for user\'s studies' do
+        expect(user.get_user_studies!).to eq(studies)
+      end
+    end
+
+    context 'when request raises an error' do
+      before do
+        allow(user).to receive(:request_studies!).and_raise(IMedidataClientError.new('Failed to get studies'))
+      end
+
+      it 'raises the error' do
+        expect(user.get_user_studies!).to eq(studies)
+      end
+    end
+  end
 end

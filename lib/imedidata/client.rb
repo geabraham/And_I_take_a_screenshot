@@ -31,5 +31,18 @@ module IMedidataClient
     JSON.parse(invitation_response.body)
   end
 
+  def request_studies!(options = {})
+    request = StudiesRequest.new(options)
+
+    studies_response = request.response
+
+    unless invitation_response.status == 200
+      raise IMedidataClientError.new("Studies request failed for #{options[:user_uuid]}. " <<
+        "Response: #{studies_response.status} #{studies_response.body}")
+    end
+
+    JSON.parse(studies_response.body)
+  end
+
   class IMedidataClientError < StandardError; end
 end
