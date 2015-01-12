@@ -14,12 +14,10 @@ class PatientManagementController < ApplicationController
   private
 
   def authorize_user
-    CASClient::Frameworks::Rails::Filter.filter(self)
-    # {"user_id"=>"7", "user_uuid"=>"06acf77e-c2fe-4bcd-b44a-dd2fea8bd1a3", "user_email"=>"abarciauskas+3@mdsol.com"}
-    @user_uuid = if cas_session = session[:cas_extra_attributes]
-      cas_session['user_uuid']
+    unless CASClient::Frameworks::Rails::Filter.filter(self)
+      redirect_to(CASClient::Frameworks::Rails::Filter.login_url(self))
     end
-    @current_user = IMedidataUser.new(imedidata_user_uuid: @user_uuid)
+    @imedidata_user = IMedidataUser.new(imedidata_user_uuid: current_user_uuid)
   end
 
   def check_app_assignment
@@ -29,9 +27,19 @@ class PatientManagementController < ApplicationController
     #
     @study_uuid = params[:study_uuid] || params[:study_group_uuid]
 
-    unless @study_uuid.present? && @current_user.is_assigned_to_app?(@study_uuid)
-      return render json: {message: no_app_assigment_error_message}, status: 422
+    unless @study_uuid.present? && @imedidata_user.is_assigned_to_app?(@study_uuid)
+      render json: {message: no_app_assigment_error_message}, status: 422
     end
+  end
+
+  def current_user_uuid
+    @current_user_uuid ||= current_user['user_uuid']
+  end
+
+  # Returns the uuid of the current session
+  # {"user_id"=>"7", "user_uuid"=>"06acf77e-c2fe-4bcd-b44a-dd2fea8bd1a3", "user_email"=>"abarciauskas+3@mdsol.com"}
+  def current_user
+    @current_user ||= session[:cas_extra_attributes]
   end
 
   def no_app_assigment_error_message

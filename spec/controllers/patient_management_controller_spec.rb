@@ -6,7 +6,11 @@ describe PatientManagementController do
   end
 
   describe 'select_study_and_site' do
-    context 'without user logged in' do
+    context 'when user is not logged in' do
+      before do
+        allow(CASClient::Frameworks::Rails::Filter).to receive(:filter).and_return(false)
+      end
+
       it 'redirects to iMedidata' do
         get 'select_study_and_site'
         expect(response).to redirect_to("http://localhost:4567/login?service=http%3A%2F%2Ftest.host%2Fpatient_management")
@@ -29,6 +33,21 @@ describe PatientManagementController do
         let(:expected_status_code) { 422 }
         let(:error_response_body)  do 
           {message: 'You are not authorized for patient management.'}.to_json
+        end
+
+        it_behaves_like 'returns expected status'
+        it_behaves_like 'returns expected error response body'
+      end
+
+      context 'when user is not authorized for patient management' do
+        let(:study_group_uuid) { SecureRandom.uuid }
+        let(:params) { {study_group: study_group_uuid} }
+        let(:expected_status_code) { 422 }
+        let(:error_response_body)  do
+          {message: 'You are not authorized for patient management.'}.to_json
+        end
+        before do
+          allow_any_instance_of(IMedidataUser).to receive(:is_assigned_to_app?).with(study_group_uuid)
         end
 
         it_behaves_like 'returns expected status'
