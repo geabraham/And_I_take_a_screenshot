@@ -1,63 +1,22 @@
 require 'imedidata/request'
+load 'lib/imedidata/requests/security_questions_request.rb'
 require 'imedidata/requests/invitation_request'
+
 # Handles the business of sending requests to IMedidata API
 #
 module IMedidataClient
 
-  [:security_questions, :invitation, :studies, :study_sites].each do |request_type|
-  end
-  # Returns an array of security questions
-  #
-  def request_security_questions!(options = {})
-    request = SecurityQuestionsRequest.new(options)
-    security_questions_response = request.response
+  ['security_questions', 'invitation', 'studies', 'study_sites'].each do |request_type|
+    define_method("request_#{request_type}!") do |options|
+      response = "IMedidataClient::#{"#{request_type}_request".titleize.gsub(' ','')}".constantize.new(options).response
 
-    unless security_questions_response.status == 200
-      raise IMedidataClientError.new("Security Questions request failed for #{options[:locale]}. " <<
-        "Response: #{security_questions_response.status} #{security_questions_response.body}")
+      unless response.status == 200
+        raise IMedidataClientError.new("#{request_type.titleize} request failed for #{options}. " <<
+          "Response: #{response.status} #{response.body}")
+      end
+
+      JSON.parse(response.body)
     end
-
-    JSON.parse(security_questions_response.body)
-  end
-
-  def request_invitation!(options = {})
-    request = InvitationRequest.new(options)
-
-    invitation_response = request.response
-
-    unless invitation_response.status == 200
-      raise IMedidataClientError.new("Invitation request failed for #{options[:user_uuid]}. " <<
-        "Response: #{invitation_response.status} #{invitation_response.body}")
-    end
-
-    JSON.parse(invitation_response.body)
-  end
-
-  def request_studies!(options = {})
-    request = StudiesRequest.new(options)
-
-    studies_response = request.response
-
-    unless invitation_response.status == 200
-      raise IMedidataClientError.new("Studies request failed for #{options[:user_uuid]}. " <<
-        "Response: #{studies_response.status} #{studies_response.body}")
-    end
-
-    JSON.parse(studies_response.body)
-  end
-
-
-  def request_study_sites!(options = {})
-    request = StudySitesRequest.new(options)
-
-    study_sites_response = request.response
-
-    unless study_sites_response.status == 200
-      raise IMedidataClientError.new("Studies request failed for #{options[:user_uuid]}. " <<
-        "Response: #{study_sites_response.status} #{study_sites_response.body}")
-    end
-
-    JSON.parse(study_sites_response.body)
   end
 
   class IMedidataClientError < StandardError; end
