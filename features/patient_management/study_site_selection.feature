@@ -17,7 +17,7 @@ Feature: Patient Management Study Site Selection
       | TestStudy001 | GalacticQuadrantBeta |
       | TestStudy002 | GenesisPlanet        |
       | TestStudy003 | StarfleetAcademy     |
-    And a user with login "lt-commander-data@gmail.com" is a provider for studies "TestStudy001, TestStudy002"
+    And a user with login "lt-commander-data@gmail.com" is authorized for patient management
     And a user with login "lt-worf@gmail.com" exists
     And user with login "lt-commander-data@gmail.com" is logged in
     And user with login "lt-worf@gmail.com" is logged in
@@ -26,7 +26,7 @@ Feature: Patient Management Study Site Selection
   @Release2015.1.0
   @PB130363-001
   @Headed
-  Scenario: An authorized user navigates to the study site selection page and can select a study and site
+  Scenario: An authorized patient management user who is logged in navigates to the study site selection page and can select a study and site.
     Given I am a user with login "lt-commander-data@gmail.com"
     When I navigate to patient management via the apps pane in iMedidata
     Then I should see a list of studies:
@@ -45,7 +45,7 @@ Feature: Patient Management Study Site Selection
   @Release2015.1.0
   @PB130363-002
   @Headed
-  Scenario: An authorized user navigates to the study site selection page in the context of a study only needs to select a site
+  Scenario: An authorized patient management user who is logged in navigates to the study site selection page in the context of a study only needs to select a site.
     Given I am a user with login "lt-commander-data@gmail.com"
     When I navigate to patient management via study "TestStudy001" in iMedidata
     Then I should see "TestStudy001" pre-selected in the list of studies
@@ -60,7 +60,7 @@ Feature: Patient Management Study Site Selection
   @Release2015.1.0
   @PB130363-003
   @Headed
-  Scenario: An unauthorized user tries to navigate to the study site selection page is shown a helpful error message.
+  Scenario: An unauthorized patient management user who is logged in tries to navigate to the study site selection page is shown a helpful error message.
     Given I am a user with login "lt-worf@gmail.com"
     When I navigate to patient management via the apps pane in iMedidata
     Then I should see the message "You are not authorized for patient management."
@@ -69,7 +69,7 @@ Feature: Patient Management Study Site Selection
   @Release2015.1.0
   @PB130363-004
   @Headed
-  Scenario: An user who is not logged in tries to navigate to the study site selection page is redirected to iMedidata.
-    Given I am a random user
+  Scenario: An user who is not logged in tries to navigate to the study site selection page is redirected to login.
+    Given I am a user who is not logged in
     When I navigate to patient management via the apps pane in iMedidata
-    Then I should be redirected to iMedidata
+    Then I should be redirected to the login page
