@@ -25,9 +25,7 @@ class PatientManagementController < ApplicationController
     # If the user is arriving from the studies pane, there will be a study parameter
     # App assignment request requires the context of a study
     #
-    @study_uuid = params[:study_uuid] || params[:study_group_uuid]
-
-    unless @study_uuid.present? && @imedidata_user.is_assigned_to_app?(@study_uuid)
+    unless (params[:study_uuid].present? || params[:study_group_uuid.present?]) && @imedidata_user.has_invitation?(params)
       render json: {message: no_app_assigment_error_message}, status: 422
     end
   end

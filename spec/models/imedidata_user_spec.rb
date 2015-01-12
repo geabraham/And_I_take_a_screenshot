@@ -18,26 +18,24 @@ describe IMedidataUser do
     end
   end
 
-  describe '#is_assigned_to_app?' do
+  describe '#has_invitation?' do
     let(:uuid)       { SecureRandom.uuid }
     let(:study_uuid) { SecureRandom.uuid }
     let(:user)       { IMedidataUser.new(imedidata_user_uuid: uuid) }
     let(:apps)       { [{'uuid' => SecureRandom.uuid}, {'uuid' => MAUTH_APP_UUID}] }
-
+    let(:options)    { {user_uuid: uuid, study_uuid: study_uuid} }
     before do
-      allow(user).to receive(:request_app_assignments!).with(
-        user_uuid: uuid,
-        study_uuid: study_uuid).and_return(apps)
+      allow(user).to receive(:request_invitation!).with(options).and_return(apps)
     end
 
     context 'when user is assigned to the app' do
-      it('returns true') { expect(user.is_assigned_to_app?(study_uuid)).to eq(true) }
+      it('returns true') { expect(user.has_invitation?(options)).to eq(true) }
     end
 
     context 'when user is not assigned to the app' do
       let(:apps) { [{uuid: SecureRandom.uuid}] }
 
-      it('returns false') { expect(user.is_assigned_to_app?(study_uuid)).to eq(false) }
+      it('returns false') { expect(user.has_invitation?(options)).to eq(false) }
     end
   end
 end

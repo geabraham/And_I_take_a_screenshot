@@ -1,5 +1,5 @@
 require 'imedidata/request'
-require 'imedidata/requests/app_assignments_request'
+require 'imedidata/requests/invitation_request'
 # Handles the business of sending requests to IMedidata API
 #
 module IMedidataClient
@@ -18,8 +18,8 @@ module IMedidataClient
     JSON.parse(security_questions_response.body)['user_security_questions']
   end
 
-  def request_app_assignments!(options = {})
-    request = AppAssignmentsRequest.new(user_uuid: options[:user_uuid], study_uuid: options[:study_uuid])
+  def request_invitation!(options = {})
+    request = InvitationRequest.new(user_uuid: options[:user_uuid], study_uuid: options[:study_uuid])
 
     app_assignments_response = request.response
 

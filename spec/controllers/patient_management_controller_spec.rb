@@ -41,13 +41,13 @@ describe PatientManagementController do
 
       context 'when user is not authorized for patient management' do
         let(:study_group_uuid) { SecureRandom.uuid }
-        let(:params) { {study_group: study_group_uuid} }
+        let(:params) { {study_group_uuid: study_group_uuid} }
         let(:expected_status_code) { 422 }
         let(:error_response_body)  do
           {message: 'You are not authorized for patient management.'}.to_json
         end
         before do
-          allow_any_instance_of(IMedidataUser).to receive(:is_assigned_to_app?).with(study_group_uuid)
+          allow_any_instance_of(IMedidataUser).to receive(:has_invitation?).with(params)
         end
 
         it_behaves_like 'returns expected status'
