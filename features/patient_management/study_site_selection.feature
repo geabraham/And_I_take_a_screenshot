@@ -19,6 +19,8 @@ Feature: Patient Management Study Site Selection
       | TestStudy003 | StarfleetAcademy     |
     And a user with login "lt-commander-data@gmail.com" is a provider for studies "TestStudy001, TestStudy002"
     And a user with login "lt-worf@gmail.com" exists
+    And user with login "lt-commander-data@gmail.com" is logged in
+    And user with login "lt-worf@gmail.com" is logged in
 
   @Review[ENG]
   @Release2015.1.0
@@ -67,7 +69,7 @@ Feature: Patient Management Study Site Selection
   @Release2015.1.0
   @PB130363-004
   @Headed
-  Scenario: A random user tries to navigate to the study site selection page is redirected to iMedidata.
+  Scenario: An user who is not logged in tries to navigate to the study site selection page is redirected to iMedidata.
     Given I am a random user
     When I navigate to patient management via the apps pane in iMedidata
     Then I should be redirected to iMedidata
