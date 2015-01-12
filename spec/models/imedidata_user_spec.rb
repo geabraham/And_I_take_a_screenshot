@@ -18,24 +18,32 @@ describe IMedidataUser do
     end
   end
 
-  describe '#has_invitation?' do
-    let(:uuid)       { SecureRandom.uuid }
-    let(:study_uuid) { SecureRandom.uuid }
-    let(:user)       { IMedidataUser.new(imedidata_user_uuid: uuid) }
-    let(:apps)       { [{'uuid' => SecureRandom.uuid}, {'uuid' => MAUTH_APP_UUID}] }
-    let(:options)    { {user_uuid: uuid, study_uuid: study_uuid} }
+  describe '#has_accepted_invitation?' do
+    let(:uuid)        { SecureRandom.uuid }
+    let(:study_uuid)  { SecureRandom.uuid }
+    let(:user)        { IMedidataUser.new(imedidata_user_uuid: uuid) }
+    let(:accepted_at) { Time.now.to_s }
+    let(:apps)        { {'apps' => [{'uuid' => SecureRandom.uuid}, {'uuid' => MAUTH_APP_UUID}], 'accepted_at' => accepted_at} }
+    let(:options)     { {user_uuid: uuid, study_uuid: study_uuid} }
     before do
       allow(user).to receive(:request_invitation!).with(options).and_return(apps)
     end
 
     context 'when user is assigned to the app' do
-      it('returns true') { expect(user.has_invitation?(options)).to eq(true) }
+      context 'when accepted_at is present' do
+        it('returns true') { expect(user.has_accepted_invitation?(options)).to eq(true) }
+      end
+
+      context 'when accepted_at is not present' do
+        let(:accepted_at) { nil }
+        it('returns false') { expect(user.has_accepted_invitation?(options)).to eq(false) }
+      end
     end
 
     context 'when user is not assigned to the app' do
-      let(:apps) { [{uuid: SecureRandom.uuid}] }
+      let(:apps) { {'apps' => [{'uuid' => SecureRandom.uuid}], 'accepted_at' => accepted_at} }
 
-      it('returns false') { expect(user.has_invitation?(options)).to eq(false) }
+      it('returns false') { expect(user.has_accepted_invitation?(options)).to eq(false) }
     end
   end
 end

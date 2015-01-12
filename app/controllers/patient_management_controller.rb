@@ -17,7 +17,6 @@ class PatientManagementController < ApplicationController
     unless CASClient::Frameworks::Rails::Filter.filter(self)
       redirect_to(CASClient::Frameworks::Rails::Filter.login_url(self))
     end
-    @imedidata_user = IMedidataUser.new(imedidata_user_uuid: current_user_uuid)
   end
 
   def check_app_assignment
@@ -25,7 +24,7 @@ class PatientManagementController < ApplicationController
     # If the user is arriving from the studies pane, there will be a study parameter
     # App assignment request requires the context of a study
     #
-    unless (params[:study_uuid].present? || params[:study_group_uuid.present?]) && @imedidata_user.has_invitation?(params)
+    unless (params[:study_uuid].present? || params[:study_group_uuid].present?) && @imedidata_user.has_accepted_invitation?(params)
       render json: {message: no_app_assigment_error_message}, status: 422
     end
   end
@@ -38,6 +37,10 @@ class PatientManagementController < ApplicationController
   # {"user_id"=>"7", "user_uuid"=>"06acf77e-c2fe-4bcd-b44a-dd2fea8bd1a3", "user_email"=>"abarciauskas+3@mdsol.com"}
   def current_user
     @current_user ||= session[:cas_extra_attributes]
+  end
+
+  def imedidata_user
+    @imedidata_user ||= IMedidataUser.new(imedidata_user_uuid: current_user_uuid)
   end
 
   def no_app_assigment_error_message

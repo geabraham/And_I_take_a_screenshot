@@ -28,7 +28,7 @@ module IMedidataClient
         "Response: #{invitation_response.status} #{invitation_response.body}")
     end
 
-    JSON.parse(invitation_response.body)['apps']
+    JSON.parse(invitation_response.body)
   end
 
   class IMedidataClientError < StandardError; end

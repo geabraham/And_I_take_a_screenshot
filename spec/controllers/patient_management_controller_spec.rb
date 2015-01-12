@@ -21,8 +21,8 @@ describe PatientManagementController do
       let(:verb)                 { :get }
       let(:action)               { :select_study_and_site }
       let(:params)               { {} }
-      let(:user_uuid)            { SecureRandom.uuid }
-      let(:cas_extra_attributes) { {user_uuid: user_uuid}.stringify_keys! }
+      let(:cas_extra_attributes) { {user_uuid: SecureRandom.uuid}.stringify_keys! }
+      let(:imedidata_user)       { IMedidataUser.new(imedidata_user_uuid: cas_extra_attributes['user_uuid']) }
        
       before do
         allow(CASClient::Frameworks::Rails::Filter).to receive(:filter).and_return(true)
@@ -40,36 +40,35 @@ describe PatientManagementController do
       end
 
       context 'when user is not authorized for patient management' do
-        let(:study_group_uuid) { SecureRandom.uuid }
-        let(:params) { {study_group_uuid: study_group_uuid} }
+        let(:study_group_uuid)     { SecureRandom.uuid }
+        let(:params)               { {study_group_uuid: study_group_uuid, controller: 'patient_management', action: 'select_study_and_site'}.stringify_keys }
         let(:expected_status_code) { 422 }
         let(:error_response_body)  do
           {message: 'You are not authorized for patient management.'}.to_json
         end
+
         before do
-          allow_any_instance_of(IMedidataUser).to receive(:has_invitation?).with(params)
+          allow(imedidata_user).to receive(:has_accepted_invitation?).with(params).and_return(false)
+          controller.instance_variable_set(:@imedidata_user, imedidata_user)
         end
 
         it_behaves_like 'returns expected status'
         it_behaves_like 'returns expected error response body'
       end
 
-      context 'with study group parameter'
-        it 'makes a roles request to iMedidata for the user for the study group'
+      context 'when user is authorized for patient management'
+        context 'with study group parameter'
+          context 'when user has an invitation to the study group'
+            it 'makes a request for the studies for that study group and user'
 
-        context 'when user is an authorized provider for the study group'
-          it 'makes a request for the studies for that study group and user'
+          context 'when user is not an authorized provider for the study group'
+            it 'displays a helpful error message'
 
-        context 'when user is not an authorized provider for the study group'
-          it 'displays a helpful error message'
+        context 'with study parameter'
+          context 'when user has an invitation to the study'
+            it 'makes a request for the studies for that study group and user'
 
-      context 'with study parameter'
-        it 'makes a roles to iMedidata for the user for the study'
-
-        context 'when user ia an authorized provider for the study'
-          it 'makes a request for the sites for that study and user'
-
-        context 'when user is not an authorized provider for the study'
-          it 'displays a helpful error message'
+          context 'when user is not an authorized provider for the study'
+            it 'displays a helpful error message'
   end
 end

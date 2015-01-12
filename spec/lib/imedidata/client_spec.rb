@@ -66,7 +66,7 @@ describe IMedidataClient do
       let(:study_uuid)   { SecureRandom.uuid }
       let(:options)      { {user_uuid: user_uuid, study_uuid: study_uuid} }
       let(:request_path) { IMED_BASE_URL + IMedidataClient::InvitationRequest.new(options).path }
-      let(:response)     { {inviter: SecureRandom.uuid, apps: [{uuid: MAUTH_APP_UUID}]}.to_json }
+      let(:response)     { {inviter: SecureRandom.uuid, apps: [{uuid: MAUTH_APP_UUID}], accepted_at: Time.now.to_s }.to_json }
 
       before do
         WebMock.stub_request(:get, request_path).to_return(status: 200, body: response)
@@ -79,7 +79,7 @@ describe IMedidataClient do
 
       context 'when response is successful' do
         it 'returns the response body' do
-          expect(test_class.request_invitation!(options)).to eq(JSON.parse(response)['apps'])
+          expect(test_class.request_invitation!(options)).to eq(JSON.parse(response))
         end
       end
 
