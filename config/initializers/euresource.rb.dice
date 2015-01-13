@@ -60,6 +60,7 @@ Euresource.configure do
   # unless Rails.env.production?
   mocked_resources << 'job_titles'
   mocked_resources << 'medidations'
+  mocked_resources << 'activation_codes'
   #end
   fake_middleware_classes = mocked_resources.map do |resource_name|
     EurekaTools::ResourceMockerManager.class_for_mocked_resource(resource_name, mocked_api_documents)
