@@ -34,14 +34,6 @@ var confirmTerms = function() {
   
   if (proceed === true) {
     advanceToEmailPage();
-  } else {
-    proceed = confirm("If you tap 'Cancel', you will not be registered as a study participant for electronic patient reported outcomes and any information you entered will be erased. If you wish to continue the registration process, please tap 'OK'.");
-    
-    if (proceed === true) {
-      advanceToEmailPage();
-    } else {
-      redirectUser();
-    }
   }
 }
 
@@ -50,14 +42,27 @@ var advanceToEmailPage = function() {
   $('#next-button').removeClass('hidden');
   
   advanceProgressBar();
+  advanceCarousel();
+}
+
+var advanceCarousel = function () {
   $('.carousel').carousel('next');
+  
+  //fix for mobile field focus cutting off top of page
+  window.scrollTo(0, 0);
+  document.body.scrollTop = 0;
 }
 
 var nextButtonClick = function() {
   var currentPage = getCurrentPage(),
   carousel = $('.carousel');
   
-  if (currentPage === 'tou_dpn_agreement') {
+  if (currentPage === 'landing_page') {
+    $('#next-button').addClass('hidden');
+    $('#agree-button').removeClass('hidden');
+    $('.progress').removeClass('hidden');
+    advanceCarousel();
+  } else if (currentPage === 'tou_dpn_agreement') {
     confirmTerms();
   } else if($('#reg-form').valid()) {
     hideErrors();
@@ -65,12 +70,13 @@ var nextButtonClick = function() {
     if(currentPage === 'email') {
       addPasswordRules();
       advanceProgressBar();
-      carousel.carousel('next');
+      advanceCarousel();
+      $('.back_arrow').removeClass('hidden');
     } else if(currentPage === 'password') {
       $('#next-button').addClass('hidden');
       $('#create-account').removeClass('hidden');
       advanceProgressBar();
-      carousel.carousel('next');
+      advanceCarousel();
     } else if(currentPage === 'security_question') {
       $('#create-account').trigger('click');
     }
@@ -78,24 +84,23 @@ var nextButtonClick = function() {
 }
 
 var backClick = function() {
-  //TODO currently we are validating on back button click
-  //to prevent a confusing UX issue where the error message
-  //disappears (on back click) and cannot be restored
-  //unless the form is corrected and rebroken
-  //there might be a better workaround, discuss
-  if($('#reg-form').valid() || isBlankEntry()) {
-    hideErrors();
-    var currentPage = getCurrentPage();
-    
-    if (currentPage !== 'tou_dpn_agreement') {
-      $('#next-button').removeClass('hidden');
+  var currentPage = getCurrentPage();
+  
+  if (currentPage !== 'landing_page' && currentPage !== 'tou_dpn_agreement' && currentPage !== 'email') {
+    //TODO currently we are validating on back button click
+    //to prevent a confusing UX issue where the error message
+    //disappears (on back click) and cannot be restored
+    //unless the form is corrected and rebroken
+    //there might be a better workaround, discuss
+    if($('#reg-form').valid() || isBlankEntry()) {
+      hideErrors();
       reverseProgressBar();
       $('.carousel').carousel('prev');
-      if (currentPage === 'security_question') {
+      if (currentPage === 'password') {
+        $('.back_arrow').addClass('hidden');
+      } else if (currentPage === 'security_question') {
         $('#create-account').addClass('hidden');
-      } else if (currentPage === 'email') {
-        $('#agree-button').removeClass('hidden');
-        $('#next-button').addClass('hidden');
+        $('#next-button').removeClass('hidden');
       }
     }
   }
@@ -135,8 +140,4 @@ var hideErrors = function() {
 var isBlankEntry = function() {
   return (($('.active .registration-input').first().val().length == 0) 
        && ($('.active .registration-input').last().val().length == 0));
-}
-
-var redirectUser = function() {
-  window.location = window.location.origin + '/';
 }

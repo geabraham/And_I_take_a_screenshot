@@ -1,8 +1,22 @@
 $(function() {
   $('#code').focus();
   
-  $("#code").on('keyup', handleInput);
+  $('#code').on('keyup', handleInput);
+  
+  $('#activate-button').on('click', activate);
+  
+  $(document).keypress(function(e){
+      if (e.which == 13){
+        $('#activate-button').click();
+      }
+  });
 });
+
+var activate = function() {
+  if (!$('#activate-button').hasClass('disabled')) {
+    $.get("/activation_codes/" + getCodeString() + "/activate");
+  }
+}
 
 var getCodeString = function() {
   return $.trim($('#code').val().toUpperCase());
@@ -26,13 +40,14 @@ var handleInput = function() {
       if(regx.test(str)) {
         $(".validation_error").addClass('invisible');
         $(".activation-code").removeClass('has-error');
-        
-        $.get("/activation_codes/" + str + "/activate");
-      }
-      else {
+        $('#activate-button').removeClass('disabled');
+      } else {
         $(".validation_error").removeClass('invisible');
         $(".activation-code").addClass('has-error');
+        $('#activate-button').addClass('disabled');
       }
+    } else {
+      $('#activate-button').addClass('disabled');
     }
   }
 }

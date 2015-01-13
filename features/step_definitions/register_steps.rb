@@ -17,8 +17,12 @@ When(/^I accept the TOU\/DPN$/) do
   }
 
   allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(tou_dpn_agreement)
+  
   visit '/patient_enrollments/new/'
+  click_on 'Next'
+  
   assert_text('We think in generalities, but we live in detail.')
+  sleep(1)
   click_on 'I agree'
   alert = page.driver.browser.switch_to.alert
   alert.send(:accept)

@@ -52,9 +52,9 @@ $(function() {
 </script>
 
 <div class="header">
-  <a class="back_arrow" />
+  <a class="back_arrow hidden" />
 </div>
-<div class="progress">
+<div class="progress hidden">
   <div class="progress-bar progress-bar-default" />
   <div class="progress-bar progress-bar-incomplete" />
   <div class="progress-bar progress-bar-incomplete" />
@@ -63,6 +63,9 @@ $(function() {
   <form id="reg-form" method="post" novalidate="novalidate">
     <div class="carousel slide" id="registration-details">
       <div class="carousel-inner" role="listbox">
+        <div class="item" id="landing_page">
+          <div class="validation_error" style="display: none"/>
+        </div>
         <div class="item" id="tou_dpn_agreement">
           <div class="validation_error" style="display: none"/>
         </div>
@@ -81,8 +84,8 @@ $(function() {
       </div>
     </div>
     <div class="next">
-      <a class="btn btn-primary" id="agree-button" href="#registration-details" role="button">I agree</a>
-      <a class="btn btn-primary hidden" id="next-button" href="#registration-details" role="button">Next</a>
+      <a class="btn btn-primary hidden" id="agree-button" href="#registration-details" role="button">I agree</a>
+      <a class="btn btn-primary" id="next-button" href="#registration-details" role="button">Next</a>
       <div class="submit" id="submit-button">
         <input class="btn btn-primary hidden" disabled="disabled" id="create-account" name="commit" type="submit" value="Create account" />
       </div>

@@ -13,10 +13,4 @@ describe 'patient_enrollments/download.html.haml' do
   it 'contains an iTunes Store download link' do
     expect(html).to have_selector('a.download-ios')
   end
-  
-  context 'shared controls' do
-    it 'contains a back arrow' do
-      expect(html).to have_selector('a.back_arrow', text: 'Back')
-    end
-  end
 end
