@@ -7,8 +7,6 @@ Minotaur::Application.routes.draw do
     get 'activate', on: :member
   end
 
-  get 'activation_code/:activation_code/activate', to: "activation_codes#activate"
-
   resource :patient_enrollments, only: [:new, :create]
 
 end
