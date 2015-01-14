@@ -17,7 +17,7 @@ gem 'rack-status', '~> 1.0.0'
 # UI Gems
 gem 'astinus', git: 'git@github.com:mdsol/astinus.git', tag: 'v0.4.0'
 
-gem 'sandman-rails', git: 'git@github.com:mdsol/sandman-rails.git', tag: '0.5.0'
+gem 'sandman-rails', git: 'git@github.com:mdsol/sandman-rails.git', tag: '0.5.1'
 gem 'hollywood', git: 'git@github.com:mdsol/hollywood.git', branch: 'develop'
 
 gem 'grandmaster', git: 'git@github.com:mdsol/grandmaster.git', tag: 'v1.4.2', require: 'checkmate/grandmaster'

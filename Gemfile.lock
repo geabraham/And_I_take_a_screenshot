@@ -142,10 +142,10 @@ GIT
 
 GIT
   remote: git@github.com:mdsol/sandman-rails.git
-  revision: 5c266ab0ec3497fac7c83c26f3e578fca38de6fa
-  tag: 0.5.0
+  revision: 61b3c54bcab09609eedb38ca2c6453f80cfc6d16
+  tag: 0.5.1
   specs:
-    sandman-rails (0.5.0)
+    sandman-rails (0.5.1)
       activesupport (>= 3.1)
       addressable (>= 2.3)
       railties (>= 3.1)
