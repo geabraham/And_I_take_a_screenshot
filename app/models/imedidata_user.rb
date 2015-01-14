@@ -25,14 +25,6 @@ class IMedidataUser
     study_invitation_includes_app?(study_invitation) && invitation_accepted?(study_invitation, options)
   end
 
-  def get_studies!
-    request_studies!(user_uuid: imedidata_user_uuid)
-  end
-
-  def get_study_sites!(study_uuid)
-    request_study_sites!(user_uuid: imedidata_user_uuid, study_uuid: study_uuid)
-  end
-
   private
 
   def invitation_accepted?(study_invitation, options)

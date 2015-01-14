@@ -17,7 +17,8 @@ describe PatientManagementController do
       let(:verb)                 { :get }
       let(:action)               { :select_study_and_site }
       let(:params)               { {} }
-      let(:cas_extra_attributes) { {user_uuid: SecureRandom.uuid}.stringify_keys! }
+      let(:user_uuid)            { SecureRandom.uuid }
+      let(:cas_extra_attributes) { {user_uuid: user_uuid}.stringify_keys! }
       let(:imedidata_user)       { IMedidataUser.new(imedidata_user_uuid: cas_extra_attributes['user_uuid']) }
 
       before do
@@ -70,7 +71,7 @@ describe PatientManagementController do
 
           before do
             allow(imedidata_user).to receive(:check_study_invitation!).with(params).and_return(true)
-            allow(imedidata_user).to receive(:get_studies!).and_return(studies)
+            allow(controller).to receive(:request_studies!).with(params.merge(user_uuid: user_uuid)).and_return(studies)
             controller.instance_variable_set(:@imedidata_user, imedidata_user)
           end
 
@@ -86,17 +87,17 @@ describe PatientManagementController do
 
         before do
           allow(imedidata_user).to receive(:check_study_invitation!).with(params).and_return(true)
-          allow(imedidata_user).to receive(:get_study_sites!).with(study_uuid).and_return(study_sites)
+          allow(controller).to receive(:request_study_sites!).with(params.merge(user_uuid: user_uuid)).and_return(study_sites)
           controller.instance_variable_set(:@imedidata_user, imedidata_user)
         end
 
         it 'does not make a request for the studies for that user' do
-          expect(imedidata_user).not_to receive(:get_studies!)
+          expect(controller).not_to receive(:request_studies!)
           get 'select_study_and_site', params
         end
 
         it 'makes a request for the sites for that study and user' do
-          expect(imedidata_user).to receive(:get_study_sites!).with(study_uuid)
+          expect(controller).to receive(:request_study_sites!).with(params.merge(user_uuid: user_uuid))
           get 'select_study_and_site', params
         end
       end

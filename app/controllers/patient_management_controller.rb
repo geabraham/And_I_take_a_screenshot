@@ -1,15 +1,17 @@
 require 'casclient'
 require 'casclient/frameworks/rails/filter'
+require 'imedidata/client'
 require_relative '../models/imedidata_user'
 
 class PatientManagementController < ApplicationController
+  include IMedidataClient
   before_filter :authorize_user, :check_app_assignment
 
   def select_study_and_site
     @studies_or_sites = if (study_uuid = params[:study_uuid])
-      imedidata_user.get_study_sites!(study_uuid)
+      request_study_sites!(params.symbolize_keys)
     else
-      imedidata_user.get_studies!
+      request_studies!(params.symbolize_keys)
     end
     render json: @studies_or_sites, status: :ok
   end
@@ -22,28 +24,24 @@ class PatientManagementController < ApplicationController
     end
   end
 
+  # If the user is arriving from the apps pane, there will be a study_group_uuid parameter
+  # If the user is arriving from the studies pane, there will be a study parameter
+  # App assignment request requires the context of a study.
+  #
   def check_app_assignment
-    # If the user is arriving from the apps pane, there will be a study_group_uuid parameter
-    # If the user is arriving from the studies pane, there will be a study parameter
-    # App assignment request requires the context of a study.
-    #
     unless [:study_uuid, :study_group_uuid].any? { |k| params.include?(k) } && imedidata_user.check_study_invitation!(params)
       render json: {message: no_app_assigment_error_message}, status: 422
+    else
+      params.merge!(user_uuid: imedidata_user.imedidata_user_uuid)
     end
   end
 
   def imedidata_user
-    @imedidata_user ||= IMedidataUser.new(imedidata_user_uuid: current_user_uuid)
-  end
-
-  def current_user_uuid
-    @current_user_uuid ||= current_user.present? ? current_user['user_uuid'] : nil
-  end
-
-  # Returns the uuid of the current session
-  # {"user_id"=>"7", "user_uuid"=>"06acf77e-c2fe-4bcd-b44a-dd2fea8bd1a3", "user_email"=>"abarciauskas+3@mdsol.com"}
-  def current_user
-    @current_user ||= session[:cas_extra_attributes]
+    # session[:cas_session_attributes]
+    # {"user_id"=>"7", "user_uuid"=>"06acf77e-c2fe-4bcd-b44a-dd2fea8bd1a3", "user_email"=>"abarciauskas+3@mdsol.com"}
+    @imedidata_user ||= if (current_user = session[:cas_extra_attributes].presence)
+      current_user.present? ? IMedidataUser.new(imedidata_user_uuid: current_user['user_uuid']) : nil
+    end
   end
 
   def no_app_assigment_error_message

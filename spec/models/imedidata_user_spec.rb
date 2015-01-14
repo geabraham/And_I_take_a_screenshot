@@ -2,6 +2,9 @@ require 'spec_helper'
 require_relative '../../app/models/imedidata_user'
 
 describe IMedidataUser do
+  let(:uuid)           { SecureRandom.uuid }
+  let(:imedidata_user) { IMedidataUser.new(imedidata_user_uuid: uuid)}
+
   describe '#initialize' do
     context 'without an imedidata user uuid' do
       it 'raises an error' do
@@ -11,17 +14,13 @@ describe IMedidataUser do
 
     context 'with an imedidata user uuid' do
       it 'assigns an imedidata user uuid attribute' do
-        uuid = SecureRandom.uuid
-        user = IMedidataUser.new(imedidata_user_uuid: uuid)
-        expect(user.imedidata_user_uuid).to eq(uuid)
+        expect(imedidata_user.imedidata_user_uuid).to eq(uuid)
       end
     end
   end
 
   describe '#check_study_invitation!' do
-    let(:uuid)           { SecureRandom.uuid }
     let(:study_uuid)     { SecureRandom.uuid }
-    let(:user)           { IMedidataUser.new(imedidata_user_uuid: uuid) }
     let(:accepted_at)    { Time.now.to_s }
     let(:apps)           do
       {'apps' => [{'uuid' => SecureRandom.uuid}, {'uuid' => MAUTH_APP_UUID}], 'accepted_at' => accepted_at}
@@ -29,22 +28,23 @@ describe IMedidataUser do
     let(:options)        { {user_uuid: uuid, study_uuid: study_uuid} }
 
     before do
-      allow(user).to receive(:request_invitation!).with(options).and_return(apps)
+      allow(imedidata_user).to receive(:request_invitation!).with(options).and_return(apps)
     end
 
     context 'when user is assigned to the app' do
       context 'when accepted_at is present' do
-        it('returns true') { expect(user.check_study_invitation!(options)).to eq(true) }
+        it('returns true') { expect(imedidata_user.check_study_invitation!(options)).to eq(true) }
       end
 
       context 'when accepted_at is not present' do
         let(:expected_error) { ["User invitation to study with uuid #{study_uuid} has not been accepted."] }
-        let(:accepted_at) { nil }
+        let(:accepted_at)    { nil }
 
-        it('returns false') { expect(user.check_study_invitation!(options)).to eq(false) }
+        it('returns false') { expect(imedidata_user.check_study_invitation!(options)).to eq(false) }
+
         it 'adds an error' do
-          user.check_study_invitation!(options)
-          expect(user.errors[:invitation]).to eq(expected_error)
+          imedidata_user.check_study_invitation!(options)
+          expect(imedidata_user.errors[:invitation]).to eq(expected_error)
         end
       end
     end
@@ -53,43 +53,12 @@ describe IMedidataUser do
       let(:expected_error) { ['User invitation does not include app.'] }
       let(:apps)           { {'apps' => [{'uuid' => SecureRandom.uuid}], 'accepted_at' => accepted_at} }
 
-      it('returns false') { expect(user.check_study_invitation!(options)).to eq(false) }
+      it('returns false') { expect(imedidata_user.check_study_invitation!(options)).to eq(false) }
+
       it 'adds an error' do
-        user.check_study_invitation!(options)
-        expect(user.errors[:invitation]).to eq(expected_error)
+        imedidata_user.check_study_invitation!(options)
+        expect(imedidata_user.errors[:invitation]).to eq(expected_error)
       end
     end
-  end
-
-  describe '#get_studies!' do
-    let(:uuid)    { SecureRandom.uuid }
-    let(:user)    { IMedidataUser.new(imedidata_user_uuid: uuid) }
-    let(:studies) do
-      {studies: [{name: 'TesStudy001', uuid: SecureRandom.uuid}, {name: 'TestStudy002', uuid: SecureRandom.uuid}]}
-    end
-
-    context 'when request is successful' do
-      before do
-        allow(user).to receive(:request_studies!).and_return(studies)
-      end
-
-      it 'makes a request for user\'s studies' do
-        expect(user.get_studies!).to eq(studies)
-      end
-    end
-
-    context 'when request raises an error' do
-      before do
-        allow(user).to receive(:request_studies!).and_raise(IMedidataClient::IMedidataClientError.new('Failed to get studies'))
-      end
-
-      it 'raises the error' do
-        expect { user.get_studies! }.to raise_error(IMedidataClient::IMedidataClientError, 'Failed to get studies')
-      end
-    end
-  end
-
-  describe '#get_study_sites!' do
-
   end
 end
