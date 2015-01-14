@@ -35,6 +35,10 @@ class PatientManagementController < ApplicationController
     end
   end
 
+  def imedidata_user
+    @imedidata_user ||= IMedidataUser.new(imedidata_user_uuid: current_user_uuid)
+  end
+
   def current_user_uuid
     @current_user_uuid ||= current_user['user_uuid']
   end
@@ -43,10 +47,6 @@ class PatientManagementController < ApplicationController
   # {"user_id"=>"7", "user_uuid"=>"06acf77e-c2fe-4bcd-b44a-dd2fea8bd1a3", "user_email"=>"abarciauskas+3@mdsol.com"}
   def current_user
     @current_user ||= session[:cas_extra_attributes]
-  end
-
-  def imedidata_user
-    @imedidata_user ||= IMedidataUser.new(imedidata_user_uuid: current_user_uuid)
   end
 
   def no_app_assigment_error_message
