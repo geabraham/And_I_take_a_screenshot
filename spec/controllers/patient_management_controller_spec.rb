@@ -9,7 +9,7 @@ describe PatientManagementController do
 
       it 'redirects to iMedidata' do
         get 'select_study_and_site'
-        expect(response).to redirect_to("http://localhost:4567/login?service=http%3A%2F%2Ftest.host%2Fpatient_management")
+        expect(response).to redirect_to("#{CAS_BASE_URL}/login?service=#{CGI.escape(request.original_url)}")
       end
     end
 
