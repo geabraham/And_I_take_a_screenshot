@@ -21,16 +21,16 @@ class PatientManagementController < ApplicationController
 
   def authorize_user
     unless CASClient::Frameworks::Rails::Filter.filter(self)
-      CASClient::Frameworks::Rails::Filter.login_url(self)
+      redirect_to(CASClient::Frameworks::Rails::Filter.login_url(self)) and return
     end
   end
 
   def check_app_assignment
     # If the user is arriving from the apps pane, there will be a study_group_uuid parameter
     # If the user is arriving from the studies pane, there will be a study parameter
-    # App assignment request requires the context of a study
+    # App assignment request requires the context of a study.
     #
-    unless [:study_uuid, :study_group_uuid].any? { |k| params.include?(k) } && imedidata_user.has_accepted_invitation?(params)
+    unless [:study_uuid, :study_group_uuid].any? { |k| params.include?(k) } && imedidata_user.check_study_invitation!(params)
       render json: {message: no_app_assigment_error_message}, status: 422
     end
   end
@@ -40,7 +40,7 @@ class PatientManagementController < ApplicationController
   end
 
   def current_user_uuid
-    @current_user_uuid ||= current_user['user_uuid']
+    @current_user_uuid ||= current_user.present? ? current_user['user_uuid'] : nil
   end
 
   # Returns the uuid of the current session
@@ -50,6 +50,6 @@ class PatientManagementController < ApplicationController
   end
 
   def no_app_assigment_error_message
-    "You are not authorized for patient management."
+    "You are not authorized for patient management. #{imedidata_user.errors.full_messages}"
   end
 end

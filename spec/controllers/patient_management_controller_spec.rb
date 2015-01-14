@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe PatientManagementController do
-  before do
-    # Create a provider who is authorized for Study X
-  end
-
   describe 'select_study_and_site' do
     context 'when user is not logged in' do
       before do
@@ -23,7 +19,7 @@ describe PatientManagementController do
       let(:params)               { {} }
       let(:cas_extra_attributes) { {user_uuid: SecureRandom.uuid}.stringify_keys! }
       let(:imedidata_user)       { IMedidataUser.new(imedidata_user_uuid: cas_extra_attributes['user_uuid']) }
-       
+
       before do
         allow(CASClient::Frameworks::Rails::Filter).to receive(:filter).and_return(true)
         session[:cas_extra_attributes] = cas_extra_attributes
@@ -32,7 +28,10 @@ describe PatientManagementController do
       context 'without study or study group parameter' do
         let(:expected_status_code) { 422 }
         let(:error_response_body)  do 
-          {message: 'You are not authorized for patient management.'}.to_json
+          # Note: The empty array represents imedidata user errors, which are not populated in specs because we are stubbing the response
+          #   to #check_study_invitation!
+          #
+          {message: 'You are not authorized for patient management. []'}.to_json
         end
 
         it_behaves_like 'returns expected status'
@@ -44,11 +43,14 @@ describe PatientManagementController do
         let(:params)               { {study_group_uuid: study_group_uuid, controller: 'patient_management', action: 'select_study_and_site'} }
         let(:expected_status_code) { 422 }
         let(:error_response_body)  do
-          {message: 'You are not authorized for patient management.'}.to_json
+          # Note: The empty array represents imedidata user errors, which are not populated in specs because we are stubbing the response
+          #   to #check_study_invitation!
+          #
+          {message: 'You are not authorized for patient management. []'}.to_json
         end
 
         before do
-          allow(imedidata_user).to receive(:has_accepted_invitation?).with(params).and_return(false)
+          allow(imedidata_user).to receive(:check_study_invitation!).with(params).and_return(false)
           controller.instance_variable_set(:@imedidata_user, imedidata_user)
         end
 
@@ -67,7 +69,7 @@ describe PatientManagementController do
           end
 
           before do
-            allow(imedidata_user).to receive(:has_accepted_invitation?).with(params).and_return(true)
+            allow(imedidata_user).to receive(:check_study_invitation!).with(params).and_return(true)
             allow(imedidata_user).to receive(:get_studies!).and_return(studies)
             controller.instance_variable_set(:@imedidata_user, imedidata_user)
           end
@@ -78,11 +80,13 @@ describe PatientManagementController do
       end
 
       context 'with study parameter' do
-        let(:study_uuid) { SecureRandom.uuid }
-        let(:params)     { {study_uuid: study_uuid, controller: 'patient_management', action: 'select_study_and_site'} }
+        let(:study_uuid)  { SecureRandom.uuid }
+        let(:params)      { {study_uuid: study_uuid, controller: 'patient_management', action: 'select_study_and_site'} }
+        let(:study_sites) { {study_sites: []} }
 
         before do
-          allow(imedidata_user).to receive(:has_accepted_invitation?).with(params).and_return(true)
+          allow(imedidata_user).to receive(:check_study_invitation!).with(params).and_return(true)
+          allow(imedidata_user).to receive(:get_study_sites!).with(study_uuid).and_return(study_sites)
           controller.instance_variable_set(:@imedidata_user, imedidata_user)
         end
 
