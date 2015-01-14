@@ -1,6 +1,6 @@
 require 'casclient'
 require 'casclient/frameworks/rails/filter'
-load 'app/models/imedidata_user.rb'
+require_relative '../models/imedidata_user'
 
 CAS_BASE_URL = 'http://localhost:4567'
 CASClient::Frameworks::Rails::Filter.configure(cas_base_url: CAS_BASE_URL)
