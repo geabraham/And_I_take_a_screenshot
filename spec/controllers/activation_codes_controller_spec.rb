@@ -22,7 +22,7 @@ describe ActivationCodesController do
                                                        "patient_enrollment_uuid" => 'xyz'})}
       end
 
-      let(:params)               { {activation_code: '123'} }
+      let(:params)               { {id: '123'} }
       let(:verb)                 { :get }
       let(:action)               { :activate }
       let(:expected_status_code) { 200 }
@@ -30,7 +30,7 @@ describe ActivationCodesController do
       it_behaves_like 'returns expected status'
 
       it 'adds activation_code and patient_enrollment_uuid to session' do
-        get(:activate, {activation_code: '123'})
+        get(:activate, {id: '123'})
         expect(session['activation_code']).to eq('123')
         expect(session['patient_enrollment_uuid']).to eq('xyz')
       end
@@ -43,7 +43,7 @@ describe ActivationCodesController do
                                                          "patient_enrollment_uuid" => 'xyz'})}
         end
 
-        let(:params)               { {activation_code: '123'} }
+        let(:params)               { {id: '123'} }
         let(:verb)                 { :get }
         let(:action)               { :activate }
         let(:error_response_body)  { "Activation Code must be in active state"}
@@ -53,7 +53,7 @@ describe ActivationCodesController do
         it_behaves_like 'returns expected error response body'
 
         it 'does not add activation_code and patient_enrollment_uuid to session' do
-          get(:activate, {activation_code: '123'})
+          get(:activate, {id: '123'})
           expect(session['activation_code']).to eq(nil)
           expect(session['patient_enrollment_uuid']).to eq(nil)
         end
@@ -68,7 +68,7 @@ describe ActivationCodesController do
                                                          "patient_enrollment_uuid" => 'xyz'})}
         end
 
-        let(:params)               { {activation_code: '123'} }
+        let(:params)               { {id: '123'} }
         let(:verb)                 { :get }
         let(:action)               { :activate }
         let(:error_response_body)  { "Failed.  Response status: 404."}
@@ -78,7 +78,7 @@ describe ActivationCodesController do
         it_behaves_like 'returns expected error response body'
 
         it 'does not add activation_code and patient_enrollment_uuid to session' do
-          get(:activate, {activation_code: '123'})
+          get(:activate, {id: '123'})
           expect(session['activation_code']).to eq(nil)
           expect(session['patient_enrollment_uuid']).to eq(nil)
         end
