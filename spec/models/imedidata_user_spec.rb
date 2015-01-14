@@ -27,7 +27,8 @@ describe IMedidataUser do
       {'apps' => [{'uuid' => SecureRandom.uuid}, {'uuid' => MAUTH_APP_UUID}], 'accepted_at' => accepted_at}
     end
     let(:options)        { {user_uuid: uuid, study_uuid: study_uuid} }
-    let(:expected_error) { ["User has no accepted invitation to study or study group with uuid #{study_uuid}"]} 
+    let(:expected_error) { ["User has no accepted invitation to study with uuid #{study_uuid}."] }
+
     before do
       allow(user).to receive(:request_invitation!).with(options).and_return(apps)
     end

@@ -20,9 +20,10 @@ class IMedidataUser
     invitation_apps = invitation['apps'].presence
 
     unless invitation_apps.any? { |aa| aa['uuid'] == MAUTH_APP_UUID } && invitation['accepted_at'].present?
+      study_options = options.slice(:study_uuid, :study_group_uuid)
       errors.add(
         :invitation,
-        "User has no accepted invitation to study or study group with uuid #{options[:study_uuid].presence || options[:study_group_uuid].presence}")
+        "User has no accepted invitation to #{study_options.keys.join(', ').gsub('_uuid', '')} with uuid #{study_options.values.join(', ')}.")
       false
     else
       true
