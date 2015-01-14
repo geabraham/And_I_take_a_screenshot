@@ -6,14 +6,9 @@ module IMedidataClient
 
     def response
       if defined?(request_body) && request_body.present?
-        imedidata_connection.send(http_method, path) do |req|
-          req.body = request_body.to_json
-        end
+        imedidata_connection.send(http_method, path) { |req| req.body = request_body.to_json }
       else
-        imedidata_connection.send(http_method, path) do |req|
-          req.headers['X-MWS-Impersonate'] = Thread.current[:request_uuid] || ''
-          req.body = nil
-        end
+        imedidata_connection.send(http_method, path)
       end
     end
 
