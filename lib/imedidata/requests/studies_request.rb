@@ -12,7 +12,6 @@
 #
 module IMedidataClient
   class StudiesRequest < Request
-    # /api/v2/users/:id/studies(.:format) 
     def self.required_attributes
       [:user_uuid]
     end
