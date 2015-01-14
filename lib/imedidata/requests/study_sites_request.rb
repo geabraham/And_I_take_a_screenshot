@@ -1,4 +1,4 @@
-# request = IMedidataClient::StudiesRequest.new(user_uuid: '06acf77e-c2fe-4bcd-b44a-dd2fea8bd1a3')
+# request = IMedidataClient::StudySitesRequest.new(user_uuid: '06acf77e-c2fe-4bcd-b44a-dd2fea8bd1a3')
 #
 # pp JSON.parse(request.response.body)
 # {"studies"=>
@@ -12,7 +12,6 @@
 #
 module IMedidataClient
   class StudySitesRequest < Request
-    # /api/v2/users/:id/studies/:study_uuid/study_sites(.:format) 
     def self.required_attributes
       [:user_uuid, :study_uuid]
     end

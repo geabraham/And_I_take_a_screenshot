@@ -21,7 +21,7 @@ class PatientManagementController < ApplicationController
 
   def authorize_user
     unless CASClient::Frameworks::Rails::Filter.filter(self)
-      redirect_to(CASClient::Frameworks::Rails::Filter.login_url(self))
+      CASClient::Frameworks::Rails::Filter.login_url(self)
     end
   end
 
@@ -30,7 +30,7 @@ class PatientManagementController < ApplicationController
     # If the user is arriving from the studies pane, there will be a study parameter
     # App assignment request requires the context of a study
     #
-    unless [:study_uuid, :study_group_uuid].any? { |k| params.include?(k) } && @imedidata_user.has_accepted_invitation?(params)
+    unless [:study_uuid, :study_group_uuid].any? { |k| params.include?(k) } && imedidata_user.has_accepted_invitation?(params)
       render json: {message: no_app_assigment_error_message}, status: 422
     end
   end

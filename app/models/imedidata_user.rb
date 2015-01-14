@@ -34,5 +34,6 @@ class IMedidataUser
   end
 
   def get_study_sites!(study_uuid)
+    request_study_sites!(user_uuid: imedidata_user_uuid, study_uuid: study_uuid)
   end
 end
