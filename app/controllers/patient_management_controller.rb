@@ -2,9 +2,6 @@ require 'casclient'
 require 'casclient/frameworks/rails/filter'
 require_relative '../models/imedidata_user'
 
-CAS_BASE_URL = 'http://localhost:4567'
-CASClient::Frameworks::Rails::Filter.configure(cas_base_url: CAS_BASE_URL)
-
 class PatientManagementController < ApplicationController
   before_filter :authorize_user, :check_app_assignment
 
