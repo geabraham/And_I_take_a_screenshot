@@ -20,6 +20,10 @@ module IMedidataClient
       raise IMedidataClientError.new("No default request path. Please define a request path for the subclass.")
     end
 
+    def expected_response_status
+      200
+    end
+
     def imedidata_connection
       @connection ||= Faraday.new(url: IMED_BASE_URL) do |builder|
         builder.use MAuth::Faraday::RequestSigner, mauth_client: MAUTH_CLIENT

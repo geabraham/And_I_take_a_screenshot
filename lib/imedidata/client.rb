@@ -8,9 +8,10 @@ module IMedidataClient
 
   ['security_questions', 'invitation', 'studies', 'study_sites'].each do |request_type|
     define_method("request_#{request_type}!") do |options|
-      response = "IMedidataClient::#{"#{request_type}_request".titleize.gsub(' ','')}".constantize.new(options).response
+      request = "IMedidataClient::#{"#{request_type}_request".titleize.gsub(' ','')}".constantize.new(options)
+      response = request.response
 
-      unless response.status == 200
+      unless response.status == request.expected_response_status
         raise IMedidataClientError.new("#{request_type.titleize} request failed for #{options}. " <<
           "Response: #{response.status} #{response.body}")
       end
