@@ -18,5 +18,9 @@ describe 'activation_codes/index.html.haml' do
     it 'displays the activation code input field' do
       expect(html).to have_selector("input#code")
     end
+    
+    it 'displays the Activate button' do
+      expect(html).to have_selector('#activate-button')
+    end
   end
 end
