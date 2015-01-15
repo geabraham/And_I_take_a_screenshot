@@ -21,6 +21,7 @@ module IMedidataClient
     def additional_required_attributes
       [:study_uuid, :study_group_uuid]
     end
+
     def initialize(attrs = {})
       raise argument_error unless self.class.required_attributes.all? {|p| attrs[p].present? }
       raise argument_error(additional_required_attributes) unless additional_required_attributes.any? {|p| attrs[p].present? }
