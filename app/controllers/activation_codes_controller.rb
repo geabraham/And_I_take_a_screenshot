@@ -13,7 +13,7 @@ class ActivationCodesController < ApplicationController
         head :ok
       # redirect_to controller: :patient_enrollments, action: :new
       else
-        render json: "Activation Code must be in active state", status: 403
+        render json: "Activation Code must be in active state", status: 422
       end
     rescue Euresource::ResourceNotFound => e
       render json: e.message, status: 404
