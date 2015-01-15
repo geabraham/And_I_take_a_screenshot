@@ -5,10 +5,8 @@ module IMedidataClient
     end
 
     def response
-      if defined?(request_body) && request_body.present?
-        imedidata_connection.send(http_method, path) { |req| req.body = request_body.to_json }
-      else
-        imedidata_connection.send(http_method, path)
+      imedidata_connection.send(http_method, path) do |req|
+        req.body = (defined?(request_body) && request_body.present?) ? request_body.to_json : nil
       end
     end
 
