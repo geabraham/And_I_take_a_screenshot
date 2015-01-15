@@ -71,21 +71,16 @@ describe PatientManagementController do
       context 'with study parameter' do
         let(:study_uuid)  { SecureRandom.uuid }
         let(:params)      { default_params.merge(study_uuid: study_uuid) }
+        let(:expected_status_code) { 200 }
+        let(:expected_body)        { study_sites.to_json }
         let(:study_sites) { {study_sites: []} }
 
         before do
           allow(controller).to receive(:request_study_sites!).with(params.merge(user_uuid: user_uuid)).and_return(study_sites)
         end
 
-        it 'does not make a request for the studies for that user' do
-          expect(controller).not_to receive(:request_studies!)
-          get 'select_study_and_site', params
-        end
-
-        it 'makes a request for the sites for that study and user' do
-          expect(controller).to receive(:request_study_sites!).with(params.merge(user_uuid: user_uuid))
-          get 'select_study_and_site', params
-        end
+        it_behaves_like 'returns expected status'
+        it_behaves_like 'returns expected body'
       end
     end
   end
