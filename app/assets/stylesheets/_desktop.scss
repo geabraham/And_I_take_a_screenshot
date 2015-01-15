@@ -21,3 +21,24 @@ body {
     }
   } 
 }
+
+.lt-ie9 {
+  body {
+    background-color: #ddd;
+  }
+  #main {
+    position: relative;
+    width: $desktop;
+    margin: 0 auto;
+    .carousel {
+        margin-top: 10px;
+      }
+    .header {
+      position: static;
+    }
+    .navbar-fixed-bottom {
+      position: absolute;
+      bottom: 0;
+    }
+  }
+}

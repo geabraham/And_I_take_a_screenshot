@@ -8,6 +8,7 @@ $(function () {
 
   $('#patient_enrollment_answer').on('keyup', answerKeyup);
   
+  // TODO: apply splendid textchange for IE 8 compatability - ie 8 does not recognize the change event
   $('#patient_enrollment_security_question').on('change', questionChange);
   
   $(document).keypress(function(e){
