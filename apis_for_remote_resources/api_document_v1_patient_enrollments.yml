@@ -1,0 +1,170 @@
+id: patient_enrollments:v1.0.2
+name: patient_enrollments
+version: v1.0.2
+title: PatientEnrollment
+description: Service to associate authenticated users as subjects enrolled in a study.
+documentationLink: https://github.com/mdsol/subjects
+protocol: rest
+basePath: /v1/
+aliases:
+  slts:
+    slt_1: &single_resource       # For standard single resource show/update/delete endpoints.
+      99th_percentile: 350ms
+      std_dev: 70ms
+      requests_per_second: 8
+
+  patient_enrollment_properties_alias: &patient_enrollment_properties_alias
+    uuid:
+      type: string
+      description: The unique identifier for a patient enrollment.
+    initials:
+      type: string
+      description: A human-readable patient identifier; typically the first letter of the patient's first and last names.
+    email:
+      type: string
+      description: The e-mail address of the patient. The location to which an enrollment email is sent.
+    enrollment_type:
+      type: string
+      description: The type of enrollment. Either "email" or "in-person".
+    activation_code:
+      type: string
+      description: A unique randomly generated 6-digit code that identifies a patient.
+    language_code:
+      type: string
+      description: The ISO 639-2 language code of the patient's language preference.
+    study_uuid:
+      type: string
+      description: The UUID of the study of the patient enrollment.
+    study_site_uuid:
+      type: string
+      description: The UUID of the study site of the patient enrollment.
+    subject_id:
+      type: string
+      description: The Rave study's subject id associated with the patient enrollment.
+    state:
+      type: string
+      description: Represents the state of the patient in the enrollment process. Valid values are "invited" and "registered".
+    tou_accepted_at:
+      type: datetime
+      description: The date of the acceptance of the TOU/DPN agreement.
+
+  registration_request_properties_alias: &registration_request_properties_alias
+    activation_code:
+      type: string
+      description: REQUIRED. A unique randomly generated 6-digit code that identifies a patient.
+    login:
+      type: string
+      description: REQUIRED. The iMedidata login.
+    password:
+      type: string
+      description: REQUIRED. The iMedidata password.
+    security_question_id:
+      type: integer
+      description: Used to access an account in case of a forgotten password. Exists in Patient Service as an integer reference to the security question in iMedidata.
+    answer:
+      type: string
+      description: The answer to the security question used to access an account in case of a forgotten password.
+    tou_accepted_at:
+      type: datetime
+      description: REQUIRED. The date of the acceptance of the TOU/DPN agreement.
+
+  tou_dpn_agreement_properties_alias: &tou_dpn_agreement_properties_alias
+    uuid:
+      type: string
+      description: A unique identifier for the TOU/DPN agreement.
+    title:
+      type: string
+      description: The title of the TOU/DPN agreement. The title is auto-generated.
+    country_code:
+      type: string
+      description: The ISO 3166-1 Alpha-3 country code of the TOU/DPN agreement.
+    language_code:
+      type: string
+      description: The ISO 639-2 language code of the TOU/DPN agreement's translation.
+    country:
+      type: string
+      description: A human-readable name for the country code.
+    language:
+      type: string
+      description: The human-readable name for the language code.
+    text:
+      type: string
+      description: The text of the TOU/DPN agreement. The text details the rules one must accept in order to complete registration and the disclosure of user data collection.
+    html:
+      type: string
+      description: The text of the TOU/DPN agreement marked up in html.
+
+  activation_codes_properties_alias: &activation_codes_properties_alias
+    activation_code:
+      type: string
+      description: A unique, 6-digit, alphanumeric identifier for the activation code.
+
+
+schemas:
+  PatientEnrollment:
+    id: schemas/PatientEnrollment/v1.0.0
+    resource: patient_enrollments
+    type: object
+    properties: *patient_enrollment_properties_alias
+  RegistrationRequest:
+    id: schemas/RegistrationRequest/v1.0.0
+    resource: patient_enrollments
+    type: object
+    properties: *registration_request_properties_alias
+  TouDpnAgreement:
+    id: schemas/TouDpnAgreement/v1.0.0
+    resource: patient_enrollments
+    type: object
+    properties: *tou_dpn_agreement_properties_alias
+  ActivationCode:
+    id: schemas/ActivationCode/v1.0.0
+    resource: activation_codes
+    type: object
+    properties: *activation_codes_properties_alias
+
+resources:
+  patient_enrollments:
+    methods:
+      register:
+        id: patient_enrollments.register
+        path: patient_enrollments/{uuid}/register
+        httpMethod: PATCH
+        description: Register a patient_enrollment.
+        parameters:
+          uuid:
+            type: string
+            location: path
+            required: true
+        request:
+          $ref: schemas/RegistrationRequest/v1.0.0
+        response:
+          $ref: schemas/PatientEnrollment/v1.0.0
+        slt: *single_resource
+      tou_dpn_agreement:
+        id: patient_enrollments.tou_dpn_agreement
+        path: patient_enrollments/{uuid}/tou_dpn_agreement
+        httpMethod: GET
+        description: Returns a TouDpnAgreement for the given patient enrollment.
+        parameters:
+          uuid:
+            type: string
+            location: path
+            required: true
+        response:
+          $ref: schemas/TouDpnAgreement/v1.0.0
+        slt: *single_resource
+  activation_codes:
+    methods:
+      show:
+        id: activation_codes.show
+        path: activation_codes/{activation_code}
+        httpMethod: GET
+        description: Validate an activation code to ensure that it exists and is active and current.
+        parameters:
+          activation_code:
+            type: string
+            location: path
+            required: true
+        response:
+          $ref: schemas/ActivationCode/v1.0.0
+        slt: *single_resource
