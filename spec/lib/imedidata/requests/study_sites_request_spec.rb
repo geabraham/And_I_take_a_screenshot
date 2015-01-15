@@ -4,7 +4,7 @@ describe IMedidataClient::StudySitesRequest do
   let(:study_sites_request) { IMedidataClient::StudySitesRequest.new(user_uuid: user_uuid, study_uuid: study_uuid) }
 
   describe '.required_attributes' do
-    it('are user uuid') { expect(IMedidataClient::StudySitesRequest.required_attributes).to eq([:user_uuid, :study_uuid]) }
+    it('returns user_uuid') { expect(IMedidataClient::StudySitesRequest.required_attributes).to eq([:user_uuid, :study_uuid]) }
   end
 
   describe '#path' do
