@@ -53,11 +53,11 @@ describe IMedidataClient::Request do
       end
     end
 
-    context 'with request body' do
+    context 'with request body defined' do
       let(:request_body) { {message: 'Boredom is ... the despairing refusal to be oneself.'} }
       let(:http_method)  { :post }
       let(:path)         { '/test' }
-      
+
       before do
         IMedidataClient::Request.send(:define_method, :request_body, ->() {})
         allow(request).to receive(:http_method).and_return(http_method)
@@ -67,7 +67,7 @@ describe IMedidataClient::Request do
       end
       after { IMedidataClient::Request.send(:remove_method, :request_body) }
 
-      it 'sends the request_body as json' do
+      it 'makes the request' do
         expect(request.imedidata_connection).to receive(:send).with(http_method, path)
         request.response
       end
