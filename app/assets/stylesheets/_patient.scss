@@ -99,10 +99,13 @@
 #landing_page {
   font-size: 16px;
   .row {
-    margin-top: 50px;
-  }
-  img {
-    width: 50%;
+    margin-top: 20px;
+    div {
+      padding-right: 0;
+      img {
+        width: 100%;
+      } 
+    }
   }
   p {
     vertical-align: center;
