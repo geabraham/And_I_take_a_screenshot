@@ -3,7 +3,7 @@ describe IMedidataClient::StudiesRequest do
   let(:studies_request) { IMedidataClient::StudiesRequest.new(user_uuid: user_uuid) }
 
   describe '.required_attributes' do
-    it('are user uuid') { expect(IMedidataClient::StudiesRequest.required_attributes).to eq([:user_uuid]) }
+    it('returns user_uuid') { expect(IMedidataClient::StudiesRequest.required_attributes).to eq([:user_uuid]) }
   end
 
   describe '#path' do
