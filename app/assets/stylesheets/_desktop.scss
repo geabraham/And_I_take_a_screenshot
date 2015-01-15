@@ -1,10 +1,31 @@
-$desktop: 769px;
-#main {
-  .patient {
-    @media screen and (min-width: $desktop) {
-      background-color: red;
-      width: 768px;
+$desktop: 368px;
+body {
+  margin: 0 auto;
+  @media screen and (min-width: $desktop) {
+    #main {
+      width: $desktop;
       margin: 0 auto;
+      position: relative;
+      height: 768px;
+      border: 1px solid #ccc;
+      .patient {
+      }
+
+      .carousel {
+        margin-top: 10px;
+      }
+    
+    } 
+
+    background-color: #ddd;
+
+    .header {
+      position: static;
     }
-  }
+    .next {
+      position: absolute;
+      bottom: 0;
+    }
+  } 
 }
+  
