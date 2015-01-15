@@ -29,8 +29,7 @@ module IMedidataClient
       end
     end
 
-    def argument_error(additional_required_attributes = [])
-      required_attributes = self.class.required_attributes + additional_required_attributes
+    def argument_error
       RequestArgumentError.new("Invalid arguments. Please provide #{required_attributes.join(', ')}.")
     end
 
