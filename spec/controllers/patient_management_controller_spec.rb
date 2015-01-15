@@ -19,7 +19,7 @@ describe PatientManagementController do
       let(:params)               { {} }
       let(:user_uuid)            { SecureRandom.uuid }
       let(:cas_extra_attributes) { {user_uuid: user_uuid}.stringify_keys! }
-      let(:imedidata_user)       { IMedidataUser.new(imedidata_user_uuid: cas_extra_attributes['user_uuid']) }
+      let(:imedidata_user)       { ImedidataUser.new(imedidata_user_uuid: cas_extra_attributes['user_uuid']) }
 
       before do
         allow(CASClient::Frameworks::Rails::Filter).to receive(:filter).and_return(true)

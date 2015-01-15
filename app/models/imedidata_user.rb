@@ -1,7 +1,7 @@
 require 'imedidata/client'
 require 'imedidata/requests/invitation_request'
 
-class IMedidataUser
+class ImedidataUser
   include ActiveModel::Model
   include IMedidataClient
   attr_accessor :imedidata_user_uuid

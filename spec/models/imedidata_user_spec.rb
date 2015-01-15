@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe IMedidataUser do
+describe ImedidataUser do
   let(:uuid)           { SecureRandom.uuid }
-  let(:imedidata_user) { IMedidataUser.new(imedidata_user_uuid: uuid)}
+  let(:imedidata_user) { ImedidataUser.new(imedidata_user_uuid: uuid)}
 
   describe '#initialize' do
     context 'without an imedidata user uuid' do
       it 'raises an error' do
-        expect { IMedidataUser.new }.to raise_error(ArgumentError, 'Please provide a uuid from a valid user in iMedidata.')
+        expect { ImedidataUser.new }.to raise_error(ArgumentError, 'Please provide a uuid from a valid user in iMedidata.')
       end
     end
 
