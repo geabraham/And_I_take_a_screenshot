@@ -59,7 +59,7 @@ describe ActivationCodesController do
         end
       end
 
-      context 'with an invalid activation code' do
+      context 'with an unknown activation code' do
         before do
           Euresource::ActivationCodes.stub(:get).with(anything()) {
             raise Euresource::ResourceNotFound.new(404,"Failed.  Response status: 404.")
