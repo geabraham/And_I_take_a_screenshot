@@ -7,7 +7,7 @@ class PatientManagementController < ApplicationController
   before_filter :authorize_user, :check_app_assignment
 
   def select_study_and_site
-    @studies_or_sites = !!(study_uuid = params[:study_uuid]) ? request_study_sites!(params) : request_studies!(params)
+    @studies_or_sites = params[:study_uuid].present? ? request_study_sites!(params) : request_studies!(params)
     render json: @studies_or_sites, status: :ok
   end
 
