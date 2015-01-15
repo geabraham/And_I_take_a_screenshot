@@ -28,7 +28,7 @@ class PatientManagementController < ApplicationController
   # App assignment request requires the context of a study.
   #
   def check_app_assignment
-    unless some_study_params? && imedidata_user.check_study_invitation!(params)
+    unless some_study_params? && imedidata_user.has_study_invitation?(params)
       render json: {message: no_app_assigment_error_message}, status: 422
     else
       params.merge!(user_uuid: imedidata_user.imedidata_user_uuid)

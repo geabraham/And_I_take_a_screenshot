@@ -30,7 +30,7 @@ describe PatientManagementController do
         let(:expected_status_code) { 422 }
         let(:error_response_body)  do 
           # Note: The empty array represents imedidata user errors, which are not populated in specs because we are stubbing the response
-          #   to #check_study_invitation!
+          #   to #has_study_invitation?
           #
           {message: 'You are not authorized for patient management. []'}.to_json
         end
@@ -45,13 +45,13 @@ describe PatientManagementController do
         let(:expected_status_code) { 422 }
         let(:error_response_body)  do
           # Note: The empty array represents imedidata user errors, which are not populated in specs because we are stubbing the response
-          #   to #check_study_invitation!
+          #   to #has_study_invitation?
           #
           {message: 'You are not authorized for patient management. []'}.to_json
         end
 
         before do
-          allow(imedidata_user).to receive(:check_study_invitation!).with(params).and_return(false)
+          allow(imedidata_user).to receive(:has_study_invitation?).with(params).and_return(false)
           controller.instance_variable_set(:@imedidata_user, imedidata_user)
         end
 
@@ -70,7 +70,7 @@ describe PatientManagementController do
           end
 
           before do
-            allow(imedidata_user).to receive(:check_study_invitation!).with(params).and_return(true)
+            allow(imedidata_user).to receive(:has_study_invitation?).with(params).and_return(true)
             allow(controller).to receive(:request_studies!).with(params.merge(user_uuid: user_uuid)).and_return(studies)
             controller.instance_variable_set(:@imedidata_user, imedidata_user)
           end
@@ -86,7 +86,7 @@ describe PatientManagementController do
         let(:study_sites) { {study_sites: []} }
 
         before do
-          allow(imedidata_user).to receive(:check_study_invitation!).with(params).and_return(true)
+          allow(imedidata_user).to receive(:has_study_invitation?).with(params).and_return(true)
           allow(controller).to receive(:request_study_sites!).with(params.merge(user_uuid: user_uuid)).and_return(study_sites)
           controller.instance_variable_set(:@imedidata_user, imedidata_user)
         end

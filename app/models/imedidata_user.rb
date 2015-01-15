@@ -13,16 +13,21 @@ class IMedidataUser
     @imedidata_user_uuid = attrs[:imedidata_user_uuid]
   end
 
-  # Options should include a study or study group uuid key and value.
   # Checks if user has an invitation to study or study group as included in options as study_uuid or study_group_uuid.
-  # If no invitation exists, an error is raised by #request_invitation!
-  # If an invitation exists and both the conditions that MAUTH_APP_UUID is included in the list of apps for that study or study group
-  #   and the invitation is accepted
-  # Raises an error if an invitation exists for study or study group with an app which includes minotaur's MAUTH_APP_UUID
+  # Options should include a study or study group uuid key and value.
   #
-  def check_study_invitation!(options = {})
+  # If no invitation exists, an error is raised and rescued by #request_invitation! and added as an error on the user.
+  #
+  # Returns true if an invitation exists which has been accepted and which includes an
+  #  app which has a uuid matching MAUTH_APP_UUID.
+  # Returns false if one of these conditions is not met.
+  #
+  def has_study_invitation?(options = {})
     study_invitation = request_invitation!(options.merge(user_uuid: imedidata_user_uuid))
     study_invitation_includes_app?(study_invitation) && invitation_accepted?(study_invitation, options)
+  rescue IMedidataClient::IMedidataClientError => e
+    errors.add(:invitation, e.message)
+    false
   end
 
   private
