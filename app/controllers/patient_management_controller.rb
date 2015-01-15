@@ -25,7 +25,7 @@ class PatientManagementController < ApplicationController
   # App assignment request requires the context of a study.
   #
   def check_app_assignment
-    unless [:study_uuid, :study_group_uuid].any? { |k| params.include?(k) } && imedidata_user.check_study_invitation!(params)
+    unless some_study_params? && imedidata_user.check_study_invitation!(params)
       render json: {message: no_app_assigment_error_message}, status: 422
     else
       params.merge!(user_uuid: imedidata_user.imedidata_user_uuid)
@@ -38,6 +38,10 @@ class PatientManagementController < ApplicationController
     @imedidata_user ||= if (current_user = session[:cas_extra_attributes].presence)
       current_user.present? ? IMedidataUser.new(imedidata_user_uuid: current_user['user_uuid']) : nil
     end
+  end
+
+  def some_study_params?
+    [:study_uuid, :study_group_uuid].any? { |k| params.include?(k) }
   end
 
   def no_app_assigment_error_message
