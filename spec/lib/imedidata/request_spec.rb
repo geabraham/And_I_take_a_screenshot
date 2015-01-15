@@ -57,6 +57,7 @@ describe IMedidataClient::Request do
       let(:request_body) { {message: 'Boredom is ... the despairing refusal to be oneself.'} }
       let(:http_method)  { :post }
       let(:path)         { '/test' }
+      
       before do
         IMedidataClient::Request.send(:define_method, :request_body, ->() {})
         allow(request).to receive(:http_method).and_return(http_method)
