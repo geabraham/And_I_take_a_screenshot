@@ -20,6 +20,9 @@ class PatientManagementController < ApplicationController
     end
   end
 
+  # Returns 422 if there are no study or study group params 
+  #   or user has no invitation to the study or study group.
+  # 
   # If the user is arriving from the apps pane, there will be a study_group_uuid parameter
   # If the user is arriving from the studies pane, there will be a study parameter
   # App assignment request requires the context of a study.
