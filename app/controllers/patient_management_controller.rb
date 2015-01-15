@@ -9,9 +9,9 @@ class PatientManagementController < ApplicationController
 
   def select_study_and_site
     @studies_or_sites = if (study_uuid = params[:study_uuid])
-      request_study_sites!(params.symbolize_keys)
+      request_study_sites!(params)
     else
-      request_studies!(params.symbolize_keys)
+      request_studies!(params)
     end
     render json: @studies_or_sites, status: :ok
   end
