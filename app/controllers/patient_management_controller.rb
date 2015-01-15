@@ -1,7 +1,6 @@
 require 'casclient'
 require 'casclient/frameworks/rails/filter'
 require 'imedidata/client'
-require_relative '../models/imedidata_user'
 
 class PatientManagementController < ApplicationController
   include IMedidataClient

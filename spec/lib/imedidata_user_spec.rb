@@ -1,5 +1,4 @@
 require 'spec_helper'
-require_relative '../../app/models/imedidata_user'
 
 describe IMedidataUser do
   let(:uuid)           { SecureRandom.uuid }
