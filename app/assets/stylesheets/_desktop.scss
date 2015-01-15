@@ -1,4 +1,4 @@
-$desktop: 368px;
+$desktop: 768px;
 body {
   margin: 0 auto;
   @media screen and (min-width: $desktop) {
@@ -6,7 +6,7 @@ body {
       width: $desktop;
       margin: 0 auto;
       position: relative;
-      height: 768px;
+      height: 740px;
       .carousel {
         margin-top: 10px;
       }
