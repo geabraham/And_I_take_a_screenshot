@@ -14,7 +14,7 @@ describe ActivationCodesController do
 
   describe "GET activate" do
 
-    context 'valid and active activation code' do
+    context 'with a valid and active activation code' do
       before do
         Euresource::ActivationCodes.stub(:get).with(anything()) {
           Euresource::ActivationCodes.new(attributes: {"activation_code" => 'WLCMHK',
@@ -35,7 +35,7 @@ describe ActivationCodesController do
         expect(session['patient_enrollment_uuid']).to eq('xyz')
       end
 
-      context 'valid but deactivated activation code' do
+      context 'with a valid but deactivated activation code' do
         before do
           Euresource::ActivationCodes.stub(:get).with(anything()) {
             Euresource::ActivationCodes.new(attributes: {"activation_code" => 'WLCMHK',
@@ -59,7 +59,7 @@ describe ActivationCodesController do
         end
       end
 
-      context 'invalid activation code' do
+      context 'with an invalid activation code' do
         before do
           Euresource::ActivationCodes.stub(:get).with(anything()) {
             raise Euresource::ResourceNotFound.new(404,"Failed.  Response status: 404.")
