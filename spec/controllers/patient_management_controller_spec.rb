@@ -14,11 +14,10 @@ describe PatientManagementController do
       let(:action)               { :select_study_and_site }
       let(:default_params)       { {controller: 'patient_management', action: 'select_study_and_site'} }
       let(:user_uuid)            { SecureRandom.uuid }
-      let(:cas_extra_attributes) { {user_uuid: user_uuid}.stringify_keys! }
 
       before do
         allow(CASClient::Frameworks::Rails::Filter).to receive(:filter).and_return(true)
-        session[:cas_extra_attributes] = cas_extra_attributes
+        session[:cas_extra_attributes] = {user_uuid: user_uuid}.stringify_keys!
       end
 
       context 'without study parameter' do
