@@ -34,7 +34,7 @@ class IMedidataUser
 
   def invitation_accepted?(study_invitation, options)
     unless study_invitation['accepted_at'].present?
-      errors.add(:invitation, no_study_invitation_message(options))
+      errors.add(:invitation, study_invitation_not_accepted_message(options))
       false
     else
       true
@@ -51,7 +51,7 @@ class IMedidataUser
     end
   end
 
-  def no_study_invitation_message(options)
+  def study_invitation_not_accepted_message(options)
     study_options = options.slice(:study_uuid, :study_group_uuid)
     "User invitation to #{study_options.keys.join(', ').gsub('_uuid', '')} with uuid #{study_options.values.join(', ')} has not been accepted."
   end
