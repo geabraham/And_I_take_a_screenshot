@@ -47,7 +47,7 @@ describe ActivationCodesController do
         let(:verb)                 { :get }
         let(:action)               { :activate }
         let(:error_response_body)  { "Activation Code must be in active state"}
-        let(:expected_status_code) { 403 }
+        let(:expected_status_code) { 422 }
 
         it_behaves_like 'returns expected status'
         it_behaves_like 'returns expected error response body'
