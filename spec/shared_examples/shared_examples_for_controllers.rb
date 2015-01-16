@@ -5,6 +5,13 @@ shared_examples_for 'returns expected status' do
   end
 end
 
+shared_examples_for 'returns expected body' do
+  it 'returns expected body' do
+    send(verb, action, params)
+    expect(response.body).to eq(expected_body)
+  end
+end
+
 shared_examples_for 'renders expected template' do
   it 'renders expected template' do
     send(verb, action, params)

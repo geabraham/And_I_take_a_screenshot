@@ -44,6 +44,8 @@ gem 'uglifier', '>= 2.5.3'
 
 gem 'nokogiri', '~> 1.6.3'
 
+gem 'rubycas-client', git: 'git@github.com:mdsol/rubycas-client', tag: 'v2.3.9.1'
+
 group :development do
   gem 'guard-rspec'
   gem 'minitest'
@@ -55,7 +57,7 @@ group :test do
   gem 'webmock', '~> 1.20.0'
   gem 'cucumber', '~> 1.3.17'
   gem 'selenium-webdriver', '~> 2.43.0'
-
+  gem 'rspec-its', '~> 1.1'
   gem 'cucumber-rails', require: false
   gem 'simplecov'
 end

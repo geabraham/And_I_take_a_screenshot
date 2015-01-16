@@ -5,10 +5,8 @@ module IMedidataClient
     end
 
     def response
-      if defined?(request_body) && request_body.present?
-        imedidata_connection.send(http_method, path) { |req| req.body = request_body.to_json }
-      else
-        imedidata_connection.send(http_method, path)
+      imedidata_connection.send(http_method, path) do |req|
+        req.body = (defined?(request_body) && request_body.present?) ? request_body.to_json : nil
       end
     end
 
@@ -18,6 +16,10 @@ module IMedidataClient
 
     def path
       raise IMedidataClientError.new("No default request path. Please define a request path for the subclass.")
+    end
+
+    def expected_response_status
+      200
     end
 
     def imedidata_connection
@@ -32,24 +34,5 @@ module IMedidataClient
     end
 
     class RequestArgumentError < ArgumentError; end
-  end
-
-  class SecurityQuestionsRequest < Request
-    def self.required_attributes
-      [:locale]
-    end
-
-    def initialize(attrs = {})
-      raise argument_error unless self.class.required_attributes.all? {|p| attrs[p].present? }
-      @locale = attrs[:locale]
-    end
-
-    def path
-      "/api/v2/user_security_questions/#{@locale}.json"
-    end
-
-    def http_method
-      :get
-    end
   end
 end
