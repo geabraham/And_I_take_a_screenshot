@@ -12,7 +12,7 @@ module IMedidataClient
   #
   ['security_questions', 'studies', 'study_sites'].each do |request_type|
     define_method("request_#{request_type}!") do |options|
-      request = "IMedidataClient::#{"#{request_type}_request".titleize.gsub(' ','')}".constantize.new(options)
+      request = "IMedidataClient::#{"#{request_type}_request".camelize}".constantize.new(options)
       response = request.response
 
       unless response.status == request.expected_response_status
