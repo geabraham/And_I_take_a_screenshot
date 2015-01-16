@@ -6,7 +6,11 @@ describe IMedidataClient::StudySitesRequest do
   let(:http_method)         { :get }
   let(:subject)             { IMedidataClient::StudySitesRequest.new(user_uuid: user_uuid, study_uuid: study_uuid) }
 
-  it_behaves_like('class with required attributes')
+  describe '.required_attributes' do
+    let(:subject) { IMedidataClient::StudySitesRequest }
+    it_behaves_like('class with required attributes')
+  end
+
   include_examples('has expected path')
   include_examples('has expected http_method')
 end

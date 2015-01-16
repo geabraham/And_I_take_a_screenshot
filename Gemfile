@@ -57,7 +57,7 @@ group :test do
   gem 'webmock', '~> 1.20.0'
   gem 'cucumber', '~> 1.3.17'
   gem 'selenium-webdriver', '~> 2.43.0'
-
+  gem 'rspec-its', '~> 1.1'
   gem 'cucumber-rails', require: false
   gem 'simplecov'
 end
