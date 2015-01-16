@@ -50,4 +50,14 @@ body {
       bottom: 0;
     }
   }
+  #landing_page {
+    .row {
+      div {
+        img {
+          width: auto;
+          max-width: 60px !important;
+        } 
+      }
+    }
+  }
 }
