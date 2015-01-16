@@ -5,14 +5,7 @@
   .container{style: "margin-top: 20px; border: 1px solid #333"}
     %h3.form_header='Please choose a study and a site.'
     = fields_for 'patient_management' do |f|
-      - if @studies.present?
-        .form-group
-          = f.select :study, @studies, {include_blank: 'Study'}
-        .form-group
-          = f.select :study_site, [], {include_blank: 'Site'}
-      - elsif @study_sites.present?
-        .form-group
-          = f.select :study, @study
-        .form-group
-          = f.select :study_site, @study_sites, {include_blank: 'Site'}
-
+      .form-group
+        = f.select :study, @study_or_studies, {include_blank: 'Study'}
+      .form-group
+        = f.select :study_site, @study_sites, {include_blank: 'Site'}
