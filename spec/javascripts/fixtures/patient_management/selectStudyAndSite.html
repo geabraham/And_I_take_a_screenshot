@@ -1,0 +1,25 @@
+<script src="/assets/patient_flow/patient_management.js"></script>
+
+<div class="clearfix" id="main">
+  <div class="header">
+    <h4 class="h4">
+      Patient Management
+    </h4>
+  </div>
+  <div class="container">
+    <h3 class="form_header">Please choose a study and a site.</h3>
+    <div class="form-group">
+      <select id="patient_management_study" name="patient_management[study]">
+      <option value="">Study</option>
+      <option value="fda08b50-9fe1-11df-a531-12313900d531">Globalix</option>
+      <option value="04ceb01e-9fe2-11df-a531-12313900d531">Mediflex B</option>
+      <option value="16080b14-76e3-45e7-b41d-59c428a71350">Mediflex C</option></select>
+    </div>
+    <div class="form-group">
+      <select id="patient_management_study_site" name="patient_management[study_site]">
+      <option value="">Site</option>
+      <option value="161332d2-9fe2-11df-a531-12313900d531">Alfred Hospital</option></select>
+    </div>
+    <input class="btn btn-primary btn-block" disabled="disabled" id="launch-patient-management" name="commit" type="submit" value="Launch">
+  </div>
+</div>
