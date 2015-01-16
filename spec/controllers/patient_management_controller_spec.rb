@@ -68,11 +68,11 @@ describe PatientManagementController do
       end
 
       context 'with study parameter' do
-        let(:study_uuid)  { SecureRandom.uuid }
-        let(:params)      { default_params.merge(study_uuid: study_uuid) }
+        let(:study_uuid)           { SecureRandom.uuid }
+        let(:params)               { default_params.merge(study_uuid: study_uuid) }
         let(:expected_status_code) { 200 }
         let(:expected_body)        { study_sites.to_json }
-        let(:study_sites) { {study_sites: []} }
+        let(:study_sites)          { {study_sites: []} }
 
         before do
           allow(controller).to receive(:request_study_sites!).with(params.merge(user_uuid: user_uuid)).and_return(study_sites)
