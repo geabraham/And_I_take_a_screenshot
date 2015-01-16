@@ -1,0 +1,3 @@
+<% cas_base_url = configured[:production].cas_base_url || 'http://localhost:4567' %>
+CAS_BASE_URL = '<%= cas_base_url %>'
+CASClient::Frameworks::Rails::Filter.configure(cas_base_url: CAS_BASE_URL)

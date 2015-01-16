@@ -21,9 +21,10 @@ describe RemoteSecurityQuestions do
 
     context 'when security questions do not exist' do
       let(:jpn_security_questions) do
-        [{"name"=>"您在哪一年出生？", "id"=>"1"}, 
-         {"name"=>"你的社会安全号码(SSN)或报税号码的最后四位数是什么?", "id"=>"2"}, 
-         {"name"=>"您父亲的中间名是什么？", "id"=>"3"}]
+        {'user_security_questions' =>
+          [{"name"=>"您在哪一年出生？", "id"=>"1"},
+           {"name"=>"你的社会安全号码(SSN)或报税号码的最后四位数是什么?", "id"=>"2"},
+           {"name"=>"您父亲的中间名是什么？", "id"=>"3"}]}
       end
 
       before do
@@ -37,7 +38,7 @@ describe RemoteSecurityQuestions do
 
       it 'assigns the security questions key with the content' do
         RemoteSecurityQuestions.find_or_fetch('jpn')
-        expect(Rails.cache.read('jpn_security_questions')).to eq(jpn_security_questions)
+        expect(Rails.cache.read('jpn_security_questions')).to eq(jpn_security_questions['user_security_questions'])
       end
     end
   end

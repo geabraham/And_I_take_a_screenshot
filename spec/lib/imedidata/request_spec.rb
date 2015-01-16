@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'imedidata_client_request'
+require 'imedidata/client'
 
 describe IMedidataClient::Request do
   let(:request) { IMedidataClient::Request.new }
