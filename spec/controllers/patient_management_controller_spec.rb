@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe PatientManagementController do
-  describe 'select_study_and_site' do
+  describe "GET 'select_study_and_site'" do
     context 'when user is not logged in' do
       it 'redirects to iMedidata' do
         get 'select_study_and_site'
