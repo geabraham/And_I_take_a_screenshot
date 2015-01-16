@@ -9,4 +9,4 @@
         = f.select :study, @study_or_studies, {include_blank: 'Study'}
       .form-group
         = f.select :study_site, @study_sites, {include_blank: 'Site'}
-      = f.submit 'Launch', class: 'btn btn-primary btn-block hidden', disabled: true, id: 'launch-patient-management'
+      = f.submit 'Launch', class: 'btn btn-primary btn-block', disabled: true, id: 'launch-patient-management'
