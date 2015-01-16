@@ -10,6 +10,10 @@ body {
       .carousel {
         margin-top: 10px;
       }
+      #tou_dpn_agreement {
+        height: $desktop - 160;
+        overflow-y: scroll;
+      }
     } 
     background-color: #ddd;
     .header {
@@ -30,9 +34,14 @@ body {
     position: relative;
     width: $desktop;
     margin: 0 auto;
+    height: 740px;
     .carousel {
         margin-top: 10px;
       }
+    #tou_dpn_agreement {
+      height: $desktop - 160;
+      overflow-y: scroll;
+    }
     .header {
       position: static;
     }
