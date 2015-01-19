@@ -83,16 +83,6 @@ getJasmineRequireObj().AjaxFakeRequest = function() {
     };
   }
 
-  function unconvertibleResponseTypeMessage(type) {
-    var msg = [
-      "Can't build XHR.response for XHR.responseType of '",
-      type,
-      "'.",
-      "XHR.response must be explicitly stubbed"
-    ];
-    return msg.join(' ');
-  }
-
   function fakeRequest(global, requestTracker, stubTracker, paramParser) {
     function FakeXMLHttpRequest() {
       requestTracker.track(this);
@@ -261,26 +251,13 @@ getJasmineRequireObj().AjaxFakeRequest = function() {
       },
 
       responseText: null,
-      response: null,
-      responseType: null,
 
-      responseValue: function() {
-        switch(this.responseType) {
-          case null:
-          case "":
-          case "text":
-            return this.readyState >= 3 ? this.responseText : "";
-          case "json":
-            return JSON.parse(this.responseText);
-          case "arraybuffer":
-            throw unconvertibleResponseTypeMessage('arraybuffer');
-          case "blob":
-            throw unconvertibleResponseTypeMessage('blob');
-          case "document":
-            return this.responseXML;
+      response: function(response) {
+        if (window.console && window.console.warn) {
+          window.console.warn("jasmine-ajax's response method is deprecated because it conflicts with XmlHTTPRequest 2 sytax. It will be removed in a later version. Please use respondWith");
         }
+        this.respondWith(response);
       },
-
 
       respondWith: function(response) {
         if (this.readyState === 4) {
@@ -289,19 +266,9 @@ getJasmineRequireObj().AjaxFakeRequest = function() {
         this.status = response.status;
         this.statusText = response.statusText || "";
         this.responseText = response.responseText || "";
-        this.responseType = response.responseType || "";
         this.readyState = 4;
         this.responseHeaders = normalizeHeaders(response.responseHeaders, response.contentType);
         this.responseXML = getResponseXml(response.responseText, this.getResponseHeader('content-type') || '');
-        if (this.responseXML) {
-          this.responseType = 'document';
-        }
-
-        if ('response' in response) {
-          this.response = response.response;
-        } else {
-          this.response = this.responseValue();
-        }
 
         this.onreadystatechange();
         this.events.progress();
@@ -464,7 +431,6 @@ getJasmineRequireObj().AjaxRequestStub = function() {
       this.status = options.status || 200;
 
       this.contentType = options.contentType;
-      this.response = options.response;
       this.responseText = options.responseText;
     };
 

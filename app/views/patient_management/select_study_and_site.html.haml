@@ -1,12 +1,16 @@
+- content_for :page_header_text do
+  %h4 Patient Management
+
 - content_for :page_body do
-  .header
-    %h4.h4{style: "text-align: left; padding-left: 15px; font-weight: 200;"}
-      Patient Management
-  .container{style: "margin-top: 20px; border: 1px solid #333"}
+  .panel.panel-default.center-block{style: 'max-width: 600px'}
     %h3.form_header='Please choose a study and a site.'
     = fields_for 'patient_management' do |f|
       .form-group
         = f.select :study, @study_or_studies, {include_blank: 'Study'}
       .form-group
         = f.select :study_site, @study_sites, {include_blank: 'Site'}
-      = f.submit 'Launch', class: 'btn btn-primary btn-block', disabled: true, id: 'launch-patient-management'
+      %a#launch-link
+        = f.submit 'Launch', class: 'btn btn-primary btn-block', disabled: true, id: 'launch-patient-management'
+
+- content_for :page_header do
+  = render 'shared/page_header'

@@ -19,6 +19,7 @@
     = render 'shared/checkmate_header', user_name: @user_email, home_url: IMED_BASE_URL
 
     #main.clearfix
+      = yield :page_header
       = yield :page_body
 
     = cdn_javascript_include_tag 'jquery'
