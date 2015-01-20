@@ -52,14 +52,12 @@ describe PatientManagementController do
         context 'when user has studies for patient management' do
           let(:study_group_uuid)     { SecureRandom.uuid }
           let(:params)               { default_params.merge(study_group_uuid: study_group_uuid) }
+          let(:study1)               { {name: 'TestStudy001', uuid: SecureRandom.uuid} }
+          let(:study2)               { {name: 'TestStudy002', uuid: SecureRandom.uuid} }
+          let(:studies)              { {studies: [{name: study1[:name], uuid: study1[:uuid]}, {name: study2[:name], uuid: study2[:uuid]}]}.deep_stringify_keys }
           let(:expected_status_code) { 200 }
-          let(:study1_uuid)          { SecureRandom.uuid }
-          let(:study1_name)          { 'TestStudy001' }
-          let(:study2_uuid)          { SecureRandom.uuid }
-          let(:study2_name)          { 'TestStudy002' }
-          let(:studies)              { {studies: [{name: study1_name, uuid: study1_uuid}, {name: study2_name, uuid: study2_uuid}]}.deep_stringify_keys }
           let(:expected_ivar_name)   { 'study_or_studies' }
-          let(:expected_ivar_value)  { [[study1_name, study1_uuid], [study2_name, study2_uuid]]}
+          let(:expected_ivar_value)  { [[study1[:name], study1[:uuid]], [study2[:name], study2[:uuid]]] }
 
           before do
             allow(controller).to receive(:request_studies!).with(params.merge(user_uuid: user_uuid)).and_return(studies)
@@ -73,15 +71,13 @@ describe PatientManagementController do
       context 'with study parameter' do
         let(:study_uuid)           { SecureRandom.uuid }
         let(:params)               { default_params.merge(study_uuid: study_uuid) }
-        let(:expected_status_code) { 200 }
-        let(:study_site1_uuid)     { SecureRandom.uuid }
-        let(:study_site1_name)     { 'TestStudySite001' }
-        let(:study_site2_uuid)     { SecureRandom.uuid }
-        let(:study_site2_name)     { 'TestStudySite002' }
-        let(:study_sites)          { {study_sites: [{name: study_site1_name, uuid: study_site1_uuid}, {name: study_site2_name, uuid: study_site2_uuid}]}.deep_stringify_keys }
         let(:study)                { {study: {name: 'Mediflex', uuid: study_uuid}}.deep_stringify_keys }
+        let(:study_site1)          { {name: 'TestStudySite001', uuid: SecureRandom.uuid} }
+        let(:study_site2)          { {name: 'TestStudySite002', uuid: SecureRandom.uuid} }
+        let(:study_sites)          { {study_sites: [{name: study_site1[:name], uuid: study_site1[:uuid]}, {name: study_site2[:name], uuid: study_site2[:uuid]}]}.deep_stringify_keys }
+        let(:expected_status_code) { 200 }
         let(:expected_ivar_name)   { 'study_sites' }
-        let(:expected_ivar_value)  { [[study_site1_name, study_site1_uuid], [study_site2_name, study_site2_uuid]]}
+        let(:expected_ivar_value)  { [[study_site1[:name], study_site1[:uuid]], [study_site2[:name], study_site2[:uuid]]] }
 
         before do
           allow(controller).to receive(:request_study!).with(params.merge(user_uuid: user_uuid)).and_return(study)
