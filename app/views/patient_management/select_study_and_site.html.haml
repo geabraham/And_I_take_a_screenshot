@@ -1,18 +1,12 @@
-- content_for :page_header_text do
-  %h4 Patient Management
-
 - content_for :page_body do
-  .panel.panel-default.center-block{style: 'max-width: 600px'}
-    %h3.form_header='Please choose a study and a site.'
+  .panel.panel-default.center-block.col-sm-6.pull-none.light-grey-border
+    %h3.form_header.text-center='Please choose a study and a site.'
     %hr
     = fields_for 'patient_management' do |f|
-      .form-group
-        = f.select :study, @study_or_studies, {include_blank: 'Study'}
-      .form-group
-        = f.select :study_site, @study_sites, {include_blank: 'Site'}
+      .form-group.col-sm-6.center-block.pull-none.margin-bottom-thirty
+        = f.select :study, @study_or_studies, {include_blank: 'Study'}, {:class => 'form-control'}
+      .form-group.col-sm-6.center-block.pull-none.margin-bottom-thirty
+        = f.select :study_site, @study_sites, {include_blank: 'Site'}, {:class => 'form-control'}
       %hr
-      %a#launch-link
+      %a#launch-link.form-group.col-sm-6.center-block.pull-none.margin-bottom-thirty
         = f.submit 'Launch', class: 'btn btn-primary btn-block', disabled: true, id: 'launch-patient-management'
-
-- content_for :page_header do
-  = render 'shared/page_header'

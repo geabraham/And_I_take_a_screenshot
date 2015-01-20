@@ -14,12 +14,13 @@
     = stylesheet_link_tag        'application'
     = csrf_meta_tags
   %body
-    // FIXME: Displays help link with user_name, unavoidable
-    //
-    = render 'shared/checkmate_header', user_name: @user_email, home_url: IMED_BASE_URL
+    - content_for :page_header_text do
+      %h4 Patient Management
 
-    #main.clearfix
-      = yield :page_header
+    = render 'shared/checkmate_header', user_name: @user_email, home_url: IMED_BASE_URL
+    = render 'shared/page_header'
+
+    .clearfix
       = yield :page_body
 
     = cdn_javascript_include_tag 'jquery'
