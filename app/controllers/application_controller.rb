@@ -11,4 +11,12 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale] || I18n.default_locale
   end
 
+  def authorize_user
+    # Redirects to login page if there is no active session
+    #
+    if CASClient::Frameworks::Rails::Filter.filter(self)
+      @user_email = session[:cas_extra_attributes]['user_email']
+      params.merge!(user_uuid: session[:cas_extra_attributes]['user_uuid'])
+    end
+  end
 end

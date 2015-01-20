@@ -53,17 +53,20 @@ describe PatientManagementController do
           let(:study_group_uuid)     { SecureRandom.uuid }
           let(:params)               { default_params.merge(study_group_uuid: study_group_uuid) }
           let(:expected_status_code) { 200 }
-          let(:expected_body)        { studies.to_json }
-          let(:studies) do
-            {studies: [{name: 'TesStudy001', uuid: SecureRandom.uuid}, {name: 'TestStudy002', uuid: SecureRandom.uuid}]}
-          end
+          let(:study1_uuid)          { SecureRandom.uuid }
+          let(:study1_name)          { 'TestStudy001' }
+          let(:study2_uuid)          { SecureRandom.uuid }
+          let(:study2_name)          { 'TestStudy002' }
+          let(:studies)              { {studies: [{name: study1_name, uuid: study1_uuid}, {name: study2_name, uuid: study2_uuid}]}.deep_stringify_keys }
+          let(:expected_ivar_name)   { 'study_or_studies' }
+          let(:expected_ivar_value)  { [[study1_name, study1_uuid], [study2_name, study2_uuid]]}
 
           before do
             allow(controller).to receive(:request_studies!).with(params.merge(user_uuid: user_uuid)).and_return(studies)
           end
 
           it_behaves_like 'returns expected status'
-          it_behaves_like 'returns expected body'
+          it_behaves_like 'assigns the expected instance variable'
         end
       end
 
@@ -71,15 +74,22 @@ describe PatientManagementController do
         let(:study_uuid)           { SecureRandom.uuid }
         let(:params)               { default_params.merge(study_uuid: study_uuid) }
         let(:expected_status_code) { 200 }
-        let(:expected_body)        { study_sites.to_json }
-        let(:study_sites)          { {study_sites: []} }
+        let(:study_site1_uuid)     { SecureRandom.uuid }
+        let(:study_site1_name)     { 'TestStudySite001' }
+        let(:study_site2_uuid)     { SecureRandom.uuid }
+        let(:study_site2_name)     { 'TestStudySite002' }
+        let(:study_sites)          { {study_sites: [{name: study_site1_name, uuid: study_site1_uuid}, {name: study_site2_name, uuid: study_site2_uuid}]}.deep_stringify_keys }
+        let(:study)                { {study: {name: 'Mediflex', uuid: study_uuid}}.deep_stringify_keys }
+        let(:expected_ivar_name)   { 'study_sites' }
+        let(:expected_ivar_value)  { [[study_site1_name, study_site1_uuid], [study_site2_name, study_site2_uuid]]}
 
         before do
+          allow(controller).to receive(:request_study!).with(params.merge(user_uuid: user_uuid)).and_return(study)
           allow(controller).to receive(:request_study_sites!).with(params.merge(user_uuid: user_uuid)).and_return(study_sites)
         end
 
         it_behaves_like 'returns expected status'
-        it_behaves_like 'returns expected body'
+        it_behaves_like 'assigns the expected instance variable'
       end
     end
   end

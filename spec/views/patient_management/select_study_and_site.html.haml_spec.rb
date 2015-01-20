@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe 'patient_management/select_study_and_site.html.haml' do
+  let(:header)           { view.content_for(:page_header) }
   let(:html)             { view.content_for(:page_body) }
   let(:study_or_studies) { [] }
   let(:study_sites)      { [] }
@@ -12,7 +13,7 @@ describe 'patient_management/select_study_and_site.html.haml' do
   end
 
   describe 'basic page' do
-    it('has the right title') { expect(html).to have_text('Patient Management') }
+    it('has the right title') { expect(header).to have_text('Patient Management') }
     it('has a prompt') { expect(html).to have_text('Please choose a study and a site.') }
 
     it 'contains a studies dropdown' do

@@ -4,7 +4,7 @@ $(function() {
     clearPopulatedStudySites();
 
     if (!$.isEmptyObject(study_uuid)) {
-      $.getJSON( "/patient_management/sites/" + study_uuid)
+      $.getJSON( "/study_sites?study_uuid=" + study_uuid)
       .done(function(studySites) {
         populateStudySitesDropdown(studySites)
       });

@@ -5,10 +5,10 @@ shared_examples_for 'returns expected status' do
   end
 end
 
-shared_examples_for 'returns expected body' do
-  it 'returns expected body' do
+shared_examples_for 'assigns the expected instance variable' do
+  it 'assigns the expected instance variable' do
     send(verb, action, params)
-    expect(response.body).to eq(expected_body)
+    expect(assigns(expected_ivar_name)).to eq(expected_ivar_value)
   end
 end
 

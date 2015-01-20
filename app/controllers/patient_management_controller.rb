@@ -15,37 +15,28 @@ class PatientManagementController < ApplicationController
     render json: {errors: "You are not authorized for patient management. #{e.message}"}, status: :unauthorized
   end
 
-  def sites
-    render json: request_study_sites!(params)['study_sites'].uniq.collect{|ss| [ss['name'], ss['uuid']]}
-  end
-
   private
-
-  def authorize_user
-    # Redirects to login page if there is no active session
-    #
-    if CASClient::Frameworks::Rails::Filter.filter(self)
-      @user_email = session[:cas_extra_attributes]['user_email']
-      params.merge!(user_uuid: session[:cas_extra_attributes]['user_uuid'])
-    end
-  end
 
   def studies_selection_list
     if params[:study_uuid].present?
-      study = request_study!(study_uuid: params[:study_uuid])['study']
+      study = request_study!(params)['study']
       [[study['name'], study['uuid']]]
-    else
+    elsif
       studies = request_studies!(params)['studies']
-      studies.uniq.collect {|s| [s['name'], s['uuid']] }
+      uniq_name_and_uuids(studies)
     end
   end
 
   def study_sites_selection_list
     if params[:study_uuid].present?
       study_sites = request_study_sites!(params)['study_sites']
-      @study_sites = study_sites.uniq.collect{|ss| [ss['name'], ss['uuid']]}
+      uniq_name_and_uuids(study_sites)
     else
       []
     end
+  end
+
+  def uniq_name_and_uuids(collection)
+    collection.uniq.collect {|s| [s['name'], s['uuid']] }
   end
 end

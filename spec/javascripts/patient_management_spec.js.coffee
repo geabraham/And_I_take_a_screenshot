@@ -1,6 +1,6 @@
 describe 'patient management select study and site form', ->
   studyUuid = 'fda08b50-9fe1-11df-a531-12313900d531'
-  sitesUrl = '/patient_management/sites/' + studyUuid
+  sitesUrl = '/study_sites?study_uuid=' + studyUuid
   studySitesResponse =           
     status: 200
     contentType: 'application/json'
