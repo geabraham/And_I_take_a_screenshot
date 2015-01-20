@@ -20,26 +20,12 @@ describe 'patient management select study and site form', ->
         expect($('#patient_management_study_site option').length).toBe 1
 
       it 'populates the study sites drop down when study sites are returned', ->
-
-      it 'is a test', ->
-        $.mockjax
-          url: "/restful/fortune"
-          responseText:
-            status: "success"
-            fortune: "Are you a mock turtle?"
-        $.getJSON "/restful/fortune", (response) ->
-          if response.status is "success"
-            # This should fail
-            expect(response.fortune).toBe "Hello world"
-          return
-
-
-  describe 'populate study site drop down options', ->
-    it 'populates with study sites returned from ajax call', ->
-      studySites = [['Nestle Research Center', 1],['Japan Tobacco Inc', 2]]
-      clearPopulatedStudySites()
-      populateStudySitesDropdown(studySites)
-      expect($('#patient_management_study_site option').length).toBe 3
+        $("#patient_management_study").val(studyUuid).change()
+        jasmine.Ajax.requests.mostRecent().response
+          status: 200
+          contentType: 'application/json'
+          responseText: JSON.stringify([['Nestle Research Center', 1], ['Japan Tobacco', 2]])
+        expect($("#patient_management_study_site option").length).toBe 3
 
   describe 'launch button', ->
     describe 'default', ->

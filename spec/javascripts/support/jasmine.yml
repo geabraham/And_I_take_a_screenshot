@@ -46,7 +46,6 @@ helpers:
  # - 'helpers/jquery-2.1.1.js' #jquery must be loaded before jasmine-jquery
   - 'helpers/jasmine-jquery.js'
   - 'helpers/mock-ajax.js'
-  - 'helpers/jquery.mockjax.js'
 
 # spec_files
 #
