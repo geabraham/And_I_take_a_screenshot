@@ -35,7 +35,7 @@ var readyForLaunch = function() {
   }
 
   if(!$.isEmptyObject(study_uuid) && !$.isEmptyObject(study_site_uuid)) {
-    $('a#launch-link').attr('href', '/patient_management?study_uuid=' + study_uuid + '&study_site_uuid=' + study_site_uuid)
+    $('a#launch-link').attr('href', '/patient_management?study_uuid=') //+ study_uuid + '&study_site_uuid=' + study_site_uuid)
     $('input#launch-patient-management').removeAttr('disabled')
   } else if(!$('input#launch-patient-management').attr('disabled')) {
     $('a#launch-link').removeAttr('href')
