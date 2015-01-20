@@ -4,6 +4,15 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
 
+  ERROR_CAUSE = {
+    ActionController::UnpermittedParameters => :unprocessable_entity,
+    IMedidataClient::IMedidataClientError => :unauthorized }
+
+  rescue_from "StandardError" do |e|
+    error_cause ||= ERROR_CAUSE[e.exception.class] || :unprocessable_entity
+    render json: {errors: e.message}, status: error_cause
+  end
+
   protected
   # Set user's locale from request, assuming it comes from Checkmate.
   #TODO in future locale may be in header instead of params, depending on Checkmate

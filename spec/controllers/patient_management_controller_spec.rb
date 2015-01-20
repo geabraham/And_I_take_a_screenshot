@@ -35,7 +35,6 @@ describe PatientManagementController do
           let(:expected_status_code) { 401 }
           let(:error_response_body) do
             {errors: 
-              "You are not authorized for patient management. " <<
               "Studies request failed for #{default_params}. Response: #{error_status} #{error_body}"
             }.to_json
           end

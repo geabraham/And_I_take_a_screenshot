@@ -11,8 +11,6 @@ class PatientManagementController < ApplicationController
     @study_or_studies = studies_selection_list
     @study_sites = study_sites_selection_list
     render 'select_study_and_site'
-  rescue IMedidataClient::IMedidataClientError => e
-    render json: {errors: "You are not authorized for patient management. #{e.message}"}, status: :unauthorized
   end
 
   private
