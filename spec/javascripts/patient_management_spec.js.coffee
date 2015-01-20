@@ -15,17 +15,26 @@ describe 'patient management select study and site form', ->
         $('#patient_management_study').val(studyUuid).change()
         expect(jasmine.Ajax.requests.mostRecent().url).toBe sitesUrl
 
-      it 'clears the current options populated', ->
+      it 'clears the current options populated in the study sites drop down', ->
         $('#patient_management_study').val(studyUuid).change()
-        $('#patient_management_study').val('').change()
         expect($('#patient_management_study_site option').length).toBe 1
 
-      it 'calls readyForLaunch', ->
-        readyForLaunch = spyOn(window, 'readyForLaunch')
-        $('#patient_management_study').val(studyUuid).change()
-        expect(readyForLaunch.calls.count()).toEqual(1)
+      it 'populates the study sites drop down when study sites are returned', ->
 
-  describe 'populateStudySitesDropdown', ->
+      it 'is a test', ->
+        $.mockjax
+          url: "/restful/fortune"
+          responseText:
+            status: "success"
+            fortune: "Are you a mock turtle?"
+        $.getJSON "/restful/fortune", (response) ->
+          if response.status is "success"
+            # This should fail
+            expect(response.fortune).toBe "Hello world"
+          return
+
+
+  describe 'populate study site drop down options', ->
     it 'populates with study sites returned from ajax call', ->
       studySites = [['Nestle Research Center', 1],['Japan Tobacco Inc', 2]]
       clearPopulatedStudySites()
