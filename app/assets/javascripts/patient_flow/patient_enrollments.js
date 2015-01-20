@@ -1,14 +1,13 @@
 $(function () {
   $('.carousel').carousel(); //initialize the carousel
   
-  $('#next-button').on('click', nextButtonClick);
-  $('#agree-button').on('click', nextButtonClick);
+  $('#next-button, #agree-button').on('click', nextButtonClick);
 
   $('.back_arrow').on('click', backClick);
 
   $('#patient_enrollment_answer').on('keyup', answerKeyup);
   
-  $('#patient_enrollment_security_question').on('change', questionChange);
+  $('#patient_enrollment_security_question').on('textchange', questionChange);
   
   $(document).keypress(function(e){
       if (e.which == 13){
@@ -21,7 +20,7 @@ var validateSecurityQuestions = function() {
   //custom validation works better than jQuery validate here
   //because there are fewer edge cases and .validate has
   //issues with the rails dropdown
-  return ($('#patient_enrollment_answer').val().trim().length > 0 &&
+  return ($.trim($('#patient_enrollment_answer').val()).length > 0 &&
           $('#patient_enrollment_security_question').val() !== '');
 }
 
@@ -138,6 +137,6 @@ var hideErrors = function() {
 }
 
 var isBlankEntry = function() {
-  return (($('.active .registration-input').first().val().length == 0) 
-       && ($('.active .registration-input').last().val().length == 0));
+  return (($('.active .registration-input').first().val().length === 0) 
+       && ($('.active .registration-input').last().val().length === 0));
 }

@@ -1,0 +1,63 @@
+$desktop: 768px;
+body {
+  margin: 0 auto;
+  @media screen and (min-width: $desktop) {
+    #main {
+      width: $desktop;
+      margin: 0 auto;
+      position: relative;
+      height: 740px;
+      .carousel {
+        margin-top: 10px;
+      }
+      #tou_dpn_agreement {
+        height: $desktop - 160;
+        overflow-y: scroll;
+      }
+    } 
+    background-color: #ddd;
+    .header {
+      position: static;
+    }
+    .navbar-fixed-bottom {
+      position: absolute;
+      bottom: 0;
+    }
+  } 
+}
+
+.lt-ie9 {
+  body {
+    background-color: #ddd;
+  }
+  #main {
+    position: relative;
+    width: $desktop;
+    margin: 0 auto;
+    height: 740px;
+    .carousel {
+        margin-top: 10px;
+      }
+    #tou_dpn_agreement {
+      height: $desktop - 160;
+      overflow-y: scroll;
+    }
+    .header {
+      position: static;
+    }
+    .navbar-fixed-bottom {
+      position: absolute;
+      bottom: 0;
+    }
+  }
+  #landing_page {
+    .row {
+      div {
+        img {
+          width: auto;
+          max-width: 60px !important;
+        } 
+      }
+    }
+  }
+}
