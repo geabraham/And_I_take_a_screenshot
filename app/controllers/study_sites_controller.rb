@@ -7,7 +7,9 @@ class StudySitesController < ApplicationController
   before_filter :authorize_user
 
   def index
-    raise "study uuid required" unless params[:study_uuid]
+    params.require(:study_uuid)
     render json: request_study_sites!(params)['study_sites'].uniq.collect{|ss| [ss['name'], ss['uuid']]}
+  rescue ActionController::ParameterMissing => e
+    render json: {errors: e.message}, status: :unprocessable_entity
   end
 end

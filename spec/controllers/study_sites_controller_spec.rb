@@ -8,5 +8,47 @@ describe StudySitesController do
         expect(response).to redirect_to("#{CAS_BASE_URL}/login?service=#{CGI.escape(request.original_url)}")
       end
     end
+
+    context 'with a user logged in' do
+      let(:verb)                 { :get }
+      let(:action)               { :index }
+      let(:default_params)       { {controller: 'study_sites', action: 'index'} }
+      let(:user_uuid)            { SecureRandom.uuid }
+
+      before do
+        allow(CASClient::Frameworks::Rails::Filter).to receive(:filter).and_return(true)
+        session[:cas_extra_attributes] = {user_uuid: user_uuid}.stringify_keys!
+      end
+
+      context 'without study uuid parameter' do
+        let(:expected_status_code) { 422 }
+        let(:error_response_body)  { {errors: 'param is missing or the value is empty: study_uuid'}.to_json }
+        let(:params)               { default_params }
+
+        it_behaves_like 'returns expected status'
+        it_behaves_like 'returns expected error response body'
+      end
+
+      context 'with study uuid parameter' do
+        context 'when call is successful' do
+          let(:study_uuid)           { SecureRandom.uuid }
+          let(:params)               { default_params.merge(study_uuid: study_uuid) }
+          let(:expected_status_code) { 200 }
+          let(:study_site1_uuid)     { SecureRandom.uuid }
+          let(:study_site1_name)     { 'TestStudySite001' }
+          let(:study_site2_uuid)     { SecureRandom.uuid }
+          let(:study_site2_name)     { 'TestStudySite002' }
+          let(:study_sites)          { {study_sites: [{name: study_site1_name, uuid: study_site1_uuid}, {name: study_site2_name, uuid: study_site2_uuid}]}.deep_stringify_keys }
+          let(:expected_body)        { [[study_site1_name, study_site1_uuid], [study_site2_name, study_site2_uuid]].to_json }
+
+          before do
+            allow(controller).to receive(:request_study_sites!).with(params.merge(user_uuid: user_uuid)).and_return(study_sites)
+          end
+
+          it_behaves_like 'returns expected status'
+          it_behaves_like 'returns expected body'
+        end
+      end
+    end
   end
 end

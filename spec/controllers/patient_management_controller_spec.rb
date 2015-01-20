@@ -4,7 +4,7 @@ describe PatientManagementController do
   describe "GET 'select_study_and_site'" do
     context 'when user is not logged in' do
       it 'redirects to iMedidata' do
-        get 'select_study_and_site'
+        get :select_study_and_site
         expect(response).to redirect_to("#{CAS_BASE_URL}/login?service=#{CGI.escape(request.original_url)}")
       end
     end
