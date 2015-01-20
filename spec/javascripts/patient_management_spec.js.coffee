@@ -7,7 +7,7 @@ describe 'patient management select study and site form', ->
     responseText: JSON.stringify([['Nestle Research Center', 1], ['Japan Tobacco', 2]])
 
   beforeEach ->
-    loadFixtures 'selectStudyAndSite.html'
+    loadFixtures 'patient_management/selectStudyAndSite.html'
     jasmine.Ajax.install()
 
   afterEach ->
@@ -61,7 +61,7 @@ describe 'patient management select study and site form', ->
         expect($('input#launch-patient-management')).not.toHaveAttr('disabled')
 
       it 'has the right href', ->
-        expect($('a#launch-link').length).toBe 1
+        expect($('a#launch-link')).toHaveAttr('href', '/patient_management?study_uuid=' + studyUuid + '&study_site_uuid=1')
 
     describe 'when both study and site options are selected and then deselected', ->
       beforeEach ->
