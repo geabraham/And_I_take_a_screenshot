@@ -28,9 +28,11 @@ var clearPopulatedStudySites = function() {
 // Called whenever the study dropdown changes after studySites are fetched from /study_sites
 //
 var populateStudySitesDropdown = function(studySites) {
+  var options = ''
   $.each(studySites, function(index, value) {
-    $('#patient_management_study_site').append('<option value=' + value[1] + '>' + value[0] + '</option>')
+    options += '<option value=' + value[1] + '>' + value[0] + '</option>'
   });
+  $('#patient_management_study_site').append(options)
 }
 
 // Gets the values for the selected study and study site options.
