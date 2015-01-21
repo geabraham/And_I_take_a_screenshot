@@ -1,0 +1,26 @@
+<script src="/assets/patient_flow/patient_management.js?body=1"></script>
+
+<div class="clearfix" id="main">
+  <div class="header">
+    <h4 class="h4">
+      Patient Management
+    </h4>
+  </div>
+  <div class="container">
+    <h3 class="form_header">Please choose a study and a site.</h3>
+    <div class="form-group">
+      <select id="patient_management_study" name="patient_management[study]">
+      <option value="">Study</option>
+      <option value="fda08b50-9fe1-11df-a531-12313900d531">Globalix</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <select id="patient_management_study_site" name="patient_management[study_site]">
+        <option value="">Site</option>
+      </select>
+    </div>
+    <a id="launch-link">
+      <input class="btn btn-primary btn-block" disabled="disabled" id="launch-patient-management" name="commit" type="submit" value="Launch">
+    </a>
+  </div>
+</div>

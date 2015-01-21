@@ -6,74 +6,86 @@ describe 'patient management select study and site form', ->
     contentType: 'application/json'
     responseText: JSON.stringify([['Nestle Research Center', 1], ['Japan Tobacco', 2]])
 
-  beforeEach ->
-    loadFixtures 'patient_management/selectStudyAndSite.html'
-    jasmine.Ajax.install()
+  describe 'with only one study', ->
+    beforeEach ->
+      loadFixtures 'patient_management/selectStudyAndSite-singleStudy.html'
+      jasmine.Ajax.install()
 
-  afterEach ->
-    jasmine.Ajax.uninstall()
+    afterEach ->
+      jasmine.Ajax.uninstall()
 
-  describe 'study site drop down options', ->
-    describe 'when user selects a study', ->
-      it 'makes a request to sites', ->
-        $('#patient_management_study').val(studyUuid).change()
-        expect(jasmine.Ajax.requests.mostRecent().url).toBe sitesUrl
+    it 'selects the study', ->
+      expect($('#patient_management_study option:selected').val()).toBe studyUuid
 
-      it 'clears the current options populated in the study sites drop down', ->
-        $('#patient_management_study').val(studyUuid).change()
-        expect($('#patient_management_study_site option').length).toBe 1
+  describe 'more than one study', ->
+    beforeEach ->
+      loadFixtures 'patient_management/selectStudyAndSite.html'
+      jasmine.Ajax.install()
 
-      it 'populates the study sites drop down when study sites are returned', ->
-        $("#patient_management_study").val(studyUuid).change()
-        jasmine.Ajax.requests.mostRecent().response studySitesResponse
-        expect($("#patient_management_study_site option").length).toBe 3
+    afterEach ->
+      jasmine.Ajax.uninstall()
 
-    describe 'when a user deselects a study', ->
-      it 'clears the current options populated in the study sites drop down', ->
-        $('#patient_management_study').val('').change()
-        expect($('#patient_management_study_site option').length).toBe 1
+    describe 'study site drop down options', ->
+      describe 'when user selects a study', ->
+        it 'makes a request to sites', ->
+          $('#patient_management_study').val(studyUuid).change()
+          expect(jasmine.Ajax.requests.mostRecent().url).toBe sitesUrl
 
-  describe 'launch button', ->
-    describe 'default', ->
-      it 'is disabled', ->
-        expect($('input#launch-patient-management')).toHaveAttr('disabled', 'disabled')
-    
-      it 'does not have an href property', ->
-        expect($('a#launch-link')).not.toHaveAttr('href')
-    
-    describe 'when only study is selected', ->
-      beforeEach ->
-        $('#patient_management_study').val(studyUuid).change()
+        it 'clears the current options populated in the study sites drop down', ->
+          $('#patient_management_study').val(studyUuid).change()
+          expect($('#patient_management_study_site option').length).toBe 1
 
-      it 'is disabled', ->
-        expect($('input#launch-patient-management')).toHaveAttr('disabled', 'disabled')
+        it 'populates the study sites drop down when study sites are returned', ->
+          $("#patient_management_study").val(studyUuid).change()
+          jasmine.Ajax.requests.mostRecent().response studySitesResponse
+          expect($("#patient_management_study_site option").length).toBe 3
 
-      it 'does not have an href property', ->
-        expect($('a#launch-link')).not.toHaveAttr('href')
+      describe 'when a user deselects a study', ->
+        it 'clears the current options populated in the study sites drop down', ->
+          $('#patient_management_study').val('').change()
+          expect($('#patient_management_study_site option').length).toBe 1
 
-    describe 'when both study and site options are selected', ->
-      beforeEach ->
-        $("#patient_management_study").val(studyUuid).change()
-        jasmine.Ajax.requests.mostRecent().response studySitesResponse
-        $('#patient_management_study_site').val(1).change()
+    describe 'launch button', ->
+      describe 'default', ->
+        it 'is disabled', ->
+          expect($('input#launch-patient-management')).toHaveAttr('disabled', 'disabled')
+      
+        it 'does not have an href property', ->
+          expect($('a#launch-link')).not.toHaveAttr('href')
+      
+      describe 'when only study is selected', ->
+        beforeEach ->
+          $('#patient_management_study').val(studyUuid).change()
 
-      it 'is enabled', ->
-        expect($('input#launch-patient-management')).not.toHaveAttr('disabled')
+        it 'is disabled', ->
+          expect($('input#launch-patient-management')).toHaveAttr('disabled', 'disabled')
 
-      it 'has the right href', ->
-        expect($('a#launch-link')).toHaveAttr('href', '/patient_management?study_uuid=' + studyUuid + '&study_site_uuid=1')
+        it 'does not have an href property', ->
+          expect($('a#launch-link')).not.toHaveAttr('href')
 
-    describe 'when both study and site options are selected and then deselected', ->
-      beforeEach ->
-        $("#patient_management_study").val(studyUuid).change()
-        jasmine.Ajax.requests.mostRecent().response studySitesResponse
-        $('#patient_management_study_site').val(1).change()
-        $("#patient_management_study").val('').change()
+      describe 'when both study and site options are selected', ->
+        beforeEach ->
+          $("#patient_management_study").val(studyUuid).change()
+          jasmine.Ajax.requests.mostRecent().response studySitesResponse
+          $('#patient_management_study_site').val(1).change()
 
-      it 'is disabled', ->
-        expect($('input#launch-patient-management')).toHaveAttr('disabled', 'disabled')
+        it 'is enabled', ->
+          expect($('input#launch-patient-management')).not.toHaveAttr('disabled')
 
-      it 'does not have an href property', ->
-        expect($('a#launch-link')).not.toHaveAttr('href')
+        it 'has the right href', ->
+          expect($('a#launch-link')).toHaveAttr('href', '/patient_management?study_uuid=' + studyUuid + '&study_site_uuid=1')
+
+      describe 'when both study and site options are selected and then deselected', ->
+        beforeEach ->
+          $("#patient_management_study").val(studyUuid).change()
+          jasmine.Ajax.requests.mostRecent().response studySitesResponse
+          $('#patient_management_study_site').val(1).change()
+          $("#patient_management_study").val('').change()
+
+        it 'is disabled', ->
+          expect($('input#launch-patient-management')).toHaveAttr('disabled', 'disabled')
+
+        it 'does not have an href property', ->
+          expect($('a#launch-link')).not.toHaveAttr('href')
 
   return
