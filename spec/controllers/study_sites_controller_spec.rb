@@ -30,7 +30,6 @@ describe StudySitesController do
       end
 
       context 'with study uuid parameter' do
-        context 'when call is successful' do
         let(:study_uuid)           { SecureRandom.uuid }
         let(:params)               { default_params.merge(study_uuid: study_uuid) }
         let(:study)                { {study: {name: 'Mediflex', uuid: study_uuid}}.deep_stringify_keys }
@@ -40,13 +39,12 @@ describe StudySitesController do
         let(:expected_status_code) { 200 }
         let(:expected_body)        { [[study_site1[:name], study_site1[:uuid]], [study_site2[:name], study_site2[:uuid]]].to_json }
 
-          before do
-            allow(controller).to receive(:request_study_sites!).with(params.merge(user_uuid: user_uuid)).and_return(study_sites)
-          end
-
-          it_behaves_like 'returns expected status'
-          it_behaves_like 'returns expected body'
+        before do
+          allow(controller).to receive(:request_study_sites!).with(params.merge(user_uuid: user_uuid)).and_return(study_sites)
         end
+
+        it_behaves_like 'returns expected status'
+        it_behaves_like 'returns expected body'
       end
     end
   end
