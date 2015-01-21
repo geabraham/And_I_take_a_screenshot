@@ -14,6 +14,7 @@ describe ActivationCodesController do
 
   describe "GET activate" do
 
+
     context 'with a valid and active activation code' do
       before do
         Euresource::ActivationCodes.stub(:get).with(anything()) {
@@ -25,7 +26,7 @@ describe ActivationCodesController do
       let(:params)               { {id: 'WLCMHK'} }
       let(:verb)                 { :get }
       let(:action)               { :activate }
-      let(:expected_status_code) { 200 }
+      let(:expected_status_code) { 302 }
 
       it_behaves_like 'returns expected status'
 
@@ -33,6 +34,13 @@ describe ActivationCodesController do
         get(:activate, {id: 'WLCMHK'})
         expect(session['activation_code']).to eq('WLCMHK')
         expect(session['patient_enrollment_uuid']).to eq('xyz')
+      end
+
+      it "redirects to patient enrollment page" do
+        get(:activate, {id: 'WLCMHK'})
+        expect(subject).to redirect_to :action => :new,
+                                       :controller => :patient_enrollments
+
       end
 
       context 'with a valid but deactivated activation code' do
