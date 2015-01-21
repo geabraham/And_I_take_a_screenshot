@@ -28,4 +28,8 @@ class ApplicationController < ActionController::Base
       params.merge!(user_uuid: session[:cas_extra_attributes]['user_uuid'])
     end
   end
+
+  def uniq_name_and_uuids(collection)
+    collection.uniq.collect { |s| [s['name'], s['uuid']] }
+  end
 end

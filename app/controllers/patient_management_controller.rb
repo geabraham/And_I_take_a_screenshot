@@ -35,8 +35,4 @@ class PatientManagementController < ApplicationController
       []
     end
   end
-
-  def uniq_name_and_uuids(collection)
-    collection.uniq.collect { |s| [s['name'], s['uuid']] }
-  end
 end
