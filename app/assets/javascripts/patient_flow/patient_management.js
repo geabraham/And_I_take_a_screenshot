@@ -1,7 +1,7 @@
 // Add an on change handler to each dropdown item study and study site.
 //
 $(function() {
-  $("#patient_management_study").on('textchange', function() {
+  $("#patient_management_study").on('change', function() {
     var study_uuid = this.value;
     clearPopulatedStudySites();
 
@@ -15,7 +15,7 @@ $(function() {
     readyForLaunch()
   });
 
-  $('#patient_management_study_site').on('textchange', readyForLaunch)
+  $('#patient_management_study_site').on('change', readyForLaunch)
 });
 
 // Clear study sites populated in the study sites dropdown.
