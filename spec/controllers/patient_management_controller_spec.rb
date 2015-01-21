@@ -55,7 +55,7 @@ describe PatientManagementController do
           let(:study2)               { {name: 'TestStudy002', uuid: SecureRandom.uuid} }
           let(:studies)              { {studies: [{name: study1[:name], uuid: study1[:uuid]}, {name: study2[:name], uuid: study2[:uuid]}]}.deep_stringify_keys }
           let(:expected_status_code) { 200 }
-          let(:expected_ivar_name)   { 'study_or_studies' }
+          let(:expected_ivars)       { [{name: 'study_or_studies', value: expected_ivar_value}] }
           let(:expected_ivar_value)  { [[study1[:name], study1[:uuid]], [study2[:name], study2[:uuid]]] }
 
           before do
@@ -63,7 +63,7 @@ describe PatientManagementController do
           end
 
           it_behaves_like 'returns expected status'
-          it_behaves_like 'assigns the expected instance variable'
+          it_behaves_like 'assigns the expected instance variables'
         end
       end
     end

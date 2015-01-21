@@ -5,10 +5,12 @@ shared_examples_for 'returns expected status' do
   end
 end
 
-shared_examples_for 'assigns the expected instance variable' do
-  it 'assigns the expected instance variable' do
+shared_examples_for 'assigns the expected instance variables' do
+  it 'assigns the expected instance variables' do
     send(verb, action, params)
-    expect(assigns(expected_ivar_name)).to eq(expected_ivar_value)
+    expected_ivars.each do |eivar|
+      expect(assigns(eivar[:name])).to eq(eivar[:value])
+    end
   end
 end
 
