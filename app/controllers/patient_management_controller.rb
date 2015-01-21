@@ -11,7 +11,6 @@ class PatientManagementController < ApplicationController
     # TODO: If both study uuid and study site uuid are present,
     #  redirect to the patient management grid.
     @study_or_studies = studies_selection_list
-    @study_sites = study_sites_selection_list
   end
 
   private
@@ -23,15 +22,6 @@ class PatientManagementController < ApplicationController
     elsif
       studies = request_studies!(params)['studies']
       name_uuid_options_array(studies)
-    end
-  end
-
-  def study_sites_selection_list
-    if params[:study_uuid].present?
-      study_sites = request_study_sites!(params)['study_sites']
-      name_uuid_options_array(study_sites)
-    else
-      []
     end
   end
 end

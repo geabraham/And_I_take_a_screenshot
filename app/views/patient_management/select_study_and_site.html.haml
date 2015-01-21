@@ -6,7 +6,7 @@
       .form-group.col-sm-6.center-block.pull-none.margin-bottom-thirty
         = f.select :study, @study_or_studies, {include_blank: 'Study'}, {:class => 'form-control'}
       .form-group.col-sm-6.center-block.pull-none.margin-bottom-thirty
-        = f.select :study_site, @study_sites, {include_blank: 'Site'}, {:class => 'form-control'}
+        = f.select :study_site, [], {include_blank: 'Site'}, {:class => 'form-control'}
       %hr
       %a#launch-link.form-group.col-sm-6.center-block.pull-none.margin-bottom-thirty
         = f.submit 'Launch', class: 'btn btn-primary btn-block', disabled: true, id: 'launch-patient-management'

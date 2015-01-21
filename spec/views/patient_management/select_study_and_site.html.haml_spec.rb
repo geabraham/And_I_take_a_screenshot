@@ -37,20 +37,6 @@ describe 'patient_management/select_study_and_site.html.haml' do
     end
   end
 
-  context 'with study sites' do
-    let(:study_site1_title) { 'Incorporating Avocados in Meals' }
-    let(:study_site1_uuid)  { SecureRandom.uuid }
-    let(:study_site2_title) { 'Immune Benefits of Coffee' }
-    let(:study_site2_uuid)  { SecureRandom.uuid }
-    let(:study_sites)       { [[study_site1_title, study_site1_uuid], [study_site2_title, study_site2_uuid]] }
-
-    it 'has all the options with the expected text and values' do
-      expect(html).to have_selector("option[@value='']", text: 'Site')
-      expect(html).to have_selector("option[@value='#{study_site1_uuid}']", text: study_site1_title)
-      expect(html).to have_selector("option[@value='#{study_site2_uuid}']", text: study_site2_title)
-    end
-  end
-
   describe 'submit button' do
     it('exists') { expect(html).to have_selector('input[@type="submit"][@value="Launch"]')}
   end

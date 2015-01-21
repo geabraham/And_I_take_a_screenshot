@@ -66,26 +66,6 @@ describe PatientManagementController do
           it_behaves_like 'assigns the expected instance variable'
         end
       end
-
-      context 'with study parameter' do
-        let(:study_uuid)           { SecureRandom.uuid }
-        let(:params)               { default_params.merge(study_uuid: study_uuid) }
-        let(:study)                { {study: {name: 'Mediflex', uuid: study_uuid}}.deep_stringify_keys }
-        let(:study_site1)          { {name: 'TestStudySite001', uuid: SecureRandom.uuid} }
-        let(:study_site2)          { {name: 'TestStudySite002', uuid: SecureRandom.uuid} }
-        let(:study_sites)          { {study_sites: [{name: study_site1[:name], uuid: study_site1[:uuid]}, {name: study_site2[:name], uuid: study_site2[:uuid]}]}.deep_stringify_keys }
-        let(:expected_status_code) { 200 }
-        let(:expected_ivar_name)   { 'study_sites' }
-        let(:expected_ivar_value)  { [[study_site1[:name], study_site1[:uuid]], [study_site2[:name], study_site2[:uuid]]] }
-
-        before do
-          allow(controller).to receive(:request_study!).with(params.merge(user_uuid: user_uuid)).and_return(study)
-          allow(controller).to receive(:request_study_sites!).with(params.merge(user_uuid: user_uuid)).and_return(study_sites)
-        end
-
-        it_behaves_like 'returns expected status'
-        it_behaves_like 'assigns the expected instance variable'
-      end
     end
   end
 end

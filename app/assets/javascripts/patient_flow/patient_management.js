@@ -1,6 +1,8 @@
 // Add an on change handler to each dropdown item study and study site.
 //
 $(function() {
+  selectOnlyStudyOption();
+
   $("#patient_management_study").on('change', function() {
     var study_uuid = this.value;
     clearPopulatedStudySites();
@@ -17,6 +19,15 @@ $(function() {
 
   $('#patient_management_study_site').on('change', readyForLaunch)
 });
+
+// If there is only one study in the drop down, select it automatically.
+//
+var selectOnlyStudyOption = function() {
+  if ($("#patient_management_study option").length == 2) {
+    var firstAndOnlyStudyValue = $('#patient_management_study option')[1].value
+    $('#patient_management_study').val(firstAndOnlyStudyValue).change()
+  }
+}
 
 // Clear study sites populated in the study sites dropdown.
 // Called whenever the study dropdown changes.
@@ -40,7 +51,7 @@ var populateStudySitesDropdown = function(studySites) {
 // If either one is null, removes the href attribute and disables the launch button.
 //
 var readyForLaunch = function() {
-  study_uuid = $('#patient_management_study option:selected')[0].value
+  var study_uuid = $('#patient_management_study option:selected')[0].value
   if ($('#patient_management_study_site option:selected')[0]) {
     study_site_uuid = $('#patient_management_study_site option:selected')[0].value
   } else {
