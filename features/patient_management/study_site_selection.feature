@@ -1,4 +1,3 @@
-@Draft
 Feature: Patient Management Study Site Selection
   As a provider
   I want to select a study and a site
@@ -26,10 +25,7 @@ Feature: Patient Management Study Site Selection
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001, TestStudy002"
     When I navigate to patient management via the apps pane in iMedidata
-    Then I should see a list of studies:
-      | name         |
-      | TestStudy001 |
-      | TestStudy002 |
+    Then I should see a list of my studies
     When I select "TestStudy001" from the list of studies
     Then I should see a list of sites:
       | name                 |
@@ -38,7 +34,7 @@ Feature: Patient Management Study Site Selection
     When I select "DeepSpaceStation"
     Then I should be able to navigate to the patient management table
 
-  @Review[ENG]
+  @Draft
   @Release2015.1.0
   @PB130363-002
   @Headed
@@ -54,7 +50,7 @@ Feature: Patient Management Study Site Selection
     When I select "GalacticQuadrantBeta"
     Then I should be able to navigate to the patient management table
 
-  @Review[ENG]
+  @Draft
   @Release2015.1.0
   @PB130363-003
   @Headed
@@ -63,7 +59,7 @@ Feature: Patient Management Study Site Selection
     When I navigate to patient management via the apps pane in iMedidata
     Then I should see the message "You are not authorized for patient management."
 
-  @Review[ENG]
+  @Draft
   @Release2015.1.0
   @PB130363-004
   @Headed

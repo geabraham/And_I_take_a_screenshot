@@ -60,6 +60,7 @@ group :test do
   gem 'rspec-its', '~> 1.1'
   gem 'cucumber-rails', require: false
   gem 'simplecov'
+  gem 'rack_session_access'
 end
 
 group :test, :development do

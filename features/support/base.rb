@@ -1,5 +1,6 @@
 # # encoding: utf-8
 # # Base cucumber setup common to all profiles
+require 'rack_session_access/capybara'
 
 @browser = :firefox
 

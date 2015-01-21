@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
   def authorize_user
     # Redirects to login page if there is no active session
     #
+    # TODO: Add spec
     if CASClient::Frameworks::Rails::Filter.filter(self)
       @user_email = session[:cas_extra_attributes]['user_email']
       params.merge!(user_uuid: session[:cas_extra_attributes]['user_uuid'])
