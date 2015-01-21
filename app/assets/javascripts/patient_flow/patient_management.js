@@ -2,7 +2,7 @@
 //
 $(function() {
   $("#patient_management_study").on('textchange', function() {
-    study_uuid = this.value;
+    var study_uuid = this.value;
     clearPopulatedStudySites();
 
     if (!$.isEmptyObject(study_uuid)) {
