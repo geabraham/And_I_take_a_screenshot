@@ -8,6 +8,8 @@ class PatientManagementController < ApplicationController
   before_filter :authorize_user
 
   def select_study_and_site
+    # TODO: If both study uuid and study site uuid are present,
+    #  redirect to the grid.
     @study_or_studies = studies_selection_list
     @study_sites = study_sites_selection_list
     render 'select_study_and_site'
