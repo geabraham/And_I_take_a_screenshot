@@ -8,6 +8,6 @@ class StudySitesController < ApplicationController
 
   def index
     params.require(:study_uuid)
-    render json: uniq_name_and_uuids(request_study_sites!(params)['study_sites'])
+    render json: name_uuid_options_array(request_study_sites!(params)['study_sites'])
   end
 end

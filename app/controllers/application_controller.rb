@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def uniq_name_and_uuids(collection)
+  def name_uuid_options_array(collection)
     collection.uniq.collect { |s| [s['name'], s['uuid']] }
   end
 end

@@ -23,14 +23,14 @@ class PatientManagementController < ApplicationController
       [[study['name'], study['uuid']]]
     elsif
       studies = request_studies!(params)['studies']
-      uniq_name_and_uuids(studies)
+      name_uuid_options_array(studies)
     end
   end
 
   def study_sites_selection_list
     if params[:study_uuid].present?
       study_sites = request_study_sites!(params)['study_sites']
-      uniq_name_and_uuids(study_sites)
+      name_uuid_options_array(study_sites)
     else
       []
     end
