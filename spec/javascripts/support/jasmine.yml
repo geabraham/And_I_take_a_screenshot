@@ -15,7 +15,7 @@ src_files:
   - assets/platform.js
   - assets/application.js
   - assets/patient_flow/activation_code.js
-  - assets/patient_flow/patient_management.js
+  - assets/patient_management/patient_management.js
 
 # stylesheets
 #
