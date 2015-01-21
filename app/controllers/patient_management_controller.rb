@@ -9,7 +9,7 @@ class PatientManagementController < ApplicationController
 
   def select_study_and_site
     # TODO: If both study uuid and study site uuid are present,
-    #  redirect to the grid.
+    #  redirect to the patient management grid.
     @study_or_studies = studies_selection_list
     @study_sites = study_sites_selection_list
     render 'select_study_and_site'
@@ -37,6 +37,6 @@ class PatientManagementController < ApplicationController
   end
 
   def uniq_name_and_uuids(collection)
-    collection.uniq.collect {|s| [s['name'], s['uuid']] }
+    collection.uniq.collect { |s| [s['name'], s['uuid']] }
   end
 end
