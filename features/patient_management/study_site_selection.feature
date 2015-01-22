@@ -31,7 +31,7 @@ Feature: Patient Management Study Site Selection
       | name                 |
       | DeepSpaceStation     |
       | GalacticQuadrantBeta |
-    When I select "DeepSpaceStation"
+    When I select "DeepSpaceStation" from the list of sites
     Then I should be able to navigate to the patient management table
 
   @Draft

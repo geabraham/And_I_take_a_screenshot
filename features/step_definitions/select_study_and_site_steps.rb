@@ -29,7 +29,7 @@ Given(/^I am authorized to manage patients for studies "(.*?)"$/) do |studies|
   @my_studies.each do |study|
     mock_study_sites_request = IMedidataClient::StudySitesRequest.new(user_uuid: @user_uuid, study_uuid: study['uuid'])
     study_sites = @study_sites.select {|ss| ss['study_uuid'] == study['uuid']}
-    stub_request(:get, IMED_BASE_URL + mock_study_sites_request.path).to_return(status: 200, body: {'study_sites' => study_sites})
+    stub_request(:get, IMED_BASE_URL + mock_study_sites_request.path).to_return(status: 200, body: {'study_sites' => study_sites}.to_json)
   end
 end
 
@@ -43,22 +43,24 @@ Then(/^I should see a list of my studies$/) do
   end
 end
 
-When(/^I select "(.*?)" from the list of studies$/) do |study_name|
-  select study_name, from: 'patient_management_study'
+When(/^I select "(.*?)" from the list of (studies|sites)$/) do |object_name, object_type|
+  if object_type == 'studies'
+    @selected_study_uuid = @studies.find {|s| s['name'] == object_name}['uuid']
+    select object_name, from: 'patient_management_study'
+  elsif object_type == 'sites'
+    @selected_site_uuid = @study_sites.find {|s| s['name'] == object_name}['uuid']
+    select object_name, from: 'patient_management_study_site'
+  end
 end
 
 Then(/^I should see a list of sites:$/) do |table|
   study_sites = table.rows.flatten
   study_sites.each do |study_site|
-    study_site_uuid = @study_sites.find { |ss| ss['name'] == study_site }
+    study_site_uuid = @study_sites.find { |ss| ss['name'] == study_site }['uuid']
     expect(html).to have_selector("option[@value='#{study_site_uuid}']", text: study_site)
   end
 end
 
-When(/^I select "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
-end
-
 Then(/^I should be able to navigate to the patient management table$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(html).to have_xpath("//a[@href='/patient_management?study_uuid=#{@selected_study_uuid}&study_site_uuid=#{@selected_site_uuid}']")
 end
