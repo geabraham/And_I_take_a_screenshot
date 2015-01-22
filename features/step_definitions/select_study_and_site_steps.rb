@@ -6,17 +6,16 @@ end
 Given(/^the following sites exist:$/) do |table|
   table.hashes.map do |study_site|
     study_site['uuid'] = SecureRandom.uuid
-    study_site['study_uuid'] = @studies.find{|study| study['name'] == study_site['study_name']}['uuid']
+    study_site['study_uuid'] = find_object_by_name(@studies, study_site['study_name'])['uuid']
   end
   @study_sites = table.hashes
 end
 
 Given(/^I am logged in$/) do
-  @user_uuid = SecureRandom.uuid
-  @user_email = 'lt-commander-data@gmail.com'
-  @cas_extra_attributes = {user_uuid: @user_uuid, user_email: @user_email}.stringify_keys
+  @user_uuid, user_email = SecureRandom.uuid, 'lt-commander-data@gmail.com'
+  cas_extra_attributes = {user_uuid: @user_uuid, user_email: user_email}.stringify_keys
   session = Capybara::Session.new(:culerity)
-  page.set_rack_session(cas_extra_attributes: @cas_extra_attributes)
+  page.set_rack_session(cas_extra_attributes: cas_extra_attributes)
   CASClient::Frameworks::Rails::Filter.stub(:filter).and_return(true)
 end
 
@@ -45,12 +44,18 @@ When(/^I navigate to patient management via the apps pane in iMedidata$/) do
   visit @current_path
 end
 
+When(/^I navigate to patient management via study "(.*?)" in iMedidata$/) do |study_name|
+  study_uuid = find_object_by_name(@studies, study_name)['uuid']
+  @current_path = "/patient_management?study_uuid=#{study_uuid}"
+  visit @current_path
+end
+
 Then(/^I should see a list of (studies|sites):$/) do |object_type, table|
   table.rows.flatten.each do |object_name|
     object = if object_type == 'studies'
-      @studies.find {|s| s['name'] == object_name}
+      find_object_by_name(@studies, object_name)
     elsif object_type == 'sites'
-      @study_sites.find {|s| s['name'] == object_name}
+      find_object_by_name(@study_sites, object_name)
     end
     expect(html).to have_selector("option[@value='#{object['uuid']}']", text: object['name'])
   end
@@ -58,10 +63,10 @@ end
 
 When(/^I select "(.*?)" from the list of (studies|sites)$/) do |object_name, object_type|
   if object_type == 'studies'
-    @selected_study_uuid = @studies.find {|s| s['name'] == object_name}['uuid']
+    @selected_study_uuid = find_object_by_name(@studies, object_name)['uuid']
     select object_name, from: 'patient_management_study'
   elsif object_type == 'sites'
-    @selected_site_uuid = @study_sites.find {|s| s['name'] == object_name}['uuid']
+    @selected_site_uuid = find_object_by_name(@study_sites, object_name)['uuid']
     select object_name, from: 'patient_management_study_site'
   end
 end
@@ -70,14 +75,8 @@ Then(/^I should be able to navigate to the patient management table$/) do
   expect(html).to have_xpath("//a[@href='/patient_management?study_uuid=#{@selected_study_uuid}&study_site_uuid=#{@selected_site_uuid}']")
 end
 
-When(/^I navigate to patient management via study "(.*?)" in iMedidata$/) do |study_name|
-  study_uuid = @studies.find {|s| s['name'] == study_name}['uuid']
-  @current_path = "/patient_management?study_uuid=#{study_uuid}"
-  visit @current_path
-end
-
 Then(/^I should see "(.*?)" pre\-selected in the list of studies$/) do |study_name|
-  @selected_study_uuid = @studies.find {|s| s['name'] == study_name}['uuid']
+  @selected_study_uuid = find_object_by_name(@studies, study_name)['uuid']
   expect(page).to have_select('patient_management_study', selected: study_name)
 end
 
