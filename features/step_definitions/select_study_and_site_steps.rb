@@ -64,3 +64,7 @@ end
 Then(/^I should be able to navigate to the patient management table$/) do
   expect(html).to have_xpath("//a[@href='/patient_management?study_uuid=#{@selected_study_uuid}&study_site_uuid=#{@selected_site_uuid}']")
 end
+
+Then(/^I should see the message "(.*?)"$/) do |message|
+  expect(page).to have_content(message)
+end

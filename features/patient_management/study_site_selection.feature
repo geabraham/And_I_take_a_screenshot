@@ -34,7 +34,7 @@ Feature: Patient Management Study Site Selection
     When I select "DeepSpaceStation" from the list of sites
     Then I should be able to navigate to the patient management table
 
-  @Draft
+  @Review[ENG]
   @Release2015.1.0
   @PB130363-002
   @Headed
@@ -50,14 +50,14 @@ Feature: Patient Management Study Site Selection
     When I select "GalacticQuadrantBeta"
     Then I should be able to navigate to the patient management table
 
-  @Draft
+  @Review[ENG]
   @Release2015.1.0
   @PB130363-003
   @Headed
   Scenario: An unauthorized patient management user who is logged in tries to navigate to the study site selection page is shown a helpful error message.
     Given I am logged in
     When I navigate to patient management via the apps pane in iMedidata
-    Then I should see the message "You are not authorized for patient management."
+    Then I should see the message "Studies request failed"
 
   @Draft
   @Release2015.1.0
