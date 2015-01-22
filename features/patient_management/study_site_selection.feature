@@ -25,7 +25,10 @@ Feature: Patient Management Study Site Selection
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001, TestStudy002"
     When I navigate to patient management via the apps pane in iMedidata
-    Then I should see a list of my studies
+    Then I should see a list of studies:
+      | name         |
+      | TestStudy001 |
+      | TestStudy002 |
     When I select "TestStudy001" from the list of studies
     Then I should see a list of sites:
       | name                 |

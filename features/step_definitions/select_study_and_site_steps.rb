@@ -26,11 +26,11 @@ end
 
 Given(/^I am authorized to manage patients for studies "(.*?)"$/) do |studies|
   my_studies = studies.split(', ')
-  @my_studies = @studies.select {|s| my_studies.include?(s['name'])}
+  my_studies = @studies.select {|s| my_studies.include?(s['name'])}
   mock_studies_request = IMedidataClient::StudiesRequest.new(user_uuid: @user_uuid)
-  stub_request(:get, IMED_BASE_URL + mock_studies_request.path).to_return(status: 200, body: {'studies' => @my_studies}.to_json)
+  stub_request(:get, IMED_BASE_URL + mock_studies_request.path).to_return(status: 200, body: {'studies' => my_studies}.to_json)
 
-  @my_studies.each do |study|
+  my_studies.each do |study|
     mock_study_request = IMedidataClient::StudyRequest.new(user_uuid: @user_uuid, study_uuid: study['uuid'])
     stub_request(:get, IMED_BASE_URL + mock_study_request.path).to_return(status: 200, body: {'study' => study}.to_json)
 
@@ -45,8 +45,9 @@ When(/^I navigate to patient management via the apps pane in iMedidata$/) do
   visit @current_path
 end
 
-Then(/^I should see a list of my studies$/) do
-  @my_studies.each do |study|
+Then(/^I should see a list of studies:$/) do |table|
+  table.rows.flatten.each do |study_name|
+    study = @studies.find {|s| s['name'] == study_name}
     expect(html).to have_selector("option[@value='#{study['uuid']}']", text: study['name'])
   end
 end
