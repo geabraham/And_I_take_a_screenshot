@@ -518,7 +518,7 @@ DEPENDENCIES
   pry-nav (~> 0.2)
   rack-cache!
   rack-status (~> 1.0.0)
-  rack_session_access
+  rack_session_access (~> 0.1.1)
   rails (~> 4.1.7)
   rspec (~> 3.1)
   rspec-its (~> 1.1)
