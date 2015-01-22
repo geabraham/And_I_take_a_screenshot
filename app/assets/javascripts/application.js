@@ -13,3 +13,4 @@
 //= require jquery.validate
 //= require jquery_ujs
 //= require_tree ./patient_flow
+//= require_tree ./patient_management

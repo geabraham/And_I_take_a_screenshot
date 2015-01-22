@@ -23,5 +23,11 @@ describe 'Minotaur routes', type: :routing do
         controller: 'patient_management',
         action: 'select_study_and_site')
     end
+
+    it 'has a study sites route' do
+      expect(get('/study_sites')).to route_to(
+        controller: 'study_sites',
+        action: 'index')
+    end
   end
 end

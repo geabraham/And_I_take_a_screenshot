@@ -1,5 +1,5 @@
 #main, body {  
-  background-color: #fff;
+  background-color: #fff !important;
 }
 
 .header {
@@ -153,3 +153,16 @@ input.invalid {
   }
 }
 
+// TODO: Refactor away these presentational classes
+//
+.pull-none {
+  float: none
+}
+
+.margin-bottom-thirty {
+  margin-bottom: 30px;
+}
+
+.light-grey-border {
+  border: 1px solid #ccc;
+}
