@@ -52,23 +52,15 @@ end
 
 Then(/^I should see a list of (studies|sites):$/) do |object_type, table|
   table.rows.flatten.each do |object_name|
-    object = if object_type == 'studies'
-      find_object_by_name(@studies, object_name)
-    elsif object_type == 'sites'
-      find_object_by_name(@study_sites, object_name)
-    end
+    object = study_or_site_object(object_name, object_type)
     expect(html).to have_selector("option[@value='#{object['uuid']}']", text: object['name'])
   end
 end
 
 When(/^I select "(.*?)" from the list of (studies|sites)$/) do |object_name, object_type|
-  if object_type == 'studies'
-    @selected_study_uuid = find_object_by_name(@studies, object_name)['uuid']
-    select object_name, from: 'patient_management_study'
-  elsif object_type == 'sites'
-    @selected_site_uuid = find_object_by_name(@study_sites, object_name)['uuid']
-    select object_name, from: 'patient_management_study_site'
-  end
+  object = study_or_site_object(object_name, object_type)
+  instance_variable_set("@selected_#{object_type.singularize}_uuid", object['uuid'])
+  select object['name'], from: "patient_management_#{object_type == 'studies' ? 'study' : 'study_site'}"
 end
 
 Then(/^I should be able to navigate to the patient management table$/) do
@@ -80,8 +72,8 @@ Then(/^I should see "(.*?)" pre\-selected in the list of studies$/) do |study_na
   expect(page).to have_select('patient_management_study', selected: study_name)
 end
 
-Then(/^I should see the message "(.*?)"$/) do |arg1|
-  expect(page).to have_content('Studies request failed')
+Then(/^I should see the message "(.*?)"$/) do |message|
+  expect(page).to have_content(message)
 end
 
 Then(/^I should be redirected to the login page$/) do
