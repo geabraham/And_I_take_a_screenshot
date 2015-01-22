@@ -45,10 +45,14 @@ When(/^I navigate to patient management via the apps pane in iMedidata$/) do
   visit @current_path
 end
 
-Then(/^I should see a list of studies:$/) do |table|
-  table.rows.flatten.each do |study_name|
-    study = @studies.find {|s| s['name'] == study_name}
-    expect(html).to have_selector("option[@value='#{study['uuid']}']", text: study['name'])
+Then(/^I should see a list of (studies|sites):$/) do |object_type, table|
+  table.rows.flatten.each do |object_name|
+    object = if object_type == 'studies'
+      @studies.find {|s| s['name'] == object_name}
+    elsif object_type == 'sites'
+      @study_sites.find {|s| s['name'] == object_name}
+    end
+    expect(html).to have_selector("option[@value='#{object['uuid']}']", text: object['name'])
   end
 end
 
@@ -59,14 +63,6 @@ When(/^I select "(.*?)" from the list of (studies|sites)$/) do |object_name, obj
   elsif object_type == 'sites'
     @selected_site_uuid = @study_sites.find {|s| s['name'] == object_name}['uuid']
     select object_name, from: 'patient_management_study_site'
-  end
-end
-
-Then(/^I should see a list of sites:$/) do |table|
-  study_sites = table.rows.flatten
-  study_sites.each do |study_site|
-    study_site_uuid = @study_sites.find { |ss| ss['name'] == study_site }['uuid']
-    expect(html).to have_selector("option[@value='#{study_site_uuid}']", text: study_site)
   end
 end
 
