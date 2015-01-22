@@ -41,7 +41,8 @@ Given(/^I am authorized to manage patients for studies "(.*?)"$/) do |studies|
 end
 
 When(/^I navigate to patient management via the apps pane in iMedidata$/) do
-  visit '/patient_management'
+  @current_path = '/patient_management'
+  visit @current_path
 end
 
 Then(/^I should see a list of my studies$/) do
@@ -74,7 +75,8 @@ end
 
 When(/^I navigate to patient management via study "(.*?)" in iMedidata$/) do |study_name|
   study_uuid = @studies.find {|s| s['name'] == study_name}['uuid']
-  visit "/patient_management?study_uuid=#{study_uuid}"
+  @current_path = "/patient_management?study_uuid=#{study_uuid}"
+  visit @current_path
 end
 
 Then(/^I should see "(.*?)" pre\-selected in the list of studies$/) do |study_name|
@@ -87,6 +89,6 @@ Then(/^I should see the message "(.*?)"$/) do |arg1|
 end
 
 Then(/^I should be redirected to the login page$/) do
-  url = "#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}/patient_management"
+  url = "#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{@current_path}"
   "#{CAS_BASE_URL}/login?service=#{CGI.escape(url)}"
 end
