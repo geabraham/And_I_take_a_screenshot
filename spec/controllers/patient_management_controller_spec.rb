@@ -4,7 +4,7 @@ describe PatientManagementController do
   describe "GET 'select_study_and_site'" do
     context 'when user is not logged in' do
       it 'redirects to iMedidata' do
-        get 'select_study_and_site'
+        get :select_study_and_site
         expect(response).to redirect_to("#{CAS_BASE_URL}/login?service=#{CGI.escape(request.original_url)}")
       end
     end
@@ -35,7 +35,6 @@ describe PatientManagementController do
           let(:expected_status_code) { 401 }
           let(:error_response_body) do
             {errors: 
-              "You are not authorized for patient management. " <<
               "Studies request failed for #{default_params}. Response: #{error_status} #{error_body}"
             }.to_json
           end
@@ -52,34 +51,37 @@ describe PatientManagementController do
         context 'when user has studies for patient management' do
           let(:study_group_uuid)     { SecureRandom.uuid }
           let(:params)               { default_params.merge(study_group_uuid: study_group_uuid) }
+          let(:study1)               { {name: 'TestStudy001', uuid: SecureRandom.uuid} }
+          let(:study2)               { {name: 'TestStudy002', uuid: SecureRandom.uuid} }
+          let(:studies)              { {studies: [{name: study1[:name], uuid: study1[:uuid]}, {name: study2[:name], uuid: study2[:uuid]}]}.deep_stringify_keys }
           let(:expected_status_code) { 200 }
-          let(:expected_body)        { studies.to_json }
-          let(:studies) do
-            {studies: [{name: 'TesStudy001', uuid: SecureRandom.uuid}, {name: 'TestStudy002', uuid: SecureRandom.uuid}]}
-          end
+          let(:expected_ivars)       { [{name: 'study_or_studies', value: expected_ivar_value}] }
+          let(:expected_ivar_value)  { [[study1[:name], study1[:uuid]], [study2[:name], study2[:uuid]]] }
 
           before do
             allow(controller).to receive(:request_studies!).with(params.merge(user_uuid: user_uuid)).and_return(studies)
           end
 
           it_behaves_like 'returns expected status'
-          it_behaves_like 'returns expected body'
+          it_behaves_like 'assigns the expected instance variables'
         end
       end
 
       context 'with study parameter' do
         let(:study_uuid)           { SecureRandom.uuid }
         let(:params)               { default_params.merge(study_uuid: study_uuid) }
+        let(:study_attributes)     { {name: 'Mediflex', uuid: study_uuid} }
+        let(:study_response)       { {study: study_attributes}.deep_stringify_keys }
         let(:expected_status_code) { 200 }
-        let(:expected_body)        { study_sites.to_json }
-        let(:study_sites)          { {study_sites: []} }
+        let(:expected_ivars)       { [{name: 'study_or_studies', value: expected_ivar_value}] }
+        let(:expected_ivar_value)  { [[study_attributes[:name], study_attributes[:uuid]]] }
 
         before do
-          allow(controller).to receive(:request_study_sites!).with(params.merge(user_uuid: user_uuid)).and_return(study_sites)
+          allow(controller).to receive(:request_study!).with(params.merge(user_uuid: user_uuid)).and_return(study_response)
         end
 
         it_behaves_like 'returns expected status'
-        it_behaves_like 'returns expected body'
+        it_behaves_like 'assigns the expected instance variables'
       end
     end
   end

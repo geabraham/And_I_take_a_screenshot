@@ -15,6 +15,7 @@ src_files:
   - assets/platform.js
   - assets/application.js
   - assets/patient_flow/activation_code.js
+  - assets/patient_management/select_study_and_site.js
 
 # stylesheets
 #
@@ -44,6 +45,7 @@ stylesheets:
 helpers:
  # - 'helpers/jquery-2.1.1.js' #jquery must be loaded before jasmine-jquery
   - 'helpers/jasmine-jquery.js'
+  - 'helpers/mock-ajax.js'
 
 # spec_files
 #

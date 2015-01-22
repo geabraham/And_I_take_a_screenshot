@@ -1,5 +1,5 @@
 #main, body, html {  
-  background-color: #fff;
+  background-color: #fff !important;
   min-height: 500px;
   height: 100%;
   position: relative;
@@ -160,3 +160,16 @@ input.invalid {
   }
 }
 
+// TODO: Refactor away these presentational classes
+//
+.pull-none {
+  float: none
+}
+
+.margin-bottom-thirty {
+  margin-bottom: 30px;
+}
+
+.light-grey-border {
+  border: 1px solid #ccc;
+}

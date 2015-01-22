@@ -3,23 +3,25 @@ require 'casclient/frameworks/rails/filter'
 require 'imedidata/client'
 
 class PatientManagementController < ApplicationController
+  layout 'patient_management'
   include IMedidataClient
   before_filter :authorize_user
 
   def select_study_and_site
-    @studies_or_sites = params[:study_uuid].present? ? request_study_sites!(params) : request_studies!(params)
-    render json: @studies_or_sites, status: :ok
-  rescue IMedidataClient::IMedidataClientError => e
-    render json: {errors: "You are not authorized for patient management. #{e.message}"}, status: :unauthorized
+    # TODO: If both study uuid and study site uuid are present,
+    #  redirect to the patient management grid.
+    @study_or_studies = studies_selection_list
   end
 
   private
 
-  def authorize_user
-    # Redirects to login page if there is no active session
-    #
-    if CASClient::Frameworks::Rails::Filter.filter(self)
-      params.merge!(user_uuid: session[:cas_extra_attributes]['user_uuid'])
+  def studies_selection_list
+    if params[:study_uuid].present?
+      study = request_study!(params)['study']
+      [[study['name'], study['uuid']]]
+    elsif
+      studies = request_studies!(params)['studies']
+      name_uuid_options_array(studies)
     end
   end
 end
