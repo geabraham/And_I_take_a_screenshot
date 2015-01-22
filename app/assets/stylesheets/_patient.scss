@@ -1,5 +1,8 @@
-#main, body {  
+#main, body, html {  
   background-color: #fff !important;
+  min-height: 500px;
+  height: 100%;
+  position: relative;
 }
 
 .header {
@@ -65,11 +68,15 @@
   }
 }
 
-.navbar-fixed-bottom {
+.bottom-bar {
   background-color: #fff;
   padding: 10px;
+  margin: 0 -10px;
   border-top: 1px solid #ccc;
-  border-radius: 0;
+  // border-radius: 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   .btn-block {
     font-size: 18px;
     // Bootstrap override for button margins
