@@ -47,7 +47,7 @@ Feature: Patient Management Study Site Selection
       | name                 |
       | DeepSpaceStation     |
       | GalacticQuadrantBeta |
-    When I select "GalacticQuadrantBeta"
+    When I select "GalacticQuadrantBeta" from the list of sites
     Then I should be able to navigate to the patient management table
 
   @Review[ENG]
@@ -59,7 +59,7 @@ Feature: Patient Management Study Site Selection
     When I navigate to patient management via the apps pane in iMedidata
     Then I should see the message "Studies request failed"
 
-  @Draft
+  @Review[SQA]
   @Release2015.1.0
   @PB130363-004
   @Headed

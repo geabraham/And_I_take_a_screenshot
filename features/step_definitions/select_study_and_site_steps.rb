@@ -20,6 +20,10 @@ Given(/^I am logged in$/) do
   CASClient::Frameworks::Rails::Filter.stub(:filter).and_return(true)
 end
 
+Given(/^I am not logged in$/) do
+  # Don't need to do anything!
+end
+
 Given(/^I am authorized to manage patients for studies "(.*?)"$/) do |studies|
   my_studies = studies.split(', ')
   @my_studies = @studies.select {|s| my_studies.include?(s['name'])}
@@ -27,6 +31,9 @@ Given(/^I am authorized to manage patients for studies "(.*?)"$/) do |studies|
   stub_request(:get, IMED_BASE_URL + mock_studies_request.path).to_return(status: 200, body: {'studies' => @my_studies}.to_json)
 
   @my_studies.each do |study|
+    mock_study_request = IMedidataClient::StudyRequest.new(user_uuid: @user_uuid, study_uuid: study['uuid'])
+    stub_request(:get, IMED_BASE_URL + mock_study_request.path).to_return(status: 200, body: {'study' => study}.to_json)
+
     mock_study_sites_request = IMedidataClient::StudySitesRequest.new(user_uuid: @user_uuid, study_uuid: study['uuid'])
     study_sites = @study_sites.select {|ss| ss['study_uuid'] == study['uuid']}
     stub_request(:get, IMED_BASE_URL + mock_study_sites_request.path).to_return(status: 200, body: {'study_sites' => study_sites}.to_json)
@@ -65,6 +72,21 @@ Then(/^I should be able to navigate to the patient management table$/) do
   expect(html).to have_xpath("//a[@href='/patient_management?study_uuid=#{@selected_study_uuid}&study_site_uuid=#{@selected_site_uuid}']")
 end
 
-Then(/^I should see the message "(.*?)"$/) do |message|
-  expect(page).to have_content(message)
+When(/^I navigate to patient management via study "(.*?)" in iMedidata$/) do |study_name|
+  study_uuid = @studies.find {|s| s['name'] == study_name}['uuid']
+  visit "/patient_management?study_uuid=#{study_uuid}"
+end
+
+Then(/^I should see "(.*?)" pre\-selected in the list of studies$/) do |study_name|
+  @selected_study_uuid = @studies.find {|s| s['name'] == study_name}['uuid']
+  expect(page).to have_select('patient_management_study', selected: study_name)
+end
+
+Then(/^I should see the message "(.*?)"$/) do |arg1|
+  expect(page).to have_content('Studies request failed')
+end
+
+Then(/^I should be redirected to the login page$/) do
+  url = "#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}/patient_management"
+  "#{CAS_BASE_URL}/login?service=#{CGI.escape(url)}"
 end
