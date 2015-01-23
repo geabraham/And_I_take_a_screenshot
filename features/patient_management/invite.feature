@@ -32,13 +32,13 @@ Feature: A provider can invite a user to particpate in a study
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
-    Then I should be able to select from supported country / language pairs:
-      | country | language |
-      | USA     | English  |
-      | USA     | Spanish  |
-      | Canada  | English  |
-      | Canada  | French   |
-      | Israel  | Arabic   |
+    Then I should be able to select from the following country / language pairs:
+      | pair              |
+      | USA / English     |
+      | USA / Spanish     |
+      | Canada / English  |
+      | Canada / French   |
+      | Israel / Arabic   |
     And I should be able to select from the following subject names:
       | subject_name |
       | Subject001   |
@@ -62,29 +62,29 @@ Feature: A provider can invite a user to particpate in a study
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
-    Then I should be able to select from supported country / language pairs:
-      | country | language |
-      | USA     | English |
-      | USA     | Spanish |
-      | Canada  | English |
-      | Canada  | French  |
-      | Israel  | Arabic  |
+    Then I should be able to select from the following country / language pairs:
+      | pair              |
+      | USA / English     |
+      | USA / Spanish     |
+      | Canada / English  |
+      | Canada / French   |
+      | Israel / Arabic   |
     And I should be able to select from the following subject names:
       | subject_name |
       | Subject001   |
       | Subject002   |
       | Subject003   |
     When I invite a user with the following attributes:
-      | attribute_name   | attribute_value |
-      | initials         | LCD |
+      | attribute_name   | attribute_value             |
+      | initials         | LCD                         |
       | email            | lt-commander-data@mdsol.com |
-      | subject_name     | Subject001 |
+      | subject_name     | Subject001                  |
     Then I should see an error message "Please select a Country/Language pair."
 
   @Release2015.1.0
   @PB130799-003
   @Headed
-  Scenario: As a logged user with no patient management permissions, an attempt access patient management fails.
+  Scenario: As a logged user with no patient management permissions, an attempt to access patient management fails.
     Given I am logged in
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then I should see an error message "There doesn't seem to be anything here."
