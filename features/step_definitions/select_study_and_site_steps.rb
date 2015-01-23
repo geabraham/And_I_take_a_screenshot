@@ -55,17 +55,17 @@ When(/^I navigate to patient management via study "(.*?)" in iMedidata$/) do |st
   visit @current_path
 end
 
+When(/^I select "(.*?)" from the list of (studies|sites)$/) do |object_name, object_type|
+  object = study_or_site_object(object_name, object_type)
+  instance_variable_set("@selected_#{object_type.singularize}_uuid", object['uuid'])
+  select object['name'], from: "patient_management_#{object_type == 'studies' ? 'study' : 'study_site'}"
+end
+
 Then(/^I should see a list of (studies|sites):$/) do |object_type, table|
   table.rows.flatten.each do |object_name|
     object = study_or_site_object(object_name, object_type)
     expect(html).to have_selector("option[@value='#{object['uuid']}']", text: object['name'])
   end
-end
-
-When(/^I select "(.*?)" from the list of (studies|sites)$/) do |object_name, object_type|
-  object = study_or_site_object(object_name, object_type)
-  instance_variable_set("@selected_#{object_type.singularize}_uuid", object['uuid'])
-  select object['name'], from: "patient_management_#{object_type == 'studies' ? 'study' : 'study_site'}"
 end
 
 Then(/^I should be able to navigate to the patient management table$/) do
