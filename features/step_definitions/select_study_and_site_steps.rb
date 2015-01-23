@@ -17,6 +17,11 @@ Given(/^I am logged in$/) do
   session = Capybara::Session.new(:culerity)
   page.set_rack_session(cas_extra_attributes: cas_extra_attributes)
   CASClient::Frameworks::Rails::Filter.stub(:filter).and_return(true)
+
+  # Start under the assumption the user has no studies for patient management.
+  #
+  mock_studies_request = IMedidataClient::StudiesRequest.new(user_uuid: @user_uuid)
+  stub_request(:get, IMED_BASE_URL + mock_studies_request.path).to_return(status: 404, body: 'None found')
 end
 
 Given(/^I am not logged in$/) do
