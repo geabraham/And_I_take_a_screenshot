@@ -18,4 +18,4 @@ Before '@Headed' do
   Capybara.current_driver = :selenium
 end
 
-Capybara.default_wait_time = 5
+Capybara.default_wait_time = 10
