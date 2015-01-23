@@ -1,0 +1,38 @@
+{
+  "id": "minotaur-<STAGE>-app-web",
+  "deploy_env": {
+    "deploy_id": "",
+    "deploy_to": "/mnt/minotaur",
+    "user": "minotaur",
+    "source_type": "git",
+    "source_gitpath": "git@github.com:mdsol/minotaur.git",
+    "source_gitref": "<GIT_BRANCH_OR_TAG>",
+    "os_packages": [
+      "nodejs"
+    ],
+    "cmd_build": [
+      "gem install bundler",
+      "bundle install",
+      "bundle exec rake config"
+    ],
+    "cmd_release": [
+      "bundle exec rake release"
+    ],
+    "processes": {
+      "web": "bundle exec rails s -p $HTTP_PORT"
+    },
+    "ssl_cert": "/etc/secrets/ssl/private/crt.crt",
+    "ssl_cert_key": "/etc/secrets/ssl/private/key.key"
+  },
+  "application_env": {
+    "DOMAIN": "minotaur-<STAGE>.imedidata.net",
+    "EUREKA_DEPLOYMENT_BASEURI": "https://minotaur-<STAGE>.imedidata.net",
+    "EUREKA_STAGE": "<STAGE>",
+    "EUREKA_URL": "https://eureka-<STAGE>.imedidata.net",
+    "IMEDIDATA_BASE_URL": "https://<STAGE>.imedidata.net",
+    "HTTP_PORT": "3000",
+    "MAUTH_APP_UUID": "<MAUTH_PRIVATE_KEY>",
+    "MAUTH_URL": "https://mauth-<STAGE>.imedidata.net",
+    "PRIVATE_KEY": "<MAUTH_PRIVATE_KEY>"
+  }
+}
