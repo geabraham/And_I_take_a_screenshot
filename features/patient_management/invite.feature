@@ -87,6 +87,8 @@ Feature: A provider can invite a user to particpate in a study
   Scenario: As a logged user with no patient management permissions, an attempt to access patient management fails.
     Given I am logged in
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    # TODO: Standardize this language and revise in `select_styd_and_site` feature
+    #
     Then I should see an error message "There doesn't seem to be anything here."
 
   @Release2015.1.0
