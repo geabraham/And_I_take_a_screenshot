@@ -31,7 +31,7 @@
     "EUREKA_URL": "https://eureka-<STAGE>.imedidata.net",
     "IMEDIDATA_BASE_URL": "https://<STAGE>.imedidata.net",
     "HTTP_PORT": "3000",
-    "MAUTH_APP_UUID": "<MAUTH_PRIVATE_KEY>",
+    "MAUTH_APP_UUID": "<MAUTH_APP_UUID>",
     "MAUTH_URL": "https://mauth-<STAGE>.imedidata.net",
     "PRIVATE_KEY": "<MAUTH_PRIVATE_KEY>"
   }
