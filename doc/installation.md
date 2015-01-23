@@ -60,7 +60,7 @@ You must be logged in to iMedidata as an admin user. Navigate to apps management
 
 * name: **Patient Cloud Registration**
 * base_url:
-    * development stages: **`minotaur-<stage_name>.imedidata.net`**
+    * development stages: **`minotaur-<stage>.imedidata.net`**
     * innovate: **`minotaur-innovate.imedidata.com`**
     * production: **`minotaur.imedidata.com`**
 * public_key: a valid public key
