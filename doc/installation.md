@@ -54,6 +54,16 @@ Both of the following should be selected
 }
 ```
 
+## Add Patient Cloud Registration app in iMedidata
+
+You must be logged in to iMedidata as an admin user. Navigate to apps management. Create a new app with the following attributes:
+
+* name: 'Patient Cloud Registration'
+* base_url: `minotaur-<stage_name>.imedidata.net` for development stages, `minotaur-innovate.imedidata.com` for innovate, and `minotaur.imedidata.com` for production
+* public_key: a valid public key for a tracked private key.
+
+No other attibutes are required. Save the app. If successful a uuid will be generated. This uuid and the public key must be used to register the app in mAuth.
+
 ## Twelve-factor databag settings
 
 ```
