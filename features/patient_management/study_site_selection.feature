@@ -5,12 +5,12 @@ Feature: Patient Management Study Site Selection
   And manage patients
 
   Background:
-    Given the following studies exist:
+    Given patient management is a part of the following studies:
       | name         |
       | TestStudy001 |
       | TestStudy002 |
       | TestStudy003 |
-    And the following sites exist:
+    And patient management is a part of the following sites:
       | study_name   | name                 | 
       | TestStudy001 | DeepSpaceStation     |
       | TestStudy001 | GalacticQuadrantBeta |

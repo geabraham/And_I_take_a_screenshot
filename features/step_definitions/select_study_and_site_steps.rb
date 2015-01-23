@@ -1,14 +1,11 @@
-Given(/^the following studies exist:$/) do |table|
-  table.hashes.map {|study| study['uuid'] = SecureRandom.uuid}
-  @studies = table.hashes
-end
-
-Given(/^the following sites exist:$/) do |table|
-  table.hashes.map do |study_site|
-    study_site['uuid'] = SecureRandom.uuid
-    study_site['study_uuid'] = find_object_by_name(@studies, study_site['study_name'])['uuid']
+Given(/^patient management is a part of the following (studies|sites):$/) do |object_type, table|
+  table.hashes.map do |object|
+    object['uuid'] = SecureRandom.uuid
+    if object_type == 'sites'
+      object['study_uuid'] = find_object_by_name(@studies, object['study_name'])['uuid']
+    end
   end
-  @study_sites = table.hashes
+  instance_variable_set("@#{object_type == 'studies' ? 'studies' : 'study_sites'}", table.hashes)
 end
 
 Given(/^I am logged in$/) do
