@@ -8,7 +8,7 @@ Feature: A provider can invite a user to particpate in a study
     Given patient management is a part of the following studies:
       | name         |
       | TestStudy001 |
-    And patient management is a part fo the following sites:
+    And patient management is a part of the following sites:
       | study_name   | name                 |
       | TestStudy001 | DeepSpaceStation     |
       | TestStudy001 | GalacticQuadrantBeta |
