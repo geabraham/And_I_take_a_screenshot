@@ -1,7 +1,7 @@
 @Draft
 Feature: A provider can invite a user to particpate in a study
   As a provider
-  I want to invite patients to my study and study site
+  I want to invite patients to a study and study site
   So they can use the patient cloud
 
   Background:
@@ -12,7 +12,7 @@ Feature: A provider can invite a user to particpate in a study
       | study_name   | name                 |
       | TestStudy001 | DeepSpaceStation     |
       | TestStudy001 | GalacticQuadrantBeta |
-    And patient management supports the following country / language pairs:
+    And patient cloud supports the following country / language pairs:
       | country | language |
       | USA     | English  |
       | USA     | Spanish  |
