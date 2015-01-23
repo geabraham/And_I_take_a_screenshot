@@ -68,9 +68,10 @@ No other attibutes are required. Save the app. If successful, a uuid will be gen
 
 ## Twelve-factor databag settings
 
-Use the template databag [baseline_app_databag.json](baseline_app_databag.json) and modify placeholders, marked <PLACEHOLDER>, as required.
+Use the template databag [baseline_app_databag.json](baseline_app_databag.json) and modify placeholders, marked \<PLACEHOLDER\>, as required.
 
 Note:
-1) deploy_env.source_gitref should be a tag in production.
-2) application_env.domain should be the domain selected in the ELB.
-3) id should match twelve_factor.application in chef overrides
+
+1. deploy_env.source_gitref should be a tag in production.
+2. application_env.domain should be the domain selected in the ELB.
+3. id should match twelve_factor.application in chef overrides
