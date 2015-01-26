@@ -54,40 +54,27 @@ Both of the following should be selected
 }
 ```
 
+## Add Patient Cloud Registration app in iMedidata
+
+You must be logged in to iMedidata as an admin user. Navigate to apps management. Create a new app with the following attributes:
+
+* name: **Patient Cloud Registration**
+* base_url:
+    * development stages: **`shield-<stage>.imedidata.net`**
+    * innovate: **`shield-innovate.imedidata.com`**
+    * production: **`shield.imedidata.com`**
+* public_key: a valid public key
+
+No other attibutes are required. Save the app. If successful, a uuid will be generated and displayed on the app's show page.
+
+**Use the app uuid and public key for mAuth registration. The app uuid and the private key paired with the public key must be used in the twelve-factor databag.**
+
 ## Twelve-factor databag settings
 
-```
-{
-  "id" : "minotaur-<stage>-app-web",
-  "deploy_env": {
-    "deploy_id": "2014-10-29_18-51-57",
-    "deploy_to": "/mnt/minotaur",
-    "user": "minotaur",
-    "source_type": "git",
-    "source_gitpath": "git@github.com:mdsol/minotaur.git",
-    "source_gitref": "develop",
-    "cmd_build": [
-      "gem install bundler",
-      "bundle install",
-      "bundle exec rake config"
-    ],
-    "cmd_release": [
-      "bundle exec rake release"
-    ],
-    "processes": {
-      "web": "bundle exec rails s -p $HTTP_PORT"
-    },
-    "ssl_cert": "/etc/secrets/ssl/private/crt.crt",
-    "ssl_cert_key": "/etc/secrets/ssl/private/key.key"
-  },
-  "application_env": {
-    "HTTP_PORT": "3300",
-    "domain": "minotaur-<stage>.imedidata.net"
-  }
-}
-```
+Use the template databag [baseline_app_databag.json](baseline_app_databag.json) and modify placeholders, marked \<PLACEHOLDER\>, as required.
 
 Note:
-1) deploy_env.source_gitref should be a tag in production.
-2) application_env.domain should be the domain selected in the ELB.
-3) id should match twelve_factor.application in chef overrides
+
+1. deploy_env.source_gitref should be a tag in production.
+2. application_env.domain should be the domain selected in the ELB.
+3. id should match twelve_factor.application in chef overrides
