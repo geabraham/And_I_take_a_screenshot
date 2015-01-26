@@ -360,6 +360,9 @@ GEM
     rack-status (1.0.0)
     rack-test (0.6.2)
       rack (>= 1.0)
+    rack_session_access (0.1.1)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     rails (4.1.7)
       actionmailer (= 4.1.7)
       actionpack (= 4.1.7)
@@ -515,6 +518,7 @@ DEPENDENCIES
   pry-nav (~> 0.2)
   rack-cache!
   rack-status (~> 1.0.0)
+  rack_session_access (~> 0.1.1)
   rails (~> 4.1.7)
   rspec (~> 3.1)
   rspec-its (~> 1.1)

@@ -1,4 +1,3 @@
-@Draft
 Feature: Patient Management Study Site Selection
   As a provider
   I want to select a study and a site
@@ -6,19 +5,19 @@ Feature: Patient Management Study Site Selection
   And manage patients
 
   Background:
-    Given the following studies exist:
+    Given patient management is a part of the following studies:
       | name         |
       | TestStudy001 |
       | TestStudy002 |
       | TestStudy003 |
-    And the following sites exist:
+    And patient management is a part of the following sites:
       | study_name   | name                 | 
       | TestStudy001 | DeepSpaceStation     |
       | TestStudy001 | GalacticQuadrantBeta |
       | TestStudy002 | GenesisPlanet        |
       | TestStudy003 | StarfleetAcademy     |
 
-  @Review[ENG]
+  @Review[SQA]
   @Release2015.1.0
   @PB130363-001
   @Headed
@@ -35,10 +34,10 @@ Feature: Patient Management Study Site Selection
       | name                 |
       | DeepSpaceStation     |
       | GalacticQuadrantBeta |
-    When I select "DeepSpaceStation"
+    When I select "DeepSpaceStation" from the list of sites
     Then I should be able to navigate to the patient management table
 
-  @Review[ENG]
+  @Review[SQA]
   @Release2015.1.0
   @PB130363-002
   @Headed
@@ -51,19 +50,19 @@ Feature: Patient Management Study Site Selection
       | name                 |
       | DeepSpaceStation     |
       | GalacticQuadrantBeta |
-    When I select "GalacticQuadrantBeta"
+    When I select "GalacticQuadrantBeta" from the list of sites
     Then I should be able to navigate to the patient management table
 
-  @Review[ENG]
+  @Review[SQA]
   @Release2015.1.0
   @PB130363-003
   @Headed
   Scenario: An unauthorized patient management user who is logged in tries to navigate to the study site selection page is shown a helpful error message.
     Given I am logged in
     When I navigate to patient management via the apps pane in iMedidata
-    Then I should see the message "You are not authorized for patient management."
+    Then I should see the message "Studies request failed"
 
-  @Review[ENG]
+  @Review[SQA]
   @Release2015.1.0
   @PB130363-004
   @Headed

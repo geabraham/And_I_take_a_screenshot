@@ -1,5 +1,6 @@
 # # encoding: utf-8
 # # Base cucumber setup common to all profiles
+require 'rack_session_access/capybara'
 
 @browser = :firefox
 
@@ -16,3 +17,5 @@ end
 Before '@Headed' do
   Capybara.current_driver = :selenium
 end
+
+Capybara.default_wait_time = 10
