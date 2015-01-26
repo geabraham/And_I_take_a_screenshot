@@ -68,12 +68,12 @@ Euresource.configure do
 
   # Configures a second Eureka::Client instance that mock requests to external resource dependencies
   # and stubs out requests to Eureka.
-  config.stage('http://eureka-example.com', :remote) do |builder|
-    builder.mock_api_deployments mocked_api_documents
-    builder.resources mocked_resources
+  # config.stage('http://eureka-example.com', :remote) do |builder|
+  #   builder.mock_api_deployments mocked_api_documents
+  #   builder.resources mocked_resources
 
-    # specify middlewares
-    fake_middleware_classes.each{ |fmc| builder.use fmc }
-    builder.faraday_adapter :rack, Rails.application
-  end
+  #   # specify middlewares
+  #   fake_middleware_classes.each{ |fmc| builder.use fmc }
+  #   builder.faraday_adapter :rack, Rails.application
+  # end
 end
