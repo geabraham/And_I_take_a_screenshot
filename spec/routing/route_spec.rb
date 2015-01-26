@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe 'Minotaur routes', type: :routing do
+  describe 'basic routes' do
+    it 'has a logout route' do
+      expect(get('/logout')).to route_to('application#logout')
+    end
+  end
+
   describe 'ActivationCodes' do
     
     it 'has a root route' do
