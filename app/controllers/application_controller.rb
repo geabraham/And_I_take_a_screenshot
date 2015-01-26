@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def logout
     client = CASClient::Frameworks::Rails::Filter.client
     reset_session
-    redirect_to client.logout_url(request.referer)
+    redirect_to client.logout_url
   end
 
   protected
