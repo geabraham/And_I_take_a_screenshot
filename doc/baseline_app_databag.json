@@ -25,14 +25,14 @@
     "ssl_cert_key": "/etc/secrets/ssl/private/key.key"
   },
   "application_env": {
-    "DOMAIN": "minotaur-<STAGE>.imedidata.net",
-    "EUREKA_DEPLOYMENT_BASEURI": "https://minotaur-<STAGE>.imedidata.net",
+    "DOMAIN": "minotaur-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
+    "EUREKA_DEPLOYMENT_BASEURI": "https://minotaur-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
     "EUREKA_STAGE": "<STAGE>",
-    "EUREKA_URL": "https://eureka-<STAGE>.imedidata.net",
-    "IMEDIDATA_BASE_URL": "https://<STAGE>.imedidata.net",
+    "EUREKA_URL": "https://eureka-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
+    "IMEDIDATA_BASE_URL": "https://<STAGE(none if production)>.imedidata.<TOP_LEVEL_DOMAIN>",
     "HTTP_PORT": "3000",
     "MAUTH_APP_UUID": "<MAUTH_APP_UUID>",
-    "MAUTH_URL": "https://mauth-<STAGE>.imedidata.net",
+    "MAUTH_URL": "https://mauth-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
     "PRIVATE_KEY": "<MAUTH_PRIVATE_KEY>"
   }
 }
