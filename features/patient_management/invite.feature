@@ -86,7 +86,7 @@ Feature: A provider can invite a user to particpate in a study
   @Release2015.1.0
   @PB130799-005
   @Headed
-  Scenario: As a user who is not logged in, an attempt access patient management redirects to login.
+  Scenario: As a user who is not logged in, an attempt to access patient management redirects to login.
     Given I am not logged in
     When I navigate to patient management via a study and site
     Then I should be redirected to the login page
