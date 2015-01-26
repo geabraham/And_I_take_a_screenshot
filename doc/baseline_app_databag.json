@@ -25,8 +25,8 @@
     "ssl_cert_key": "/etc/secrets/ssl/private/key.key"
   },
   "application_env": {
-    "DOMAIN": "minotaur-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
-    "EUREKA_DEPLOYMENT_BASEURI": "https://minotaur-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
+    "DOMAIN": "shield-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
+    "EUREKA_DEPLOYMENT_BASEURI": "https://shield-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
     "EUREKA_STAGE": "<STAGE>",
     "EUREKA_URL": "https://eureka-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
     "IMEDIDATA_BASE_URL": "https://<STAGE(none if production)>.imedidata.<TOP_LEVEL_DOMAIN>",

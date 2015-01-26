@@ -60,9 +60,9 @@ You must be logged in to iMedidata as an admin user. Navigate to apps management
 
 * name: **Patient Cloud Registration**
 * base_url:
-    * development stages: **`minotaur-<stage>.imedidata.net`**
-    * innovate: **`minotaur-innovate.imedidata.com`**
-    * production: **`minotaur.imedidata.com`**
+    * development stages: **`shield-<stage>.imedidata.net`**
+    * innovate: **`shield-innovate.imedidata.com`**
+    * production: **`shield.imedidata.com`**
 * public_key: a valid public key
 
 No other attibutes are required. Save the app. If successful, a uuid will be generated and displayed on the app's show page.
