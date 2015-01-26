@@ -70,11 +70,7 @@ Feature: A provider can invite a user to particpate in a study
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
-    And I invite a user with the following attributes:
-      | attribute_name   | attribute_value             |
-      | initials         | LCD                         |
-      | email            | lt-commander-data@mdsol.com |
-      | subject_name     | Subject001                  |
+    And I invite a user with required attributes except a country / language pair
     Then I should see an error message "Please select a Country/Language pair."
 
   @Release2015.1.0
@@ -82,7 +78,7 @@ Feature: A provider can invite a user to particpate in a study
   @Headed
   Scenario: As a logged user with no patient management permissions, an attempt to access patient management fails.
     Given I am logged in
-    When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    When I navigate to patient management via a study and site
     # TODO: Standardize this language and revise in `select_study_and_site` feature
     #
     Then I should see an error message "There doesn't seem to be anything here."
@@ -92,5 +88,5 @@ Feature: A provider can invite a user to particpate in a study
   @Headed
   Scenario: As a user who is not logged in, an attempt access patient management redirects to login.
     Given I am not logged in
-    When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    When I navigate to patient management via a study and site
     Then I should be redirected to the login page
