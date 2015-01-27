@@ -68,7 +68,7 @@ describe PatientEnrollmentsController do
     let(:required_expected_register_params) { {login: login, password: password} }
 
     before do
-      Euresource::PatientEnrollments.stub(:invoke)
+      allow(Euresource::PatientEnrollments).to receive(:invoke)
       @datetime_regex = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/
     end
 
@@ -167,13 +167,13 @@ describe PatientEnrollmentsController do
         context 'when request to register is successful' do
           let(:response_stub) do
             double('response').tap do |r|
-              r.stub(:body).and_return('')
-              r.stub(:status).and_return(200)
+              allow(r).to receive(:body).and_return('')
+              allow(r).to receive(:status).and_return(200)
             end
           end
 
           before do
-            Euresource::PatientEnrollments.stub(:invoke)
+            allow(Euresource::PatientEnrollments).to receive(:invoke)
               .with(:register, {uuid: patient_enrollment_uuid}, {patient_enrollment: expected_register_params})
               .and_return(response_stub)
           end
@@ -190,13 +190,13 @@ describe PatientEnrollmentsController do
           end
           let(:response_stub) do
             double('response').tap do |r|
-              r.stub(:body).and_return(response_body)
-              r.stub(:status).and_return(expected_status_code)
+              allow(r).to receive(:body).and_return(response_body)
+              allow(r).to receive(:status).and_return(expected_status_code)
             end
           end
 
           before do
-            Euresource::PatientEnrollments.stub(:invoke)
+            allow(Euresource::PatientEnrollments).to receive(:invoke)
               .with(:register, {uuid: patient_enrollment_uuid}, {patient_enrollment: expected_register_params})
               .and_return(response_stub)
           end
