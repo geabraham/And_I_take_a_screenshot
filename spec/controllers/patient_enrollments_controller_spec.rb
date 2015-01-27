@@ -193,9 +193,9 @@ describe PatientEnrollmentsController do
         end
 
         context 'when request to register fails' do
-          let(:response_body) { 'Malformed create user request.' }
+          let(:response_body)        { 'Malformed create user request.' }
           let(:expected_status_code) { 400 }
-          let(:error_response_body)  do
+          let(:error_response_body) do
             {errors: "Unable to complete registration: #{response_body}"}.to_json
           end
           let(:response_stub) do
