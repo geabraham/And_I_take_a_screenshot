@@ -13,6 +13,11 @@ class ApplicationController < ActionController::Base
     render json: {errors: e.message}, status: error_cause
   end
 
+  def logout
+    reset_session
+    redirect_to CASClient::Frameworks::Rails::Filter.client.logout_url
+  end
+
   protected
   # Set user's locale from request, assuming it comes from Checkmate.
   #TODO in future locale may be in header instead of params, depending on Checkmate
