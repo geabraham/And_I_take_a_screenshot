@@ -12,27 +12,12 @@ class PatientEnrollmentsController < ApplicationController
   end
 
   def register
-    params.require(:patient_enrollment)
-    patient_enrollment_params = params['patient_enrollment']
-    required_register_params.each { |p| patient_enrollment_params.require(p) }
-
-    # FIXME: May be simpler if this is security question id in the form.
-    # Changing it was not simple so left as is for now.
-    if security_question_id = patient_enrollment_params.delete('security_question')
-      patient_enrollment_params['security_question_id'] = security_question_id
-    end
-
-    if new_user_params.any? {|p| patient_enrollment_params.include?(p) }
-      new_user_params.each { |p| patient_enrollment_params.require(p) }
-    end
-
-    @register_params = patient_enrollment_params.permit(all_register_params)
-      .merge(activation_code: session[:activation_code], tou_accepted_at: Time.now.to_s)
+    register_params = clean_registration_params
 
     register_response = Euresource::PatientEnrollments.invoke(
       :register,
       {uuid: session[:patient_enrollment_uuid]},
-      {patient_enrollment: @register_params})
+      {patient_enrollment: register_params})
 
     if register_response.status == 200
       render 'download'
@@ -42,6 +27,27 @@ class PatientEnrollmentsController < ApplicationController
   end
 
   private
+
+  # Returns cleaned registratrion params or responds 422 per strong parameters.
+  #
+  def clean_registration_params
+    params.require(:patient_enrollment)
+    patient_enrollment_params = params['patient_enrollment']
+    required_register_params.each { |p| patient_enrollment_params.require(p) }
+
+    # FIXME: May be simpler if this is security question id in the form.
+    # Changing it was not simple so left as is for now.
+    if !patient_enrollment_params['security_question_id'] && security_question_id = patient_enrollment_params.delete('security_question')
+      patient_enrollment_params['security_question_id'] = security_question_id
+    end
+
+    if new_user_params.any? {|p| patient_enrollment_params.include?(p) }
+      new_user_params.each { |p| patient_enrollment_params.require(p) }
+    end
+
+    patient_enrollment_params.permit(all_register_params)
+      .merge(activation_code: session[:activation_code], tou_accepted_at: Time.now.to_s)
+  end
 
   def all_register_params
     required_register_params + new_user_params

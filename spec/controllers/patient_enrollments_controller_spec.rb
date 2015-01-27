@@ -59,15 +59,18 @@ describe PatientEnrollmentsController do
   end
   
   describe 'POST patient_enrollments/register' do
-    let(:verb)                 { :post }
-    let(:action)               { :register }
-    let(:expected_status_code) { 200 }
-    let(:expected_template)    { 'patient_registration' }
-    let(:login)                { 'cdr-adama@gmail.com' }
-    let(:password)             { 'ejolmos' }
-    let(:required_register_params) { {login: login, password: password} }
+    let(:verb)                              { :post }
+    let(:action)                            { :register }
+    let(:expected_status_code)              { 200 }
+    let(:expected_template)                 { 'patient_registration' }
+    let(:login)                             { 'cdr-adama@gmail.com' }
+    let(:password)                          { 'ejolmos' }
+    let(:required_expected_register_params) { {login: login, password: password} }
 
-    before { Euresource::PatientEnrollments.stub(:invoke) }
+    before do
+      Euresource::PatientEnrollments.stub(:invoke)
+      @datetime_regex = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/
+    end
 
     context 'when patient enrollment parameter is missing' do
       let(:expected_status_code) { 422 }
@@ -80,8 +83,8 @@ describe PatientEnrollmentsController do
     end
 
     context 'when required parameters are missing' do
-      before { required_register_params.delete(:password) }
-      let(:params) { {patient_enrollment: required_register_params} }
+      before { required_expected_register_params.delete(:password) }
+      let(:params) { {patient_enrollment: required_expected_register_params} }
       let(:expected_status_code) { 422 }
       let(:error_response_body)  do 
         {errors: 'param is missing or the value is empty: password'}.to_json
@@ -92,8 +95,8 @@ describe PatientEnrollmentsController do
     end
 
     context 'when security_question or answer is present and the other is missing' do
-      before { required_register_params.merge!(security_question: '2') }
-      let(:params) { {patient_enrollment: required_register_params} }
+      before { required_expected_register_params.merge!(security_question: '2') }
+      let(:params) { {patient_enrollment: required_expected_register_params} }
 
       let(:expected_status_code) { 422 }
       let(:error_response_body)  do 
@@ -116,51 +119,49 @@ describe PatientEnrollmentsController do
       before do
         session[:activation_code] = activation_code
         session[:patient_enrollment_uuid] = patient_enrollment_uuid
-        required_register_params.merge(forecast: 'snowmageddon')
+        required_expected_register_params.merge(forecast: 'snowmageddon')
       end
       let(:activation_code) { 'HX6PKN' }
       let(:patient_enrollment_uuid) { SecureRandom.uuid }
-      let(:params) { {patient_enrollment: required_register_params} }
-      
-      it 'assigns register parameters' do
-        post :register, params
-        expect(assigns(:register_params)).to match({
-          login: login,
-          password: password,
-          activation_code: activation_code,
-          tou_accepted_at: /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/}.stringify_keys)
-      end
-
-      context 'when new user params are present' do
-        let(:security_question) { '2' }
-        let(:answer) { '42' }
-        let(:params) { {patient_enrollment: required_register_params.merge(security_question: '2', answer: '42')} }
-
-        it 'assigns register parameters' do
-          post :register, params
-          expect(assigns(:register_params)).to match({
-            login: login,
-            password: password,
-            activation_code: activation_code,
-            tou_accepted_at: /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/,
-            security_question_id: '2',
-            answer: '42'}.stringify_keys)
-        end
-      end
+      let(:params) { {patient_enrollment: required_expected_register_params} }
 
       describe 'request to register' do
-        let(:register_params) do
+        let(:expected_register_params) do
           {
             login: login,
             password: password, 
             activation_code: activation_code, 
-            tou_accepted_at: /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/
+            tou_accepted_at: @datetime_regex
           }.stringify_keys
         end
 
-        it 'makes a request to Euresource::PatientEnrollments register' do
-          expect(Euresource::PatientEnrollments).to receive(:invoke).with(:register, {uuid: patient_enrollment_uuid}, {patient_enrollment: register_params})
-          post :register, params
+        context 'with existing user params' do
+          it 'makes a request to Euresource::PatientEnrollments register with existing user params' do
+            expect(Euresource::PatientEnrollments).to receive(:invoke)
+              .with(:register, {uuid: patient_enrollment_uuid}, {patient_enrollment: expected_register_params})
+            post :register, params
+          end
+        end
+
+        context 'with new user params' do
+          let(:new_user_params) { {security_question: '2', answer: '42'} }
+          let(:params)          { {patient_enrollment: required_expected_register_params.merge(new_user_params)} }
+          let(:expected_register_params) do
+            {
+              login: login,
+              password: password, 
+              activation_code: activation_code, 
+              tou_accepted_at: @datetime_regex,
+              answer: '42',
+              security_question_id: '2'
+            }.stringify_keys
+          end
+
+          it 'makes a request to Euresource::PatientEnrollments register with new user params' do
+            expect(Euresource::PatientEnrollments).to receive(:invoke)
+              .with(:register, {uuid: patient_enrollment_uuid}, {patient_enrollment: expected_register_params})
+            post :register, params
+          end
         end
 
         context 'when request to register is successful' do
@@ -173,7 +174,7 @@ describe PatientEnrollmentsController do
 
           before do
             Euresource::PatientEnrollments.stub(:invoke)
-              .with(:register, {uuid: patient_enrollment_uuid}, {patient_enrollment: register_params})
+              .with(:register, {uuid: patient_enrollment_uuid}, {patient_enrollment: expected_register_params})
               .and_return(response_stub)
           end
 
@@ -196,7 +197,7 @@ describe PatientEnrollmentsController do
 
           before do
             Euresource::PatientEnrollments.stub(:invoke)
-              .with(:register, {uuid: patient_enrollment_uuid}, {patient_enrollment: register_params})
+              .with(:register, {uuid: patient_enrollment_uuid}, {patient_enrollment: expected_register_params})
               .and_return(response_stub)
           end
 
