@@ -66,8 +66,8 @@ describe PatientEnrollmentsController do
     let(:login)                             { 'cdr-adama@gmail.com' }
     let(:password)                          { 'ejolmos' }
     let(:required_expected_register_params) { {login: login, password: password} }
-    let(:activation_code) { 'HX6PKN' }
-    let(:patient_enrollment_uuid) { SecureRandom.uuid }
+    let(:activation_code)                   { 'HX6PKN' }
+    let(:patient_enrollment_uuid)           { SecureRandom.uuid }
 
     before do
       allow(Euresource::PatientEnrollments).to receive(:invoke)
@@ -87,25 +87,26 @@ describe PatientEnrollmentsController do
     end
 
     context 'when required parameters are missing' do
-      before { required_expected_register_params.delete(:password) }
-      let(:params) { {patient_enrollment: required_expected_register_params} }
+      let(:params)               { {patient_enrollment: required_expected_register_params} }
       let(:expected_status_code) { 422 }
       let(:error_response_body)  do 
         {errors: 'param is missing or the value is empty: password'}.to_json
       end
+
+      before { required_expected_register_params.delete(:password) }
 
       it_behaves_like 'returns expected status'
       it_behaves_like 'returns expected error response body'
     end
 
     context 'when security_question or answer is present and the other is missing' do
-      before { required_expected_register_params.merge!(security_question: '2') }
-      let(:params) { {patient_enrollment: required_expected_register_params} }
-
+      let(:params)               { {patient_enrollment: required_expected_register_params} }
       let(:expected_status_code) { 422 }
       let(:error_response_body)  do 
         {errors: 'param is missing or the value is empty: answer'}.to_json
       end
+
+      before { required_expected_register_params.merge!(security_question: '2') }
 
       it_behaves_like 'returns expected status'
       it_behaves_like 'returns expected error response body'
@@ -130,8 +131,9 @@ describe PatientEnrollmentsController do
     end
 
     context 'when all required parameters and activation code are present' do
-      before { required_expected_register_params.merge(forecast: 'snowmageddon') }
       let(:params) { {patient_enrollment: required_expected_register_params} }
+
+      before { required_expected_register_params.merge(forecast: 'snowmageddon') }
 
       describe 'request to register' do
         let(:expected_register_params) do
