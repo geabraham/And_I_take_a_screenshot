@@ -12,6 +12,10 @@ class PatientEnrollmentsController < ApplicationController
   end
 
   def register
+    unless session[:patient_enrollment_uuid] && session[:activation_code]
+      redirect_to root_url and return
+    end
+
     register_response = Euresource::PatientEnrollments.invoke(
       :register,
       {uuid: session[:patient_enrollment_uuid]},

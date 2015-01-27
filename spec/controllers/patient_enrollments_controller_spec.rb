@@ -66,10 +66,14 @@ describe PatientEnrollmentsController do
     let(:login)                             { 'cdr-adama@gmail.com' }
     let(:password)                          { 'ejolmos' }
     let(:required_expected_register_params) { {login: login, password: password} }
+    let(:activation_code) { 'HX6PKN' }
+    let(:patient_enrollment_uuid) { SecureRandom.uuid }
 
     before do
       allow(Euresource::PatientEnrollments).to receive(:invoke)
       @datetime_regex = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/
+      session[:activation_code] = activation_code
+      session[:patient_enrollment_uuid] = patient_enrollment_uuid
     end
 
     context 'when patient enrollment parameter is missing' do
@@ -108,21 +112,25 @@ describe PatientEnrollmentsController do
     end
 
     context 'when no activation code is present in the current session' do
-      it 'responds 4xx'
+      before { session[:activation_code] = nil }
+
+      it 'redirects to the activation code screen' do
+        post :register, params
+        expect(response).to redirect_to(root_url)
+      end
     end
 
     context 'when no patient enrollment uuid is present in the current session' do
-      it 'responds 4xx'
+      before { session[:patient_enrollment_uuid] = nil }
+
+      it 'redirects to the activation code screen' do
+        post :register, params
+        expect(response).to redirect_to(root_url)
+      end
     end
 
     context 'when all required parameters and activation code are present' do
-      before do
-        session[:activation_code] = activation_code
-        session[:patient_enrollment_uuid] = patient_enrollment_uuid
-        required_expected_register_params.merge(forecast: 'snowmageddon')
-      end
-      let(:activation_code) { 'HX6PKN' }
-      let(:patient_enrollment_uuid) { SecureRandom.uuid }
+      before { required_expected_register_params.merge(forecast: 'snowmageddon') }
       let(:params) { {patient_enrollment: required_expected_register_params} }
 
       describe 'request to register' do
