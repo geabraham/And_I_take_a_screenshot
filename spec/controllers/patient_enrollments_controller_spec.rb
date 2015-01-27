@@ -117,7 +117,7 @@ describe PatientEnrollmentsController do
 
       it 'redirects to the activation code screen' do
         post :register, params
-        expect(response).to redirect_to(root_url)
+        expect(response).to redirect_to(activation_codes_path)
       end
     end
 
@@ -126,7 +126,7 @@ describe PatientEnrollmentsController do
 
       it 'redirects to the activation code screen' do
         post :register, params
-        expect(response).to redirect_to(root_url)
+        expect(response).to redirect_to(activation_codes_path)
       end
     end
 
