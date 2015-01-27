@@ -6,6 +6,6 @@ describe 'PatientEnrollment Routes' do
   end
 
   it 'has a POST create route' do
-    expect(post('/patient_enrollments')).to route_to('patient_enrollments#create')
+    expect(post('/patient_enrollments/register')).to route_to('patient_enrollments#register')
   end
 end

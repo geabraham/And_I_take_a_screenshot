@@ -18,7 +18,7 @@
       .progress-bar.progress-bar-incomplete
         %span.sr-only='Page 4 of 4'
   
-  = form_tag @patient_enrollment, id: 'reg-form'
+  = form_tag register_patient_enrollments_path, id: 'reg-form'
   .carousel.slide#registration-details(data-interval="false")
     .carousel-inner(role="listbox")
       .item.active#landing_page
@@ -35,5 +35,5 @@
     %a.btn.btn-primary.btn-block#agree-button.hidden(href="#registration-details" role="button")='I agree'
     %a.btn.btn-primary.btn-block#next-button(href="#registration-details" role="button")='Next'
     .submit#submit-button
-      = fields_for @patient_enrollment do |f|
+      = fields_for '@patient_enrollment' do |f|
         = f.submit 'Create account', class: 'btn btn-primary btn-block hidden', disabled: true, id: 'create-account'

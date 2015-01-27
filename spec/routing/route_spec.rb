@@ -18,10 +18,7 @@ describe 'Minotaur routes', type: :routing do
     end
     
     it 'has an activate route' do
-      expect(get('/activation_codes/3xD42f/activate')).to route_to(
-      :controller =>'activation_codes',
-      :id => '3xD42f', 
-      :action => 'activate')
+      expect(get('/activation_codes/3xD42f/patient_enrollment')).to route_to(controller: 'activation_codes', id: '3xD42f', action: 'patient_enrollment')
     end
 
     it 'has a patient management route' do

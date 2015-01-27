@@ -14,7 +14,7 @@ $(function() {
 
 var activate = function() {
   if (!$('#activate-button').hasClass('disabled')) {
-    $.get("/activation_codes/" + getCodeString() + "/activate");
+    $.get("/activation_codes/" + getCodeString() + "/patient_enrollment");
   }
 }
 
