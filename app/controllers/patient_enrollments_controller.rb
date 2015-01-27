@@ -30,7 +30,8 @@ class PatientEnrollmentsController < ApplicationController
 
   private
 
-  # Returns cleaned registratrion params or responds 422 per strong parameters.
+  # Returns cleaned registration params or responds 422 per strong parameters.
+  #   Example: {login: 'cdr-adama@gmail.com', password: 'ejolmos', activation_code: 'HX6PKN', tou_accepted_at: ... }
   #
   def clean_registration_params
     params.require(:patient_enrollment)
@@ -50,8 +51,6 @@ class PatientEnrollmentsController < ApplicationController
   # Replaces 'security_question' with 'security_question_id'
   #
   def replace_security_question_key(params)
-    # FIXME: May be simpler if this is security question id in the form.
-    # Changing it was not simple so left as is for now.
     unless params['security_question_id'].present?
       if security_question_id = params.delete('security_question')
         params['security_question_id'] = security_question_id
