@@ -13,10 +13,6 @@ describe 'Minotaur routes', type: :routing do
       expect(get('/')).to route_to('activation_codes#index')
     end
     
-    it 'has an index route' do
-      expect(get('/activation_codes')).to route_to('activation_codes#index')
-    end
-    
     it 'has an activate route' do
       expect(get('/activation_codes/3xD42f/patient_enrollment')).to route_to(controller: 'activation_codes', id: '3xD42f', action: 'patient_enrollment')
     end

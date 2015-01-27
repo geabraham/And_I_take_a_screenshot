@@ -1,9 +1,6 @@
 class ActivationCodesController < ApplicationController
   layout "patient_registration"
 
-  def index
-  end
-
   def patient_enrollment
     begin
       @activation_code = Euresource::ActivationCodes.get({activation_code: params[:id]})
