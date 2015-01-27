@@ -2,7 +2,7 @@
 .form_instruction
   ='Select a '
   %strong='security question.'
-= fields_for @patient_enrollment do |f|
+= fields_for 'patient_enrollment' do |f|
   / label is included so capybara can find the control, but not displayed on the page
   .form-group
     = f.label :security_question, 'Security Question', {id: "question-label", class: 'invisible'}

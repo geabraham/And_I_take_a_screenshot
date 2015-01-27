@@ -58,15 +58,119 @@ describe PatientEnrollmentsController do
     end
   end
   
-  describe 'POST patient_enrollments' do
-    context 'when successful' do
-      let(:verb)                 { :post }
-      let(:action)               { :create }
-      let(:expected_status_code) { 200 }
-      let(:expected_template)    { 'patient_registration' }
+  describe 'POST patient_enrollments/register' do
+    let(:verb)                 { :post }
+    let(:action)               { :register }
+    let(:expected_status_code) { 200 }
+    let(:expected_template)    { 'patient_registration' }
+    let(:login)                { 'cdr-adama@gmail.com' }
+    let(:password)             { 'ejolmos' }
+    let(:required_register_params) { {login: login, password: password} }
+
+    before { Euresource::PatientEnrollments.stub(:invoke) }
+
+    context 'when patient enrollment parameter is missing' do
+      let(:expected_status_code) { 422 }
+      let(:error_response_body)  do 
+        {errors: 'param is missing or the value is empty: patient_enrollment'}.to_json
+      end
 
       it_behaves_like 'returns expected status'
-      it_behaves_like 'renders expected template'
+      it_behaves_like 'returns expected error response body'
+    end
+
+    context 'when required parameters are missing' do
+      before { required_register_params.delete(:password) }
+      let(:params) { {patient_enrollment: required_register_params} }
+      let(:expected_status_code) { 422 }
+      let(:error_response_body)  do 
+        {errors: 'param is missing or the value is empty: password'}.to_json
+      end
+
+      it_behaves_like 'returns expected status'
+      it_behaves_like 'returns expected error response body'
+    end
+
+    context 'when security_question or answer is present and the other is missing' do
+      before { required_register_params.merge!(security_question: '2') }
+      let(:params) { {patient_enrollment: required_register_params} }
+
+      let(:expected_status_code) { 422 }
+      let(:error_response_body)  do 
+        {errors: 'param is missing or the value is empty: answer'}.to_json
+      end
+
+      it_behaves_like 'returns expected status'
+      it_behaves_like 'returns expected error response body'
+    end
+    # context 'when parameters for existing user are missing' do
+    #   let(:params)               { }
+    #   let(:expected_status_code) { 422 }
+    #   let(:error_response_body)  do 
+    #     {message: 'Unable to complete registration. ' <<
+    #       'Cannot register without attributes: activation code, login and password.'}.to_json
+    #   end
+
+    #   it_behaves_like 'returns expected status'
+    #   it_behaves_like 'returns expected error response body'
+    # end
+
+    context 'when no activation code is present in the current session' do
+      it 'responds 4xx'
+    end
+
+    context 'when all required parameters and activation code are present' do
+      before do
+        session[:activation_code] = activation_code
+        required_register_params.merge(forecast: 'snowmageddon')
+      end
+      let(:activation_code) { 'HX6PKN' }
+      let(:params) { {patient_enrollment: required_register_params} }
+      
+      describe 'permitted parameters' do
+        it 'assigns register parameters' do
+          post :register, params
+          expect(assigns(:register_params)).to match({
+            login: login,
+            password: password, 
+            activation_code: activation_code, 
+            tou_accepted_at: /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/}.stringify_keys)
+        end
+
+        context 'when new user params are present' do
+          let(:security_question) { '2' }
+          let(:answer) { '42' }
+          let(:params) { {patient_enrollment: required_register_params.merge(security_question: '2', answer: '42')} }
+
+          it 'assigns register parameters' do
+            post :register, params
+            expect(assigns(:register_params)).to match({
+              login: login,
+              password: password, 
+              activation_code: activation_code, 
+              tou_accepted_at: /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/,
+              security_question_id: '2',
+              answer: '42'}.stringify_keys)
+          end
+        end
+      end
+
+      describe 'request to register' do
+        it 'makes a request to Euresource::PatientEnrollments register' do
+          register_params = {
+            login: login,
+            password: password, 
+            activation_code: activation_code, 
+            tou_accepted_at: /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/}.stringify_keys
+          expect(Euresource::PatientEnrollments).to receive(:invoke).with(:register, register_params)
+          post :register, params
+        end
+      end
+
+      context 'when request to register is successful' do
+        it_behaves_like 'returns expected status'
+        it_behaves_like 'renders expected template'
+      end
     end
   end
 end

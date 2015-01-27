@@ -12,6 +12,25 @@ class PatientEnrollmentsController < ApplicationController
   end
 
   def register
+    params.require(:patient_enrollment)
+    patient_enrollment_params = params['patient_enrollment']
+    required_register_params.each { |p| patient_enrollment_params.require(p) }
+
+    # FIXME: May be simpler if this is security question id in the form.
+    # Changing it was not simple so left as is for now.
+    if security_question_id = patient_enrollment_params.delete('security_question')
+      patient_enrollment_params['security_question_id'] = security_question_id
+    end
+
+    if new_user_params.any? {|p| patient_enrollment_params.include?(p) }
+      new_user_params.each { |p| patient_enrollment_params.require(p) }
+    end
+
+    @register_params = patient_enrollment_params.permit(all_register_params)
+      .merge(activation_code: session[:activation_code], tou_accepted_at: Time.now.to_s)
+
+    register_response = Euresource::PatientEnrollments.invoke(:register, @register_params)
+
 # params
 # => {"utf8"=>"✓",
 #  "authenticity_token"=>"Dme42wvkJzIw4dPL9mr0DYQCg8m46GlaoNRMgTANVEw=",
@@ -29,5 +48,19 @@ class PatientEnrollmentsController < ApplicationController
     # TODO PATCH: /v1/patient_enrollments/:patient_enrollment_uuid/register
     
     render 'download'
+  end
+
+  private
+
+  def all_register_params
+    required_register_params + new_user_params
+  end
+
+  def required_register_params
+    ['login', 'password']
+  end
+
+  def new_user_params
+    ['security_question_id', 'answer']
   end
 end
