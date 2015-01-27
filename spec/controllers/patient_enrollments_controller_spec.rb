@@ -103,73 +103,106 @@ describe PatientEnrollmentsController do
       it_behaves_like 'returns expected status'
       it_behaves_like 'returns expected error response body'
     end
-    # context 'when parameters for existing user are missing' do
-    #   let(:params)               { }
-    #   let(:expected_status_code) { 422 }
-    #   let(:error_response_body)  do 
-    #     {message: 'Unable to complete registration. ' <<
-    #       'Cannot register without attributes: activation code, login and password.'}.to_json
-    #   end
-
-    #   it_behaves_like 'returns expected status'
-    #   it_behaves_like 'returns expected error response body'
-    # end
 
     context 'when no activation code is present in the current session' do
+      it 'responds 4xx'
+    end
+
+    context 'when no patient enrollment uuid is present in the current session' do
       it 'responds 4xx'
     end
 
     context 'when all required parameters and activation code are present' do
       before do
         session[:activation_code] = activation_code
+        session[:patient_enrollment_uuid] = patient_enrollment_uuid
         required_register_params.merge(forecast: 'snowmageddon')
       end
       let(:activation_code) { 'HX6PKN' }
+      let(:patient_enrollment_uuid) { SecureRandom.uuid }
       let(:params) { {patient_enrollment: required_register_params} }
       
-      describe 'permitted parameters' do
+      it 'assigns register parameters' do
+        post :register, params
+        expect(assigns(:register_params)).to match({
+          login: login,
+          password: password,
+          activation_code: activation_code,
+          tou_accepted_at: /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/}.stringify_keys)
+      end
+
+      context 'when new user params are present' do
+        let(:security_question) { '2' }
+        let(:answer) { '42' }
+        let(:params) { {patient_enrollment: required_register_params.merge(security_question: '2', answer: '42')} }
+
         it 'assigns register parameters' do
           post :register, params
           expect(assigns(:register_params)).to match({
             login: login,
-            password: password, 
-            activation_code: activation_code, 
-            tou_accepted_at: /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/}.stringify_keys)
-        end
-
-        context 'when new user params are present' do
-          let(:security_question) { '2' }
-          let(:answer) { '42' }
-          let(:params) { {patient_enrollment: required_register_params.merge(security_question: '2', answer: '42')} }
-
-          it 'assigns register parameters' do
-            post :register, params
-            expect(assigns(:register_params)).to match({
-              login: login,
-              password: password, 
-              activation_code: activation_code, 
-              tou_accepted_at: /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/,
-              security_question_id: '2',
-              answer: '42'}.stringify_keys)
-          end
+            password: password,
+            activation_code: activation_code,
+            tou_accepted_at: /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/,
+            security_question_id: '2',
+            answer: '42'}.stringify_keys)
         end
       end
 
       describe 'request to register' do
-        it 'makes a request to Euresource::PatientEnrollments register' do
-          register_params = {
+        let(:register_params) do
+          {
             login: login,
             password: password, 
             activation_code: activation_code, 
-            tou_accepted_at: /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/}.stringify_keys
-          expect(Euresource::PatientEnrollments).to receive(:invoke).with(:register, register_params)
+            tou_accepted_at: /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/
+          }.stringify_keys
+        end
+
+        it 'makes a request to Euresource::PatientEnrollments register' do
+          expect(Euresource::PatientEnrollments).to receive(:invoke).with(:register, {uuid: patient_enrollment_uuid}, {patient_enrollment: register_params})
           post :register, params
         end
-      end
 
-      context 'when request to register is successful' do
-        it_behaves_like 'returns expected status'
-        it_behaves_like 'renders expected template'
+        context 'when request to register is successful' do
+          let(:response_stub) do
+            double('response').tap do |r|
+              r.stub(:body).and_return('')
+              r.stub(:status).and_return(200)
+            end
+          end
+
+          before do
+            Euresource::PatientEnrollments.stub(:invoke)
+              .with(:register, {uuid: patient_enrollment_uuid}, {patient_enrollment: register_params})
+              .and_return(response_stub)
+          end
+
+          it_behaves_like 'returns expected status'
+          it_behaves_like 'renders expected template'
+        end
+
+        context 'when request to register fails' do
+          let(:response_body) { 'Malformed create user request.' }
+          let(:expected_status_code) { 400 }
+          let(:error_response_body)  do
+            {errors: "Unable to complete registration: #{response_body}"}.to_json
+          end
+          let(:response_stub) do
+            double('response').tap do |r|
+              r.stub(:body).and_return(response_body)
+              r.stub(:status).and_return(expected_status_code)
+            end
+          end
+
+          before do
+            Euresource::PatientEnrollments.stub(:invoke)
+              .with(:register, {uuid: patient_enrollment_uuid}, {patient_enrollment: register_params})
+              .and_return(response_stub)
+          end
+
+          it_behaves_like 'returns expected status'
+          it_behaves_like 'returns expected error response body'
+        end
       end
     end
   end

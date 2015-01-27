@@ -29,25 +29,16 @@ class PatientEnrollmentsController < ApplicationController
     @register_params = patient_enrollment_params.permit(all_register_params)
       .merge(activation_code: session[:activation_code], tou_accepted_at: Time.now.to_s)
 
-    register_response = Euresource::PatientEnrollments.invoke(:register, @register_params)
+    register_response = Euresource::PatientEnrollments.invoke(
+      :register,
+      {uuid: session[:patient_enrollment_uuid]},
+      {patient_enrollment: @register_params})
 
-# params
-# => {"utf8"=>"✓",
-#  "authenticity_token"=>"Dme42wvkJzIw4dPL9mr0DYQCg8m46GlaoNRMgTANVEw=",
-#  "patient_enrollment"=>
-#   {"login"=>"a@g.com",
-#    "login_confirmation"=>"a@g.com",
-#    "password"=>"zaC!Tru3",
-#    "password_confirmation"=>"zaC!Tru3",
-#    "security_question"=>"2",
-#    "answer"=>"hij"},
-#  "commit"=>"Create account",
-#  "action"=>"register",
-#  "controller"=>"patient_enrollments"}
-    #TODO test this
-    # TODO PATCH: /v1/patient_enrollments/:patient_enrollment_uuid/register
-    
-    render 'download'
+    if register_response.status == 200
+      render 'download'
+    else
+      render json: {errors: "Unable to complete registration: #{register_response.body}"}, status: register_response.status
+    end
   end
 
   private
