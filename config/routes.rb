@@ -12,6 +12,7 @@ Minotaur::Application.routes.draw do
   end
 
   get :patient_management, controller: :patient_management, to: :select_study_and_site
+  post 'patient_management/invite_patient', controller: :patient_management
   resources :study_sites, only: [:index]
 
   get :logout, controller: :application
