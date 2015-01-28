@@ -58,7 +58,7 @@ describe PatientEnrollmentsController do
     end
   end
   
-  describe 'POST patient_enrollments/register' do
+  describe 'POST register' do
     let(:verb)                              { :post }
     let(:action)                            { :register }
     let(:expected_status_code)              { 200 }
@@ -130,7 +130,7 @@ describe PatientEnrollmentsController do
       end
     end
 
-    context 'when all required parameters and activation code are present' do
+    context 'when all required parameters, patient_enrollment_uuid and activation code are present' do
       let(:params) { {patient_enrollment: required_expected_register_params} }
 
       before { required_expected_register_params.merge(forecast: 'snowmageddon') }
