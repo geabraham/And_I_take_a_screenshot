@@ -3,7 +3,7 @@ Feature: Patient Registration
   I want to submit registration info for a study
   So I can be registered for that study
 
-  @Review[ENG]
+  @Review[SQA]
   @Release2015.1.0
   @PB130359-001
   @Headed
@@ -27,7 +27,7 @@ Feature: Patient Registration
     Then I should see a link to download the Patient Cloud app
     And I should be registered for a study
 
-  @Review[ENG]
+  @Review[SQA]
   @Release2015.1.0
   @PB130359-002
   @Headed
