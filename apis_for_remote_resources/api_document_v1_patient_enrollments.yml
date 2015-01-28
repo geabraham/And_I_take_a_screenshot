@@ -128,7 +128,7 @@ resources:
       register:
         id: patient_enrollments.register
         path: patient_enrollments/{uuid}/register
-        httpMethod: POST
+        httpMethod: PUT
         description: Register a patient_enrollment.
         parameters:
           uuid:
