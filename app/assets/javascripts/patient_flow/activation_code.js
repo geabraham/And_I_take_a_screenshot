@@ -32,11 +32,12 @@ var handleInput = function() {
       if(regx.test(str)) {
         $(".validation_error").addClass('invisible');
         $(".activation-code").removeClass('has-error');
-        $('#activate-button').prop('href', '/activation_codes/' + str + '/patient_enrollment')
+        $('#activate-button').prop('href', '/activation_codes/' + str + '/validate')
         $('#activate-button').removeClass('disabled');
       } else {
         $(".validation_error").removeClass('invisible');
         $(".activation-code").addClass('has-error');
+        $('#activate-button').prop('href', '')
         $('#activate-button').addClass('disabled');
       }
     } else {

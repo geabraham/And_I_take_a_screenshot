@@ -49,7 +49,12 @@ describe 'activation code page', ->
           window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('NOOO0!')
           handleInput()
           expect($('#activate-button')).toHaveClass('disabled')
-    
+
+        it 'has a blank href attribute', ->
+          window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('NOOO0!')
+          handleInput()
+          expect($('#activate-button')).toHaveAttr('href', '')
+
       describe 'with no invalid characters present', ->
         it 'is enabled', ->
           window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('234567')
@@ -59,7 +64,7 @@ describe 'activation code page', ->
         it 'has the right href attribute', ->
           window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('234567')
           handleInput()
-          expect($('#activate-button')).toHaveAttr('href', '/activation_codes/234567/patient_enrollment')
+          expect($('#activate-button')).toHaveAttr('href', '/activation_codes/234567/validate')
 
       sharedBehaviorForEvent = (event) ->
         describe event.name, ->

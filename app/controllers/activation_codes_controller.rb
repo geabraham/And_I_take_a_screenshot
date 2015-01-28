@@ -1,7 +1,7 @@
 class ActivationCodesController < ApplicationController
   layout "patient_registration"
 
-  def patient_enrollment
+  def validate
     begin
       @activation_code = Euresource::ActivationCodes.get({activation_code: params[:id]})
       if @activation_code.attributes['state'] == 'active'

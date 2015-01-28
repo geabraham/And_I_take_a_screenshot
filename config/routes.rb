@@ -4,7 +4,7 @@ Minotaur::Application.routes.draw do
   root to: 'activation_codes#index'
 
   resources :activation_codes, only: [:index] do
-    get 'patient_enrollment', on: :member
+    get 'validate', on: :member
   end
 
   resource :patient_enrollments, only: [:new] do
