@@ -83,6 +83,27 @@ describe PatientManagementController do
         it_behaves_like 'returns expected status'
         it_behaves_like 'assigns the expected instance variables'
       end
+
+      context 'with study and study site uuid parameters' do
+        let(:study_uuid)        { SecureRandom.uuid }
+        let(:study_site_uuid)   { SecureRandom.uuid }
+        let(:params)            { default_params.merge(study_uuid: study_uuid, study_site_uuid: study_site_uuid) }
+        let(:expected_template) { 'patient_management_grid' }
+
+        it_behaves_like 'renders expected template'
+
+        it 'requests tou dpn agreements'
+        it 'requests subjects'
+
+        context 'when tou dpn agreements request fails'
+        context 'when subjects request fails'
+        context 'when both tou dpn agreement request and subjects requests succed'
+      end
     end
+  end
+
+  describe 'POST invite_patient' do
+    context 'without all requried parameters'
+    context 'with all required parameters'
   end
 end
