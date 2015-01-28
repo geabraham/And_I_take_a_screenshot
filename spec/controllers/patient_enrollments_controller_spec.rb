@@ -68,6 +68,7 @@ describe PatientEnrollmentsController do
     let(:required_expected_register_params) { {login: login, password: password} }
     let(:activation_code)                   { 'HX6PKN' }
     let(:patient_enrollment_uuid)           { SecureRandom.uuid }
+    let(:params)                            { {id: patient_enrollment_uuid} }
     let!(:datetime_regex)                   { /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/ }
 
     before do
@@ -87,7 +88,7 @@ describe PatientEnrollmentsController do
     end
 
     context 'when required parameters are missing' do
-      let(:params)               { {patient_enrollment: required_expected_register_params} }
+      let(:params)               { {id: patient_enrollment_uuid, patient_enrollment: required_expected_register_params} }
       let(:expected_status_code) { 422 }
       let(:error_response_body)  do 
         {errors: 'param is missing or the value is empty: password'}.to_json
@@ -100,7 +101,7 @@ describe PatientEnrollmentsController do
     end
 
     context 'when security_question or answer is present and the other is missing' do
-      let(:params)               { {patient_enrollment: required_expected_register_params} }
+      let(:params)               { {id: patient_enrollment_uuid, patient_enrollment: required_expected_register_params} }
       let(:expected_status_code) { 422 }
       let(:error_response_body)  do 
         {errors: 'param is missing or the value is empty: answer'}.to_json
@@ -131,7 +132,7 @@ describe PatientEnrollmentsController do
     end
 
     context 'when all required parameters, patient_enrollment_uuid and activation code are present' do
-      let(:params) { {patient_enrollment: required_expected_register_params} }
+      let(:params) { {id: patient_enrollment_uuid, patient_enrollment: required_expected_register_params} }
 
       before { required_expected_register_params.merge(forecast: 'snowmageddon') }
 
@@ -155,7 +156,7 @@ describe PatientEnrollmentsController do
 
         context 'with new user params' do
           let(:new_user_params) { {security_question: '2', answer: '42'} }
-          let(:params)          { {patient_enrollment: required_expected_register_params.merge(new_user_params)} }
+          let(:params)          { {id: patient_enrollment_uuid, patient_enrollment: required_expected_register_params.merge(new_user_params)} }
           let(:expected_register_params) do
             {
               login: login,

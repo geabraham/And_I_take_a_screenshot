@@ -6,6 +6,7 @@ describe 'patient_enrollments/new.html.haml' do
     assign(:tou_dpn_agreement_body, '<body>Consider yourself warned.</body>')
     assign(:security_questions, [['What?', 1], ['Who?', 2]])
     assign(:patient_enrollment, PatientEnrollment.new)
+    assign(:patient_enrollment_uuid, SecureRandom.uuid)
     render
   end
   

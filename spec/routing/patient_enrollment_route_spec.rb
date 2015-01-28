@@ -6,6 +6,6 @@ describe 'PatientEnrollment Routes' do
   end
 
   it 'has a POST create route' do
-    expect(post('/patient_enrollments/register')).to route_to('patient_enrollments#register')
+    expect(post("/patient_enrollments/1/register")).to route_to(controller: 'patient_enrollments', id: '1', action: 'register')
   end
 end

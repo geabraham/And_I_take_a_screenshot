@@ -18,7 +18,7 @@
       .progress-bar.progress-bar-incomplete
         %span.sr-only='Page 4 of 4'
   
-  = form_tag register_patient_enrollments_path, id: 'reg-form'
+  = form_tag register_patient_enrollment_path(@patient_enrollment_uuid), id: 'reg-form'
   .carousel.slide#registration-details(data-interval="false")
     .carousel-inner(role="listbox")
       .item.active#landing_page

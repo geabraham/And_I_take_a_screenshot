@@ -2,8 +2,8 @@ class PatientEnrollmentsController < ApplicationController
   layout "patient_registration"
   
   def new
-    patient_enrollment_uuid = session[:patient_enrollment_uuid]
-    @patient_enrollment = PatientEnrollment.new(uuid: patient_enrollment_uuid)
+    @patient_enrollment_uuid = session[:patient_enrollment_uuid]
+    @patient_enrollment = PatientEnrollment.new(uuid: @patient_enrollment_uuid)
     @tou_dpn_agreement_body = @patient_enrollment.tou_dpn_agreement_body
     @security_questions = RemoteSecurityQuestions.find_or_fetch(@patient_enrollment.language_code || I18n.default_locale).map { |sq| sq.values }
   rescue StandardError => e
