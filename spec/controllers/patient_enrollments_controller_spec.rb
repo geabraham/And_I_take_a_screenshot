@@ -190,6 +190,12 @@ describe PatientEnrollmentsController do
 
           it_behaves_like 'returns expected status'
           it_behaves_like 'renders expected template'
+
+          it 'clears the session' do
+            post :register, params
+            expect(session[:activation_code]).to be_nil
+            expect(session[:patient_enrollment_uuid]).to be_nil
+          end
         end
 
         context 'when request to register fails' do

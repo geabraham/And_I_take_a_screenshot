@@ -23,6 +23,7 @@ class PatientEnrollmentsController < ApplicationController
 
     if register_response.status == 200
       render 'download'
+      reset_session
     else
       render json: {errors: "Unable to complete registration: #{register_response.body}"}, status: register_response.status
     end
