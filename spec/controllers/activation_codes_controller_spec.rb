@@ -26,7 +26,7 @@ describe ActivationCodesController do
       end
 
       before do
-        Euresource::ActivationCodes.stub(:get).with({activation_code: params[:id]}).and_return(response_stub)
+        allow(Euresource::ActivationCodes).to receive(:get).with({activation_code: params[:id]}).and_return(response_stub)
       end
 
       let(:params)               { {id: 'WLCMHK'} }
@@ -60,7 +60,7 @@ describe ActivationCodesController do
         end
 
         before do
-          Euresource::ActivationCodes.stub(:get).with({activation_code: params[:id]}).and_return(response_stub)
+          allow(Euresource::ActivationCodes).to receive(:get).with({activation_code: params[:id]}).and_return(response_stub)
         end
 
         let(:params)               { {id: 'WLCMHK'} }
@@ -81,7 +81,7 @@ describe ActivationCodesController do
 
       context 'with an unknown activation code' do
         before do
-          Euresource::ActivationCodes.stub(:get).with(anything()) {
+          allow(Euresource::ActivationCodes).to receive(:get).with(anything()) {
             raise Euresource::ResourceNotFound.new(404,"Failed.  Response status: 404.")
             Euresource::ActivationCodes.new(attributes: {"activation_code" => '',
                                                          "state" => 'active',
