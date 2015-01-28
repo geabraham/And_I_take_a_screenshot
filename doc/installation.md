@@ -60,14 +60,16 @@ You must be logged in to iMedidata as an admin user. Navigate to apps management
 
 * name: **Patient Cloud Registration**
 * base_url:
-    * development stages: **`shield-<stage>.imedidata.net`**
-    * innovate: **`shield-innovate.imedidata.com`**
-    * production: **`shield.imedidata.com`**
+    * development stages: **`shield-<stage>.imedidata.net/patient_management`**
+    * innovate: **`shield-innovate.imedidata.com/patient_management`**
+    * production: **`shield.imedidata.com/patient_management`**
 * public_key: a valid public key
 
 No other attibutes are required. Save the app. If successful, a uuid will be generated and displayed on the app's show page.
 
 **Use the app uuid and public key for mAuth registration. The app uuid and the private key paired with the public key must be used in the twelve-factor databag.**
+
+**Add the app_uuid to the Subjects' app_uuids whitelist and re-deploy Subjects.**
 
 ## Twelve-factor databag settings
 
