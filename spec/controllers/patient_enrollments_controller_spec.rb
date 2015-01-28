@@ -68,10 +68,10 @@ describe PatientEnrollmentsController do
     let(:required_expected_register_params) { {login: login, password: password} }
     let(:activation_code)                   { 'HX6PKN' }
     let(:patient_enrollment_uuid)           { SecureRandom.uuid }
+    let!(:datetime_regex)                   { /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/ }
 
     before do
       allow(Euresource::PatientEnrollments).to receive(:invoke)
-      @datetime_regex = /[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} [-|\+|][0-9]{4}/
       session[:activation_code] = activation_code
       session[:patient_enrollment_uuid] = patient_enrollment_uuid
     end
@@ -141,7 +141,7 @@ describe PatientEnrollmentsController do
             login: login,
             password: password, 
             activation_code: activation_code, 
-            tou_accepted_at: @datetime_regex
+            tou_accepted_at: datetime_regex
           }.stringify_keys
         end
 
@@ -161,7 +161,7 @@ describe PatientEnrollmentsController do
               login: login,
               password: password, 
               activation_code: activation_code, 
-              tou_accepted_at: @datetime_regex,
+              tou_accepted_at: datetime_regex,
               answer: '42',
               security_question_id: '2'
             }.stringify_keys
