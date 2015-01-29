@@ -3,6 +3,8 @@ Before do
                          {name: 'Last four digits of SSN or Tax ID number?', id: '2'},
                          {name: 'What is your father\'s middle name?', id: '3'}]
   allow(RemoteSecurityQuestions).to receive(:find_or_fetch).and_return(@security_questions)
+  session = Capybara::Session.new(:culerity)
+  page.set_rack_session(patient_enrollment_uuid: SecureRandom.uuid)
 end
 
 When(/^I fill in an activation code$/) do

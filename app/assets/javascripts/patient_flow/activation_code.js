@@ -3,20 +3,12 @@ $(function() {
   
   $('#code').on('keyup', handleInput);
   
-  $('#activate-button').on('click', activate);
-  
   $(document).keypress(function(e){
       if (e.which == 13){
         $('#activate-button').click();
       }
   });
 });
-
-var activate = function() {
-  if (!$('#activate-button').hasClass('disabled')) {
-    $.get("/activation_codes/" + getCodeString() + "/activate");
-  }
-}
 
 var getCodeString = function() {
   return $.trim($('#code').val().toUpperCase());
@@ -40,10 +32,12 @@ var handleInput = function() {
       if(regx.test(str)) {
         $(".validation_error").addClass('invisible');
         $(".activation-code").removeClass('has-error');
+        $('#activate-button').prop('href', '/activation_codes/' + str + '/validate')
         $('#activate-button').removeClass('disabled');
       } else {
         $(".validation_error").removeClass('invisible');
         $(".activation-code").addClass('has-error');
+        $('#activate-button').prop('href', '')
         $('#activate-button').addClass('disabled');
       }
     } else {
