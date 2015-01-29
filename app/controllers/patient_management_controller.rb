@@ -9,13 +9,15 @@ class PatientManagementController < ApplicationController
 
   def select_study_and_site
     if params[:study_uuid] && params[:study_site_uuid]
+      # REVIEW: Check study and site privilege here or rely on subjects to do so?
+      #
+      @tou_dpn_agreements = Euresource::TouDpnAgreement.get(:all).map do |agreement|
+        agreement.attributes.slice(*tou_dpn_agreement_attributes)
+      end
+
       return render 'patient_management_grid'
     end
     @study_or_studies = studies_selection_list
-  end
-
-  def invite_patient
-
   end
 
   private
@@ -28,5 +30,9 @@ class PatientManagementController < ApplicationController
       studies = request_studies!(params)['studies']
       name_uuid_options_array(studies)
     end
+  end
+
+  def tou_dpn_agreement_attributes
+    ['language', 'language_code', 'country', 'country_code']
   end
 end
