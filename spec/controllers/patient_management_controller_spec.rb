@@ -110,8 +110,29 @@ describe PatientManagementController do
           get :select_study_and_site, params
         end
 
-        context 'when tou dpn agreements request fails'
-        context 'when subjects request fails'
+        context 'when euresource call returns okay with anything other than an array' do
+          before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return('') } 
+
+          it 'returns an empty array' do
+            get :select_study_and_site, params
+            expect(assigns(:tou_dpn_agreements)).to eq([])
+          end
+        end
+
+        context 'when subjects request fails' do
+          before do
+            allow(Euresource::Subject).to receive(:get).with(:all, {params: {
+              study_uuid: study_uuid,
+              study_site_uuid: study_site_uuid,
+              available: true}}).and_return('')
+          end
+
+          it 'returns an empty array' do
+            get :select_study_and_site, params
+            expect(assigns(:available_subjects)).to eq([])
+          end
+        end
+
         context 'when both tou dpn agreement request and subjects requests succeed' do
           let(:tou_dpn_agreement1_attrs) { {language_code: 'ara', country_code: 'ara', country: 'Israel', language: 'Arabic', uuid: SecureRandom.uuid}.stringify_keys }
           let(:tou_dpn_agreement2_attrs) { {language_code: 'cze', country_code: 'cze', country: 'Czech Republic', language: 'Czech', uuid: SecureRandom.uuid}.stringify_keys }
@@ -144,7 +165,9 @@ describe PatientManagementController do
 
           it 'assigns available subjects' do
             get :select_study_and_site, params
-            expect(assigns(:available_subjects)).to eq([subject1_attrs['subject_identifier'], subject2_attrs['subject_identifier']])
+            subject1_attrs.delete('uuid')
+            subject2_attrs.delete('uuid')
+            expect(assigns(:available_subjects)).to eq([subject1_attrs, subject2_attrs])
           end
         end
       end
