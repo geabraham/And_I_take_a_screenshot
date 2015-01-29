@@ -9,11 +9,10 @@ class PatientManagementController < ApplicationController
 
   def select_study_and_site
     if params[:study_uuid] && params[:study_site_uuid]
-      # REVIEW: Check study and site privilege here or rely on subjects to do so?
+      # TODO: Check study and site privilege here
       #
-      @tou_dpn_agreements = Euresource::TouDpnAgreement.get(:all).map do |agreement|
-        agreement.attributes.slice(*tou_dpn_agreement_attributes)
-      end
+      @tou_dpn_agreements = fetch_tou_dpn_agreements
+      @available_subjects = fetch_available_subjects
 
       return render 'patient_management_grid'
     end
@@ -21,6 +20,31 @@ class PatientManagementController < ApplicationController
   end
 
   private
+
+  def fetch_tou_dpn_agreements
+    tou_dpn_agreements_response = Euresource::TouDpnAgreement.get(:all)
+
+    if tou_dpn_agreements_response.is_a?(Array)
+      tou_dpn_agreements_response.map do |agreement|
+        agreement.attributes.slice(*tou_dpn_agreement_attributes)
+      end
+    else
+      return render json: {errors: "Unexpected response from tou_dpn_agreements request: #{tou_dpn_agreements_response}"}
+    end
+  end
+
+  def fetch_available_subjects
+    subjects_response = Euresource::Subject.get(:all, {params: {
+      study_uuid: params[:study_uuid],
+      study_site_uuid: params[:study_site_uuid],
+      available: true}})
+
+    if subjects_response.is_a?(Array)
+      subjects_response.map {|s| s.attributes['subject_identifier']}
+    else
+      return render json: {errors: "Unexpected response from available subjects request: #{subjects_response}"}
+    end
+  end
 
   def studies_selection_list
     if params[:study_uuid].present?

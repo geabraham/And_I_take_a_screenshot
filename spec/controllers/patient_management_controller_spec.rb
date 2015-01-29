@@ -89,25 +89,52 @@ describe PatientManagementController do
         let(:study_site_uuid)          { SecureRandom.uuid }
         let(:params)                   { default_params.merge(study_uuid: study_uuid, study_site_uuid: study_site_uuid) }
         let(:expected_template)        { 'patient_management_grid' }
-        let(:tou_dpn_agreement1_attrs) { {language_code: 'ara', country_code: 'ara', country: 'Israel', language: 'Arabic', uuid: SecureRandom.uuid}.stringify_keys }
-        let(:tou_dpn_agreement2_attrs) { {language_code: 'cze', country_code: 'cze', country: 'Czech Republic', language: 'Czech', uuid: SecureRandom.uuid}.stringify_keys }
-        let(:tou_dpn_agreement1) do
-          double('agreement').tap {|a| allow(a).to receive(:attributes).and_return(tou_dpn_agreement1_attrs)}
-        end
-        let(:tou_dpn_agreement2) do
-          double('agreement').tap {|a| allow(a).to receive(:attributes).and_return(tou_dpn_agreement2_attrs)}
-        end
-        let(:tou_dpn_agreements) { [tou_dpn_agreement1, tou_dpn_agreement2]}
 
-        before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return(tou_dpn_agreements) }
+        before do
+          allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return([])
+          allow(Euresource::Subject).to receive(:get).with(:all, {params: {
+            study_uuid: study_uuid,
+            study_site_uuid: study_site_uuid,
+            available: true}}).and_return([])
+        end
         it_behaves_like 'renders expected template'
 
-        it 'requests tou dpn agreements'
-        it 'requests subjects'
+        it 'requests tou dpn agreements' do
+          expect(Euresource::TouDpnAgreement).to receive(:get).with(:all)
+          get :select_study_and_site, params
+        end
+
+        it 'requests subjects' do
+          expect(Euresource::Subject).to receive(:get)
+            .with(:all, {params: {study_uuid: study_uuid, study_site_uuid: study_site_uuid, available: true}})
+          get :select_study_and_site, params
+        end
 
         context 'when tou dpn agreements request fails'
         context 'when subjects request fails'
         context 'when both tou dpn agreement request and subjects requests succeed' do
+          let(:tou_dpn_agreement1_attrs) { {language_code: 'ara', country_code: 'ara', country: 'Israel', language: 'Arabic', uuid: SecureRandom.uuid}.stringify_keys }
+          let(:tou_dpn_agreement2_attrs) { {language_code: 'cze', country_code: 'cze', country: 'Czech Republic', language: 'Czech', uuid: SecureRandom.uuid}.stringify_keys }
+          let(:tou_dpn_agreement1) do
+            double('agreement').tap {|a| allow(a).to receive(:attributes).and_return(tou_dpn_agreement1_attrs)}
+          end
+          let(:tou_dpn_agreement2) do
+            double('agreement').tap {|a| allow(a).to receive(:attributes).and_return(tou_dpn_agreement2_attrs)}
+          end
+          let(:tou_dpn_agreements) { [tou_dpn_agreement1, tou_dpn_agreement2]}
+          let(:subject1_attrs) { {uuid: SecureRandom.uuid, subject_identifier: 'Subject001'}.stringify_keys }
+          let(:subject2_attrs) { {uuid: SecureRandom.uuid, subject_identifier: 'Subject002'}.stringify_keys }
+          let(:subject1) { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject1_attrs)} }
+          let(:subject2) { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject2_attrs)} }
+          let(:subjects) { [subject1, subject2] }
+
+          before do
+            allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return(tou_dpn_agreements)
+            allow(Euresource::Subject).to receive(:get).with(:all, {params: {
+              study_uuid: study_uuid,
+              study_site_uuid: study_site_uuid,
+              available: true}}).and_return(subjects)
+          end
           it 'assigns tou_dpn agreements' do
             get :select_study_and_site, params
             tou_dpn_agreement1_attrs.delete('uuid')
@@ -115,7 +142,10 @@ describe PatientManagementController do
             expect(assigns(:tou_dpn_agreements)).to eq([tou_dpn_agreement1_attrs, tou_dpn_agreement2_attrs])
           end
 
-          it 'assigns subjects'
+          it 'assigns available subjects' do
+            get :select_study_and_site, params
+            expect(assigns(:available_subjects)).to eq([subject1_attrs['subject_identifier'], subject2_attrs['subject_identifier']])
+          end
         end
       end
     end
