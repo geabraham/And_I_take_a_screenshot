@@ -1,1 +1,6 @@
-Patient invtation form
+= form_for patient_management_invite_patient_path, id: 'invite-form' do |f|
+  .form-group
+    = f.select :country_language, @tou_dpn_agreements, {include_blank: 'Country / Language'}, {class: 'form-control'}
+  .form-group
+    = f.select :subject_identifier, @available_subjects, {include_blank: 'Subject Identifier'}, {class: 'form-control'}
+  = f.submit

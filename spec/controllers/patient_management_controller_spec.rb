@@ -143,6 +143,12 @@ describe PatientManagementController do
             double('agreement').tap {|a| allow(a).to receive(:attributes).and_return(tou_dpn_agreement2_attrs)}
           end
           let(:tou_dpn_agreements) { [tou_dpn_agreement1, tou_dpn_agreement2]}
+          let(:assigned_tou_dpn_agreements) do
+            [
+              ['Israel/Arabic', {language_code: 'ara', country_code: 'ara'}.to_json],
+              ['Czech Republic/Czech', {language_code: 'cze', country_code: 'cze'}.to_json]
+            ]
+          end
           let(:subject1_attrs) { {uuid: SecureRandom.uuid, subject_identifier: 'Subject001'}.stringify_keys }
           let(:subject2_attrs) { {uuid: SecureRandom.uuid, subject_identifier: 'Subject002'}.stringify_keys }
           let(:subject1) { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject1_attrs)} }
@@ -156,18 +162,19 @@ describe PatientManagementController do
               study_site_uuid: study_site_uuid,
               available: true}}).and_return(subjects)
           end
+
           it 'assigns tou_dpn agreements' do
             get :select_study_and_site, params
             tou_dpn_agreement1_attrs.delete('uuid')
             tou_dpn_agreement2_attrs.delete('uuid')
-            expect(assigns(:tou_dpn_agreements)).to eq([tou_dpn_agreement1_attrs, tou_dpn_agreement2_attrs])
+            expect(assigns(:tou_dpn_agreements)).to eq(assigned_tou_dpn_agreements)
           end
 
           it 'assigns available subjects' do
             get :select_study_and_site, params
             subject1_attrs.delete('uuid')
             subject2_attrs.delete('uuid')
-            expect(assigns(:available_subjects)).to eq([subject1_attrs, subject2_attrs])
+            expect(assigns(:available_subjects)).to eq([['Subject001','Subject001'], ['Subject002','Subject002']])
           end
         end
       end

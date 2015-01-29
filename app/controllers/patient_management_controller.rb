@@ -11,8 +11,12 @@ class PatientManagementController < ApplicationController
     if params[:study_uuid] && params[:study_site_uuid]
       # TODO: Check study and site privilege here
       #
-      @tou_dpn_agreements = fetch_tou_dpn_agreements
-      @available_subjects = fetch_available_subjects
+
+      # You're beautiful, don't change.
+      # But really @tou_dpn_agreements is a list of country - language pairs.
+      #
+      @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
+      @available_subjects = fetch_available_subjects_for_select
       return render 'patient_management_grid'
     end
     @study_or_studies = studies_selection_list
@@ -20,19 +24,27 @@ class PatientManagementController < ApplicationController
 
   private
 
-  def fetch_tou_dpn_agreements
+  # Review: Euresource, it appears, throws errors as opposed to error responses we can pass along.
+  #  All are caught with application controller rescuing standard error which seems the best we can do.
+  #
+  # Returns a
+  def fetch_tou_dpn_agreements_for_select
     tou_dpn_agreements = Euresource::TouDpnAgreement.get(:all)
-    attributes_or_empty_array(tou_dpn_agreements, tou_dpn_agreement_attributes)
+    languages_and_countries = attributes_or_empty_array(tou_dpn_agreements, tou_dpn_agreement_attributes)
+    languages_and_countries.map { |lc| ["#{lc['country']} / #{lc['language']}", lc.slice('language_code', 'country_code').to_json] }
   end
 
-  def fetch_available_subjects
+  def fetch_available_subjects_for_select
     available_subjects = Euresource::Subject.get(:all, {params: {
       study_uuid: params[:study_uuid],
       study_site_uuid: params[:study_site_uuid],
       available: true}})
-    attributes_or_empty_array(available_subjects, ['subject_identifier'])
+    subjects = attributes_or_empty_array(available_subjects, ['subject_identifier'])
+    subjects.map {|s| [s['subject_identifier'], s['subject_identifier']]}
   end
 
+  # Defend against unexpected response types
+  #
   def attributes_or_empty_array(response, attributes)
     response.is_a?(Array) ? response.map {|s| s.attributes.slice(*attributes)} : []
   end
