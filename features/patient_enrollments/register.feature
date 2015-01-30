@@ -37,3 +37,11 @@ Feature: Patient Registration
     And I submit registration info as a new subject
     And the back-end service returns an error
     Then I should see a representation of the error from back-end service
+
+  @Review[SQA]
+  @Release2015.1.0
+  @PB138064-001
+  @Headed
+  Scenario: An invalid activation code displays an error message
+    When I fill in an invalid activation code
+    Then I should see a representation of the error from back-end service
