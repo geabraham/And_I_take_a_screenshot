@@ -11,20 +11,29 @@ Before do
     patient_enrollment_uuid: @patient_enrollment_uuid,
     activation_code: @activation_code
   }.stringify_keys
+  @invalid_activation_code_attrs = @activation_code_attrs.merge({'state' => 'inactive'})
   @tou_dpn_agreement = {
     html: '<html><body>We think in generalities, but we live in detail.</body></html>', 
     language_code: 'eng'
   }.stringify_keys
 end
 
-When(/^I fill in an activation code$/) do
-  activation_code_response = double('activation_code').tap do |ac|
-    allow(ac).to receive(:attributes).and_return(@activation_code_attrs)
+When(/^I fill in (a|an) (valid|invalid) activation code$/) do |_, validity|
+  activation_code_response = if validity == 'valid'
+    allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
+    double('activation_code').tap do |ac|
+      allow(ac).to receive(:attributes).and_return(@activation_code_attrs)
+    end
+  else
+    @error_response_message = 'Activation Code must be in active state'
+    double('activation_code').tap do |ac|
+      allow(ac).to receive(:attributes).and_return(@invalid_activation_code_attrs)
+    end
   end
+
   allow(Euresource::ActivationCodes).to receive(:get)
     .with(activation_code: @activation_code)
     .and_return(activation_code_response)
-  allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
 
   visit '/'
   fill_in 'code', with: @activation_code
@@ -32,6 +41,7 @@ When(/^I fill in an activation code$/) do
 end
 
 When(/^I accept the TOU\/DPN$/) do
+  # Move past the instructional steps page
   click_on 'Next'
   assert_text('We think in generalities, but we live in detail.')
   sleep(1)
@@ -102,7 +112,7 @@ Then(/^I should see a link to download the Patient Cloud app$/) do
 end
 
 Then(/^I should see a representation of the error from back\-end service$/) do
-  expect(page).to have_content("Unable to complete registration: #{@error_response_message}")
+  expect(page).to have_content(@error_response_message)
 end
 
 And(/^I should be registered for a study$/) do
