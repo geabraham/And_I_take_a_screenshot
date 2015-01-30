@@ -7,6 +7,7 @@ Feature: Patient Registration
   @Release2015.1.0
   @PB130359-001
   @Headed
+  @PatientFlow
   Scenario: A new iMedidata user should be able to register for a study
     When I fill in a valid activation code
     And I accept the TOU/DPN
@@ -19,6 +20,7 @@ Feature: Patient Registration
   @Release2015.1.0
   @PB130361-001
   @Headed
+  @PatientFlow
   Scenario: An existing iMedidata user should be able to register for a study
     When I fill in a valid activation code
     And I accept the TOU/DPN
@@ -31,6 +33,7 @@ Feature: Patient Registration
   @Release2015.1.0
   @PB130359-002
   @Headed
+  @PatientFlow
   Scenario: A patient should not be able to register for a study if the back-end service returns an error
     When I fill in a valid activation code
     And I accept the TOU/DPN
@@ -42,6 +45,7 @@ Feature: Patient Registration
   @Release2015.1.0
   @PB138064-001
   @Headed
+  @PatientFlow
   Scenario: An invalid activation code displays an error message
     When I fill in an invalid activation code
     Then I should see a representation of the error from back-end service
