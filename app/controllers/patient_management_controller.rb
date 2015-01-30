@@ -35,7 +35,7 @@ class PatientManagementController < ApplicationController
 
   def session_has_authorizations?(options = {})
     options.keys.all? do |object_type|
-      authorized_objects = session[:cas_extra_attributes].send(:[], object_type.to_s)
+      authorized_objects = user_session.send(:[], object_type.to_s)
       if authorized_objects.is_a?(Array)
         authorized_objects.include?(options[object_type.to_sym])
       end
@@ -70,9 +70,11 @@ class PatientManagementController < ApplicationController
   def studies_selection_list
     if params[:study_uuid].present?
       study = request_study!(params)['study']
+      add_authorizations_to_session('studies', [study['uuid']])
       [[study['name'], study['uuid']]]
     elsif
       studies = request_studies!(params)['studies']
+      add_authorizations_to_session('studies', studies.map {|s| s['uuid']})
       name_uuid_options_array(studies)
     end
   end

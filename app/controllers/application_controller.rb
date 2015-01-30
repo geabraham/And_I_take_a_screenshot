@@ -38,4 +38,14 @@ class ApplicationController < ActionController::Base
   def name_uuid_options_array(collection)
     collection.uniq.collect { |s| [s['name'], s['uuid']] }
   end
+
+
+  def add_authorizations_to_session(object_type, object_uuids)
+    user_session["authorized_#{object_type}".to_sym] ||= []
+    user_session["authorized_#{object_type}".to_sym] += object_uuids
+  end
+
+  def user_session
+    session[:cas_extra_attributes]
+  end
 end

@@ -8,6 +8,8 @@ class StudySitesController < ApplicationController
 
   def index
     params.require(:study_uuid)
-    render json: name_uuid_options_array(request_study_sites!(params)['study_sites'])
+    study_sites = request_study_sites!(params)['study_sites']
+    add_authorizations_to_session('study_sites', study_sites.map {|ss| ss['uuid']})
+    render json: name_uuid_options_array(study_sites)
   end
 end
