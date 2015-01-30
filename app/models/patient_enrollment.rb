@@ -2,6 +2,7 @@ class PatientEnrollment
   include ActiveModel::Model
   attr_accessor :uuid, :login, :password, :security_question, :answer, :activation_code, :login_confirmation,
                 :tou_dpn_agreement
+  RIGHT_TO_LEFT_LANGUAGE_CODES = ['ara', 'heb']
 
   def tou_dpn_agreement_body
     Nokogiri::HTML(tou_dpn_agreement['html']).css('body').to_s.html_safe
@@ -13,6 +14,10 @@ class PatientEnrollment
 
   def tou_dpn_agreement
     @tou_dpn_agreement ||= remote_tou_dpn_agreement
+  end
+
+  def script_direction
+    RIGHT_TO_LEFT_LANGUAGE_CODES.include?(language_code) ? 'rtl' : 'ltr'
   end
 
   private

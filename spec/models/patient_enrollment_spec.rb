@@ -49,6 +49,20 @@ describe PatientEnrollment do
         expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).language_code).to eq('jpn')
       end
     end
+
+    describe 'script direction' do
+      it 'assigns script_direction to ltr' do
+        expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).script_direction).to eq('ltr')
+      end
+
+      context 'when script is read right to left' do
+        let(:euresource_response_body)   { {html: tou_dpn_agreement_html, language_code: 'heb'}.to_json }
+
+        it 'assigns script_direction to rtl' do
+          expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).script_direction).to eq('rtl')
+        end
+      end
+    end
   end
 
   describe 'remote_tou_dpn_agreement' do
