@@ -17,7 +17,7 @@
     - content_for :page_header_text do
       %h4 Patient Management
 
-    = render 'shared/checkmate_header', user_name: @user_email, home_url: IMED_BASE_URL
+    = render 'shared/checkmate_header', user_name: @user_email, home_url: patient_management_path
     = render 'shared/page_header'
 
     .clearfix
