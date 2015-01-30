@@ -64,10 +64,6 @@ describe PatientManagementController do
 
           it_behaves_like 'returns expected status'
           it_behaves_like 'assigns the expected instance variables'
-          it 'stores the study uuids in the session' do
-            get :select_study_and_site, params
-            expect(controller.send(:user_session)[:authorized_studies]).to eq([study1[:uuid], study2[:uuid]])
-          end
         end
       end
 

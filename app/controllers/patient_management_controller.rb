@@ -16,7 +16,7 @@ class PatientManagementController < ApplicationController
       # But really @tou_dpn_agreements is a list of country - language pairs.
       #
       @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
-      @available_subjects = fetch_available_subjects_for_select
+      @available_subjects = (1..5).map {|s| ["Subject-#{s}", "Subject-#{s}"]} # fetch_available_subjects_for_select
       return render 'patient_management_grid'
     end
     @study_or_studies = studies_selection_list
@@ -27,7 +27,7 @@ class PatientManagementController < ApplicationController
   def study_site_selected_and_authorized?
     study_uuid, study_site_uuid = params[:study_uuid], params[:study_site_uuid]
     if study_uuid && study_site_uuid
-      session_has_authorizations?({authorized_studies: study_uuid, authorized_study_sites: study_site_uuid})
+      session_has_authorizations?({authorized_study_sites: study_site_uuid})
     else
       false
     end
@@ -70,11 +70,9 @@ class PatientManagementController < ApplicationController
   def studies_selection_list
     if params[:study_uuid].present?
       study = request_study!(params)['study']
-      add_authorizations_to_session('studies', [study['uuid']])
       [[study['name'], study['uuid']]]
     elsif
       studies = request_studies!(params)['studies']
-      add_authorizations_to_session('studies', studies.map {|s| s['uuid']})
       name_uuid_options_array(studies)
     end
   end

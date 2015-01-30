@@ -41,8 +41,11 @@ class ApplicationController < ActionController::Base
 
 
   def add_authorizations_to_session(object_type, object_uuids)
-    user_session["authorized_#{object_type}".to_sym] ||= []
-    user_session["authorized_#{object_type}".to_sym] += object_uuids
+    authorized_objects = "authorized_#{object_type}".to_sym
+    user_session[authorized_objects] ||= []
+    object_uuids.uniq.each do |uuid|
+      user_session[authorized_objects] << uuid unless user_session[authorized_objects].include?(uuid)
+    end
   end
 
   def user_session
