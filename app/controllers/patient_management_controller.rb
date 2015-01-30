@@ -9,9 +9,6 @@ class PatientManagementController < ApplicationController
 
   def select_study_and_site
     if study_site_selected_and_authorized?
-      # TODO: Check study and site privilege here
-      #
-
       # You're beautiful, don't change.
       # But really @tou_dpn_agreements is a list of country - language pairs.
       #
