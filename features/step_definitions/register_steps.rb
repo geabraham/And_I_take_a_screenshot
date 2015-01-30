@@ -81,7 +81,7 @@ When(/^I submit registration info as a new subject$/) do
 end
 
 When(/^the request to create account is successful$/) do
-  response_double = double('response').tap {|res| allow(res).to receive(:status).and_return(200) }
+  response_double = double('response').tap {|res| allow(res).to receive(:status).and_return(200)}
 
   allow(Euresource::PatientEnrollments).to receive(:invoke)
     .with(:register, {uuid: @patient_enrollment_uuid}, {patient_enrollment: @patient_enrollment_register_params})
