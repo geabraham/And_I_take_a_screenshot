@@ -22,6 +22,9 @@ class PatientManagementController < ApplicationController
     @study_or_studies = studies_selection_list
   end
 
+  def invite
+  end
+
   private
 
   def study_site_selected_and_authorized?
