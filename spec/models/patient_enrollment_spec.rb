@@ -51,14 +51,14 @@ describe PatientEnrollment do
     end
 
     describe 'script direction' do
-      it 'assigns script_direction to ltr' do
+      it 'defaults to ltr' do
         expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).script_direction).to eq('ltr')
       end
 
       context 'when script is read right to left' do
         let(:euresource_response_body)   { {html: tou_dpn_agreement_html, language_code: 'heb'}.to_json }
 
-        it 'assigns script_direction to rtl' do
+        it 'is rtl' do
           expect(PatientEnrollment.new(uuid: patient_enrollment_uuid).script_direction).to eq('rtl')
         end
       end
