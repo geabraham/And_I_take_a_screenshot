@@ -25,6 +25,7 @@ describe PatientEnrollmentsController do
         allow(PatientEnrollment).to receive(:new).with(uuid: patient_enrollment_uuid).and_return(patient_enrollment)
         allow(patient_enrollment).to receive(:tou_dpn_agreement_body).and_return(tou_dpn_agreement_body)
         allow(patient_enrollment).to receive(:language_code).and_return('jpn')
+        allow(patient_enrollment).to receive(:script_direction).and_return('ltr')
       end
 
       context 'when successful' do
