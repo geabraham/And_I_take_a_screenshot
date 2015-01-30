@@ -8,7 +8,7 @@ class PatientManagementController < ApplicationController
   before_filter :authorize_user
 
   def select_study_and_site
-    if params[:study_uuid] && params[:study_site_uuid]
+    if study_site_selected_and_authorized?
       # TODO: Check study and site privilege here
       #
 
@@ -23,6 +23,24 @@ class PatientManagementController < ApplicationController
   end
 
   private
+
+  def study_site_selected_and_authorized?
+    study_uuid, study_site_uuid = params[:study_uuid], params[:study_site_uuid]
+    if study_uuid && study_site_uuid
+      session_has_authorizations?({authorized_studies: study_uuid, authorized_study_sites: study_site_uuid})
+    else
+      false
+    end
+  end
+
+  def session_has_authorizations?(options = {})
+    options.keys.all? do |object_type|
+      authorized_objects = session[:cas_extra_attributes].send(:[], object_type.to_s)
+      if authorized_objects.is_a?(Array)
+        authorized_objects.include?(options[object_type.to_sym])
+      end
+    end
+  end
 
   # Review: Euresource, it appears, throws errors as opposed to error responses we can pass along.
   #  All are caught with application controller rescuing standard error which seems the best we can do.

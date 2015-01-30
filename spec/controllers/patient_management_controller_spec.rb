@@ -96,7 +96,22 @@ describe PatientManagementController do
             study_uuid: study_uuid,
             study_site_uuid: study_site_uuid,
             available: true}}).and_return([])
+          session[:cas_extra_attributes] = {
+            user_uuid: user_uuid,
+            authorized_studies: [study_uuid],
+            authorized_study_sites: [study_site_uuid]
+          }.stringify_keys!
         end
+
+        context 'when user has not been authorized for the study and site' do
+          let(:expected_template) { 'select_study_and_site' }
+          before do
+            session[:cas_extra_attributes] = {user_uuid: user_uuid}
+            allow(controller).to receive(:studies_selection_list).and_return([])
+          end
+          it_behaves_like 'renders expected template'
+        end
+
         it_behaves_like 'renders expected template'
 
         it 'requests tou dpn agreements' do
@@ -145,8 +160,8 @@ describe PatientManagementController do
           let(:tou_dpn_agreements) { [tou_dpn_agreement1, tou_dpn_agreement2]}
           let(:assigned_tou_dpn_agreements) do
             [
-              ['Israel/Arabic', {language_code: 'ara', country_code: 'ara'}.to_json],
-              ['Czech Republic/Czech', {language_code: 'cze', country_code: 'cze'}.to_json]
+              ['Israel / Arabic', {language_code: 'ara', country_code: 'ara'}.to_json],
+              ['Czech Republic / Czech', {language_code: 'cze', country_code: 'cze'}.to_json]
             ]
           end
           let(:subject1_attrs) { {uuid: SecureRandom.uuid, subject_identifier: 'Subject001'}.stringify_keys }
