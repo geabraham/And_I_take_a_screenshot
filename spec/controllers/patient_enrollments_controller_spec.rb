@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'spec_helper'
 
 describe PatientEnrollmentsController do
@@ -7,8 +8,8 @@ describe PatientEnrollmentsController do
      {'name'=>'ソーシャルセキュリティ番号、納税者ID、健康保険証番号の下4桁は何ですか?', 'id'=>'2'}]
   end
   before do
-    allow(RemoteSecurityQuestions).to receive(:find_or_fetch).with(I18n.default_locale).and_return([{}])
-    allow(RemoteSecurityQuestions).to receive(:find_or_fetch).with('jpn').and_return(jpn_security_questions)
+    allow(SecurityQuestions).to receive(:find).with(I18n.default_locale).and_return([{}])
+    allow(SecurityQuestions).to receive(:find).with('jpn').and_return(jpn_security_questions)
   end
   describe 'GET new' do
     let(:verb)              { :get }
@@ -49,7 +50,7 @@ describe PatientEnrollmentsController do
 
     context 'when no patient enrollment uuid is present in the request' do
       let(:expected_status_code) { 422 }
-      let(:error_response_body)  do 
+      let(:error_response_body)  do
         {message: 'Unable to continue with registration. Error: Cannot request TOU/DPN agreement without attribute: uuid'}.to_json
       end
 
@@ -57,7 +58,7 @@ describe PatientEnrollmentsController do
       it_behaves_like 'returns expected error response body'
     end
   end
-  
+
   describe 'POST register' do
     let(:verb)                              { :post }
     let(:action)                            { :register }
@@ -79,7 +80,7 @@ describe PatientEnrollmentsController do
 
     context 'when patient enrollment parameter is missing' do
       let(:expected_status_code) { 422 }
-      let(:error_response_body)  do 
+      let(:error_response_body)  do
         {errors: 'param is missing or the value is empty: patient_enrollment'}.to_json
       end
 
@@ -90,7 +91,7 @@ describe PatientEnrollmentsController do
     context 'when required parameters are missing' do
       let(:params)               { {id: patient_enrollment_uuid, patient_enrollment: required_expected_register_params} }
       let(:expected_status_code) { 422 }
-      let(:error_response_body)  do 
+      let(:error_response_body)  do
         {errors: 'param is missing or the value is empty: password'}.to_json
       end
 
@@ -103,7 +104,7 @@ describe PatientEnrollmentsController do
     context 'when security_question or answer is present and the other is missing' do
       let(:params)               { {id: patient_enrollment_uuid, patient_enrollment: required_expected_register_params} }
       let(:expected_status_code) { 422 }
-      let(:error_response_body)  do 
+      let(:error_response_body)  do
         {errors: 'param is missing or the value is empty: answer'}.to_json
       end
 
@@ -140,8 +141,8 @@ describe PatientEnrollmentsController do
         let(:expected_register_params) do
           {
             login: login,
-            password: password, 
-            activation_code: activation_code, 
+            password: password,
+            activation_code: activation_code,
             tou_accepted_at: datetime_regex
           }.stringify_keys
         end
@@ -160,8 +161,8 @@ describe PatientEnrollmentsController do
           let(:expected_register_params) do
             {
               login: login,
-              password: password, 
-              activation_code: activation_code, 
+              password: password,
+              activation_code: activation_code,
               tou_accepted_at: datetime_regex,
               answer: '42',
               security_question_id: '2'
