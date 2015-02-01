@@ -1,0 +1,11 @@
+- {id: 1, name: 'In che anno sai nato?'}
+- {id: 2, name: 'Ultimi quattro caratteri del Codice Fiscale?'}
+- {id: 3, name: 'Qual è il secondo nome di tuo padre?'}
+- {id: 4, name: 'Qual era il nome della tua prima scuola?'}
+- {id: 5, name: 'Chi era il tuo eroe da bambino?'}
+- {id: 6, name: 'Qual è il tuo passatempo preferito?'}
+- {id: 7, name: 'Qual è la squadra sportiva che preferisci da sempre?'}
+- {id: 8, name: 'Qual era la mascotte del tuo liceo?'}
+- {id: 9, name: 'Qual è stata la marca della tua prima auto o moto?'}
+- {id: 10, name: 'Qual è il nome del tuo animale domestico?'}
+- {id: 11, name: 'Qual è il secondo nome di tua madre?'}

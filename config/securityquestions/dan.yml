@@ -1,0 +1,11 @@
+- {id: 1, name: 'Hvilket år er du født?'}
+- {id: 2, name: 'Sidste fire cifre i SSN?'}
+- {id: 3, name: 'Hvad er din fars mellemnavn?'}
+- {id: 4, name: 'Hvad var navnet på din første skole?'}
+- {id: 5, name: 'Hvem var din barndomshelt?'}
+- {id: 6, name: 'Hvad er din yndlingshobby?'}
+- {id: 7, name: 'Hvad er dit yndlings-sportsteam?'}
+- {id: 8, name: 'Hvad var din gymnasiemaskot?'}
+- {id: 9, name: 'Hvad var mærket på din første bil eller cykel?'}
+- {id: 10, name: 'Hvad hedder dit kæledyr?'}
+- {id: 11, name: 'Hvad er din mors mellemnavn?'}
