@@ -221,7 +221,7 @@ describe SecurityQuestions do
       end
     end
 
-    context "when requesting security questions for local that doesn't exist" do
+    context "when requesting security questions for locale that doesn't exist" do
       it 'throws exception' do
         expect{SecurityQuestions.find("xxx") }.to raise_error("Locale not found: xxx")
       end
