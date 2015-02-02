@@ -26,3 +26,4 @@ public/apps/*
 coverage/
 config/imedidata.yml
 config/initializers/cas.rb
+config/dalli.yml

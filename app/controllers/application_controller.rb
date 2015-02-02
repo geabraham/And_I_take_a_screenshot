@@ -39,12 +39,18 @@ class ApplicationController < ActionController::Base
     collection.uniq.collect { |s| [s['name'], s['uuid']] }
   end
 
-
-  def add_authorizations_to_session(object_type, object_uuids)
+  # Adds to session[:cas_extra_attributes][:authorized_object_type] << object
+  # E.g.: session[:cas_extra_attributes]
+  # => {user_id:'1',
+  #     user_uuid:'0e39dd40-9fe2-11df-a531-12313900d531',
+  #     user_email:'helper_1@example.com',
+  #     authorized_study_sites: [{uuid: '161332d2-9fe2-11df-a531-12313900d531', name: 'Alfred Hospital'}]}
+  #
+  def add_authorizations_to_session(object_type, objects)
     authorized_objects = "authorized_#{object_type}".to_sym
     user_session[authorized_objects] ||= []
-    object_uuids.uniq.each do |uuid|
-      user_session[authorized_objects] << uuid unless user_session[authorized_objects].include?(uuid)
+    objects.uniq.each do |object|
+      user_session[authorized_objects] << object unless user_session[authorized_objects].include?(object)
     end
   end
 

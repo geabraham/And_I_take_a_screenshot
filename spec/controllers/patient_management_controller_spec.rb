@@ -98,9 +98,9 @@ describe PatientManagementController do
             available: true}}).and_return([])
           session[:cas_extra_attributes] = {
             user_uuid: user_uuid,
-            authorized_studies: [study_uuid],
-            authorized_study_sites: [study_site_uuid]
+            authorized_study_sites: [{name: 'TestSite', uuid: study_site_uuid}]
           }.stringify_keys!
+          allow(controller).to receive(:study_site_selected_and_authorized?).and_return(true)
         end
 
         context 'when user has not been authorized for the study and site' do
@@ -109,6 +109,12 @@ describe PatientManagementController do
             session[:cas_extra_attributes] = {user_uuid: user_uuid}
             allow(controller).to receive(:studies_selection_list).and_return([])
           end
+
+          it 'makes requests for study sites' do
+            get :select_study_and_site, params
+            expect(assigns(:study_or_studies)).to eq([])
+          end
+
           it_behaves_like 'renders expected template'
         end
 

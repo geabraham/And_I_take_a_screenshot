@@ -45,6 +45,7 @@ gem 'uglifier', '>= 2.5.3'
 gem 'nokogiri', '~> 1.6.3'
 
 gem 'rubycas-client', git: 'git@github.com:mdsol/rubycas-client', tag: 'v2.3.9.1'
+gem 'dalli'
 
 group :development do
   gem 'guard-rspec'
