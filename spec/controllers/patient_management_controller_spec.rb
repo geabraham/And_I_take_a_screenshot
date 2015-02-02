@@ -88,7 +88,6 @@ describe PatientManagementController do
         let(:study_uuid)               { SecureRandom.uuid }
         let(:study_site_uuid)          { SecureRandom.uuid }
         let(:params)                   { default_params.merge(study_uuid: study_uuid, study_site_uuid: study_site_uuid) }
-        let(:expected_template)        { 'patient_management_grid' }
         let(:study_site1)              { {uuid: SecureRandom.uuid, name: 'TestStudySite1'}.stringify_keys }
         let(:study_site2)              { {uuid: study_site_uuid, name: 'TestStudySite2'}.stringify_keys }
         let(:study_sites_response)     { {'study_sites' => [study_site1, study_site2]} }
@@ -106,80 +105,66 @@ describe PatientManagementController do
           allow(controller).to receive(:request_study_sites!).and_return(study_sites_response)
         end
 
-        context 'when user has not been authorized for the study and site' do
-          let(:expected_template) { 'select_study_and_site' }
-          before do
-            allow(controller).to receive(:request_study_sites!).and_return([])
-            allow(controller).to receive(:studies_selection_list).and_return([])
+        describe 'failure cases' do
+          before { get :select_study_and_site, params }
+
+          context 'when user has not been authorized for the study and site' do
+            let(:expected_template) { 'select_study_and_site' }
+            before do
+              allow(controller).to receive(:request_study_sites!).and_return([])
+              allow(controller).to receive(:studies_selection_list).and_return([])
+            end
+            it_behaves_like 'renders expected template'
           end
 
-          it 'makes requests for study sites' do
-            get :select_study_and_site, params
-            expect(assigns(:study_or_studies)).to eq([])
+          it 'requests tou dpn agreements' do
+            expect(Euresource::TouDpnAgreement).to have_received(:get).with(:all)
           end
 
-          it_behaves_like 'renders expected template'
-        end
-
-        it_behaves_like 'renders expected template'
-
-        it 'requests tou dpn agreements' do
-          expect(Euresource::TouDpnAgreement).to receive(:get).with(:all)
-          get :select_study_and_site, params
-        end
-
-        it 'requests subjects' do
-          expect(Euresource::Subject).to receive(:get)
-            .with(:all, {params: {study_uuid: study_uuid, study_site_uuid: study_site_uuid, available: true}})
-          get :select_study_and_site, params
-        end
-
-        context 'when tou dpn agreements request returns okay with anything other than an array' do
-          before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return('') } 
-
-          it 'returns an empty array' do
-            get :select_study_and_site, params
-            expect(assigns(:tou_dpn_agreements)).to eq([])
-          end
-        end
-
-        context 'when subjects request returns okay with anything other than an array' do
-          before do
-            allow(Euresource::Subject).to receive(:get).with(:all, {params: {
-              study_uuid: study_uuid,
-              study_site_uuid: study_site_uuid,
-              available: true}}).and_return('')
+          it 'requests subjects' do
+            expect(Euresource::Subject).to have_received(:get)
+              .with(:all, {params: {study_uuid: study_uuid, study_site_uuid: study_site_uuid, available: true}})
           end
 
-          it 'returns an empty array' do
-            get :select_study_and_site, params
-            expect(assigns(:available_subjects)).to eq([])
+          context 'when tou dpn agreements request returns okay with anything other than an array' do
+            before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return('') } 
+            it('returns an empty array') { expect(assigns(:tou_dpn_agreements)).to eq([]) }
           end
-        end
 
-        context 'when tou dpn agreements request fails' do
-          let(:expected_status_code) { 422 }
-          let(:error_response_body)  { {errors: 'TouDpnAgreements not found'}.to_json }
-          before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_raise(StandardError.new('TouDpnAgreements not found')) }
-
-          it_behaves_like 'returns expected status'
-          it_behaves_like 'returns expected error response body'
-        end
-
-        context 'when available subjects request fails' do
-          let(:expected_status_code) { 404 }
-          let(:error_response_body)  { {errors: 'Failed.'}.to_json }
-          before do
-            allow(Euresource::Subject).to receive(:get)
-              .with(:all, {params: {
+          context 'when subjects request returns okay with anything other than an array' do
+            before do
+              allow(Euresource::Subject).to receive(:get).with(:all, {params: {
                 study_uuid: study_uuid,
                 study_site_uuid: study_site_uuid,
-                available: true}})
-              .and_raise(Euresource::ResourceNotFound.new('Failed.'))
+                available: true}}).and_return('')
+            end
+            it('returns an empty array') { expect(assigns(:available_subjects)).to eq([]) }
           end
 
-          it_behaves_like 'returns expected status'
-          it_behaves_like 'returns expected error response body'
+          context 'when tou dpn agreements request fails' do
+            let(:expected_status_code) { 422 }
+            let(:error_response_body)  { {errors: 'TouDpnAgreements not found'}.to_json }
+            before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_raise(StandardError.new('TouDpnAgreements not found')) }
+
+            it_behaves_like 'returns expected status'
+            it_behaves_like 'returns expected error response body'
+          end
+
+          context 'when available subjects request fails' do
+            let(:expected_status_code) { 404 }
+            let(:error_response_body)  { {errors: 'Failed.'}.to_json }
+            before do
+              allow(Euresource::Subject).to receive(:get)
+                .with(:all, {params: {
+                  study_uuid: study_uuid,
+                  study_site_uuid: study_site_uuid,
+                  available: true}})
+                .and_raise(Euresource::ResourceNotFound.new('Failed.'))
+            end
+
+            it_behaves_like 'returns expected status'
+            it_behaves_like 'returns expected error response body'
+          end
         end
 
         context 'when both tou dpn agreement request and subjects requests succeed' do
@@ -192,17 +177,14 @@ describe PatientManagementController do
             double('agreement').tap {|a| allow(a).to receive(:attributes).and_return(tou_dpn_agreement2_attrs)}
           end
           let(:tou_dpn_agreements) { [tou_dpn_agreement1, tou_dpn_agreement2]}
-          let(:assigned_tou_dpn_agreements) do
-            [
-              ['Israel / Arabic', {language_code: 'ara', country_code: 'ara'}.to_json],
-              ['Czech Republic / Czech', {language_code: 'cze', country_code: 'cze'}.to_json]
-            ]
-          end
           let(:subject1_attrs) { {uuid: SecureRandom.uuid, subject_identifier: 'Subject001'}.stringify_keys }
           let(:subject2_attrs) { {uuid: SecureRandom.uuid, subject_identifier: 'Subject002'}.stringify_keys }
           let(:subject1) { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject1_attrs)} }
           let(:subject2) { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject2_attrs)} }
           let(:subjects) { [subject1, subject2] }
+          let(:expected_template)        { 'patient_management_grid' }
+
+          it_behaves_like 'renders expected template'
 
           before do
             allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return(tou_dpn_agreements)
@@ -210,21 +192,18 @@ describe PatientManagementController do
               study_uuid: study_uuid,
               study_site_uuid: study_site_uuid,
               available: true}}).and_return(subjects)
+            get :select_study_and_site, params
+
+            [tou_dpn_agreement1_attrs, tou_dpn_agreement2_attrs].each { |tda| tda.delete('uuid') }
+            [subject1_attrs, subject2_attrs].each { |sub| sub.delete('uuid') }
           end
 
-          it 'assigns tou_dpn agreements' do
-            get :select_study_and_site, params
-            tou_dpn_agreement1_attrs.delete('uuid')
-            tou_dpn_agreement2_attrs.delete('uuid')
-            expect(assigns(:tou_dpn_agreements)).to eq(assigned_tou_dpn_agreements)
-          end
-
-          it 'assigns available subjects' do
-            get :select_study_and_site, params
-            subject1_attrs.delete('uuid')
-            subject2_attrs.delete('uuid')
-            expect(assigns(:available_subjects)).to eq([['Subject001','Subject001'], ['Subject002','Subject002']])
-          end
+          it_behaves_like 'assigned ivar evaluates to its expected value', :tou_dpn_agreements, [
+              ['Israel / Arabic', {language_code: 'ara', country_code: 'ara'}.to_json],
+              ['Czech Republic / Czech', {language_code: 'cze', country_code: 'cze'}.to_json]
+            ]
+          it_behaves_like 'assigned ivar evaluates to its expected value', :available_subjects, [['Subject001','Subject001'], ['Subject002','Subject002']]
+          it_behaves_like 'assigned ivar evaluates to its expected value', :study_site_name, 'TestStudySite2'
         end
       end
     end
