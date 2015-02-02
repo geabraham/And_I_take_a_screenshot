@@ -8,7 +8,6 @@ class StudySitesController < ApplicationController
 
   def index
     params.require(:study_uuid)
-    study_sites = request_study_sites!(params)['study_sites']
-    render json: name_uuid_options_array(study_sites)
+    render json: name_uuid_options_array(request_study_sites!(params)['study_sites'])
   end
 end

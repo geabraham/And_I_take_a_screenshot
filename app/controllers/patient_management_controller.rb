@@ -17,16 +17,13 @@ class PatientManagementController < ApplicationController
     @study_or_studies = studies_selection_list
   end
 
-  def invite
-  end
-
   private
 
   def selected_and_authorized_study_site
     if params[:study_uuid] && params[:study_site_uuid] && study_sites = request_study_sites!(params).presence
       study_sites['study_sites'].find {|ss| ss['uuid'] == params[:study_site_uuid]}
     else
-      false
+      nil
     end
   end
 
