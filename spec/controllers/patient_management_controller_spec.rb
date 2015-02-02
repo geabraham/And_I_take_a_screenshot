@@ -134,7 +134,7 @@ describe PatientManagementController do
           get :select_study_and_site, params
         end
 
-        context 'when euresource call returns okay with anything other than an array' do
+        context 'when tou dpn agreements request returns okay with anything other than an array' do
           before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return('') } 
 
           it 'returns an empty array' do
@@ -143,7 +143,7 @@ describe PatientManagementController do
           end
         end
 
-        context 'when subjects request fails' do
+        context 'when subjects request returns okay with anything other than an array' do
           before do
             allow(Euresource::Subject).to receive(:get).with(:all, {params: {
               study_uuid: study_uuid,
@@ -155,6 +155,31 @@ describe PatientManagementController do
             get :select_study_and_site, params
             expect(assigns(:available_subjects)).to eq([])
           end
+        end
+
+        context 'when tou dpn agreements request fails' do
+          let(:expected_status_code) { 422 }
+          let(:error_response_body)  { {errors: 'TouDpnAgreements not found'}.to_json }
+          before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_raise(StandardError.new('TouDpnAgreements not found')) }
+
+          it_behaves_like 'returns expected status'
+          it_behaves_like 'returns expected error response body'
+        end
+
+        context 'when available subjects request fails' do
+          let(:expected_status_code) { 404 }
+          let(:error_response_body)  { {errors: 'Failed.'}.to_json }
+          before do
+            allow(Euresource::Subject).to receive(:get)
+              .with(:all, {params: {
+                study_uuid: study_uuid,
+                study_site_uuid: study_site_uuid,
+                available: true}})
+              .and_raise(Euresource::ResourceNotFound.new('Failed.'))
+          end
+
+          it_behaves_like 'returns expected status'
+          it_behaves_like 'returns expected error response body'
         end
 
         context 'when both tou dpn agreement request and subjects requests succeed' do
