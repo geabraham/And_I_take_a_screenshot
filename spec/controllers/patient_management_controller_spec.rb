@@ -119,7 +119,7 @@ describe PatientManagementController do
 
           context 'when tou dpn agreements request returns okay with anything other than an array' do
             before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return('') } 
-            it_behaves_like 'assigned ivar evaluates to its expected value', :tou_dpn_agreements, []
+            it_behaves_like 'assigns an ivar to its expected value', :tou_dpn_agreements, []
           end
 
           context 'when subjects request returns okay with anything other than an array' do
@@ -129,7 +129,7 @@ describe PatientManagementController do
                 study_site_uuid: study_site_uuid,
                 available: true}}).and_return('')
             end
-            it_behaves_like 'assigned ivar evaluates to its expected value', :available_subjects, []
+            it_behaves_like 'assigns an ivar to its expected value', :available_subjects, []
           end
 
           context 'when tou dpn agreements request fails' do
@@ -186,12 +186,12 @@ describe PatientManagementController do
             get :select_study_and_site, params
           end
 
-          it_behaves_like 'assigned ivar evaluates to its expected value', :tou_dpn_agreements, [
+          it_behaves_like 'assigns an ivar to its expected value', :tou_dpn_agreements, [
               ['Israel / Arabic', {language_code: 'ara', country_code: 'ara'}.to_json],
               ['Czech Republic / Czech', {language_code: 'cze', country_code: 'cze'}.to_json]
             ]
-          it_behaves_like 'assigned ivar evaluates to its expected value', :available_subjects, [['Subject001','Subject001'], ['Subject002','Subject002']]
-          it_behaves_like 'assigned ivar evaluates to its expected value', :study_site_name, 'TestStudySite2'
+          it_behaves_like 'assigns an ivar to its expected value', :available_subjects, [['Subject001','Subject001'], ['Subject002','Subject002']]
+          it_behaves_like 'assigns an ivar to its expected value', :study_site_name, 'TestStudySite2'
         end
       end
     end
