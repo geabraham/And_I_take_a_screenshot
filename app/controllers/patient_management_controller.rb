@@ -10,7 +10,7 @@ class PatientManagementController < ApplicationController
   def select_study_and_site
     if @study_site = selected_and_authorized_study_site
       @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
-      @available_subjects = fetch_available_subjects_for_select #(1..5).map {|s| ["Subject-#{s}", "Subject-#{s}"]}
+      @available_subjects = fetch_available_subjects_for_select
       @study_site_name = @study_site['name']
       return render 'patient_management_grid'
     end
@@ -33,7 +33,6 @@ class PatientManagementController < ApplicationController
   # Review: Euresource, it appears, throws errors as opposed to error responses we can pass along.
   #  All are caught with application controller rescuing standard error which seems the best we can do.
   #
-  # Returns a
   def fetch_tou_dpn_agreements_for_select
     tou_dpn_agreements = Euresource::TouDpnAgreement.get(:all)
     languages_and_countries = attributes_or_empty_array(tou_dpn_agreements, tou_dpn_agreement_attributes)
