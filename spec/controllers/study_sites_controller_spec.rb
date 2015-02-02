@@ -45,10 +45,6 @@ describe StudySitesController do
 
         it_behaves_like 'returns expected status'
         it_behaves_like 'returns expected body'
-        it 'stores the study uuids in the session' do
-          get :index, params
-          expect(controller.send(:user_session)[:authorized_study_sites]).to eq([study_site1[:uuid], study_site2[:uuid]])
-        end
       end
     end
   end
