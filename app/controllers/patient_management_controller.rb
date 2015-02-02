@@ -8,10 +8,10 @@ class PatientManagementController < ApplicationController
   before_filter :authorize_user
 
   def select_study_and_site
-    if study_site_selected_and_authorized?
+    if @study_site = selected_and_authorized_study_site
       @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
       @available_subjects = fetch_available_subjects_for_select #(1..5).map {|s| ["Subject-#{s}", "Subject-#{s}"]}
-      @study_site_name = session[:cas_extra_attributes][:authorized_study_sites].find {|ss| ss[:uuid] == params[:study_site_uuid]}[:name]
+      @study_site_name = @study_site['name']
       return render 'patient_management_grid'
     end
     @study_or_studies = studies_selection_list
@@ -22,24 +22,11 @@ class PatientManagementController < ApplicationController
 
   private
 
-  def study_site_selected_and_authorized?
-    study_uuid, study_site_uuid = params[:study_uuid], params[:study_site_uuid]
-    if study_uuid && study_site_uuid
-      session_has_authorizations?({authorized_study_sites: {uuid: study_site_uuid}})
+  def selected_and_authorized_study_site
+    if params[:study_uuid] && params[:study_site_uuid] && study_sites = request_study_sites!(params)['study_sites']
+      study_sites.find {|ss| ss['uuid'] == params[:study_site_uuid]}
     else
       false
-    end
-  end
-
-  # session is configured with authorized study sites.
-  # E.g.: add_authorizations_to_session('study_sites', study_sites.map {|ss| {uuid: ss['uuid'], name: ss['name']}})
-  # 
-  def session_has_authorizations?(options = {})
-    options.keys.all? do |object_type|
-      authorized_objects = user_session.send(:[], object_type.to_s)
-      if authorized_objects.is_a?(Array)
-        authorized_objects.any? {|authorized_object| authorized_object[:uuid] == options[object_type.to_sym][:uuid]}
-      end
     end
   end
 
