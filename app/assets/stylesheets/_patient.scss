@@ -69,17 +69,19 @@
 }
 
 .bottom-bar {
-  background-color: #fff;
-  padding: 10px;
-  margin: 0 -10px;
-  border-top: 1px solid #ccc;
-  // border-radius: 0;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+//   background-color: #fff;
+//   padding: 10px;
+//   margin: 0 -10px;
+//   border-top: 1px solid #ccc;
+//   // border-radius: 0;
+//   position: absolute;
+//   bottom: 0;
+//   width: 100%;
   .btn-block {
+    margin: 0 auto;
+    max-width:48%;
     font-size: 18px;
-    // Bootstrap override for button margins
+//     // Bootstrap override for button margins
     &+.btn-block {
       margin-top: 0;
     }
