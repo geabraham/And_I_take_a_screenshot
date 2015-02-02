@@ -204,9 +204,4 @@ describe PatientManagementController do
       end
     end
   end
-
-  describe 'POST invite_patient' do
-    context 'without all required parameters'
-    context 'with all required parameters'
-  end
 end
