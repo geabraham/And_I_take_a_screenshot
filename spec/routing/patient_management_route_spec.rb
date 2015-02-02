@@ -8,8 +8,8 @@ describe 'PatientManagement Routes' do
   end
 
   it 'has an invite patient route' do
-    expect(post('/patient_management/invite_patient')).to route_to(
+    expect(post('/patient_management/invite')).to route_to(
         controller: 'patient_management',
-        action: 'invite_patient')
+        action: 'invite')
   end
 end

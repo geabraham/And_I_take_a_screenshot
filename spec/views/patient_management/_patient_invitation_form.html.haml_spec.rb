@@ -28,7 +28,7 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
     end
 
     it 'has all the subjects and no extras' do
-      expect(rendered).to have_css('#_patient_management_invite_patient_subject_identifier option', count: 6)
+      expect(rendered).to have_css('#_patient_management_invite_subject_identifier option', count: 6)
     end
   end
 
@@ -41,11 +41,11 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
   end
 
   it 'has a subject initials field' do
-    expect(rendered).to have_selector('input#_patient_management_invite_patient_email')
+    expect(rendered).to have_selector('input#_patient_management_invite_email')
   end
 
   it 'has a subject email field' do
-    expect(rendered).to have_selector('input#_patient_management_invite_patient_initials')
+    expect(rendered).to have_selector('input#_patient_management_invite_initials')
   end
 
   describe 'submit button' do
