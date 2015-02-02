@@ -117,18 +117,9 @@ describe PatientManagementController do
             it_behaves_like 'renders expected template'
           end
 
-          it 'requests tou dpn agreements' do
-            expect(Euresource::TouDpnAgreement).to have_received(:get).with(:all)
-          end
-
-          it 'requests subjects' do
-            expect(Euresource::Subject).to have_received(:get)
-              .with(:all, {params: {study_uuid: study_uuid, study_site_uuid: study_site_uuid, available: true}})
-          end
-
           context 'when tou dpn agreements request returns okay with anything other than an array' do
             before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return('') } 
-            it('returns an empty array') { expect(assigns(:tou_dpn_agreements)).to eq([]) }
+            it_behaves_like 'assigned ivar evaluates to its expected value', :tou_dpn_agreements, []
           end
 
           context 'when subjects request returns okay with anything other than an array' do
@@ -138,7 +129,7 @@ describe PatientManagementController do
                 study_site_uuid: study_site_uuid,
                 available: true}}).and_return('')
             end
-            it('returns an empty array') { expect(assigns(:available_subjects)).to eq([]) }
+            it_behaves_like 'assigned ivar evaluates to its expected value', :available_subjects, []
           end
 
           context 'when tou dpn agreements request fails' do
@@ -193,9 +184,6 @@ describe PatientManagementController do
               study_site_uuid: study_site_uuid,
               available: true}}).and_return(subjects)
             get :select_study_and_site, params
-
-            [tou_dpn_agreement1_attrs, tou_dpn_agreement2_attrs].each { |tda| tda.delete('uuid') }
-            [subject1_attrs, subject2_attrs].each { |sub| sub.delete('uuid') }
           end
 
           it_behaves_like 'assigned ivar evaluates to its expected value', :tou_dpn_agreements, [
