@@ -89,6 +89,9 @@ describe PatientManagementController do
         let(:study_site_uuid)          { SecureRandom.uuid }
         let(:params)                   { default_params.merge(study_uuid: study_uuid, study_site_uuid: study_site_uuid) }
         let(:expected_template)        { 'patient_management_grid' }
+        let(:study_site1)              { {uuid: SecureRandom.uuid, name: 'TestStudySite1'}.stringify_keys }
+        let(:study_site2)              { {uuid: study_site_uuid, name: 'TestStudySite2'}.stringify_keys }
+        let(:study_sites_response)     { {'study_sites' => [study_site1, study_site2]} }
 
         before do
           allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return([])
@@ -100,13 +103,13 @@ describe PatientManagementController do
             user_uuid: user_uuid,
             authorized_study_sites: [{name: 'TestSite', uuid: study_site_uuid}]
           }.stringify_keys!
-          allow(controller).to receive(:study_site_selected_and_authorized?).and_return(true)
+          allow(controller).to receive(:request_study_sites!).and_return(study_sites_response)
         end
 
         context 'when user has not been authorized for the study and site' do
           let(:expected_template) { 'select_study_and_site' }
           before do
-            session[:cas_extra_attributes] = {user_uuid: user_uuid}
+            allow(controller).to receive(:request_study_sites!).and_return([])
             allow(controller).to receive(:studies_selection_list).and_return([])
           end
 
