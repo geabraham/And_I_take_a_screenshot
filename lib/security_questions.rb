@@ -20,7 +20,6 @@ require 'yaml'
 #
 class SecurityQuestions
   class << self
-    include IMedidataClient
 
     # Returns security questions
     #
