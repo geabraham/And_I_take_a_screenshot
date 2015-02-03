@@ -5,6 +5,7 @@ class PatientEnrollmentsController < ApplicationController
     @patient_enrollment_uuid = session[:patient_enrollment_uuid]
     @patient_enrollment = PatientEnrollment.new(uuid: @patient_enrollment_uuid)
     @tou_dpn_agreement_body = @patient_enrollment.tou_dpn_agreement_body
+    @script_direction = @patient_enrollment.script_direction
     @security_questions = SecurityQuestions.find(@patient_enrollment.language_code || I18n.default_locale).map { |sq| sq.values }
   rescue StandardError => e
     # TODO: render error modal

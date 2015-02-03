@@ -1,3 +1,3 @@
 %h3.form_header='Privacy Policy / Terms of Use'
 - if @tou_dpn_agreement_body.present?
-  .tou_dpn_agreement= @tou_dpn_agreement_body
+  .tou_dpn_agreement{style: "direction: #{@script_direction}"}= @tou_dpn_agreement_body
