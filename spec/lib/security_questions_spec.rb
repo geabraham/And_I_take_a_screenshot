@@ -6,7 +6,6 @@ describe SecurityQuestions do
   describe 'find' do
     let(:ara_security_questions) do
       YAML.load_file("config/securityquestions/ara.yml")
-
     end
     let(:cze_security_questions) do
       YAML.load_file("config/securityquestions/cze.yml")
@@ -44,6 +43,9 @@ describe SecurityQuestions do
     let(:rus_security_questions) do
       YAML.load_file("config/securityquestions/rus.yml")
     end
+    let(:vie_security_questions) do
+      YAML.load_file("config/securityquestions/vie.yml")
+    end
     let(:zha_security_questions) do
       YAML.load_file("config/securityquestions/zha.yml")
     end
@@ -66,6 +68,7 @@ describe SecurityQuestions do
         expect(SecurityQuestions.find('kor')).to eq(kor_security_questions)
         expect(SecurityQuestions.find('pol')).to eq(pol_security_questions)
         expect(SecurityQuestions.find('rus')).to eq(rus_security_questions)
+        expect(SecurityQuestions.find('vie')).to eq(vie_security_questions)
         expect(SecurityQuestions.find('zha')).to eq(zha_security_questions)
         expect(SecurityQuestions.find('zho')).to eq(zho_security_questions)
 
