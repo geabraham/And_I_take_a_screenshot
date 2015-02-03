@@ -85,10 +85,10 @@ describe PatientManagementController do
       end
 
       context 'with study and study site uuid parameters' do
-        let(:study_uuid)               { SecureRandom.uuid }
-        let(:study_site_uuid)          { SecureRandom.uuid }
+        let(:study_uuid)               { '291120c1-c2e3-497a-9b1c-fd60cb3211a7' }
+        let(:study_site_uuid)          { '7fd784a8-32ce-40e2-a68a-0a9d4faa5b18' }
         let(:params)                   { default_params.merge(study_uuid: study_uuid, study_site_uuid: study_site_uuid) }
-        let(:study_site1)              { {uuid: SecureRandom.uuid, name: 'TestStudySite1'}.stringify_keys }
+        let(:study_site1)              { {uuid: '811692e7-2981-4512-b46c-fda6fbcae119', name: 'TestStudySite1'}.stringify_keys }
         let(:study_site2)              { {uuid: study_site_uuid, name: 'TestStudySite2'}.stringify_keys }
         let(:study_sites_response)     { {'study_sites' => [study_site1, study_site2]} }
 
