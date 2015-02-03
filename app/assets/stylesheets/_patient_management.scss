@@ -3,10 +3,9 @@
   display: none;
 }
 
-#invite-form .form-group {
-  margin-right: 15px;
-}
-
-#invite-form .form-group label {
-  display: block;
+#invite-form {
+  .form-group {
+    margin-right: 15px;
+    label { display: block; }
+  }
 }
