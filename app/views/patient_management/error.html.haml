@@ -1,2 +1,11 @@
 - content_for :page_body do
-  = @error_message
+  %div{class: "error_dialog error"}
+    .explanation_text
+      %h1= @error_title
+      %div
+        = @error_message
+      %br
+      %div
+        #ampridatvir_error_page
+    .fa#clipboard_image
+      = image_tag('error_img.png')

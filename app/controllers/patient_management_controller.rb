@@ -18,7 +18,9 @@ class PatientManagementController < ApplicationController
   end
 
   def error
-    @error_message = 'Dummy error message.'
+    @error_title = '404 Not Found'
+    @error_message = ("The link or URL you used tried to access a page that you are not authorized to see. " <<
+      "For further assistance, please contact the <a href='#{HELP_DESK}'>Help Desk</a> or return to the <a href='#{HOME_BUTTON}'>Home Page</a>.").html_safe
   end
 
   private
