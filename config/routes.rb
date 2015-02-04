@@ -19,4 +19,5 @@ Minotaur::Application.routes.draw do
   resources :study_sites, only: [:index]
 
   get :logout, controller: :application
+  get :error, controller: :application
 end

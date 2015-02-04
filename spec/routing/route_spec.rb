@@ -11,6 +11,10 @@ describe 'Minotaur routes', type: :routing do
         controller: 'study_sites',
         action: 'index')
     end
+
+    it 'has an error route' do
+      expect(get('/error')).to route_to(controller: 'application', action: 'error')
+    end
   end
 
   describe 'ActivationCodes' do
