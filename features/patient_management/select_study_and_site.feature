@@ -66,7 +66,7 @@ Feature: Patient Management Study Site Selection
   @Release2015.1.0
   @PB130363-004
   @Headed
-  Scenario: An user who is not logged in tries to navigate to the study site selection page is redirected to login.
+  Scenario: A user who is not logged in and tries to navigate to the patient management study site selection page is redirected to login.
     Given I am not logged in
-    When I navigate to patient management via the apps pane in iMedidata
+    When I navigate to patient management by directly placing the url in the browser
     Then I should be redirected to the login page

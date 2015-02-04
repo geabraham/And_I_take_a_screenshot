@@ -46,6 +46,10 @@ When(/^I navigate to patient management via the apps pane in iMedidata$/) do
   visit @current_path
 end
 
+When(/^I navigate to patient management by directly placing the url in the browser$/) do
+  step %Q(I navigate to patient management via the apps pane in iMedidata)
+end
+
 When(/^I navigate to patient management via study "(.*?)" in iMedidata$/) do |study_name|
   study_uuid = find_object_by_name(@studies, study_name)['uuid']
   @current_path = "/patient_management?study_uuid=#{study_uuid}"
