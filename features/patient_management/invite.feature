@@ -39,8 +39,6 @@ Feature: A provider can invite a user to particpate in a study
       | Canada / English  |
       | Canada / French   |
       | Israel / Arabic   |
-    # QUESTION: Subject Name or Subject Identifier?
-    #
     And I should be able to select from the following subject names:
       | subject_name |
       | Subject001   |
@@ -60,8 +58,6 @@ Feature: A provider can invite a user to particpate in a study
       | email            | lt-commander-data@mdsol.com |
       | subject_name     | Subject001                  |
       | country_language | Israel / Arabic             |
-    # NOTE: This is pending patient management grid.
-    #
     Then I should see a newly created patient enrollment for user LCD in the patient management grid with:
       | attribute       | value                       |
       | state           | invited                     |
@@ -69,9 +65,6 @@ Feature: A provider can invite a user to particpate in a study
       | enrollment_type | in-person                   |
       | email           | lt-commander-data@mdsol.com |
 
-  # QUESTION: What are the expectations for form validations?
-  #   Before user data is submitted, what should be validated and what should failures look like?
-  #
   @Release2015.1.0
   @PB130799-003
   @Headed
@@ -82,7 +75,6 @@ Feature: A provider can invite a user to particpate in a study
     And I invite a user with required attributes except a country / language pair
     Then I should see an error message "Please select a Country / Language pair."
 
-  # NOTE: New.
   @Realse2015.1.0
   @PB130799-004
   @Headded
@@ -92,7 +84,6 @@ Feature: A provider can invite a user to particpate in a study
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And I invite a user with all required attributes
     When the backend service returns an error
-    # Question: Send to error page or message on the page?
     Then I should see an error page with the message:
       | <backend_service_error_message> |
 
@@ -102,8 +93,6 @@ Feature: A provider can invite a user to particpate in a study
   Scenario: As a logged user with no patient management permissions, an attempt to access patient management fails.
     Given I am logged in
     When I navigate to patient management via a study and site
-    # TODO: Revise `select_study_and_site` feature to match this.
-    #
     Then I should see an error page with the message:
       | The link or URL you used either doesn't exist or you don't have permission to view it. |
 
