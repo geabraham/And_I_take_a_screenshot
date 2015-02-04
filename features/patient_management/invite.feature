@@ -72,7 +72,7 @@ Feature: A provider can invite a user to particpate in a study
   @Release2015.1.0
   @PB130799-003
   @Headed
-  Scenario: As an authorized provider who has logged in, I am unable to invite a patient until all required attributes are present.
+  Scenario: As an authorized provider who has logged in, I am unable to invite a patient until all required attributes are provided.
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
