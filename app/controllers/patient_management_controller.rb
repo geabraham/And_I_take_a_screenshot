@@ -5,12 +5,14 @@ require 'imedidata/client'
 class PatientManagementController < ApplicationController
   layout 'patient_management'
   include IMedidataClient
-  before_filter :authorize_user
+  # before_filter :authorize_user
 
   def select_study_and_site
     # TODO: If both study uuid and study site uuid are present,
     #  redirect to the patient management grid.
-    @study_or_studies = studies_selection_list
+    @study_or_studies = [
+      ['NASA-AdvancedFoodTechnologyProject', SecureRandom.uuid],
+      ['NASA-OcularHealthInAstronauts', SecureRandom.uuid]]
   end
 
   private
