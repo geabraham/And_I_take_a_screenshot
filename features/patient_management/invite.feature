@@ -92,7 +92,7 @@ Feature: A provider can invite a user to particpate in a study
     And the subject dropdown should get refreshed
 
   @Realse2015.1.0
-  @PB130799-004
+  @PB130799-005
   @Headded
   Scenario: As an authorized provider who has logged in, I see an error page when the backend does not respond.
     Given I am logged in
@@ -100,14 +100,12 @@ Feature: A provider can invite a user to particpate in a study
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And I invite a user with all required attributes
     When the backend service does not respond
-    # What is the correct message here?
-    # Should there be a report issue form?
-    #
+    # TODO: Update this when standard wording is provided.
     Then I should see an error page with the message:
       | Oops! Service is unavailable. Please try again later. |
 
   @Realse2015.1.0
-  @PB130799-005
+  @PB130799-006
   @Headded
   Scenario: As an authorized provider who has logged in, I see an error page when there are are no subjects available.
     Given I am logged in
@@ -117,7 +115,7 @@ Feature: A provider can invite a user to particpate in a study
     Then I should see an error message "No subjects available."
 
   @Release2015.1.0
-  @PB130799-006
+  @PB130799-007
   @Headed
   Scenario: As a logged user with no patient management permissions, an attempt to access patient management fails.
     Given I am logged in
@@ -126,7 +124,7 @@ Feature: A provider can invite a user to particpate in a study
       | The link or URL you used either doesn't exist or you don't have permission to view it. |
 
   @Release2015.1.0
-  @PB130799-007
+  @PB130799-008
   @Headed
   Scenario: As a user who is not logged in, an attempt to access patient management redirects to login.
     Given I am not logged in
