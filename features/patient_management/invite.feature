@@ -68,6 +68,7 @@ Feature: A provider can invite a user to particpate in a study
       | activation_code | <activation_code>           |
       | enrollment_type | in-person                   |
       | email           | lt-commander-data@mdsol.com |
+    And the subject dropdown should get refreshed
 
   @Release2015.1.0
   @PB130799-003
