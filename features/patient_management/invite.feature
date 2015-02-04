@@ -79,7 +79,7 @@ Feature: A provider can invite a user to particpate in a study
     And I select a subject but I don't select a country / language pair
     Then I am unable to invite a patient
 
-  @Realse2015.1.0
+  @Release2015.1.0
   @PB130799-004
   @Headded
   Scenario: As an authorized provider who has logged in, I see an error message when the backend service returns an error.
