@@ -58,10 +58,14 @@ Feature: A provider can invite a user to particpate in a study
       | email            | lt-commander-data@mdsol.com |
       | subject_name     | Subject001                  |
       | country_language | Israel / Arabic             |
-    # TODO: Double check this field defaulting to in-person for this flow.
-    # TODO: Request UI of success message.
+    # NOTE: This is pending patient management grid.
     #
-    Then I should see a newly created patient enrollment for user LCD with state invited and enrollment type in-person
+    Then I should see a newly created patient enrollment for user LCD in the patient management grid with:
+      | attribute       | value                       |
+      | state           | invited                     |
+      | activation_code | <activation_code>           |
+      | enrollment_type | in-person                   |
+      | email           | lt-commander-data@mdsol.com |
 
   @Release2015.1.0
   @PB130799-003
