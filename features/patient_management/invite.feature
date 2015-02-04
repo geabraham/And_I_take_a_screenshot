@@ -76,7 +76,7 @@ Feature: A provider can invite a user to particpate in a study
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
-    And I select subject "Subject001" but I don't select a country / language pair
+    And I select a subject but I don't select a country / language pair
     Then I am unable to invite a patient
 
   @Realse2015.1.0
