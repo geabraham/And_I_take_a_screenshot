@@ -14,10 +14,10 @@ Minotaur::Application.routes.draw do
   resource :patient_management, controller: :patient_management, only: [] do
     get :index, to: :select_study_and_site
     post :invite
+    get :error
   end
 
   resources :study_sites, only: [:index]
 
   get :logout, controller: :application
-  get :error, controller: :application
 end

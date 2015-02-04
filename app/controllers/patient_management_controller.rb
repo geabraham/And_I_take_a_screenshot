@@ -17,6 +17,10 @@ class PatientManagementController < ApplicationController
     @study_or_studies = studies_selection_list
   end
 
+  def error
+    @error_message = 'Dummy error message.'
+  end
+
   private
 
   def selected_and_authorized_study_site
