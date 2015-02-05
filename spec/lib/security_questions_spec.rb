@@ -2,65 +2,85 @@ require 'spec_helper'
 require 'security_questions'
 require 'yaml'
 
+def get_questions(locale)
+  questions = YAML.load_file("config/locales/#{locale}.yml")[locale]["security_questions"]
+  if questions
+    questions.collect do |qs|
+      qs.symbolize_keys
+    end
+  else
+    raise StandardError "Unknown locale"
+  end
+end
+
 describe SecurityQuestions do
   describe 'find' do
     let(:ara_security_questions) do
-      YAML.load_file("config/securityquestions/ara.yml")
+      get_questions("ara")
     end
     let(:cze_security_questions) do
-      YAML.load_file("config/securityquestions/cze.yml")
+      get_questions("cze")
+    end
+    let(:chi_security_questions) do
+      get_questions("chi")
     end
     let(:dan_security_questions) do
-      YAML.load_file("config/securityquestions/dan.yml")
-    end
-    let(:deu_security_questions) do
-      YAML.load_file("config/securityquestions/deu.yml")
+      get_questions("dan")
     end
     let(:dut_security_questions) do
-      YAML.load_file("config/securityquestions/dut.yml")
+      get_questions("dut")
     end
-    let(:eng_security_questions) do
-      YAML.load_file("config/securityquestions/eng.yml")
+    let(:fra_security_questions) do
+      get_questions("fra")
+    end
+    let(:frc_security_questions) do
+      get_questions("frc")
+    end
+    let(:ger_security_questions) do
+      get_questions("ger")
     end
     let(:heb_security_questions) do
-      YAML.load_file("config/securityquestions/heb.yml")
+      get_questions("heb")
     end
     let(:hun_security_questions) do
-      YAML.load_file("config/securityquestions/hun.yml")
+      get_questions("hun")
     end
     let(:ita_security_questions) do
-      YAML.load_file("config/securityquestions/ita.yml")
+      get_questions("ita")
     end
     let(:jpn_security_questions) do
-      YAML.load_file("config/securityquestions/jpn.yml")
+      get_questions("jpn")
     end
     let(:kor_security_questions) do
-      YAML.load_file("config/securityquestions/kor.yml")
+      get_questions("kor")
     end
     let(:pol_security_questions) do
-      YAML.load_file("config/securityquestions/pol.yml")
+      get_questions("pol")
     end
     let(:rus_security_questions) do
-      YAML.load_file("config/securityquestions/rus.yml")
+      get_questions("rus")
+    end
+    let(:spa_security_questions) do
+      get_questions("spa")
+    end
+    let(:twn_security_questions) do
+      get_questions("twn")
     end
     let(:vie_security_questions) do
-      YAML.load_file("config/securityquestions/vie.yml")
+      get_questions("vie")
     end
-    let(:zha_security_questions) do
-      YAML.load_file("config/securityquestions/zha.yml")
-    end
-    let(:zho_security_questions) do
-      YAML.load_file("config/securityquestions/zho.yml")
-    end
+
 
     context 'when requesting security questions for existing locale' do
       it 'returns security questions' do
         expect(SecurityQuestions.find('ara')).to eq(ara_security_questions)
         expect(SecurityQuestions.find('cze')).to eq(cze_security_questions)
+        expect(SecurityQuestions.find('chi')).to eq(chi_security_questions)
         expect(SecurityQuestions.find('dan')).to eq(dan_security_questions)
-        expect(SecurityQuestions.find('deu')).to eq(deu_security_questions)
         expect(SecurityQuestions.find('dut')).to eq(dut_security_questions)
-        expect(SecurityQuestions.find('eng')).to eq(eng_security_questions)
+        expect(SecurityQuestions.find('fra')).to eq(fra_security_questions)
+        expect(SecurityQuestions.find('frc')).to eq(frc_security_questions)
+        expect(SecurityQuestions.find('ger')).to eq(ger_security_questions)
         expect(SecurityQuestions.find('heb')).to eq(heb_security_questions)
         expect(SecurityQuestions.find('hun')).to eq(hun_security_questions)
         expect(SecurityQuestions.find('ita')).to eq(ita_security_questions)
@@ -68,16 +88,15 @@ describe SecurityQuestions do
         expect(SecurityQuestions.find('kor')).to eq(kor_security_questions)
         expect(SecurityQuestions.find('pol')).to eq(pol_security_questions)
         expect(SecurityQuestions.find('rus')).to eq(rus_security_questions)
+        expect(SecurityQuestions.find('spa')).to eq(spa_security_questions)
+        expect(SecurityQuestions.find('twn')).to eq(twn_security_questions)
         expect(SecurityQuestions.find('vie')).to eq(vie_security_questions)
-        expect(SecurityQuestions.find('zha')).to eq(zha_security_questions)
-        expect(SecurityQuestions.find('zho')).to eq(zho_security_questions)
-
       end
     end
 
     context "when requesting security questions for locale that doesn't exist" do
       it 'throws exception' do
-        expect{SecurityQuestions.find("xxx") }.to raise_error("Locale not found: xxx")
+        expect{SecurityQuestions.find("xxx") }.to raise_error(I18n::InvalidLocale, "\"xxx\" is not a valid locale")
       end
     end
 
