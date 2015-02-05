@@ -6,6 +6,5 @@
     %p= "If you have already registered, please return to the Patient Cloud App. If you have not registered and do not have an activation code or email invite please contact your doctor."
     .activation-code
       %input#code{maxlength: 6, tabindex: 1, size: 6}
-    .validation_error.invisible="Incorrect code."
-  .bottom-bar
+    .validation_error="Incorrect code."
     %a.btn.btn-primary.btn-block.disabled#activate-button(href="" role="button")='Activate'

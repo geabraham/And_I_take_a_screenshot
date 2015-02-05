@@ -1,17 +1,19 @@
-.activation-header {
-  padding: 15px;
-  width: 100%;
-  .logo {
-    display: block;
-    width: 100%;
-  }
-}
+// .activation-header {
+//   padding: 15px;
+//   width: 100%;
+//   .logo {
+//     display: block;
+//     width: 100%;
+//   }
+// }
+
 .activation-code-content {
   padding: 0 15px;
   h3 {
      text-align: center;
      padding: 0 30px;
   }
+
   .activation-code {
     margin-top: 20px;
     text-align: center;
@@ -25,6 +27,7 @@
       border-radius: 3px;
       border: 1px solid #ddd;
     }
+    
     &.has-error {
       input {
         border-color: red;

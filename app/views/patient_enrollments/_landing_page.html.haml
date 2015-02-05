@@ -5,17 +5,19 @@
 .row
   .col-xs-2
     =image_tag 'register.png', id: 'register'
-  .col-xs-10
+  .col-xs-8
     %p='Review the Privacy Policy and Terms of Use'
     %p='Create account information'
 .row
   .col-xs-2
     =image_tag 'download.png', id: 'download'
-  .col-xs-10
+  .col-xs-8
     %p
     %p='Download the Patient Cloud app'
 .row
   .col-xs-2
     =image_tag 'login.png', id: 'login'
-  .col-xs-10
+  .col-xs-8
     %p='Open Patient Cloud and use your account information to log in'
+
+%a.btn.btn-primary.btn-block#next-button(href="#registration-details" role="button")='Create Account'

@@ -29,7 +29,7 @@
 
 .patient {  
   form {
-    padding: 0 10px;
+    padding: 0 20px;
     .carousel {
       margin-top: 60px;
       padding-bottom: 70px;
@@ -46,27 +46,27 @@
 }
 
 // Top progress bar
-.progress {
-  padding-top: 3px;
-  background-color: #fff;
-  border-radius: 0;
-  border: none;
-  // margin-top: 10px;
-  margin-bottom: 5px;
-  height: 10px;
-  .progress-bar-default {
-    width: 24.25%;
-    height: 5px;
-  }
-  .progress-bar-incomplete {
-    background-color: #999999;
-    width: 24.25%;height: 5px;
-  }
-  .progress-bar-spacer {
-    background-color: #ffffff;
-    width: 1%;
-  }
-}
+// .progress {
+//   padding-top: 3px;
+//   background-color: #fff;
+//   border-radius: 0;
+//   border: none;
+//   // margin-top: 10px;
+//   margin-bottom: 5px;
+//   height: 10px;
+//   .progress-bar-default {
+//     width: 24.25%;
+//     height: 5px;
+//   }
+//   .progress-bar-incomplete {
+//     background-color: #999999;
+//     width: 24.25%;height: 5px;
+//   }
+//   .progress-bar-spacer {
+//     background-color: #ffffff;
+//     width: 1%;
+//   }
+// }
 
 .bottom-bar {
 //   background-color: #fff;

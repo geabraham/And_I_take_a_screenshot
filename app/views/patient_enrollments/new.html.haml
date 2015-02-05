@@ -1,26 +1,24 @@
 - content_for :page_body do
-  .header.navbar-fixed-top
-    %a.back_arrow.pull-left.hidden
-      %i.fa.fa-angle-left
-      %span.sr-only='Back'
-    =image_tag 'Medidata_Logo_white_RGB_2.png'
-      
-    .progress.hidden
-      .progress-bar.progress-bar-default
+  .patient-enrollment
+    .header
+      =image_tag 'Medidata_Logo_white_RGB_2.png'
+      %a.back-arrow.pull-left
+        %i.fa.fa-angle-left
+        %span.sr-only='Back'
+        
+    .progress-indicator.hidden
+      .step.default
         %span.sr-only='Page 1 of 4'
-      .progress-bar.progress-bar-spacer
-      .progress-bar.progress-bar-incomplete
+      .step.incomplete
         %span.sr-only='Page 2 of 4'
-      .progress-bar.progress-bar-spacer
-      .progress-bar.progress-bar-incomplete
+      .step.incomplete
         %span.sr-only='Page 3 of 4'
-      .progress-bar.progress-bar-spacer
-      .progress-bar.progress-bar-incomplete
+      .step.incomplete
         %span.sr-only='Page 4 of 4'
-  
-  = form_tag register_patient_enrollment_path(@patient_enrollment_uuid), id: 'reg-form'
-  .carousel.slide#registration-details(data-interval="false")
-    .carousel-inner(role="listbox")
+
+    = form_tag register_patient_enrollment_path(@patient_enrollment_uuid), id: 'reg-form'
+    
+    #registration-details.clearfix
       .item.active#landing_page
         = render 'landing_page'
       .item#tou_dpn_agreement
@@ -31,9 +29,3 @@
         = render 'password_form'
       .item#security_question
         = render 'security_question_form'
-  .bottom-bar
-    %a.btn.btn-primary.btn-block#agree-button.hidden(href="#registration-details" role="button")='I agree'
-    %a.btn.btn-primary.btn-block#next-button(href="#registration-details" role="button")='Next'
-    .submit#submit-button
-      = fields_for @patient_enrollment do |f|
-        = f.submit 'Create account', class: 'btn btn-primary btn-block hidden', disabled: true, id: 'create-account'

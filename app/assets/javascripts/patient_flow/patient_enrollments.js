@@ -1,7 +1,57 @@
 $(function () {
-  $('.carousel').carousel(); //initialize the carousel
-  
-  $('#next-button, #agree-button').on('click', nextButtonClick);
+
+  var $form = $('#reg-form');
+
+  // landing page - next button
+  $('#next-button').on('click', function(e) {
+    e.preventDefault();
+    //hide landing page
+    $('#landing_page').hide();
+    //show agreement
+    $('#tou_dpn_agreement').show();
+    $('.progress-indicator').removeClass('hidden');
+  });
+
+  // agreement
+  $('#agree-button').on('click', function(e) {
+    e.preventDefault();
+    
+    // confirm agreement
+    var proceed = confirm("You acknowledge that you have read, understood, and agree to be bound by the Terms of Use and the Privacy Policy referenced herein.");
+    if (proceed === true) {
+      // hide agreement page
+      $('#tou_dpn_agreement').hide();
+      //show email page
+      $('#email').show();
+    }
+  });
+  // email
+  $('#next-email').on('click', function(e) {
+    e.preventDefault();
+
+    // validate email fields
+    
+    if( !$form.valid() ) {
+     // hide email page
+      $('#email').hide();
+      //show password page
+      $('#password').show(); 
+    } else {
+      // show errors
+    }
+
+  })
+
+  // password
+  $('#next-password').on('click', function(e) {
+    e.preventDefault();
+    log('password next')
+    $('#password').hide();
+      //show password page
+    $('#security_question').show(); 
+  });
+
+  // security question
 
   $('.back_arrow').on('click', backClick);
 
@@ -14,6 +64,7 @@ $(function () {
           $("#next-button").click();
       }
   });
+
 });
 
 var validateSecurityQuestions = function() {
@@ -36,13 +87,13 @@ var confirmTerms = function() {
   }
 }
 
-var advanceToEmailPage = function() {
-  $('#agree-button').addClass('hidden');
-  $('#next-button').removeClass('hidden');
+// var advanceToEmailPage = function() {
+//   $('#agree-button').addClass('hidden');
+//   $('#next-button').removeClass('hidden');
   
-  advanceProgressBar();
-  advanceCarousel();
-}
+//   advanceProgressBar();
+//   advanceCarousel();
+// }
 
 var advanceCarousel = function () {
   $('.carousel').carousel('next');
@@ -52,35 +103,36 @@ var advanceCarousel = function () {
   document.body.scrollTop = 0;
 }
 
-var nextButtonClick = function() {
-  var currentPage = getCurrentPage(),
-  carousel = $('.carousel');
+// var nextButtonClick = function() {
+//   var currentPage = getCurrentPage();
+
+//   // carousel = $('.carousel');
   
-  if (currentPage === 'landing_page') {
-    $('#next-button').addClass('hidden');
-    $('#agree-button').removeClass('hidden');
-    $('.progress').removeClass('hidden');
-    advanceCarousel();
-  } else if (currentPage === 'tou_dpn_agreement') {
-    confirmTerms();
-  } else if($('#reg-form').valid()) {
-    hideErrors();
+//   if (currentPage === 'landing_page') {
+//     $('#next-button').addClass('hidden');
+//     $('#agree-button').removeClass('hidden');
+//     $('.progress').removeClass('hidden');
+//     advanceCarousel();
+//   } else if (currentPage === 'tou_dpn_agreement') {
+//     confirmTerms();
+//   } else if($('#reg-form').valid()) {
+//     hideErrors();
     
-    if(currentPage === 'email') {
-      addPasswordRules();
-      advanceProgressBar();
-      advanceCarousel();
-      $('.back_arrow').removeClass('hidden');
-    } else if(currentPage === 'password') {
-      $('#next-button').addClass('hidden');
-      $('#create-account').removeClass('hidden');
-      advanceProgressBar();
-      advanceCarousel();
-    } else if(currentPage === 'security_question') {
-      $('#create-account').trigger('click');
-    }
-  }
-}
+//     if(currentPage === 'email') {
+//       addPasswordRules();
+//       advanceProgressBar();
+//       advanceCarousel();
+//       $('.back_arrow').removeClass('hidden');
+//     } else if(currentPage === 'password') {
+//       $('#next-button').addClass('hidden');
+//       $('#create-account').removeClass('hidden');
+//       advanceProgressBar();
+//       advanceCarousel();
+//     } else if(currentPage === 'security_question') {
+//       $('#create-account').trigger('click');
+//     }
+//   }
+// }
 
 var backClick = function() {
   var currentPage = getCurrentPage();
