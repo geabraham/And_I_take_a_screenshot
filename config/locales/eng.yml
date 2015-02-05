@@ -1,28 +1,73 @@
 eng:
+  security_questions:
+    - {name: 'What year were you born?', id: 1}
+    - {name: 'Last four digits of SSN?', id: 2}
+    - {name: 'What is your father''s middle name?', id: 3}
+    - {name: 'What was the name of your first school?', id: 4}
+    - {name: 'Who was your childhood hero?', id: 5}
+    - {name: 'What is your favorite pastime?', id: 6}
+    - {name: 'What is your all-time favorite sports team?', id: 7}
+    - {name: 'What was your high school mascot?', id: 8}
+    - {name: 'What make was your first car or bike?', id: 9}
+    - {name: 'What is your pet''s name?', id: 10}
+    - {name: 'What is your mother''s middle name?', id: 11}
   application:
     title: Minotaur
-    medidations: Medidations
-  medidations:
+    btn_cancel: Cancel
+    btn_open: Open
+    btn_agree: I agree
+    btn_next: Next
+    btn_continue: Continue
+  activation_codes:
     index:
-      medidation_heading: Medidations
-      first_name: First Name
-      last_name: Last Name
-      job_title: Job Title
-      edit: Edit
-      delete: Delete
-      create_medidation: Create Medidation
-    edit:
-      editing_medidation: Editing Medidation
-      back: Back
-    new:
-      new_medidation: New Medidation
-      back: Back
-    show:
-      medidation: Medidation
-      job_title: Job Title
-      edit: Edit
-      back: Back
-    medidation_form:
-      first_name: First Name
-      last_name: Last Name
-      job_title: Job Title
+      code_heading: Please enter your activation code
+      code_instruction: > 
+        If you have already registered, return to the Patient Cloud App. If you have not registered and 
+        do not have an activation code or email invite please contact your provider.
+      validation_error: This code is incorrect. Contact your provider.
+  registration:
+    form_heading: Registration Details
+    welcome:
+      welcome_message: > 
+        Welcome to Patient Cloud registration. You are only a few steps away from creating your log in credentials
+        and downloading the Patient Cloud app. Take a moment to read through the terms of use and data privacy notice,
+        then click or tap I agree to get started.
+    terms_of_use:
+      tou_header: Introduction to Medidata Patient Cloud app and Privacy Notice
+    tou_agreement:
+      modal_question: Do you agree to the Terms of Use and Data Privacy Notice?
+      modal_cancel: >
+         If you tap 'Cancel', you will not be registered as a study participant for electronic patient reported
+         outcomes and any information you entered will be erased. If you wish to continue the registration process,
+         please tap 'Continue'.
+    email_form: 
+      form_instruction: Enter and confirm your email address in the username field.
+      email_label: Email
+      reenter_label: Re-enter Email
+      validation_error: Enter a valid email.
+      modal_already_registered: >
+        You are already registered as a participant in this study and may not register as another participant. Please
+        inform your healthcare provider.
+    password_form:
+      form_instruction_1: Enter and Confirm a Password of your choosing.
+      form_instruction_2: >
+        Your Password must be at least 8 characters long, contain at least one upper-case letter, one lower-case letter
+        and one numeric digit.
+      password_label: Password
+      reenter_label: Re-enter Password
+      validation_error: Your passwords do not match.
+    security_question_form:
+      form_instruction: Select a security question.
+      answer_label: Security Answer 1
+      answer_placeholder: Enter your response to the question
+      btn_create: Create my account
+      modal_error: >
+        Please let your healthcare provider know that your user record could not be registered as a subject 
+        in the study.
+  download:
+    header: >
+      You are now registered as a participant in this study. Last step is to download the Patient Cloud app 
+      and log in.
+    modal_open: Open the patient Cloud app?
+    modal_download: Download the Patient Cloud app from the app store?
+  
