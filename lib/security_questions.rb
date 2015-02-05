@@ -24,7 +24,7 @@ class SecurityQuestions
     # Returns security questions
     #
     def find(locale)
-      res = SecurityQuestionsData::SECURITY_QUESTIONS[locale]
+      res = I18n.t "security_questions", locale: locale
       if res.nil?
         raise StandardError.new "Locale not found: " + locale
       else
