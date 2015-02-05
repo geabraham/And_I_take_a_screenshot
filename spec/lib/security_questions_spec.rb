@@ -30,6 +30,9 @@ describe SecurityQuestions do
     let(:dut_security_questions) do
       get_questions("dut")
     end
+    let(:eng_security_questions) do
+      get_questions("eng")
+    end
     let(:fra_security_questions) do
       get_questions("fra")
     end
@@ -78,6 +81,7 @@ describe SecurityQuestions do
         expect(SecurityQuestions.find('chi')).to eq(chi_security_questions)
         expect(SecurityQuestions.find('dan')).to eq(dan_security_questions)
         expect(SecurityQuestions.find('dut')).to eq(dut_security_questions)
+        expect(SecurityQuestions.find('eng')).to eq(eng_security_questions)
         expect(SecurityQuestions.find('fra')).to eq(fra_security_questions)
         expect(SecurityQuestions.find('frc')).to eq(frc_security_questions)
         expect(SecurityQuestions.find('ger')).to eq(ger_security_questions)
@@ -92,13 +96,27 @@ describe SecurityQuestions do
         expect(SecurityQuestions.find('twn')).to eq(twn_security_questions)
         expect(SecurityQuestions.find('vie')).to eq(vie_security_questions)
       end
+
+      it 'logs retrieval of security questions' do
+        expect(Rails.logger).to receive(:info).with("Got security questions for locale: ara")
+        SecurityQuestions.find('ara')
+      end
     end
 
     context "when requesting security questions for locale that doesn't exist" do
       it 'throws exception' do
         expect{SecurityQuestions.find("xxx") }.to raise_error(I18n::InvalidLocale, "\"xxx\" is not a valid locale")
       end
+
+      it 'logs exception' do
+        begin
+          expect(Rails.logger).to receive(:info).with("Security questions for requested locale not found: xxx")
+          SecurityQuestions.find("xxx")
+        rescue
+        end
+      end
     end
+
 
   end
 end

@@ -24,11 +24,13 @@ class SecurityQuestions
     # Returns security questions
     #
     def find(locale)
-      res = I18n.t "security_questions", locale: locale
-      if res.nil?
-        raise StandardError.new "Locale not found: " + locale
-      else
+      begin
+        res = I18n.t "security_questions", locale: locale
+        Rails.logger.info "Got security questions for locale: " + locale
         res
+      rescue
+        Rails.logger.info "Security questions for requested locale not found: " + locale
+        raise
       end
     end
 
