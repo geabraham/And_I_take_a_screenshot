@@ -1,0 +1,72 @@
+dan:
+  security_questions:
+    - {id: 1, name: 'Hvilket år er du født?'}
+    - {id: 2, name: 'Sidste fire cifre i SSN?'}
+    - {id: 3, name: 'Hvad er din fars mellemnavn?'}
+    - {id: 4, name: 'Hvad var navnet på din første skole?'}
+    - {id: 5, name: 'Hvem var din barndomshelt?'}
+    - {id: 6, name: 'Hvad er din yndlingshobby?'}
+    - {id: 7, name: 'Hvad er dit yndlings-sportsteam?'}
+    - {id: 8, name: 'Hvad var din gymnasiemaskot?'}
+    - {id: 9, name: 'Hvad var mærket på din første bil eller cykel?'}
+    - {id: 10, name: 'Hvad hedder dit kæledyr?'}
+    - {id: 11, name: 'Hvad er din mors mellemnavn?'}
+  application:
+    title: "Minotaur"
+    btn_cancel: "Annuller"
+    btn_open: "Åbn"
+    btn_agree: "Jeg accepterer"
+    btn_next: "Næste"
+    btn_continue: "Fortsæt"
+  activation_codes:
+    index:
+      code_heading: "Indtast venligst din aktiveringskode"
+      code_instruction: "Hvis du allerede har registreret dig, kan du gå tilbage til Patient Cloud-app'en. Hvis du ikke har registreret dig og ikke har fået en aktiveringskode eller invitation via e-mail, bedes du kontakte din tjenesteudbyder.\n"
+      validation_error: "Koden er forkert. Kontakt din tjenesteudbyder."
+  registration:
+    form_heading: "Registreringsoplysninger"
+    welcome:
+      header: "Velkommen til Patient Cloud"
+      welcome_message: "Du er kun nogle få trin fra at kunne oprette dine brugeroplysninger, så du kan downloade Patient Cloud-app'en.\n"
+      register_1: "Gennemgå Privatlivspolitikken og Vilkårene for brug"
+      register_2: "Opret kontooplysninger"
+      download: "Download Patient Cloud-app'en"
+      login: "Åbn Patient Cloud, og brug dine kontooplysninger til at logge på"
+    terms_of_use:
+      tou_header: "Privatlivspolitik/Vilkår for brug"
+      tou_instruction: "Læs venligst den fulde Privatlivspolitik og Vilkår for brug, som skitserer de rettigheder, der gælder for din konto og din brug af dette program, nedenfor.\n"
+    tou_agreement:
+      modal_confirm: "Du bekræfter, at du har læst, forstået og accepterer at være bundet af de Vilkår for brug og den Privatlivspolitik, der refereres til heri.\n"
+      modal_cancel: "Hvis du trykker \"Annuller\", vil du ikke blive registreret som deltager i undersøgelsen vedrørende elektronisk rapporterede patientresultater, og eventuelle oplysninger, du har indtastet, vil blive slettet. Hvis du ønsker at fortsætte registreringen, skal du trykke på \"Fortsæt\".\n"
+    email_form:
+      form_instruction: "Indtast og bekræft din e-mailadresse nedenfor."
+      email_label: "E-mail"
+      reenter_label: "Indtast e-mail igen"
+      validation_error: "Indtast en gyldig e-mail."
+      mismatch_error: "Dine e-mailadresser er ikke ens."
+      modal_already_registered: "Denne e-mailkonto er allerede registreret til denne undersøgelse. Kontakt venligst din tjenesteudbyder.\n"
+    password_form:
+      form_instruction_1: "Indtast og bekræft en"
+      form_instruction_1_bold: "Adgangskode"
+      form_instruction_1_2: "efter dit valg, som opfylder nedenstående kriterier"
+      ul_1: "Minimum 8 tegn lang"
+      ul_2: "Minimum ét stort bogstav"
+      ul_3: "Minimum ét lille bogstav"
+      ul_4: "Minimum ét ciffer"
+      password_label: "Adgangskode"
+      reenter_label: "Indtast adgangskoden igen"
+      mismatch_error: "Dine adgangskoder er ikke ens."
+      validation_error: "Indtast en gyldig adgangskode."
+    security_question_form:
+      form_instruction: "Vælg et"
+      form_instruction_bold: "sikkerhedsspørgsmål."
+      dropdown_placeholder: "Sikkerhedsspørgsmål"
+      answer_label: "Svar på sikkerhedsspørgsmål"
+      answer_placeholder: "Indtast dit svar på spørgsmålet"
+      btn_create: "Opret konto"
+      modal_error: "Informer din sundhedsudbyder om, at du ikke kan registrere dig.\n"
+      modal_error_ok: "OK"
+  download:
+    header: "Tillykke, du er nu registreret som deltager i denne undersøgelse. Nu er det tid til at downloade Patient Cloud-app'en.\n"
+    modal_open: "Vil du åbne Patient Cloud-app'en?"
+    modal_download: "Vil du downloade Patient Cloud-app'en fra App Store?"
