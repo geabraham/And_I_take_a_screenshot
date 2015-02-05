@@ -108,12 +108,12 @@ Feature: A provider can invite a user to particpate in a study
   @Realse2015.1.0
   @PB130799-006
   @Headded
-  Scenario: As an authorized provider who has logged in, I see an error message when there are are no subjects available.
+  Scenario: As an authorized provider who has logged in, I see a message when there are are no subjects available.
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
     And the request for available subjects does not return any subjects
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
-    Then I should see an error message "No subjects available."
+    Then the only subject option should read "No subjects available"
 
   @Release2015.1.0
   @PB130799-007
