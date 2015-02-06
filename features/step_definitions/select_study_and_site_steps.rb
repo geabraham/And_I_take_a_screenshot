@@ -86,3 +86,8 @@ Then(/^I should be redirected to the login page$/) do
   url = "#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{@current_path}"
   "#{CAS_BASE_URL}/login?service=#{CGI.escape(url)}"
 end
+
+Then(/^I should see a not found error page$/) do
+  expect(page).to have_content(I18n.t('error.status_404.heading'))
+  expect(page).to have_content(I18n.t('error.status_404.message'))
+end
