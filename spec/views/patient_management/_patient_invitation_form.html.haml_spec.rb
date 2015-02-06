@@ -19,6 +19,7 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
 
   describe 'basic page' do
     it('has a prompt') { expect(rendered).to have_text("Add a patient to #{study_site_name}.") }
+    it('has a disabled invite button') { expect(rendered).to have_selector("input#invite-button[@disabled='disabled']") }
   end
 
   describe 'available subjects dropdown' do

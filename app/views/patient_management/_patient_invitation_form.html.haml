@@ -16,4 +16,4 @@
       = f.text_field :initials, {class: 'form-control'}
     .form-group
       = f.label :submit, {class: 'invisible'}
-      = f.submit 'Invite', class: 'btn btn-primary'
+      = f.submit 'Invite', id: 'invite-button', class: 'btn btn-primary', disabled: true
