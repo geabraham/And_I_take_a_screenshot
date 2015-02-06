@@ -51,7 +51,6 @@ class ApplicationController < ActionController::Base
     render_error(exception)
   end
 
-  # TODO: Some default behavior
   def render_error(exception = nil)
     render json: {errors: exception.message}, status: status_code
   end
