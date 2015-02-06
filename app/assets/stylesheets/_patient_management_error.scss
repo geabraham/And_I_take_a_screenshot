@@ -1,0 +1,34 @@
+body {
+  color: #666;
+  font-family: arial, sans-serif;
+}
+div.error_dialog {
+  width: 50%;
+  padding: 0 10px;
+  margin: 10px auto 0 auto;
+  border-right-color: #999;
+  border-bottom-color: #999;
+  #clipboard_image {
+    display: block;
+    img { 
+      max-width: 40%;
+      float: right;
+    }
+  }
+}
+h1 {
+  font-size: 150%;
+  color: #29DDC0;
+  line-height: 1.5em;
+  font-weight: normal;
+}
+
+.explanation_text {
+  width:58%;
+  margin-right: 2%;
+  float:left;
+}
+a {
+  color: #428bca;
+  text-decoration: none;
+}
