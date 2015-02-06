@@ -88,6 +88,9 @@ eng:
     status_500:
       heading: 500 System Error
       message: "The link or URL you used resulted in a system error, and we can't display the information you requested."
+    status_:
+      heading: 500 System Error
+      message: "The link or URL you used resulted in a system error, and we can't display the information you requested."
     status_503:
       heading: 503 System Error
       message: "Service unavailable, please try again later."

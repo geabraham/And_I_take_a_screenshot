@@ -1,4 +1,5 @@
 - content_for :page_body do
+  - status_code = defined?(status_code) ? status_code : nil
   %div{class: "error_dialog error#{status_code}"}
     .explanation_text
       %h1= t("error.status_#{status_code}.heading")
