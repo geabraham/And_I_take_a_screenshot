@@ -34,3 +34,9 @@ shared_examples_for 'returns expected error response body' do
     expect(response.body).to eq(error_response_body)
   end
 end
+
+shared_examples_for 'assigns an ivar to its expected value' do |ivar, expected_value|
+  it 'assigns an ivar to its expected value' do
+    expect(assigns(ivar)).to eq(expected_value)
+  end
+end
