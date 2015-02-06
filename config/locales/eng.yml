@@ -1,16 +1,16 @@
 eng:
   security_questions:
-    - {name: 'What year were you born?', id: 1}
-    - {name: 'Last four digits of SSN?', id: 2}
-    - {name: 'What is your father''s middle name?', id: 3}
-    - {name: 'What was the name of your first school?', id: 4}
-    - {name: 'Who was your childhood hero?', id: 5}
-    - {name: 'What is your favorite pastime?', id: 6}
-    - {name: 'What is your all-time favorite sports team?', id: 7}
-    - {name: 'What was your high school mascot?', id: 8}
-    - {name: 'What make was your first car or bike?', id: 9}
-    - {name: 'What is your pet''s name?', id: 10}
-    - {name: 'What is your mother''s middle name?', id: 11}
+    - {id: 1, name: 'What year were you born?'}
+    - {id: 2, name: 'Last four digits of SSN?'}
+    - {id: 3, name: 'What is your father''s middle name?'}
+    - {id: 4, name: 'What was the name of your first school?'}
+    - {id: 5, name: 'Who was your childhood hero?'}
+    - {id: 6, name: 'What is your favorite pastime?'}
+    - {id: 7, name: 'What is your all-time favorite sports team?'}
+    - {id: 8, name: 'What was your high school mascot?'}
+    - {id: 9, name: 'What make was your first car or bike?'}
+    - {id: 10, name: 'What is your pet''s name?'}
+    - {id: 11, name: 'What is your mother''s middle name?'}
   application:
     title: Minotaur
     btn_cancel: Cancel
