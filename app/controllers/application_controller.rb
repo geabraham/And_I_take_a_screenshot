@@ -41,14 +41,14 @@ class ApplicationController < ActionController::Base
     collection.uniq.collect { |s| [s['name'], s['uuid']] }
   end
 
-  def status_code(reason_phrase_symbol = :unprocessable_entity)
-    @status_code ||= Rack::Utils::SYMBOL_TO_STATUS_CODE[reason_phrase_symbol]
-  end
-
   def rescue_error_minotaur(exception)
     @error = true
     status_code(ERROR_CAUSE[exception.exception.class])
     render_error(exception)
+  end
+
+  def status_code(reason_phrase_symbol = :unprocessable_entity)
+    @status_code ||= Rack::Utils::SYMBOL_TO_STATUS_CODE[reason_phrase_symbol]
   end
 
   def render_error(exception = nil)

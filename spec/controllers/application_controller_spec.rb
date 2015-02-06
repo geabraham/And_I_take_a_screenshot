@@ -18,8 +18,9 @@ describe ApplicationController do
     end
   end
 
-  describe 'error handling' do
-    context 'with expected error cause'
-    context 'with unexpected error cause'
+  describe '#routing_error' do
+    it 'raises an ActionController::RoutingError' do
+      expect { controller.send(:routing_error) }.to raise_error(ActionController::RoutingError)
+    end
   end
 end
