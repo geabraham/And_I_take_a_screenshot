@@ -15,63 +15,25 @@ end
 
 describe SecurityQuestions do
   describe 'find' do
-    let(:ara_security_questions) do
-      get_questions("ara")
-    end
-    let(:cze_security_questions) do
-      get_questions("cze")
-    end
-    let(:chi_security_questions) do
-      get_questions("chi")
-    end
-    let(:dan_security_questions) do
-      get_questions("dan")
-    end
-    let(:dut_security_questions) do
-      get_questions("dut")
-    end
-    let(:eng_security_questions) do
-      get_questions("eng")
-    end
-    let(:fra_security_questions) do
-      get_questions("fra")
-    end
-    let(:frc_security_questions) do
-      get_questions("frc")
-    end
-    let(:ger_security_questions) do
-      get_questions("ger")
-    end
-    let(:heb_security_questions) do
-      get_questions("heb")
-    end
-    let(:hun_security_questions) do
-      get_questions("hun")
-    end
-    let(:ita_security_questions) do
-      get_questions("ita")
-    end
-    let(:jpn_security_questions) do
-      get_questions("jpn")
-    end
-    let(:kor_security_questions) do
-      get_questions("kor")
-    end
-    let(:pol_security_questions) do
-      get_questions("pol")
-    end
-    let(:rus_security_questions) do
-      get_questions("rus")
-    end
-    let(:spa_security_questions) do
-      get_questions("spa")
-    end
-    let(:twn_security_questions) do
-      get_questions("twn")
-    end
-    let(:vie_security_questions) do
-      get_questions("vie")
-    end
+    let(:ara_security_questions) { get_questions("ara") }
+    let(:cze_security_questions) { get_questions("cze") }
+    let(:chi_security_questions) { get_questions("chi") }
+    let(:dan_security_questions) { get_questions("dan") }
+    let(:dut_security_questions) { get_questions("dut") }
+    let(:eng_security_questions) { get_questions("eng") }
+    let(:fra_security_questions) { get_questions("fra") }
+    let(:frc_security_questions) { get_questions("frc") }
+    let(:ger_security_questions) { get_questions("ger") }
+    let(:heb_security_questions) { get_questions("heb") }
+    let(:hun_security_questions) { get_questions("hun") }
+    let(:ita_security_questions) { get_questions("ita") }
+    let(:jpn_security_questions) { get_questions("jpn") }
+    let(:kor_security_questions) { get_questions("kor") }
+    let(:pol_security_questions) { get_questions("pol") }
+    let(:rus_security_questions) { get_questions("rus") }
+    let(:spa_security_questions) { get_questions("spa") }
+    let(:twn_security_questions) { get_questions("twn") }
+    let(:vie_security_questions) { get_questions("vie") }
 
 
     context 'when requesting security questions for existing locale' do
