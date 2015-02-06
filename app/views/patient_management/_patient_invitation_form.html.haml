@@ -1,0 +1,19 @@
+.panel.panel-default.center-block.col-md-10.pull-none.light-grey-border
+  %h3.form_header="Add a patient to #{@study_site_name}."
+  %hr
+  = form_for invite_patient_management_path, html: {id: 'invite-form', class: 'form-inline margin-bottom-thirty'} do |f|
+    .form-group
+      = f.label :subject_identifier, {class: 'invisible'}
+      = f.select :subject_identifier, @available_subjects, {include_blank: 'Subject Identifier'}, {class: 'form-control'}
+    .form-group
+      = f.label :country_language, 'Country / Language', {class: 'invisible'}
+      = f.select :country_language, @tou_dpn_agreements, {include_blank: 'Country / Language'}, {class: 'form-control'}
+    .form-group
+      = f.label :email, 'Subject email'
+      = f.email_field :email, {class: 'form-control'}
+    .form-group
+      = f.label :initials, 'Subject initials'
+      = f.text_field :initials, {class: 'form-control'}
+    .form-group
+      = f.label :submit, {class: 'invisible'}
+      = f.submit 'Invite', class: 'btn btn-primary'

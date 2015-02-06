@@ -52,6 +52,13 @@ $(function () {
   });
 
   // security question
+  $('#create-account').on('click', function(e) {
+    e.preventDefault();
+    log('create-account')
+    $('#password').hide();
+      //show password page
+    $('#security_question').show(); 
+  });
 
   $('.back_arrow').on('click', backClick);
 

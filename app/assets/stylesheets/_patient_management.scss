@@ -2,3 +2,10 @@
 #help {
   display: none;
 }
+
+#invite-form {
+  .form-group {
+    margin-right: 15px;
+    label { display: block; }
+  }
+}

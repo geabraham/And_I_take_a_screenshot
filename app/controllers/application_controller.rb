@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
 
   ERROR_CAUSE = {
     ActionController::UnpermittedParameters => :unprocessable_entity,
-    IMedidataClient::IMedidataClientError => :unauthorized }
+    IMedidataClient::IMedidataClientError => :unauthorized,
+    Euresource::ResourceNotFound => :not_found }
 
   rescue_from "StandardError" do |e|
     error_cause ||= ERROR_CAUSE[e.exception.class] || :unprocessable_entity
