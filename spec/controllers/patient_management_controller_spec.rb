@@ -32,7 +32,7 @@ describe PatientManagementController do
             end
           end
           let(:params)               { default_params }
-          let(:expected_status_code) { 401 }
+          let(:expected_status_code) { error_status }
 
           before do
             allow(controller).to receive(:request_studies!).with(default_params.merge(user_uuid: user_uuid))
@@ -40,7 +40,7 @@ describe PatientManagementController do
           end
 
           it_behaves_like 'returns expected status'
-          it_behaves_like 'assigns an ivar to its expected value', :status_code, 401
+          it_behaves_like 'assigns an ivar to its expected value', :status_code, 404
         end
 
         context 'when user has studies for patient management' do
