@@ -12,8 +12,4 @@ describe 'PatientManagement Routes' do
         controller: 'patient_management',
         action: 'invite')
   end
-
-  it 'has an error route' do
-    expect(get('/patient_management/error')).to route_to(controller: 'patient_management', action: 'error')
-  end
 end

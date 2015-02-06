@@ -11,6 +11,13 @@ describe 'Minotaur routes', type: :routing do
         controller: 'study_sites',
         action: 'index')
     end
+
+    it 'catches routing errors' do
+      expect(get('/bad_path')).to route_to(
+        controller: 'application',
+        action: 'routing_error',
+        path: 'bad_path')
+    end
   end
 
   describe 'ActivationCodes' do

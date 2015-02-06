@@ -1,11 +1,11 @@
 - content_for :page_body do
-  %div{class: "error_dialog error"}
+  %div{class: "error_dialog error#{status_code}"}
     .explanation_text
-      %h1= @error_title
+      %h1= t("error.status_#{status_code}.heading")
       %div
-        = @error_message
+        = t("error.status_#{status_code}.message")
+        = t('error.helpdesk_html', help_desk_url: HELP_DESK, home_button_url: HOME_BUTTON)
       %br
       %div
-        #ampridatvir_error_page
     .fa#clipboard_image
       = image_tag('error_img.png')

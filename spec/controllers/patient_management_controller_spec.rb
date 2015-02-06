@@ -33,11 +33,6 @@ describe PatientManagementController do
           end
           let(:params)               { default_params }
           let(:expected_status_code) { 401 }
-          let(:error_response_body) do
-            {errors: 
-              "Studies request failed for #{default_params}. Response: #{error_status} #{error_body}"
-            }.to_json
-          end
 
           before do
             allow(controller).to receive(:request_studies!).with(default_params.merge(user_uuid: user_uuid))
@@ -45,7 +40,7 @@ describe PatientManagementController do
           end
 
           it_behaves_like 'returns expected status'
-          it_behaves_like 'returns expected error response body'
+          it_behaves_like 'assigns an ivar to its expected value', :status_code, 401
         end
 
         context 'when user has studies for patient management' do
@@ -134,16 +129,14 @@ describe PatientManagementController do
 
           context 'when tou dpn agreements request fails' do
             let(:expected_status_code) { 422 }
-            let(:error_response_body)  { {errors: 'TouDpnAgreements not found'}.to_json }
             before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_raise(StandardError.new('TouDpnAgreements not found')) }
 
             it_behaves_like 'returns expected status'
-            it_behaves_like 'returns expected error response body'
+            it_behaves_like 'assigns an ivar to its expected value', :status_code, 422
           end
 
           context 'when available subjects request fails' do
             let(:expected_status_code) { 404 }
-            let(:error_response_body)  { {errors: 'Failed.'}.to_json }
             before do
               allow(Euresource::Subject).to receive(:get)
                 .with(:all, {params: {
@@ -154,7 +147,7 @@ describe PatientManagementController do
             end
 
             it_behaves_like 'returns expected status'
-            it_behaves_like 'returns expected error response body'
+            it_behaves_like 'assigns an ivar to its expected value', :status_code, 404
           end
         end
 

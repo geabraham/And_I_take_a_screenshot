@@ -17,4 +17,9 @@ describe ApplicationController do
       expect(response).to redirect_to("#{CAS_BASE_URL}/logout?service")
     end
   end
+
+  describe 'error handling' do
+    context 'with expected error cause'
+    context 'with unexpected error cause'
+  end
 end

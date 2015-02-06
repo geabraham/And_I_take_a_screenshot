@@ -7,16 +7,18 @@ class ApplicationController < ActionController::Base
   ERROR_CAUSE = {
     ActionController::UnpermittedParameters => :unprocessable_entity,
     IMedidataClient::IMedidataClientError => :unauthorized,
-    Euresource::ResourceNotFound => :not_found }
+    Euresource::ResourceNotFound => :not_found,
+    Faraday::Error::ConnectionFailed => :service_unavailable }
 
-  rescue_from "StandardError" do |e|
-    error_cause ||= ERROR_CAUSE[e.exception.class] || :unprocessable_entity
-    render json: {errors: e.message}, status: error_cause
-  end
+  rescue_from StandardError, with: :rescue_error_minotaur
 
   def logout
     reset_session
     redirect_to CASClient::Frameworks::Rails::Filter.client.logout_url
+  end
+
+  def routing_error
+    raise ActionController::RoutingError.new("No route matches #{params[:path]}")
   end
 
   protected
@@ -37,5 +39,20 @@ class ApplicationController < ActionController::Base
 
   def name_uuid_options_array(collection)
     collection.uniq.collect { |s| [s['name'], s['uuid']] }
+  end
+
+  def status_code(reason_phrase_symbol = :unprocessable_entity)
+    @status_code ||= Rack::Utils::SYMBOL_TO_STATUS_CODE[reason_phrase_symbol]
+  end
+
+  def rescue_error_minotaur(exception)
+    @error = true
+    status_code(ERROR_CAUSE[exception.exception.class])
+    render_error(exception)
+  end
+
+  # TODO: Some default behavior
+  def render_error(exception = nil)
+    render json: {errors: exception.message}, status: status_code
   end
 end

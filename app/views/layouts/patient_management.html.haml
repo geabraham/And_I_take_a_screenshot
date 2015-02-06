@@ -15,7 +15,7 @@
     = csrf_meta_tags
   %body
     - content_for :page_header_text do
-      %h4= @error_message ? 'Error' : 'Patient Management'
+      %h4= @error ? t('error.error') : t('application.patient_management')
 
     = render 'shared/checkmate_header', user_name: @user_email, home_url: IMED_BASE_URL
     = render 'shared/page_header'

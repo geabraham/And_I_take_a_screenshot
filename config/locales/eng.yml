@@ -12,7 +12,8 @@ eng:
     - {id: 10, name: 'What is your pet''s name?'}
     - {id: 11, name: 'What is your mother''s middle name?'}
   application:
-    title: Minotaur
+    title: Patient Cloud Registration
+    patient_management: 'Patient Management'
     btn_cancel: Cancel
     btn_open: Open
     btn_agree: I agree
@@ -70,4 +71,23 @@ eng:
       and log in.
     modal_open: Open the patient Cloud app?
     modal_download: Download the Patient Cloud app from the app store?
-  
+  error:
+    error: Error
+    wrong: Something seems to have gone wrong with this page.
+    helpdesk_html: "For further assistance, please contact the <a href='%{help_desk_url}'>Help Desk</a> or return to the <a href='%{home_button_url}'>Home Page</a>."
+    timeout: Timeout error in the navigation bar.
+    status_403:
+      heading: 403 Access Denied
+      message: The link or URL you used tried to access a page that you are not authorized to see.
+    status_404:
+      heading: 404 Not Found
+      message: The link or URL you used either doesn't exist or you don't have permission to view it.
+    status_422:
+      heading: 422 Unprocessable Entity
+      message: Something went wrong with your request. Please review it and try again.
+    status_500:
+      heading: 500 System Error
+      message: "The link or URL you used resulted in a system error, and we can't display the information you requested."
+    status_503:
+      heading: 503 System Error
+      message: "Service unavailable, please try again later."

@@ -17,10 +17,14 @@ class PatientManagementController < ApplicationController
     @study_or_studies = studies_selection_list
   end
 
-  def error
-    @error_title = '404 Not Found'
-    @error_message = ("The link or URL you used tried to access a page that you are not authorized to see. " <<
-      "For further assistance, please contact the <a href='#{HELP_DESK}'>Help Desk</a> or return to the <a href='#{HOME_BUTTON}'>Home Page</a>.").html_safe
+  def invite
+    patient_enrollment_params = {'patient_enrollment' => params.require(:patient_enrollment)}
+    headers = {'MCC-Impersonate' => params[:user_uuid]}
+    invitation_response = Euresource::PatientEnrollment.post(patient_enrollment_params, headers)
+  end
+
+  def render_error(exception = nil)
+    render 'error', locals: {status_code: status_code}, status: status_code
   end
 
   private
