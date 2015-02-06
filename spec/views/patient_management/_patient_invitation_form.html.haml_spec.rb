@@ -37,6 +37,7 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
         assign(:available_subjects, [])
         render
       end
+
       it "the default option is 'No subjects available'" do
         expect(rendered).to have_selector("option[@value='']", text: 'No subjects available')
       end
