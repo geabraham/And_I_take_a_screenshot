@@ -1,0 +1,55 @@
+<script src="/assets/patient_management/invitation_form.js"></script>
+
+<div class="clearfix">
+  <div class="panel panel-default center-block col-md-10 pull-none light-grey-border">
+    <h3 class="form_header">Add a patient to Alfred Hospital.</h3>
+    <hr>
+    <div class="form-group">
+      <label class="invisible" for="patient_management_invite_subject_identifier">Subject identifier</label>
+      <select class="form-control" id="patient_management_invite_subject_identifier" name="/patient_management/invite[subject_identifier]">
+        <option value="">Subject Identifier</option>
+        <option value="Subject-000">Subject-000</option>
+        <option value="Subject-001">Subject-001</option>
+        <option value="Subject-002">Subject-002</option>
+        <option value="Subject-003">Subject-003</option>
+        <option value="Subject-004">Subject-004</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="invisible" for="_patient_management_invite_country_language">Country / Language</label>
+      <select class="form-control" id="_patient_management_invite_country_language" name="/patient_management/invite[country_language]"><option value="">Country / Language</option>
+      <option value="{&quot;language_code&quot;:&quot;ara&quot;,&quot;country_code&quot;:&quot;ISR&quot;}">Israel / Arabic</option>
+      <option value="{&quot;language_code&quot;:&quot;cze&quot;,&quot;country_code&quot;:&quot;CZE&quot;}">Czech Republic / Czech</option>
+      <option value="{&quot;language_code&quot;:&quot;dan&quot;,&quot;country_code&quot;:&quot;DNK&quot;}">Denmark / Danish</option>
+      <option value="{&quot;language_code&quot;:&quot;deu&quot;,&quot;country_code&quot;:&quot;DEU&quot;}">Germany / German</option>
+      <option value="{&quot;language_code&quot;:&quot;eng&quot;,&quot;country_code&quot;:&quot;USA&quot;}">United States / English</option>
+      <option value="{&quot;language_code&quot;:&quot;spa&quot;,&quot;country_code&quot;:&quot;USA&quot;}">United States / Spanish</option>
+      <option value="{&quot;language_code&quot;:&quot;spa&quot;,&quot;country_code&quot;:&quot;ESP&quot;}">Spain / Spanish</option>
+      <option value="{&quot;language_code&quot;:&quot;fra&quot;,&quot;country_code&quot;:&quot;CAN&quot;}">CAN / French</option>
+      <option value="{&quot;language_code&quot;:&quot;fra&quot;,&quot;country_code&quot;:&quot;FRA&quot;}">France / French</option>
+      <option value="{&quot;language_code&quot;:&quot;heb&quot;,&quot;country_code&quot;:&quot;ISR&quot;}">Israel / Hebrew</option>
+      <option value="{&quot;language_code&quot;:&quot;hun&quot;,&quot;country_code&quot;:&quot;HUN&quot;}">Hungary / Hungarian</option>
+      <option value="{&quot;language_code&quot;:&quot;ita&quot;,&quot;country_code&quot;:&quot;ITA&quot;}">Italy / Italian</option>
+      <option value="{&quot;language_code&quot;:&quot;jpn&quot;,&quot;country_code&quot;:&quot;JPN&quot;}">Japan / Japanese</option>
+      <option value="{&quot;language_code&quot;:&quot;kor&quot;,&quot;country_code&quot;:&quot;KOR&quot;}">Republic of Korea / Korean</option>
+      <option value="{&quot;language_code&quot;:&quot;nld&quot;,&quot;country_code&quot;:&quot;NLD&quot;}">Netherlands / Dutch</option>
+      <option value="{&quot;language_code&quot;:&quot;pol&quot;,&quot;country_code&quot;:&quot;POL&quot;}">Poland / Polish</option>
+      <option value="{&quot;language_code&quot;:&quot;rus&quot;,&quot;country_code&quot;:&quot;RUS&quot;}">Russian Federation / Russian</option>
+      <option value="{&quot;language_code&quot;:&quot;vie&quot;,&quot;country_code&quot;:&quot;VNM&quot;}">Vietnam / Vietnamese</option>
+      <option value="{&quot;language_code&quot;:&quot;zho&quot;,&quot;country_code&quot;:&quot;CHN&quot;}">China / Chinese Simplified</option>
+      <option value="{&quot;language_code&quot;:&quot;chi&quot;,&quot;country_code&quot;:&quot;CHN&quot;}">China / Chinese Traditional</option></select>
+    </div>
+    <div class="form-group">
+      <label for="_patient_management_invite_email">Subject email</label>
+      <input class="form-control" id="_patient_management_invite_email" name="/patient_management/invite[email]" type="email">
+    </div>
+    <div class="form-group">
+      <label for="_patient_management_invite_initials">Subject initials</label>
+      <input class="form-control" id="_patient_management_invite_initials" name="/patient_management/invite[initials]" type="text">
+    </div>
+    <div class="form-group">
+      <label class="invisible" for="_patient_management_invite_submit">Submit</label>
+      <input class="btn btn-primary" disabled="disabled" id="invite-button" name="commit" type="submit" value="Invite">
+    </div>
+  </div>
+</div>
