@@ -6,7 +6,7 @@
       %label Required
     .form-group.required
       = f.label :subject
-      = f.select :subject, @available_subjects, {include_blank: 'Subject'}, {class: 'form-control', required: 'required'}
+      = f.select :subject, @available_subjects, {include_blank: @available_subjects.present? ? 'Subject' : 'No subjects available'}, {class: 'form-control'}
     .form-group.required
       = f.label :country_language, 'Country / Language'
       = f.select :country_language, @tou_dpn_agreements, {include_blank: 'Country / Language'}, {class: 'form-control'}
