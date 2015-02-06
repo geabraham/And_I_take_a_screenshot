@@ -168,12 +168,12 @@ describe PatientManagementController do
             double('agreement').tap {|a| allow(a).to receive(:attributes).and_return(tou_dpn_agreement2_attrs)}
           end
           let(:tou_dpn_agreements) { [tou_dpn_agreement1, tou_dpn_agreement2]}
-          let(:subject1_attrs)    { {uuid: SecureRandom.uuid, subject_identifier: 'Subject001'}.stringify_keys }
-          let(:subject2_attrs)    { {uuid: SecureRandom.uuid, subject_identifier: 'Subject002'}.stringify_keys }
-          let(:subject1)          { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject1_attrs)} }
-          let(:subject2)          { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject2_attrs)} }
-          let(:subjects)          { [subject1, subject2] }
-          let(:expected_template) { 'patient_management_grid' }
+          let(:subject1_attrs)     { {uuid: SecureRandom.uuid, subject_identifier: 'Subject001'}.stringify_keys }
+          let(:subject2_attrs)     { {uuid: SecureRandom.uuid, subject_identifier: 'Subject002'}.stringify_keys }
+          let(:subject1)           { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject1_attrs)} }
+          let(:subject2)           { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject2_attrs)} }
+          let(:subjects)           { [subject1, subject2] }
+          let(:expected_template)  { 'patient_management_grid' }
 
           it_behaves_like 'renders expected template'
 
