@@ -71,11 +71,8 @@ describe SecurityQuestions do
       end
 
       it 'logs exception' do
-        begin
-          expect(Rails.logger).to receive(:info).with("Security questions for requested locale not found: xxx")
-          SecurityQuestions.find("xxx")
-        rescue
-        end
+        expect(Rails.logger).to receive(:info).with("Security questions for requested locale not found: xxx")
+        SecurityQuestions.find("xxx") rescue nil
       end
     end
 
