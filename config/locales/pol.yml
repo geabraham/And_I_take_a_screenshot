@@ -1,0 +1,72 @@
+pol:
+  security_questions:
+    - {id: 1, name: Podaj swój rok urodzenia}
+    - {id: 2, name: Podaj ostatnie cztery cyfry numeru ubezpieczenia społecznego.}
+    - {id: 3, name: 'Jak brzmi drugie imię Twojego ojca?'}
+    - {id: 4, name: 'Jak nazywała się Twoja pierwsza szkoła?'}
+    - {id: 5, name: 'Kto był Twoim dziecięcym bohaterem?'}
+    - {id: 6, name: 'Jaka jest Twoja ulubiona rozrywka?'}
+    - {id: 7, name: 'Jaka jest Twoja ulubiona drużyna?'}
+    - {id: 8, name: 'Jaka była maskotka Twojego liceum?'}
+    - {id: 9, name: 'Jakiej marki był Twój pierwszy samochód lub rower?'}
+    - {id: 10, name: 'Jak ma na imię Twój zwierzak?'}
+    - {id: 11, name: 'Jak brzmi drugie imię Twojej matki?'}
+  application:
+    title: "Minotaur"
+    btn_cancel: "Anuluj"
+    btn_open: "Otwórz"
+    btn_agree: "Zgadzam się"
+    btn_next: "Dalej"
+    btn_continue: "Dalej"
+  activation_codes:
+    index:
+      code_heading: "Wpisz kod aktywacyjny"
+      code_instruction: "Jeśli jesteś już zarejestrowanym użytkownikiem, wróć do aplikacji Patient Cloud. Jeśli nie jesteś zarejestrowanym użytkownikiem i nie masz kodu aktywacyjnego ani zaproszenia e-mail, skontaktuj się z dostawcą usług medycznych.\n"
+      validation_error: "Kod jest nieprawidłowy. Skontaktuj się z dostawcą usług medycznych."
+  registration:
+    form_heading: "Szczegóły rejestracji"
+    welcome:
+      header: "Witamy w Patient Cloud"
+      welcome_message: "Do utworzenia danych logowania i pobrania aplikacji Patient Cloud pozostało już tylko kilka kroków.\n"
+      register_1: "Przeczytaj politykę prywatności i warunki użytkowania"
+      register_2: "Utwórz konto i podaj wymagane informacje"
+      download: "Pobierz aplikację Patient Cloud"
+      login: "Otwórz aplikację Patient Cloud i wpisz informacje dotyczące konta, by się zalogować"
+    terms_of_use:
+      tou_header: "Polityka prywatności/warunki użytkowania"
+      tou_instruction: "Zapoznaj się z poniższą polityką prywatności i warunkami użytkowania, które zawierają opis Twoich praw i mają zastosowanie do Twojego konta oraz korzystania z tej aplikacji.\n"
+    tou_agreement:
+      modal_confirm: "Potwierdzasz przeczytanie, zrozumienie i zaakceptowanie przedstawionych tutaj warunków użytkowania i polityki prywatności.\n"
+      modal_cancel: "Jeśli naciśniesz przycisk „Anuluj”, nie zostaniesz zarejestrowany jako uczestnik badania na potrzeby elektronicznych raportów wyników pacjenta i wszelkie informacje, które wprowadziłeś, zostaną usunięte. Jeśli chcesz kontynuować rejestrację, naciśnij „Dalej”.\n"
+    email_form:
+      form_instruction: "Wpisz i potwierdź adres e-mail poniżej."
+      email_label: "Adres e-mail"
+      reenter_label: "Wpisz ponownie adres e-mail"
+      validation_error: "Wpisz prawidłowy adres e-mail."
+      mismatch_error: "Wpisane adresy e-mail nie są takie same."
+      modal_already_registered: "To konto e-mail jest już zarejestrowane w tym badaniu. Skontaktuj się z dostawcą usług medycznych.\n"
+    password_form:
+      form_instruction_1: "Wpisz i potwierdź dowolnie wybrane"
+      form_instruction_1_bold: "hasło,"
+      form_instruction_1_2: "które spełnia poniższe warunki"
+      ul_1: "Zawiera co najmniej 8 znaków"
+      ul_2: "Zawiera co najmniej jedną wielką literę"
+      ul_3: "Zawiera co najmniej jedną małą literę"
+      ul_4: "Zawiera co najmniej jedną cyfrę"
+      password_label: "Hasło"
+      reenter_label: "Wpisz ponownie hasło"
+      mismatch_error: "Wpisane hasła nie są takie same."
+      validation_error: "Wpisz prawidłowe hasło."
+    security_question_form:
+      form_instruction: "Wybierz"
+      form_instruction_bold: "pytanie bezpieczeństwa."
+      dropdown_placeholder: "Pytanie bezpieczeństwa"
+      answer_label: "Odpowiedź na pytanie bezpieczeństwa"
+      answer_placeholder: "Wpisz odpowiedź na pytanie"
+      btn_create: "Utwórz konto"
+      modal_error: "Poinformuj dostawcę usług medycznych, że nie możesz się zarejestrować.\n"
+      modal_error_ok: "OK"
+  download:
+    header: "Zarejestrowano Cię jako uczestnika tego badania. Teraz pobierz aplikację Patient Cloud.\n"
+    modal_open: "Czy otworzyć aplikację Patient Cloud?"
+    modal_download: "Czy pobrać aplikację Patient Cloud ze sklepu z aplikacjami?"

@@ -1,7 +1,7 @@
 When(/^I fill in (a|an) (valid|invalid) activation code$/) do |_, validity|
   activation_code_response = if validity == 'valid'
     allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
-    allow(RemoteSecurityQuestions).to receive(:find_or_fetch).and_return(@security_questions)
+    allow(SecurityQuestions).to receive(:find).and_return(@security_questions)
     double('activation_code').tap do |ac|
       allow(ac).to receive(:attributes).and_return(@activation_code_attrs)
     end
@@ -36,7 +36,7 @@ When(/^I submit registration info as a new subject$/) do
   fill_in 'Re-enter Email', with: @patient_enrollment.login.upcase
   # FIXME.
   # Sleeps are bad.
-  #   It appears click_on is suffering from something like a race condition, and without this sleep, 
+  #   It appears click_on is suffering from something like a race condition, and without this sleep,
   #   the button is clicked but the transition is frozen.
   #   The test fails with error 'Unable to find field "Password" (Capybara::ElementNotFound)'
   sleep(1)

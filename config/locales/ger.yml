@@ -1,0 +1,72 @@
+ger:
+  security_questions:
+    - {id: 1, name: 'In welchem Jahr wurden Sie geboren?'}
+    - {id: 2, name: 'Letzte vier Ziffern der Sozialversicherungsnummer?'}
+    - {id: 3, name: 'Wie lautet der Mittelname Ihres Vaters?'}
+    - {id: 4, name: 'Wie hieß Ihre erste Schule?'}
+    - {id: 5, name: 'Wer war der Held Ihrer Kindheit?'}
+    - {id: 6, name: 'Was ist Ihre liebste Freizeitbeschäftigung?'}
+    - {id: 7, name: 'Was ist Ihre Lieblingsmannschaft?'}
+    - {id: 8, name: 'Was war das Maskottchen Ihrer Schule?'}
+    - {id: 9, name: 'Welche Marke war Ihr erstes Auto oder Fahrrad?'}
+    - {id: 10, name: 'Wie heißt Ihr Haustier?'}
+    - {id: 11, name: 'Wie lautet der Mittelname Ihrer Mutter?'}
+  application:
+    title: "Minotaur"
+    btn_cancel: "Abbrechen"
+    btn_open: "Öffnen"
+    btn_agree: "Ich stimme zu"
+    btn_next: "Weiter"
+    btn_continue: "Fortsetzen"
+  activation_codes:
+    index:
+      code_heading: "Bitte geben Sie Ihren Aktivierungscode ein."
+      code_instruction: "Wenn Sie sich bereits registriert haben, so kehren Sie zur Patienten-Cloud-App zurück. Wenden Sie sich an Ihren Anbieter, wenn Sie sich noch nicht registriert haben und weder über einen Aktivierungscode noch über eine E-Mail-Einladung verfügen.\n"
+      validation_error: "Dieser Code ist nicht korrekt. Wenden Sie sich an Ihren Anbieter."
+  registration:
+    form_heading: "Registrierungsdetails"
+    welcome:
+      header: "Willkommen bei der Patienten-Cloud"
+      welcome_message: "In weniger Schritten werden Sie Ihre Anmeldedaten erstellen und die Patienten-Cloud-App herunterladen.\n"
+      register_1: "Kenntnisnahme der Datenschutzrichtlinie und der Nutzungsbestimmungen"
+      register_2: "Anlegen der Kontoinformationen"
+      download: "Herunterladen der Patienten-Cloud-App"
+      login: "Öffnen der Patienten-Cloud-App und Anmelden mithilfe der Kontoinformationen"
+    terms_of_use:
+      tou_header: "Datenschutzrichtlinie/Nutzungsbestimmungen"
+      tou_instruction: "Bitte lesen Sie die unten stehende Datenschutzerklärung und die allgemeinen Geschäftsbedingungen, die Ihre Rechte in Bezug auf Ihr Konto und Ihre Nutzung dieser Anwendung erläutern.\n"
+    tou_agreement:
+      modal_confirm: "Sie bestätigen, die hier aufgeführte(n) Nutzungsbestimmungen und Datenschutzrichtlinie gelesen und verstanden zu haben, und erklären sich bereit, diese einzuhalten.\n"
+      modal_cancel: "Wenn Sie auf „Abbrechen\" tippen, werden sie nicht als Studienteilnehmer für elektronische, vom Patienten berichtete Ergebnisse angemeldet, und alle Daten, die Sie eingegeben haben, werden gelöscht. Wenn Sie mit der Anmeldung fortfahren möchten, tippen Sie bitte auf „Fortfahren\".\n"
+    email_form:
+      form_instruction: "Geben Sie nachstehend Ihre E-Mail-Adresse ein, und bestätigen Sie sie."
+      email_label: "E-Mail-Adresse"
+      reenter_label: "E-Mail-Adresse (erneute Eingabe)"
+      validation_error: "Geben Sie eine gültige E-Mail-Adresse ein."
+      mismatch_error: "Die eingegebenen E-Mail-Adressen stimmen nicht überein."
+      modal_already_registered: "Diese E-Mail-Adresse wurde bereits für diese Studie registriert. Wenden Sie sich an Ihren Anbieter.\n"
+    password_form:
+      form_instruction_1: "Geben Sie ein"
+      form_instruction_1_bold: "Passwort"
+      form_instruction_1_2: "Ihrer Wahl ein, und bestätigen Sie es. Beachten Sie, dass das Passwort die nachstehenden Bedingungen erfüllen muss:"
+      ul_1: "Mindestens acht Zeichen Länge"
+      ul_2: "Mindestens ein Großbuchstabe"
+      ul_3: "Mindestens ein Kleinbuchstabe"
+      ul_4: "Mindestens eine Ziffer"
+      password_label: "Passwort"
+      reenter_label: "Passwort (erneute Eingabe)"
+      mismatch_error: "Die eingegebenen Passwörter stimmen nicht überein."
+      validation_error: "Geben Sie ein gültiges Passwort ein."
+    security_question_form:
+      form_instruction: "Wählen Sie eine"
+      form_instruction_bold: "Sicherheitsfrage aus."
+      dropdown_placeholder: "Sicherheitsfrage"
+      answer_label: "Antwort auf die Sicherheitsfrage"
+      answer_placeholder: "Geben Sie Ihre Antwort auf die Frage ein."
+      btn_create: "Konto anlegen"
+      modal_error: "Informieren Sie Ihren Arzt darüber, dass Sie sich nicht registrieren können.\n"
+      modal_error_ok: "OK"
+  download:
+    header: "Sie sind nun als Teilnehmer für diese Studie registriert. Nun sollten Sie die Patienten-Cloud-App herunterladen.\n"
+    modal_open: "Möchten Sie die Patienten-Cloud-App öffnen?"
+    modal_download: "Möchten Sie die Patienten-Cloud-App aus dem App Store herunterladen?"

@@ -1,0 +1,72 @@
+fra:
+  security_questions:
+    - {id: 1, name: 'Quelle est votre année de naissance ?'}
+    - {id: 2, name: 'Quatre derniers chiffres de votre N° de sécurité sociale ?'}
+    - {id: 3, name: 'Quel est le deuxième prénom de votre père ?'}
+    - {id: 4, name: 'Quel était le nom de votre première école ?'}
+    - {id: 5, name: 'Qui était votre héro d''enfance ?'}
+    - {id: 6, name: 'Quel est votre passe-temps préféré ?'}
+    - {id: 7, name: 'Quelle est votre équipe sportive préférée ?'}
+    - {id: 8, name: 'Quelle était la mascotte de votre école ?'}
+    - {id: 9, name: 'Quelle était la marque de votre première voiture ou moto ?'}
+    - {id: 10, name: 'Comment s''appelle votre animal de compagnie ?'}
+    - {id: 11, name: 'Quel est le deuxième prénom de votre mère ?'}
+  application:
+    title: "Minotaur"
+    btn_cancel: "Annuler"
+    btn_open: "Ouvrir"
+    btn_agree: "J'accepte"
+    btn_next: "Suivant"
+    btn_continue: "Continuer"
+  activation_codes:
+    index:
+      code_heading: "Veuillez saisir votre code d'activation"
+      code_instruction: "Si vous vous êtes déjà inscrit, revenez à l'application Patient Cloud. Si vous ne vous êtes pas inscrit et n'avez pas de code d'activation ou d'invitation par courriel, veuillez contacter votre fournisseur.\n"
+      validation_error: "Ce code est incorrect. Contactez votre fournisseur."
+  registration:
+    form_heading: "Détails de l'inscription"
+    welcome:
+      header: "Bienvenue dans Patient Cloud"
+      welcome_message: "Vous êtes sur le point de créer vos identifiants de connexion et de télécharger l'application Patient Cloud.\n"
+      register_1: "Lire la politique de confidentialité et les conditions d'utilisation"
+      register_2: "Créer les informations du compte"
+      download: "Télécharger l'application Patient Cloud"
+      login: "Ouvrir Patient Cloud et utiliser les informations de votre compte pour vous connecter"
+    terms_of_use:
+      tou_header: "Politique de confidentialité/Conditions d'utilisation"
+      tou_instruction: "Veuillez lire dans leur intégralité la Politique de confidentialité et les conditions d'utilisation ci-dessous présentant les droits applicables à votre compte et à l'utilisation de cette application.\n"
+    tou_agreement:
+      modal_confirm: "Vous reconnaissez avoir lu, compris et accepté les Conditions d'utilisation et la Politique de confidentialité mentionnées ici-même.\n"
+      modal_cancel: "Si vous appuyez sur «&nbsp;Annuler&nbsp;», vous ne serez pas inscrit comme participant à l'étude pour les résultats rapportés par les patients électroniquement, et toutes les informations saisies seront supprimées. Si vous souhaitez continuer la procédure d'inscription, veuillez appuyer sur «&nbsp;Continuer&nbsp;».\n"
+    email_form:
+      form_instruction: "Saisissez et confirmez votre adresse e-mail ci-dessous."
+      email_label: "E-mail"
+      reenter_label: "Resaisir l'e-mail"
+      validation_error: "Saisissez un e-mail valide."
+      mismatch_error: "Vos e-mails ne correspondent pas."
+      modal_already_registered: "Ce compte e-mail est déjà inscrit pour cette étude. Veuillez contacter votre fournisseur.\n"
+    password_form:
+      form_instruction_1: "Saisissez et confirmez un"
+      form_instruction_1_bold: "Mot de passe"
+      form_instruction_1_2: "de votre choix qui répond aux critères ci-dessous"
+      ul_1: "Au moins 8&nbsp;caractères"
+      ul_2: "Au moins une lettre majuscule"
+      ul_3: "Au moins une lettre minuscule"
+      ul_4: "Au moins un chiffre"
+      password_label: "Mot de passe"
+      reenter_label: "Resaisissez le mot de passe"
+      mismatch_error: "Vos mots de passe ne correspondent pas."
+      validation_error: "Saisissez un mot de passe valide."
+    security_question_form:
+      form_instruction: "Sélectionner une"
+      form_instruction_bold: "question de sécurité."
+      dropdown_placeholder: "Question de sécurité"
+      answer_label: "Réponse de sécurité"
+      answer_placeholder: "Saisissez la réponse à la question"
+      btn_create: "Créer un compte"
+      modal_error: "Indiquez à votre professionnel de santé que vous ne parvenez pas à vous inscrire.\n"
+      modal_error_ok: "OK"
+  download:
+    header: "Félicitations, vous êtes déjà inscrit en tant que participant à cette étude. Il est maintenant temps de télécharger l'application Patient Cloud.\n"
+    modal_open: "Ouvrir l'application Patient Cloud&nbsp;?"
+    modal_download: "Télécharger l'application Patient Cloud à partir de votre app store&nbsp;?"

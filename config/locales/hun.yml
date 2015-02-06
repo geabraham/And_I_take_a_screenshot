@@ -1,0 +1,72 @@
+hun:
+  security_questions:
+    - {id: 1, name: 'Melyik évben született?'}
+    - {id: 2, name: 'A TAJ-szám utolsó négy számjegye?'}
+    - {id: 3, name: 'Mi az édesapja középső neve?'}
+    - {id: 4, name: 'Mi volt az első iskolája neve?'}
+    - {id: 5, name: 'Ki volt a gyermekkori példaképe?'}
+    - {id: 6, name: 'Mi a kedvenc hobbija?'}
+    - {id: 7, name: 'Mi a legkedvesebb sportcsapata neve?'}
+    - {id: 8, name: 'Mi volt az óvodai jele?'}
+    - {id: 9, name: 'Milyen márkájú volt az első autója vagy motorkerékpárja?'}
+    - {id: 10, name: 'Mi a háziállata neve?'}
+    - {id: 11, name: 'Mi az édesanyja középső neve?'}
+  application:
+    title: "Minotaur"
+    btn_cancel: "Mégse"
+    btn_open: "Megnyitás"
+    btn_agree: "Elfogadom"
+    btn_next: "Következő"
+    btn_continue: "Folytatás"
+  activation_codes:
+    index:
+      code_heading: "Adja meg az aktiválási kódot"
+      code_instruction: "Ha már regisztrált, térjen vissza a Patient&nbsp;Cloud alkalmazáshoz. Ha még nem regisztrált, és nem rendelkezik az aktiválási kóddal vagy e-maillel, vegye fel a kapcsolatot a szolgáltatójával.\n"
+      validation_error: "A megadott kód hibás. Vegye fel a kapcsolatot a szolgáltatójával."
+  registration:
+    form_heading: "Regisztrációs adatok"
+    welcome:
+      header: "Üdvözli a Patient&nbsp;Cloud!"
+      welcome_message: "Csak néhány lépésnyire van a fiókja létrehozásától és a Patient&nbsp;Cloud alkalmazás letöltésétől.\n"
+      register_1: "Olvassa el az Adatvédelmi szabályzatot és a Használati feltételeket"
+      register_2: "Hozza létre a fiókját"
+      download: "Töltse le a Patient&nbsp;Cloud alkalmazást"
+      login: "Indítsa el a Patient&nbsp;Cloud alkalmazást, és jelentkezzen be az adataival"
+    terms_of_use:
+      tou_header: "Adatvédelmi szabályzat és Használati feltételek"
+      tou_instruction: "Kérjük, olvassa el alább a teljes Adatvédelmi szabályzatot és a Használati feltételeket, amelyek meghatározzák, hogy a fiókjával, valamint az alkalmazás használatával kapcsolatban milyen jogai vannak.\n"
+    tou_agreement:
+      modal_confirm: "Kijelenti, hogy elolvasta, megértette és elfogadta, hogy betartja az itt megadott Használati feltételeket és az Adatvédelmi szabályzatot.\n"
+      modal_cancel: "Ha megérinti a „Mégse” lehetőséget, akkor a rendszer nem regisztrálja vizsgálati résztvevőként az elektronikus betegekkel kapcsolatban jelentett eredményekhez, és minden Ön által megadott információ törlésre kerül. Ha folytatni kívánja a regisztrációs folyamatot, érintse meg a „Folytatás” lehetőséget.\n"
+    email_form:
+      form_instruction: "Adja meg és erősítse meg az e-mail címét."
+      email_label: "E-mail cím"
+      reenter_label: "E-mail cím újra"
+      validation_error: "Érvényes e-mail címet adjon meg."
+      mismatch_error: "A megadott e-mail címek nem egyeznek."
+      modal_already_registered: "Ez az e-mail cím már regisztrálva van erre a vizsgálatra. Vegye fel a kapcsolatot a szolgáltatójával.\n"
+    password_form:
+      form_instruction_1: "Adja meg és erősítse meg az alábbi követelményeknek megfelelő"
+      form_instruction_1_bold: "jelszavát"
+      form_instruction_1_2: ":"
+      ul_1: "Legalább 8&nbsp;karakter"
+      ul_2: "Tartalmaz legalább egy nagybetűt"
+      ul_3: "Tartalmaz legalább egy kisbetűt"
+      ul_4: "Tartalmaz legalább egy számot"
+      password_label: "Jelszó"
+      reenter_label: "Jelszó újra"
+      mismatch_error: "A megadott jelszavak nem egyeznek."
+      validation_error: "Érvényes jelszót adjon meg."
+    security_question_form:
+      form_instruction: "Válasszon egy"
+      form_instruction_bold: "biztonsági kérdést."
+      dropdown_placeholder: "Biztonsági kérdés"
+      answer_label: "Válasz a biztonsági kérdésre"
+      answer_placeholder: "Adja meg válaszát a kérdésre."
+      btn_create: "Fiók létrehozása"
+      modal_error: "Tudassa az egészségügyi szolgáltatójával, hogy nem tudott regisztrálni.\n"
+      modal_error_ok: "OK"
+  download:
+    header: "Gratulálunk, sikeresen regisztrált erre a vizsgálatra. Most le kell töltenie a Patient&nbsp;Cloud alkalmazást.\n"
+    modal_open: "Megnyitja a Patient&nbsp;Cloud alkalmazás?"
+    modal_download: "Letölti a Patient&nbsp;Cloud alkalmazást az alkalmazásboltból?"
