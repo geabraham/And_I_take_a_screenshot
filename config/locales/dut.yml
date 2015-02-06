@@ -1,0 +1,72 @@
+dut:
+  security_questions:
+    - {id: 1, name: 'In welk jaar bent u geboren?'}
+    - {id: 2, name: 'Laatste vier cijfers van rijksregisternummer?'}
+    - {id: 3, name: 'Wat is de tweede naam van uw vader?'}
+    - {id: 4, name: 'Wat was de naam van uw eerste school?'}
+    - {id: 5, name: 'Wie was uw held toen u jong was?'}
+    - {id: 6, name: 'Wat is uw favoriete hobby?'}
+    - {id: 7, name: 'Wat is uw meest favoriete sportploeg ooit?'}
+    - {id: 8, name: 'Wat was de mascotte van uw middelbare school?'}
+    - {id: 9, name: 'Wat was het merk van uw eerste auto of fiets?'}
+    - {id: 10, name: 'Wat is de naam van uw huisdier?'}
+    - {id: 11, name: 'Wat is de tweede naam van uw moeder?'}
+  application:
+    title: "Minotaur"
+    btn_cancel: "Annuleren"
+    btn_open: "Openen"
+    btn_agree: "Ik ga akkoord"
+    btn_next: "Volgende"
+    btn_continue: "Doorgaan"
+  activation_codes:
+    index:
+      code_heading: "Voer uw activatiecode in."
+      code_instruction: "Als u zich al hebt geregistreerd, keert u terug naar de Patient Cloud-app. Als u zich niet hebt geregistreerd en u hebt geen activatiecode of e-mail ontvangen, neemt u best contact op met uw zorgverlener.\n"
+      validation_error: "Deze code is niet juist. Neem contact op met uw zorgverlener."
+  registration:
+    form_heading: "Registratiegegevens"
+    welcome:
+      header: "Welkom bij Patient Cloud"
+      welcome_message: "Nog enkele stappen en dan beschikt u over uw aanmeldgegevens en kunt u de Patient Cloud-app downloaden.\n"
+      register_1: "Raadpleeg het Privacybeleid en de Gebruiksvoorwaarden"
+      register_2: "Informatie over account aanmaken"
+      download: "De Patient Cloud-app downloaden"
+      login: "Open Patient Cloud en meld u aan met uw accountgegevens"
+    terms_of_use:
+      tou_header: "Privacybeleid / Gebruiksvoorwaarden"
+      tou_instruction: "Lees het Privacybeleid en de gebruiksvoorwaarden volledig door. Hierin staan uw rechten beschreven zoals ze van toepassing zijn op uw account en uw gebruik van deze applicatie. Zie verder.\n"
+    tou_agreement:
+      modal_confirm: "U verklaart dat u de Gebruiksvoorwaarden en het Privacybeleid waarnaar wordt verwezen, hebt gelezen en begrepen, en dat deze bindend zijn.\n"
+      modal_cancel: "Als u op 'Annuleren' tikt, wordt u niet geregistreerd als studiedeelnemer voor elektronische door de patiënt gerapporteerde uitkomsten en alle informatie die u hebt ingevoerd wordt gewist. Als u wilt doorgaan met het registratieproces, klik dan op 'Doorgaan'.\n"
+    email_form:
+      form_instruction: "Voer hieronder uw e-mailadres in en bevestig het."
+      email_label: "E-mail"
+      reenter_label: "Voer uw e-mailadres opnieuw in"
+      validation_error: "Voer een geldig e-mailadres in."
+      mismatch_error: "Uw e-mailgegevens komen niet overeen."
+      modal_already_registered: "Deze e-mailaccount is al voor dit onderzoek geregistreerd. Neem contact op met uw zorgverlener.\n"
+    password_form:
+      form_instruction_1: "Voer een"
+      form_instruction_1_bold: "wachtwoord"
+      form_instruction_1_2: "in dat aan de onderstaande criteria voldoet, en bevestig het"
+      ul_1: "Minstens 8 karakters lang"
+      ul_2: "Minstens één hoofdletter"
+      ul_3: "Minstens één kleine letter"
+      ul_4: "Minstens één cijfer"
+      password_label: "Wachtwoord"
+      reenter_label: "Voer uw wachtwoord opnieuw in"
+      mismatch_error: "Uw wachtwoorden komen niet overeen."
+      validation_error: "Voer een geldig wachtwoord in."
+    security_question_form:
+      form_instruction: "Kies een"
+      form_instruction_bold: "beveiligingsvraag."
+      dropdown_placeholder: "Beveiligingsvraag"
+      answer_label: "Antwoord beveiligingsvraag"
+      answer_placeholder: "Voer uw antwoord op de vraag in"
+      btn_create: "Account aanmaken"
+      modal_error: "Breng uw zorgverlener ervan op de hoogte dat u zich niet kunt registreren.\n"
+      modal_error_ok: "OK"
+  download:
+    header: "Proficiat, u bent geregistreerd als deelnemer aan dit onderzoek. Nu kunt u de Patient Cloud-app downloaden.\n"
+    modal_open: "Wilt u de Patient Cloud-app openen?"
+    modal_download: "Wilt u de Patient Cloud-app van de app store downloaden?"

@@ -1,0 +1,72 @@
+vie:
+  security_questions:
+    - {id: 1, name: 'Bạn sinh năm nào?'}
+    - {id: 2, name: 'Bốn chữ số cuối cùng của SSN?'}
+    - {id: 3, name: 'Tên đệm của cha bạn là gì?'}
+    - {id: 4, name: 'Tên ngôi trường đầu tiên của bạn là gì?'}
+    - {id: 5, name: 'Ai là người anh hùng trong thời thơ ấu của bạn?'}
+    - {id: 6, name: 'Trò giải trí ưa thích của bạn là gì?'}
+    - {id: 7, name: 'Đội thể thao mà bạn luôn yêu thích là gì?'}
+    - {id: 8, name: 'Biểu tượng của trường trung học của bạn là gì?'}
+    - {id: 9, name: 'Nhãn hiệu của chiếc ô tô hay xe đạp đầu tiên của bạn là gì?'}
+    - {id: 10, name: 'Tên con vật nuôi của bạn là gì?'}
+    - {id: 11, name: 'Tên đệm của mẹ bạn là gì?'}
+  application:
+    title: "Minotaur"
+    btn_cancel: "Hủy bỏ"
+    btn_open: "Mở"
+    btn_agree: "Tôi đồng ý"
+    btn_next: "Tiếp theo"
+    btn_continue: "Tiếp tục"
+  activation_codes:
+    index:
+      code_heading: "Vui lòng nhập mã kích hoạt của bạn"
+      code_instruction: "Nếu bạn đã đăng ký, quay lại Ứng dụng Patient Cloud. Nếu bạn chưa đăng ký và không có mã kích hoạt hoặc email thư mời, vui lòng liên hệ với nhà cung cấp của bạn.\n"
+      validation_error: "Mã này không chính xác. Liên hệ với nhà cung cấp của bạn."
+  registration:
+    form_heading: "Chi tiết đăng ký"
+    welcome:
+      header: "Chào mừng bạn đến với Patient Cloud"
+      welcome_message: "Bạn chỉ cần thực hiện một vài bước để tạo thông tin đăng nhập của mình và tải xuống ứng dụng Patient Cloud.\n"
+      register_1: "Xem xét Chính sách Quyền riêng tư và Điều khoản Sử dụng"
+      register_2: "Tạo thông tin tài khoản"
+      download: "Tải xuống ứng dụng Patient Cloud"
+      login: "Mở Patient Cloud và sử dụng thông tin tài khoản của bạn để đăng nhập"
+    terms_of_use:
+      tou_header: "Chính sách Quyền riêng tư / Điều khoản Sử dụng"
+      tou_instruction: "Vui lòng đọc Chính sách Quyền riêng tư và Điều khoản Sử dụng đầy đủ nêu những nét chính về các quyền của bạn khi áp dụng cho tài khoản của bạn và việc sử dụng ứng dụng của bạn, bên dưới.\n"
+    tou_agreement:
+      modal_confirm: "Bạn xác nhận rằng bạn đã đọc, hiểu và đồng ý theo sự ràng buộc bởi Điều khoản Sử dụng và Chính sách Quyền riêng tư được tham khảo trong tài liệu này.\n"
+      modal_cancel: "Nếu bạn bấm 'Hủy bỏ', bạn sẽ không được đăng ký thành người tham gia nghiên cứu cho kết quả được báo cáo từ bệnh nhân theo cách điện tử và mọi thông tin bạn đã nhập sẽ bị xóa bỏ. Nếu bạn muốn tiếp tục quá trình đăng ký, vui lòng bấm 'Tiếp tục'.\n"
+    email_form:
+      form_instruction: "Nhập và xác nhận địa chỉ email của bạn bên dưới."
+      email_label: "Email"
+      reenter_label: "Nhập lại email"
+      validation_error: "Nhập email hợp lệ."
+      mismatch_error: "Email của bạn không trùng khớp."
+      modal_already_registered: "Tài khoản email đã được đăng ký cho nghiên cứu này. Vui lòng liên hệ với nhà cung cấp của bạn.\n"
+    password_form:
+      form_instruction_1: "Nhập và xác nhận"
+      form_instruction_1_bold: "Mật khẩu"
+      form_instruction_1_2: "bạn chọn đáp ứng tiêu chí bên dưới"
+      ul_1: "Dài ít nhất 8 ký tự"
+      ul_2: "Có ít nhất một chữ cái viết hoa"
+      ul_3: "Có ít nhất một chữ cái viết thường"
+      ul_4: "Có ít nhất một chữ số"
+      password_label: "Mật khẩu"
+      reenter_label: "Nhập lại Mật khẩu"
+      mismatch_error: "Mật khẩu của bạn không trùng khớp."
+      validation_error: "Nhập Mật khẩu hợp lệ."
+    security_question_form:
+      form_instruction: "Chọn"
+      form_instruction_bold: "câu hỏi bảo mật."
+      dropdown_placeholder: "Câu hỏi bảo mật"
+      answer_label: "Câu trả lời bảo mật"
+      answer_placeholder: "Nhập câu trả lời của bạn cho câu hỏi đó"
+      btn_create: "Tạo tài khoản"
+      modal_error: "Vui lòng cho nhà cung cấp dịch vụ chăm sóc sức khỏe biết rằng bạn không thể đăng ký.\n"
+      modal_error_ok: "OK"
+  download:
+    header: "Chúc mừng, bạn đã đăng ký là người tham gia trong nghiên cứu này. Bây giờ là lúc tải xuống ứng dụng Patient Cloud.\n"
+    modal_open: "Mở ứng dụng Patient Cloud?"
+    modal_download: "Tải xuống ứng dụng Patient Cloud từ cửa hàng ứng dụng?"

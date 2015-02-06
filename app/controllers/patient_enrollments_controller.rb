@@ -1,6 +1,6 @@
 class PatientEnrollmentsController < ApplicationController
   layout "patient_registration"
-  
+
   def new
     @patient_enrollment_uuid = SecureRandom.uuid
     @patient_enrollment = PatientEnrollment.new(uuid: @patient_enrollment_uuid)

@@ -5,7 +5,7 @@ std_opts = "--format #{ENV['CUCUMBER_FORMAT'] || 'pretty'} --tags ~@wip"
 config = DiceBag::Configuration.new
 %>
 default: >
-  <%= std_opts %> --tags ~@Draft features
+  <%= std_opts %> --tags ~@Draft features -r features
   BASE_SERVER=<%= config.base_server || 'localhost' %>
   BASE_PORT=<%= config.base_port || '3001' %>
 wip: --tags @wip:3 --wip features

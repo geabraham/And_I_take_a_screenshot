@@ -1,12 +1,72 @@
 jpn:
-  time:
-    am: "午前"
-    formats:
-      long_ordinal: "%a, %d %b %Y %H:%M:%S %z"
-      default: "%a, %d %b %Y %H:%M:%S %z"
-      short: "%d %b %H:%M"
-      long: "%d, %Y %H:%M"
-    pm: "午後"
-    time_with_zone:
-      formats:
-        default: "%Y-%m-%d %I:%M:%S %p %Z"
+  security_questions:
+    - {id: 1, name: 生まれた年を入力してください。}
+    - {id: 2, name: SSNの最後の4桁を入力してください。}
+    - {id: 3, name: 父親のミドルネームは何ですか？}
+    - {id: 4, name: 最初に通った学校の名前を入力してください。}
+    - {id: 5, name: 子供の頃のヒーローを入力してください。}
+    - {id: 6, name: 趣味を入力してください。}
+    - {id: 7, name: お気に入りのスポーツチームを入力してください。}
+    - {id: 8, name: '高校時代のマスコットは何ですか?'}
+    - {id: 9, name: 最初に購入した車/バイクのメーカーを入力してください。}
+    - {id: 10, name: ペットの名前を入力してください。}
+    - {id: 11, name: '母親の旧姓は何ですか?'}
+  application:
+    title: "Minotaur"
+    btn_cancel: "取消"
+    btn_open: "未回答"
+    btn_agree: "同意する"
+    btn_next: "次へ"
+    btn_continue: "続ける"
+  activation_codes:
+    index:
+      code_heading: "有効化コードを入力してください"
+      code_instruction: "登録済みの場合はPatient Cloudアプリに戻ってください。登録を完了しておらず、有効化コードまたは電子メール招待を受け取っていない場合には、施設スタッフに連絡してください。\n"
+      validation_error: "コードが正しくありません。施設スタッフに連絡してください。"
+  registration:
+    form_heading: "登録詳細"
+    welcome:
+      header: "Patient Cloudへようこそ"
+      welcome_message: "簡単な操作でログイン認証の作成とPatient Cloudアプリのダウンロードができます。\n"
+      register_1: "プライバシーポリシーと利用規約を確認"
+      register_2: "アカウント情報を作成"
+      download: "Patient Cloudアプリをダウンロード"
+      login: "Patient Cloudを開き、アカウント情報を使用してログイン"
+    terms_of_use:
+      tou_header: "プライバシーポリシー / 利用規約"
+      tou_instruction: "あなたのアカウントとこのアプリの使用に際し適用されるあなたの権利については、以下のプライバシーポリシーと利用規約をお読みください。\n"
+    tou_agreement:
+      modal_confirm: "あなたの確認をもって、あなたが利用規約とプライバシーポリシーを読み、内容を理解し、各条項に同意したとみなされます。\n"
+      modal_cancel: "[取消]をタップすると、電子患者報告システムの参加者として登録されず、入力した情報は削除されます。登録プロセスを続けるには、[続ける]をタップしてください。\n"
+    email_form:
+      form_instruction: "以下に電子メールアドレスを入力し、確認のために再度入力します。"
+      email_label: "電子メール"
+      reenter_label: "電子メール（確認用）"
+      validation_error: "有効な電子メールを入力してください。"
+      mismatch_error: "電子メールが一致しません。"
+      modal_already_registered: "この電子メールアカウントはすでに試験に登録されています。施設スタッフに連絡してください。\n"
+    password_form:
+      form_instruction_1: "以下の条件を満たす"
+      form_instruction_1_bold: "パスワード"
+      form_instruction_1_2: "を入力し、確認のために再度入力します。"
+      ul_1: "8文字以上の英数字"
+      ul_2: "1つ以上の大文字を含む"
+      ul_3: "1つ以上の小文字を含む"
+      ul_4: "1つ以上の数字を含む"
+      password_label: "パスワード"
+      reenter_label: "パスワード（確認用）"
+      mismatch_error: "パスワードが一致しません。"
+      validation_error: "有効なパスワードを入力してください。"
+    security_question_form:
+      form_instruction: "選択を行います："
+      form_instruction_bold: "セキュリティ質問"
+      dropdown_placeholder: "セキュリティ質問"
+      answer_label: "質問の回答"
+      answer_placeholder: "質問に対する回答を入力します。"
+      btn_create: "アカウントを作成"
+      modal_error: "登録に失敗したことを施設スタッフに連絡してください。\n"
+      modal_error_ok: "OK"
+  download:
+    header: "この試験に参加者として登録されました。Patient Cloudアプリをダウンロードする準備ができました。\n"
+    modal_open: "Patient Cloudアプリを開きますか？"
+    modal_download: "Patient CloudをApp Storeからダウンロードしますか？"

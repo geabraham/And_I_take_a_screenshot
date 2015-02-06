@@ -1,0 +1,72 @@
+heb:
+  security_questions:
+    - {id: 1, name: 'באיזו שנה נולדת?'}
+    - {id: 2, name: 'ארבע הספרות האחרונות של SSN?'}
+    - {id: 3, name: 'מה שמו האמצעי של אביך?'}
+    - {id: 4, name: 'מה שמו של בית הספר הראשון בו למדת?'}
+    - {id: 5, name: 'מי היה גיבור הילדות שלך?'}
+    - {id: 6, name: 'מה הבילוי המועדף עליך?'}
+    - {id: 7, name: 'מה שם קבוצת הספורט שאתה אוהד?'}
+    - {id: 8, name: 'איזה קמע היה לך בימי תיכון?'}
+    - {id: 9, name: 'מה היה דגם הרכב או האופניים הראשונים שלך?'}
+    - {id: 10, name: 'מה שם חיית המחמד שלך?'}
+    - {id: 11, name: 'מהו שם הנעורים של אמך?'}
+  application:
+    title: "Minotaur"
+    btn_cancel: "ביטול"
+    btn_open: "פתח"
+    btn_agree: "אני מסכים"
+    btn_next: "הבא"
+    btn_continue: "המשך"
+  activation_codes:
+    index:
+      code_heading: "אנא הזן את קוד ההפעלה שלך"
+      code_instruction: "אם כבר נרשמת, חזור אל היישום Patient Cloud. אם לא נרשמת ואין לך קוד הפעלה או הזמנה בדוא\"ל, פנה אל הספק שלך.\n"
+      validation_error: "קוד זה שגוי. פנה אל הספק שלך."
+  registration:
+    form_heading: "פרטי הרשמה"
+    welcome:
+      header: "ברוך הבא ל-Patient Cloud"
+      welcome_message: "אתה במרחק צעדים ספורים בלבד מיצירת אישורי הכניסה שלך ומהורדת היישום Patient Cloud.\n"
+      register_1: "עיין במדיניות הפרטיות ובתנאי השימוש"
+      register_2: "צור פרטי חשבון"
+      download: "הורד את היישום Patient Cloud"
+      login: "פתח את Patient Cloud והשתמש בפרטי החשבון שלך כדי להיכנס למערכת"
+    terms_of_use:
+      tou_header: "מדיניות פרטיות / תנאי השימוש"
+      tou_instruction: "אנא קרא את מדיניות הפרטיות ותנאי השימוש במלואם, אשר מפרטים את זכויותיך, כפי שהן מוחלות על חשבונך ועל השימוש שאתה עושה ביישום, מתחת.\n"
+    tou_agreement:
+      modal_confirm: "אתה מאשר שקראת, שהבנת ושאתה מסכים להתחייב לתנאי השימוש ולמדיניות הפרטיות שהוזכרו בזאת.\n"
+      modal_cancel: "אם תלחץ על האפשרות 'ביטול', לא תירשם כמשתתף במחקר המאפשר דיווח אלקטרוני של תוצאות המטופל, וכל המידע שתזין יימחק. אם ברצונך להמשיך בתהליך ההרשמה, אנא לחץ על 'המשך'.\n"
+    email_form:
+      form_instruction: "הזן ואשר את כתובת הדוא\"ל שלך להלן."
+      email_label: "דואר אלקטרוני"
+      reenter_label: "הזן מחדש את הדואר האלקטרוני"
+      validation_error: "הזן דואר אלקטרוני תקף."
+      mismatch_error: "כתובות הדוא\"ל שלך אינן תואמות."
+      modal_already_registered: "חשבון הדוא\"ל כבר רשום למחקר זה. פנה אל הספק שלך.\n"
+    password_form:
+      form_instruction_1: "הזן ואשר"
+      form_instruction_1_bold: "סיסמה"
+      form_instruction_1_2: "לפי בחירתך שעונה על הקריטריונים הבאים"
+      ul_1: "באורך 8 תווים לפחות"
+      ul_2: "עם אות רישית אחת לפחות"
+      ul_3: "עם אות קטנה אחת לפחות"
+      ul_4: "עם ספרה אחת לפחות"
+      password_label: "סיסמה"
+      reenter_label: "הזן מחדש את הסיסמה"
+      mismatch_error: "הסיסמאות שלך אינן תואמות."
+      validation_error: "הזן סיסמה תקפה."
+    security_question_form:
+      form_instruction: "בחר"
+      form_instruction_bold: "שאלת אבטחה."
+      dropdown_placeholder: "שאלת אבטחה"
+      answer_label: "תשובת אבטחה"
+      answer_placeholder: "הזן את התשובה לשאלה"
+      btn_create: "צור חשבון"
+      modal_error: "יידע את המטפל הרפואי שלך כי אינך מצליח להירשם.\n"
+      modal_error_ok: "אישור"
+  download:
+    header: "ברכותינו, אתה רשום כמשתתף במחקר זה. כעת ניתן להוריד את היישום Patient Cloud.\n"
+    modal_open: "האם לפתוח את היישום Patient Cloud?"
+    modal_download: "האם להוריד את היישום Patient Cloud מחנות היישומים?"

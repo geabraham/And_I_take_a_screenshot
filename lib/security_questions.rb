@@ -1,5 +1,6 @@
-require 'imedidata/client'
-require 'json'
+# coding: utf-8
+require 'yaml'
+
 
 # Class handles writing and fetching security questions into cache.
 # Currently, cache store is the default ActiveSupport::Cache::FileStore.
@@ -7,33 +8,36 @@ require 'json'
 #   Story: https://jira.mdsol.com/browse/MCC-140278
 #   While it is not likely this will eat much disk space, it is not a robust solution.
 #
-# RemoteSecurityQuestions.find_or_fetch('jpn')
-# => [{"name"=>"您在哪一年出生？", "id"=>"1"}, 
-#     {"name"=>"你的社会安全号码(SSN)或报税号码的最后四位数是什么?", "id"=>"2"}, 
-#     {"name"=>"您父亲的中间名是什么？", "id"=>"3"}, 
+# SecurityQuestions.find('jpn')
+# => [{"name"=>"您在哪一年出生？", "id"=>"1"},
+#     {"name"=>"你的社会安全号码(SSN)或报税号码的最后四位数是什么?", "id"=>"2"},
+#     {"name"=>"您父亲的中间名是什么？", "id"=>"3"},
 #     {"name"=>"您的第一所学校的名称是什么？", "id"=>"4"}, ...]
 # There are 11 questions as of Dec 2014. For a complete list see the bottom of this file.
 #
 # The only supported locales for security questions are jpn, chi and kor;
 #  everything else defaults to eng.
 #
-class RemoteSecurityQuestions
+class SecurityQuestions
   class << self
-    include IMedidataClient
 
-    # Returns cached security questions or fetches them from remote location
+    # Returns security questions
     #
-    def find_or_fetch(locale)
-      Rails.cache.fetch(key_for_locale(locale)) { request_security_questions!(locale: locale)['user_security_questions'] }
+    def find(locale)
+      begin
+        res = I18n.t "security_questions", locale: locale
+        Rails.logger.info "Got security questions for locale: " + locale
+        res
+      rescue
+        Rails.logger.info "Security questions for requested locale not found: " + locale
+        raise
+      end
     end
 
-    def key_for_locale(locale)
-      "#{locale}_security_questions"
-    end
   end
 end
 #
-# Remote Security Questions as of Dec 2014:
+# Security Questions as of Dec 2014:
 #
 # [{"name"=>"What year were you born?", "id"=>"1"},
 #  {"name"=>"Last four digits of SSN or Tax ID number?", "id"=>"2"},
