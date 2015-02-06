@@ -3,9 +3,17 @@
   display: none;
 }
 
+$red: #a94442;
+
 #invite-form {
   .form-group {
     margin-right: 15px;
+    min-width: 200px;
     label { display: block; }
+    select, input { width: 100%; }
+  }
+  .required label:after {
+    color: $red;
+    content: ' *'
   }
 }

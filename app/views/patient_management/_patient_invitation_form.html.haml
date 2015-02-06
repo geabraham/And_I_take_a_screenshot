@@ -2,11 +2,13 @@
   %h3.form_header="Add a patient to #{@study_site_name}."
   %hr
   = form_for invite_patient_management_path, html: {id: 'invite-form', class: 'form-inline margin-bottom-thirty'} do |f|
-    .form-group
-      = f.label :subject_identifier, {class: 'invisible'}
-      = f.select :subject_identifier, @available_subjects, {include_blank: 'Subject Identifier'}, {class: 'form-control'}
-    .form-group
-      = f.label :country_language, 'Country / Language', {class: 'invisible'}
+    %p.required
+      %label Required
+    .form-group.required
+      = f.label :subject
+      = f.select :subject, @available_subjects, {include_blank: 'Subject'}, {class: 'form-control', required: 'required'}
+    .form-group.required
+      = f.label :country_language, 'Country / Language'
       = f.select :country_language, @tou_dpn_agreements, {include_blank: 'Country / Language'}, {class: 'form-control'}
     .form-group
       = f.label :email, 'Subject email'
