@@ -33,12 +33,13 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
     end
 
     context 'when there are no subjects' do
-      before do
-        assign(:available_subjects, [])
-        render
+      let(:available_subjects)  { [] }
+
+      it "has only one option" do
+        expect(rendered).to have_css('#_patient_management_invite_subject option', count: 1)
       end
 
-      it "the default option is 'No subjects available'" do
+      it "has a default option of 'No subjects available'" do
         expect(rendered).to have_selector("option[@value='']", text: 'No subjects available')
       end
     end
