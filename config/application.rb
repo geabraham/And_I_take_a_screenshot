@@ -78,5 +78,10 @@ module Minotaur
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    config.middleware.insert_after Rack::Runtime, CrossApplicationTracer::RackHandler
+    config.middleware.insert_after CrossApplicationTracer::RackHandler, Astinus::SetRequestInfo
+
+    require 'astinus'
+    Astinus::Configurator.setup_logger_for(Rails, 'Minotaur', '2015.1.0')
   end
 end
