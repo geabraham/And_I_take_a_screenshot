@@ -20,7 +20,7 @@ class PatientManagementController < ApplicationController
   def invite
     patient_enrollment_params = {'patient_enrollment' => params.require(:patient_enrollment)}
     headers = {'MCC-Impersonate' => params[:user_uuid]}
-    invitation_response = Euresource::PatientEnrollment.post(patient_enrollment_params, headers)
+    Euresource::PatientEnrollment.post(patient_enrollment_params, headers)
   end
 
   def render_error(exception = nil)
