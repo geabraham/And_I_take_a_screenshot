@@ -131,13 +131,24 @@ describe PatientManagementController do
           end
 
           context 'when subjects request returns okay with anything other than an array' do
-            before do
-              allow(Euresource::Subject).to receive(:get).with(:all, {params: {
+            let(:subjects_available_params) do
+              {
                 study_uuid: study_uuid,
                 study_site_uuid: study_site_uuid,
-                available: true}}).and_return('')
+                available: true
+              }
             end
+            let(:log_message_1_args) { ["Requesting available subjects.", {subjects_available_params: subjects_available_params}] }
+            let(:log_message_2_args) { ["Received response for available subjects request.", {available_subjects_response: ''}] }
+            let(:expected_logs) do
+              [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :info_with_data, args: log_message_2_args}]
+            end
+            before do
+              allow(Euresource::Subject).to receive(:get).with(:all, {params: subjects_available_params}).and_return('')
+            end
+
             it_behaves_like 'assigns an ivar to its expected value', :available_subjects, []
+            it_behaves_like 'logs the expected messages at the expected levels'
           end
 
           context 'when tou dpn agreements request fails' do
