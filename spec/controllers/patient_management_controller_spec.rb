@@ -120,21 +120,14 @@ describe PatientManagementController do
           end
 
           context 'when tou dpn agreements request returns okay with anything other than an array' do
+            let(:log_message_2_args) { ["Received response for TouDpnAgreements request.", {tou_dpn_agreements_response: '""'}] }
+            let(:expected_logs) do
+              [{log_method: :info, args: ["Requesting TouDpnAgreements."]}, {log_method: :info_with_data, args: log_message_2_args}]
+            end
             before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return('') } 
 
             it_behaves_like 'assigns an ivar to its expected value', :tou_dpn_agreements, []
-
-            it 'logs a message for the request' do
-              expected_message = "Requesting TouDpnAgreements."
-              expect(Rails.logger).to receive(:info).with(expected_message)
-              get :select_study_and_site, params
-            end
-
-            it 'logs a response message for the request' do
-              expected_message = "Received response for TouDpnAgreements request."
-              expect(Rails.logger).to receive(:info_with_data).with(expected_message, {tou_dpn_agreements_response: '""'})
-              get :select_study_and_site, params
-            end
+            it_behaves_like 'logs the expected messages at the expected levels'
           end
 
           context 'when subjects request returns okay with anything other than an array' do

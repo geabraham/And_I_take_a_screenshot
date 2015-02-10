@@ -52,9 +52,9 @@ class PatientManagementController < ApplicationController
 
   def fetch_available_subjects_for_select
     params_for_available_subjects = {study_uuid: params[:study_uuid], study_site_uuid: params[:study_site_uuid], available: true}
-    Rails.logger("Requesting available subjects.", params_for_available_subjects: params_for_available_subjects)
+    Rails.logger.info_with_data("Requesting available subjects.", params_for_available_subjects: params_for_available_subjects)
     available_subjects = Euresource::Subject.get(:all, {params: params_for_available_subjects})
-    Rails.logger("Received response for available subjects request.", available_subjects_response: available_subjects)
+    Rails.logger.info_with_data("Received response for available subjects request.", available_subjects_response: available_subjects)
     subjects = attributes_or_empty_array(available_subjects, ['subject_identifier'])
     subjects.map {|s| [s['subject_identifier'], s['subject_identifier']]}
   end
