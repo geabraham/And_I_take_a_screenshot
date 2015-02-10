@@ -1,4 +1,5 @@
-ger:
+# German 
+deu:
   security_questions:
     - {id: 1, name: 'In welchem Jahr wurden Sie geboren?'}
     - {id: 2, name: 'Letzte vier Ziffern der Sozialversicherungsnummer?'}
