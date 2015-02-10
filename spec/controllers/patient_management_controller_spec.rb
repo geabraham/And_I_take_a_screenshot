@@ -1,5 +1,4 @@
 require 'spec_helper'
-
 describe PatientManagementController do
   describe "GET 'select_study_and_site'" do
     context 'when user is not logged in' do
@@ -107,7 +106,19 @@ describe PatientManagementController do
               allow(controller).to receive(:request_study_sites!).and_return([])
               allow(controller).to receive(:studies_selection_list).and_return([])
             end
+
             it_behaves_like 'renders expected template'
+            it 'logs an info message for the check' do
+              expected_message = "Checking for selected and authorized study site."
+              expect(Rails.logger).to receive(:info_with_data).with(expected_message, params: params)
+              get :select_study_and_site, params
+            end
+
+            it 'logs an info message for the miss' do
+              expected_message = "Not all params or insufficient permissions for patient management."
+              expect(Rails.logger).to receive(:info_with_data).with(expected_message, params: params)
+              get :select_study_and_site, params
+            end
           end
 
           context 'when tou dpn agreements request returns okay with anything other than an array' do

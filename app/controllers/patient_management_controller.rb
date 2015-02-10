@@ -20,7 +20,7 @@ class PatientManagementController < ApplicationController
   def invite
     patient_enrollment_params = {'patient_enrollment' => params.require(:patient_enrollment)}
     headers = {'MCC-Impersonate' => params[:user_uuid]}
-    Euresource::PatientEnrollment.post(patient_enrollment_params, headers)
+    invitation_response = Euresource::PatientEnrollment.post(patient_enrollment_params, headers)
   end
 
   def render_error(exception = nil)
@@ -30,9 +30,11 @@ class PatientManagementController < ApplicationController
   private
 
   def selected_and_authorized_study_site
+    Rails.logger.info_with_data("Checking for selected and authorized study site.", params: params)
     if params[:study_uuid] && params[:study_site_uuid] && study_sites = request_study_sites!(params).presence
       study_sites['study_sites'].find {|ss| ss['uuid'] == params[:study_site_uuid]}
     else
+      Rails.logger.info_with_data("Not all params or insufficient permissions for patient management.", params: params)
       nil
     end
   end
