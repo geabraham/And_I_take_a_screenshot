@@ -19,4 +19,6 @@ Minotaur::Application.routes.draw do
   resources :study_sites, only: [:index]
 
   get :logout, controller: :application
+
+  get '*path', controller: :application, to: :routing_error
 end

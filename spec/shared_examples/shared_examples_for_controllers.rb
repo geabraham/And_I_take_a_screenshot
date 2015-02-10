@@ -37,6 +37,7 @@ end
 
 shared_examples_for 'assigns an ivar to its expected value' do |ivar, expected_value|
   it 'assigns an ivar to its expected value' do
+    send(verb, action, params)
     expect(assigns(ivar)).to eq(expected_value)
   end
 end

@@ -60,7 +60,7 @@ Feature: Patient Management Study Site Selection
   Scenario: An unauthorized patient management user who is logged in tries to navigate to the study site selection page is shown a helpful error message.
     Given I am logged in
     When I navigate to patient management via the apps pane in iMedidata
-    Then I should see the message "Studies request failed"
+    Then I should see a not found error page
 
   @Review[SQA]
   @Release2015.1.0

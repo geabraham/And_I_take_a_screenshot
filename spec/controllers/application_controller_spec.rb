@@ -17,4 +17,10 @@ describe ApplicationController do
       expect(response).to redirect_to("#{CAS_BASE_URL}/logout?service")
     end
   end
+
+  describe '#routing_error' do
+    it 'raises an ActionController::RoutingError' do
+      expect { controller.send(:routing_error) }.to raise_error(ActionController::RoutingError)
+    end
+  end
 end
