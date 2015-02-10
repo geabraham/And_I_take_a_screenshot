@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe PatientManagementController do
-  before do
-    allow(Rails.logger).to receive(:info_with_data)
-  end
+  before { allow(Rails.logger).to receive(:info_with_data) }
   describe "GET 'select_study_and_site'" do
     context 'when user is not logged in' do
       it 'redirects to iMedidata' do
@@ -105,24 +103,20 @@ describe PatientManagementController do
 
         describe 'failure cases' do
           context 'when user has not been authorized for the study and site' do
-            let(:expected_template) { 'select_study_and_site' }
+            let(:expected_template)  { 'select_study_and_site' }
+            let(:params_with_user)   { params.merge(user_uuid: user_uuid).stringify_keys }
+            let(:log_message_1_args) { ["Checking for selected and authorized study site.", {params: params_with_user}] }
+            let(:log_message_2_args) { ["Not all params or insufficient permissions for patient management.", {params: params_with_user}] }
+            let(:expected_logs) do
+              [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :info_with_data, args: log_message_2_args}]
+            end
             before do
               allow(controller).to receive(:request_study_sites!).and_return([])
               allow(controller).to receive(:studies_selection_list).and_return([])
             end
 
             it_behaves_like 'renders expected template'
-            it 'logs an info message for the check' do
-              expected_message = "Checking for selected and authorized study site."
-              expect(Rails.logger).to receive(:info_with_data).with(expected_message, {params: params.merge(user_uuid: user_uuid).stringify_keys})
-              get :select_study_and_site, params
-            end
-
-            it 'logs an info message for the miss' do
-              expected_message = "Not all params or insufficient permissions for patient management."
-              expect(Rails.logger).to receive(:info_with_data).with(expected_message, {params: params.merge(user_uuid: user_uuid).stringify_keys})
-              get :select_study_and_site, params
-            end
+            it_behaves_like 'logs the expected messages at the expected levels'
           end
 
           context 'when tou dpn agreements request returns okay with anything other than an array' do

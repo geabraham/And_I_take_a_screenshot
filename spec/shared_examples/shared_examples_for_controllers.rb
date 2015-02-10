@@ -41,3 +41,16 @@ shared_examples_for 'assigns an ivar to its expected value' do |ivar, expected_v
     expect(assigns(ivar)).to eq(expected_value)
   end
 end
+
+shared_examples_for 'logs the expected messages at the expected levels' do
+  it 'logs the expected messages at the expected levels' do
+    expected_logs.each do |log|
+      expect(Rails.logger).to receive(log[:log_method]).with(*log[:args])
+    end
+    send(verb, action, params)
+  end
+end
+
+
+
+
