@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe PatientManagementController do
+  before do
+    allow(Rails.logger).to receive(:info_with_data)
+  end
   describe "GET 'select_study_and_site'" do
     context 'when user is not logged in' do
       it 'redirects to iMedidata' do
@@ -111,13 +114,13 @@ describe PatientManagementController do
             it_behaves_like 'renders expected template'
             it 'logs an info message for the check' do
               expected_message = "Checking for selected and authorized study site."
-              expect(Rails.logger).to receive(:info_with_data).with(expected_message, {params: params})
+              expect(Rails.logger).to receive(:info_with_data).with(expected_message, {params: params.merge(user_uuid: user_uuid).stringify_keys})
               get :select_study_and_site, params
             end
 
             it 'logs an info message for the miss' do
               expected_message = "Not all params or insufficient permissions for patient management."
-              expect(Rails.logger).to receive(:info_with_data).with(expected_message, {params: params})
+              expect(Rails.logger).to receive(:info_with_data).with(expected_message, {params: params.merge(user_uuid: user_uuid).stringify_keys})
               get :select_study_and_site, params
             end
           end
@@ -135,7 +138,7 @@ describe PatientManagementController do
 
             it 'logs a response message for the request' do
               expected_message = "Received response for TouDpnAgreements request."
-              expect(Rails.logger).to receive(:info_with_data).with(expected_message, {tou_dpn_agreements_response: ''})
+              expect(Rails.logger).to receive(:info_with_data).with(expected_message, {tou_dpn_agreements_response: '""'})
               get :select_study_and_site, params
             end
           end
