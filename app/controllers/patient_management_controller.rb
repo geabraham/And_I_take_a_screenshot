@@ -43,7 +43,9 @@ class PatientManagementController < ApplicationController
   #  All are caught with application controller rescuing standard error which seems the best we can do.
   #
   def fetch_tou_dpn_agreements_for_select
+    Rails.logger.info("Requesting TouDpnAgreements.")
     tou_dpn_agreements = Euresource::TouDpnAgreement.get(:all)
+    Rails.logger.info_with_data("Received response for TouDpnAgreements request.", tou_dpn_agreements_response: tou_dpn_agreements.inspect)
     languages_and_countries = attributes_or_empty_array(tou_dpn_agreements, tou_dpn_agreement_attributes)
     languages_and_countries.map { |lc| ["#{lc['country']} / #{lc['language']}", lc.slice('language_code', 'country_code').to_json] }
   end
