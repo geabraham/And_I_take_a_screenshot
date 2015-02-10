@@ -10,17 +10,27 @@ class PatientManagementController < ApplicationController
   def select_study_and_site
     if @study_site = selected_and_authorized_study_site
       @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
-      @available_subjects = fetch_available_subjects_for_select
-      @study_site_name = @study_site['name']
+      @available_subjects = (0..4).map {|idx| ["Subject-00#{idx}", "Subject-00#{idx}"]} #fetch_available_subjects_for_select
+      @study_uuid, @study_site_name, @study_site_uuid = params[:study_uuid], @study_site['name'], @study_site['uuid']
       return render 'patient_management_grid'
     end
     @study_or_studies = studies_selection_list
   end
 
   def invite
-    patient_enrollment_params = {'patient_enrollment' => params.require(:patient_enrollment)}
-    headers = {'MCC-Impersonate' => params[:user_uuid]}
-    invitation_response = Euresource::PatientEnrollment.post(patient_enrollment_params, headers)
+    patient_enrollment_params = params.require(:patient_enrollment)
+    country_and_language = JSON.parse(patient_enrollment_params.delete('country_language'))
+    country_code, language_code = country_and_language['country_code'], country_and_language['language_code']
+    # TODO: subject identifier is out of date
+    patient_enrollment_params[:subject_id] = patient_enrollment_params.delete('subject_identifier')
+    patient_enrollment_params.merge!(
+      study_uuid: params[:study_uuid],
+      study_site_uuid: params[:study_site_uuid],
+      language_code: language_code,
+      country_code: country_code,
+      enrollment_type: 'in-person')
+    headers = {http_headers: {'X-MWS-Impersonate' => params[:user_uuid]}}
+    invitation_response = Euresource::PatientEnrollment.post({patient_enrollment: patient_enrollment_params}, headers)
   end
 
   def render_error(exception = nil)
