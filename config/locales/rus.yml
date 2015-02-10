@@ -1,3 +1,4 @@
+# Russian (ru)
 rus:
   security_questions:
     - {id: 1, name: 'В каком году вы родились?'}
