@@ -8,13 +8,12 @@ $(function() {
   })
 
   $("#invite-form").on("ajax:success", function(e, data, status, xhr) {
-    resetErrors()
-    requestAvailableSubjects();
+    resetErrors();
+    updateAvailableSubjects();
   }).on("ajax:error", function(e, xhr, status, error) {
-    resetErrors()
-    $("#invite-form-error").removeClass('hidden')
-    $("#invite-form-error span.message").append(xhr.responseText)
-    requestAvailableSubjects();
+    resetErrors();
+    addError(xhr.responseText);
+    updateAvailableSubjects();
   });
 
   $('#error-x-button').on('click', function() {
@@ -38,7 +37,12 @@ var resetErrors = function() {
   $("#invite-form-error span.message").text('')
 }
 
-var requestAvailableSubjects = function() {
+var addError = function(errorMessage) {
+  $("#invite-form-error").removeClass('hidden')
+  $("#invite-form-error span.message").append(errorMessage)
+}
+
+var updateAvailableSubjects = function() {
   study_uuid = $('#invite-form').data().study_uuid
   study_site_uuid = $('#invite-form').data().study_site_uuid
 
