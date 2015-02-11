@@ -55,5 +55,5 @@ describe PatientInvitationFormHelper do
           .to raise_error(ArgumentError, 'Missing one or more required patient enrollment params: country_language, subject.')
       end
     end
-  end  
+  end
 end
