@@ -57,13 +57,26 @@ describe PatientManagementController do
       it_behaves_like 'assigns an ivar to its expected value', :status_code, 503
     end
 
-    context 'when request fails' do
-      let(:expected_body) { 'Subject not available. Please try again.' }
+    context 'when request is anything other than a new patient enrollment' do
+      let(:expected_body)        { 'Subject not available. Please try again.' }
       let(:expected_status_code) { 404 }
       before do
         allow(Euresource::PatientEnrollment).to receive(:post!)
           .with(params_for_patient_enrollment, http_headers)
           .and_return({body: 'Not found', status: 404})
+      end
+
+      it_behaves_like 'returns expected body'
+      it_behaves_like 'returns expected status'
+    end
+
+    context 'when request raises a Euresource::ResourceNotSaved error' do
+      let(:expected_body)        { 'Subject not available. Please try again.' }
+      let(:expected_status_code) { 404 }
+      before do
+        allow(Euresource::PatientEnrollment).to receive(:post!)
+          .with(params_for_patient_enrollment, http_headers)
+          .and_raise(Euresource::ResourceNotSaved.new())
       end
 
       it_behaves_like 'returns expected body'
