@@ -33,7 +33,7 @@ class PatientManagementController < ApplicationController
     if invitation_response.is_a?(Euresource::PatientEnrollment)
       render json: invitation_response, status: :created
     else
-      render json: invitation_response, status: :unprocessable_entity
+      render json: invitation_response, status: :not_found
     end
   end
 

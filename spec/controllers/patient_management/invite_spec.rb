@@ -23,6 +23,18 @@ describe PatientManagementController do
     end
     let(:user_uuid) { SecureRandom.uuid }
     let(:http_headers) { {http_headers: {'X-MWS-Impersonate' => user_uuid}} }
+    let(:params_for_patient_enrollment) do
+      {
+        patient_enrollment: {
+          study_uuid: study_uuid,
+          study_site_uuid: study_site_uuid,
+          subject_id: subject,
+          country_code: country_code,
+          language_code: language_code,
+          enrollment_type: enrollment_type
+        }
+      }
+    end
 
     before do
       allow(CASClient::Frameworks::Rails::Filter).to receive(:filter).and_return(true)
@@ -34,18 +46,6 @@ describe PatientManagementController do
 
     context 'when backend service is unavailable' do
       let(:expected_template) { 'error' }
-      let(:params_for_patient_enrollment) do
-        {
-          patient_enrollment: {
-            study_uuid: study_uuid,
-            study_site_uuid: study_site_uuid,
-            subject_id: subject,
-            country_code: country_code,
-            language_code: language_code,
-            enrollment_type: enrollment_type
-          }
-        }
-      end
 
       before do
         allow(Euresource::PatientEnrollment).to receive(:post!)
@@ -55,6 +55,35 @@ describe PatientManagementController do
 
       it_behaves_like 'renders expected template'
       it_behaves_like 'assigns an ivar to its expected value', :status_code, 503
+    end
+
+    context 'when request fails' do
+      let(:expected_body) { {body: 'Not found', status: 404}.to_json }
+      let(:expected_status_code) { 404 }
+      before do
+        allow(Euresource::PatientEnrollment).to receive(:post!)
+          .with(params_for_patient_enrollment, http_headers)
+          .and_return({body: 'Not found', status: 404})
+      end
+
+      it_behaves_like 'returns expected body'
+      it_behaves_like 'returns expected status'
+    end
+
+    context 'when request is successful' do
+      let(:expected_body) { patient_enrollment_response.to_json }
+      let(:expected_status_code) { 201 }
+      let(:patient_enrollment_response) do
+        double('response').tap {|res| allow(res).to receive(:is_a?).with(Euresource::PatientEnrollment).and_return(true)}
+      end
+      before do
+        allow(Euresource::PatientEnrollment).to receive(:post!)
+          .with(params_for_patient_enrollment, http_headers)
+          .and_return(patient_enrollment_response)
+      end
+
+      it_behaves_like 'returns expected body'
+      it_behaves_like 'returns expected status'
     end
   end
 end
