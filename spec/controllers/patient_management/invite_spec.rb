@@ -19,7 +19,7 @@ describe PatientManagementController do
           subject: subject,
           enrollment_type: enrollment_type
         }
-      }
+      }.stringify_keys
     end
     let(:user_uuid) { SecureRandom.uuid }
     let(:http_headers) { {http_headers: {'X-MWS-Impersonate' => user_uuid}} }
@@ -32,7 +32,7 @@ describe PatientManagementController do
           country_code: country_code,
           language_code: language_code,
           enrollment_type: enrollment_type
-        }
+        }.stringify_keys
       }
     end
 
@@ -58,7 +58,7 @@ describe PatientManagementController do
     end
 
     context 'when request fails' do
-      let(:expected_body) { {body: 'Not found', status: 404}.to_json }
+      let(:expected_body) { 'Subject not available. Please try again.' }
       let(:expected_status_code) { 404 }
       before do
         allow(Euresource::PatientEnrollment).to receive(:post!)
