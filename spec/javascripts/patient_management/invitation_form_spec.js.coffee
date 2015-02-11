@@ -4,6 +4,11 @@ describe 'patient management invitation form', ->
   study_uuid = 'fda08b50-9fe1-11df-a531-12313900d531'
   study_site_uuid = '161332d2-9fe2-11df-a531-12313900d531'
   inviteUrl = '/patient_management/invite?study_site_uuid=' + study_site_uuid + '&study_uuid=' + study_uuid
+  availableSubjectsUrl = '/patient_management/available_subjects?study_uuid=' + study_uuid + '&study_site_uuid=' + study_site_uuid
+  availableSubjectsResponse =
+    status: 200
+    contentType: 'application/json'
+    responseText: JSON.stringify([])
 
   describe 'invite button', ->
     beforeEach ->
@@ -67,7 +72,12 @@ describe 'patient management invitation form', ->
           it 'has no error on the page', ->
             expect($('#invite-form-error')).toHaveClass('hidden')
 
-          it 'refreshes the subject drop down'
+          it 'requests new subjects', ->
+            expect(jasmine.Ajax.requests.mostRecent().url).toBe availableSubjectsUrl
+
+          it 'refreshes the subject drop down', ->
+            jasmine.Ajax.requests.mostRecent().response availableSubjectsResponse
+            expect($('#patient_enrollment_subject option').length).toBe(1)
 
         describe 'when the call returns an error', ->
           inviteResponse =           
@@ -83,7 +93,12 @@ describe 'patient management invitation form', ->
             expect($('#invite-form-error')).not.toHaveClass('hidden')
             expect($('#invite-form-error')).toHaveText(/Subject not available. Please try again later./)
 
-          it 'refreshes the subject drop down'
+          it 'requests new subjects', ->
+            expect(jasmine.Ajax.requests.mostRecent().url).toBe availableSubjectsUrl
+
+          it 'refreshes the subject drop down', ->
+            jasmine.Ajax.requests.mostRecent().response availableSubjectsResponse
+            expect($('#patient_enrollment_subject option').length).toBe(1)
 
           describe 'the x button', ->
             it 'hides the error', ->
