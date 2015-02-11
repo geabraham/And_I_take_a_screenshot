@@ -22,7 +22,7 @@ class PatientManagementController < ApplicationController
     patient_enrollment = invite_or_raise!
     render json: patient_enrollment, status: :created
   rescue Euresource::ResourceNotSaved
-    render_subject_not_available
+    render json: 'Subject not available. Please try again.', status: :not_found
   end
 
   def available_subjects
@@ -46,12 +46,8 @@ class PatientManagementController < ApplicationController
   def invite_or_raise!
     invitation_response = Euresource::PatientEnrollment.post!({
       patient_enrollment: clean_params_for_patient_enrollment(params)}, http_headers: impersonate_header)
-    raise(Euresource::ResourceNotSaved.new()) unless invitation_response.is_a?(Euresource::PatientEnrollment)
+    raise Euresource::ResourceNotSaved.new() unless invitation_response.is_a?(Euresource::PatientEnrollment)
     invitation_response
-  end
-
-  def render_subject_not_available
-    return render json: 'Subject not available. Please try again.', status: :not_found
   end
 
   def selected_and_authorized_study_site
