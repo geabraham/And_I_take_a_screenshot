@@ -21,8 +21,7 @@ class PatientManagementController < ApplicationController
     patient_enrollment_params = params.require(:patient_enrollment)
     country_and_language = JSON.parse(patient_enrollment_params.delete('country_language'))
     country_code, language_code = country_and_language['country_code'], country_and_language['language_code']
-    # TODO: subject identifier is out of date
-    patient_enrollment_params[:subject_id] = patient_enrollment_params.delete('subject_identifier')
+    patient_enrollment_params[:subject_id] = patient_enrollment_params.delete('subject')
     patient_enrollment_params.merge!(
       study_uuid: params[:study_uuid],
       study_site_uuid: params[:study_site_uuid],
@@ -30,7 +29,12 @@ class PatientManagementController < ApplicationController
       country_code: country_code,
       enrollment_type: 'in-person')
     headers = {http_headers: {'X-MWS-Impersonate' => params[:user_uuid]}}
-    invitation_response = Euresource::PatientEnrollment.post({patient_enrollment: patient_enrollment_params}, headers)
+    invitation_response = Euresource::PatientEnrollment.post!({patient_enrollment: patient_enrollment_params}, headers)
+    if invitation_response.is_a?(Euresource::PatientEnrollment)
+      render json: invitation_response, status: :created
+    else
+      render json: invitation_response, status: :unprocessable_entity
+    end
   end
 
   def render_error(exception = nil)
