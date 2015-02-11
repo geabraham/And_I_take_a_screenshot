@@ -70,7 +70,7 @@ describe PatientManagementController do
       it_behaves_like 'returns expected status'
     end
 
-    context 'when response raises a Euresource::ResourceNotSaved error' do
+    context 'when response is a raised Euresource::ResourceNotSaved error' do
       let(:expected_body)        { 'Subject not available. Please try again.' }
       let(:expected_status_code) { 404 }
       before do
@@ -83,7 +83,7 @@ describe PatientManagementController do
       it_behaves_like 'returns expected status'
     end
 
-    context 'when response is successful' do
+    context 'when response is a success' do
       let(:expected_body)        { patient_enrollment_response.to_json }
       let(:expected_status_code) { 201 }
       let(:all_params)           { params.merge(controller: 'patient_management', action: 'invite', user_uuid: user_uuid) }
