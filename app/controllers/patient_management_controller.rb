@@ -28,6 +28,11 @@ class PatientManagementController < ApplicationController
   def available_subjects
     params.require(:study_uuid)
     params.require(:study_site_uuid)
+    begin
+      render json: fetch_available_subjects_for_select, status: :ok
+    rescue
+      render json: [], status: :ok
+    end
   end
 
   # TODO: This should be render_error_page for disambiguation between this and plain text or json errors.

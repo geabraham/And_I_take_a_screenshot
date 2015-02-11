@@ -58,6 +58,10 @@ class ApplicationController < ActionController::Base
   end
 
   def render_error(exception = nil)
+    render_json_error(exception = nil)
+  end
+
+  def render_json_error(exception = nil)
     render json: {errors: exception.message}, status: status_code
   end
 end
