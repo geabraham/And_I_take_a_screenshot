@@ -1,7 +1,7 @@
 .panel.panel-default.center-block.col-md-10.pull-none.light-grey-border
   %h3.form_header="Add a patient to #{@study_site_name}."
   %hr
-  = form_for 'patient_enrollment', url: {action: 'invite', study_uuid: @study_uuid, study_site_uuid: @study_site_uuid}, remote: true, html: {id: 'invite-form', class: 'form-inline margin-bottom-thirty'} do |f|
+  = form_for 'patient_enrollment', url: {action: 'invite', study_uuid: @study_uuid, study_site_uuid: @study_site_uuid}, remote: true, html: {id: 'invite-form', class: 'form-inline margin-bottom-thirty', 'data-study_uuid' => @study_uuid, 'data-study_site_uuid' => @study_site_uuid} do |f|
     %p.required
       %label Required
     .form-group.required

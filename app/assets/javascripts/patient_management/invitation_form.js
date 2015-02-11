@@ -8,10 +8,6 @@ $(function() {
   })
 
   $("#invite-form").on("ajax:success", function(e, data, status, xhr) {
-    console.log(e)
-    console.log(data)
-    console.log(status)
-    console.log(xhr)
     resetErrors()
     requestAvailableSubjects();
   }).on("ajax:error", function(e, xhr, status, error) {
@@ -43,14 +39,10 @@ var resetErrors = function() {
 }
 
 var requestAvailableSubjects = function() {
-  var queryObj = {}
-  var querystring = location.search.replace('?', '').split('&');
-  for (var i = 0; i < querystring.length; i++) {
-      var name = querystring[i].split('=')[0];
-      var value = querystring[i].split('=')[1];
-      queryObj[name] = value;
-  }
-  $.getJSON('/patient_management/available_subjects?study_uuid=' + queryObj.study_uuid + '&study_site_uuid=' + queryObj.study_site_uuid)
+  study_uuid = $('#invite-form').data().study_uuid
+  study_site_uuid = $('#invite-form').data().study_site_uuid
+
+  $.getJSON('/patient_management/available_subjects?study_uuid=' + study_uuid + '&study_site_uuid=' + study_site_uuid)
   .done(function(availableSubjects) {
     $('#patient_enrollment_subject').empty().append('<option value>Subject</option>');
     var options = ''
