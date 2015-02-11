@@ -139,7 +139,7 @@ describe PatientManagementController do
               }
             end
             let(:log_message_1_args) { ["Requesting available subjects.", {subjects_available_params: subjects_available_params}] }
-            let(:log_message_2_args) { ["Received response for available subjects request.", {available_subjects_response: ''}] }
+            let(:log_message_2_args) { ["Received response for available subjects request.", {available_subjects_response: ''.inspect}] }
             let(:expected_logs) do
               [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :info_with_data, args: log_message_2_args}]
             end
