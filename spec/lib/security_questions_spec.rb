@@ -16,14 +16,14 @@ end
 describe SecurityQuestions do
   describe 'find' do
     let(:ara_security_questions) { get_questions("ara") }
-    let(:cze_security_questions) { get_questions("cze") }
     let(:chi_security_questions) { get_questions("chi") }
+    let(:cze_security_questions) { get_questions("cze") }
     let(:dan_security_questions) { get_questions("dan") }
+    let(:deu_security_questions) { get_questions("deu") }
     let(:dut_security_questions) { get_questions("dut") }
     let(:eng_security_questions) { get_questions("eng") }
     let(:fra_security_questions) { get_questions("fra") }
     let(:frc_security_questions) { get_questions("frc") }
-    let(:ger_security_questions) { get_questions("ger") }
     let(:heb_security_questions) { get_questions("heb") }
     let(:hun_security_questions) { get_questions("hun") }
     let(:ita_security_questions) { get_questions("ita") }
@@ -39,14 +39,14 @@ describe SecurityQuestions do
     context 'when requesting security questions for existing locale' do
       it 'returns security questions' do
         expect(SecurityQuestions.find('ara')).to eq(ara_security_questions)
-        expect(SecurityQuestions.find('cze')).to eq(cze_security_questions)
         expect(SecurityQuestions.find('chi')).to eq(chi_security_questions)
+        expect(SecurityQuestions.find('cze')).to eq(cze_security_questions)
         expect(SecurityQuestions.find('dan')).to eq(dan_security_questions)
+        expect(SecurityQuestions.find('deu')).to eq(deu_security_questions)
         expect(SecurityQuestions.find('dut')).to eq(dut_security_questions)
         expect(SecurityQuestions.find('eng')).to eq(eng_security_questions)
         expect(SecurityQuestions.find('fra')).to eq(fra_security_questions)
         expect(SecurityQuestions.find('frc')).to eq(frc_security_questions)
-        expect(SecurityQuestions.find('ger')).to eq(ger_security_questions)
         expect(SecurityQuestions.find('heb')).to eq(heb_security_questions)
         expect(SecurityQuestions.find('hun')).to eq(hun_security_questions)
         expect(SecurityQuestions.find('ita')).to eq(ita_security_questions)
