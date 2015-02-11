@@ -1,4 +1,4 @@
-# German 
+# German (de)
 deu:
   security_questions:
     - {id: 1, name: 'In welchem Jahr wurden Sie geboren?'}

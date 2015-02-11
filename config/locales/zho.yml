@@ -1,0 +1,73 @@
+# Chinese Simplified (zh-Hans)
+zho:
+  security_questions:
+    - {id: 1, name: 您在哪一年出生？}
+    - {id: 2, name: 您的社会安全号码（SSN）的最后4位是什么？}
+    - {id: 3, name: 您父亲的中间名是什么？}
+    - {id: 4, name: 您的第一所学校的名称是什么？}
+    - {id: 5, name: 您在儿时崇拜的英雄是谁？}
+    - {id: 6, name: 您的业余爱好是什么？}
+    - {id: 7, name: 您一直最喜欢的运动队是哪一个？}
+    - {id: 8, name: 您上高中时学校的吉祥物是什么？}
+    - {id: 9, name: 您的第一辆汽车或自行车是什么牌子的？}
+    - {id: 10, name: 您的宠物名字是什么？}
+    - {id: 11, name: 您母亲的中间名是什么？}
+  application:
+    title: "Minotaur"
+    btn_cancel: "取消"
+    btn_open: "已打开"
+    btn_agree: "我同意"
+    btn_next: "下一个"
+    btn_continue: "继续"
+  activation_codes:
+    index:
+      code_heading: "请输入您的激活码"
+      code_instruction: "如果您已注册，请返回Patient Cloud应用程序。如果您尚未注册，也没有激活码和电子邮件邀请，请联系您的主管医师。\n"
+      validation_error: "此代码不正确。联系您的主管医师。"
+  registration:
+    form_heading: "注册详情"
+    welcome:
+      header: "欢迎使用Patient Cloud"
+      welcome_message: "还差几步，即可完成登录凭证的创建和Patient Cloud应用程序的下载。\n"
+      register_1: "查看隐私政策和使用条款"
+      register_2: "创建帐户信息"
+      download: "下载Patient Cloud应用程序"
+      login: "打开Patient Cloud，使用您的帐户信息登录"
+    terms_of_use:
+      tou_header: "隐私政策/使用条款"
+      tou_instruction: "请详细、完整地阅读隐私政策和使用条款，它阐述您使用以下帐号和应用服务的权限。\n"
+    tou_agreement:
+      modal_confirm: "您确认您已认真阅读、理解并同意接受此处引用的使用条款和隐私政策的约束。\n"
+      modal_cancel: "如果您点击“取消”按钮，您将不能作为研究项目的参与者参与注册使用电子患者自报结果系统（ePRO），您输入的全部信息也将丢失。若要继续完成注册步骤，请点击“继续”按钮。\n"
+    email_form:
+      form_instruction: "请在下面输入您的电子邮件地址并确认。"
+      email_label: "电子邮件"
+      reenter_label: "请重新输入电子邮件"
+      validation_error: "请输入有效的电子邮件。"
+      mismatch_error: "您输入的电子邮件不一致。"
+      modal_already_registered: "此电子邮件帐户已经注册用于此研究项目。请联系您的主管医师。\n"
+    password_form:
+      form_instruction_1: "请输入并确认"
+      form_instruction_1_bold: "您选择的密码，"
+      form_instruction_1_2: "密码须满足以下条件"
+      ul_1: "长度至少为8个字符"
+      ul_2: "至少包含1个大写字母"
+      ul_3: "至少包含1个小写字母"
+      ul_4: "至少包含1个数字"
+      password_label: "密码"
+      reenter_label: "请重新输入密码"
+      mismatch_error: "您输入的密码不一致。"
+      validation_error: "请输入有效密码。"
+    security_question_form:
+      form_instruction: "请选择一个"
+      form_instruction_bold: "安全问题。"
+      dropdown_placeholder: "安全问题"
+      answer_label: "安全问题的答案"
+      answer_placeholder: "请输入该问题的回答内容"
+      btn_create: "创建帐户"
+      modal_error: "请告知您的医疗主管医师您无法注册。\n"
+      modal_error_ok: "确定"
+  download:
+    header: "恭喜，您已注册成为本研究项目的参与者。现在您可以下载Patient Cloud应用程序了。\n"
+    modal_open: "是否打开Patient Cloud应用程序？"
+    modal_download: "是否从应用程序商店下载Patient Cloud应用程序？"
