@@ -89,6 +89,12 @@ describe PatientManagementController do
       let(:patient_enrollment_response) do
         double('response').tap {|res| allow(res).to receive(:is_a?).with(Euresource::PatientEnrollment).and_return(true)}
       end
+      let(:all_params)         { params.merge(controller: 'patient_management', action: 'invite', user_uuid: user_uuid) }
+      let(:log_message_1_args) { ["Attempting to invite a new patient.", {params: all_params.deep_stringify_keys}] }
+      let(:log_message_2_args) { ["Received response for patient invitation request.", {invitation_response: patient_enrollment_response.inspect}] }
+      let(:expected_logs) do
+        [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :info_with_data, args: log_message_2_args}]
+      end
       before do
         allow(Euresource::PatientEnrollment).to receive(:post!)
           .with(params_for_patient_enrollment, http_headers)
@@ -97,6 +103,7 @@ describe PatientManagementController do
 
       it_behaves_like 'returns expected body'
       it_behaves_like 'returns expected status'
+      it_behaves_like 'logs the expected messages at the expected levels'
     end
   end
 end

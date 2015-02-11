@@ -45,8 +45,10 @@ class PatientManagementController < ApplicationController
 
   # Return a patient enrollment or raise an error
   def invite_or_raise!
+    Rails.logger.info_with_data("Attempting to invite a new patient.", params: params)
     invitation_response = Euresource::PatientEnrollment.post!({
       patient_enrollment: clean_params_for_patient_enrollment(params)}, http_headers: impersonate_header)
+    Rails.logger.info_with_data("Received response for patient invitation request.", invitation_response: invitation_response.inspect)
     raise Euresource::ResourceNotSaved.new() unless invitation_response.is_a?(Euresource::PatientEnrollment)
     invitation_response
   end
