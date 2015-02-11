@@ -19,16 +19,10 @@ class PatientManagementController < ApplicationController
   end
 
   def invite
-    headers = {http_headers: {'X-MWS-Impersonate' => params[:user_uuid]}}
-    invitation_response = Euresource::PatientEnrollment.post!({
-      patient_enrollment: clean_params_for_patient_enrollment(params)}, headers)
-    if invitation_response.is_a?(Euresource::PatientEnrollment)
-      render json: invitation_response, status: :created
-    else
-      render json: 'Subject not available. Please try again.', status: :not_found
-    end
+    patient_enrollment = invite_or_render_unavailable!
+    render json: patient_enrollment, status: :created
   rescue Euresource::ResourceNotSaved
-    render json: 'Subject not available. Please try again.', status: :not_found
+    render_subject_not_available
   end
 
   def render_error(exception = nil)
@@ -36,6 +30,18 @@ class PatientManagementController < ApplicationController
   end
 
   private
+
+  # Return a patient enrollment or raise an error
+  def invite_or_render_unavailable!
+    invitation_response = Euresource::PatientEnrollment.post!({
+      patient_enrollment: clean_params_for_patient_enrollment(params)}, http_headers: impersonate_header)
+    raise(Euresource::ResourceNotSaved.new()) unless invitation_response.is_a?(Euresource::PatientEnrollment)
+    invitation_response
+  end
+
+  def render_subject_not_available
+    return render json: 'Subject not available. Please try again.', status: :not_found
+  end
 
   def selected_and_authorized_study_site
     Rails.logger.info_with_data("Checking for selected and authorized study site.", params: params)

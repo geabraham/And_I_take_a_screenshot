@@ -22,6 +22,11 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def impersonate_header
+    {'X-MWS-Impersonate' => params[:user_uuid]}
+  end
+
   # Set user's locale from request, assuming it comes from Checkmate.
   #TODO in future locale may be in header instead of params, depending on Checkmate
   def set_locale
