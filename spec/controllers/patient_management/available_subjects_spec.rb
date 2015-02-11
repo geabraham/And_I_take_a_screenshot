@@ -8,10 +8,7 @@ describe PatientManagementController do
 
     before do
       allow(CASClient::Frameworks::Rails::Filter).to receive(:filter).and_return(true)
-      session[:cas_extra_attributes] = {
-        user_email: 'testuser@gmail.com',
-        user_uuid: user_uuid
-      }.stringify_keys
+      session[:cas_extra_attributes] = {user_email: 'testuser@gmail.com', user_uuid: user_uuid}.stringify_keys
     end
 
     context 'without study and study site parameters' do
