@@ -10,7 +10,7 @@ class PatientManagementController < ApplicationController
   def select_study_and_site
     if @study_site = selected_and_authorized_study_site
       @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
-      @available_subjects = (0..4).map {|idx| ["Subject-00#{idx}", "Subject-00#{idx}"]} #fetch_available_subjects_for_select
+      @available_subjects = fetch_available_subjects_for_select
       @study_uuid, @study_site_name, @study_site_uuid = params[:study_uuid], @study_site['name'], @study_site['uuid']
       return render 'patient_management_grid'
     end

@@ -29,14 +29,14 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
     end
 
     it 'has all the subjects and no extras' do
-      expect(rendered).to have_css('#_patient_management_invite_subject option', count: 6)
+      expect(rendered).to have_css('#patient_enrollment_subject option', count: 6)
     end
 
     context 'when there are no subjects' do
       let(:available_subjects)  { [] }
 
       it "has only one option" do
-        expect(rendered).to have_css('#_patient_management_invite_subject option', count: 1)
+        expect(rendered).to have_css('#patient_enrollment_subject option', count: 1)
       end
 
       it "has a default option of 'No subjects available'" do
@@ -54,11 +54,11 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
   end
 
   it 'has a subject initials field' do
-    expect(rendered).to have_selector('input#_patient_management_invite_email')
+    expect(rendered).to have_selector('input#patient_enrollment_email')
   end
 
   it 'has a subject email field' do
-    expect(rendered).to have_selector('input#_patient_management_invite_initials')
+    expect(rendered).to have_selector('input#patient_enrollment_initials')
   end
 
   describe 'submit button' do
