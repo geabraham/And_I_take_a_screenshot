@@ -152,11 +152,11 @@ describe PatientManagementController do
           end
 
           context 'when tou dpn agreements request fails' do
-            let(:expected_status_code) { 422 }
+            let(:expected_status_code) { 500 }
             before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_raise(StandardError.new('TouDpnAgreements not found')) }
 
             it_behaves_like 'returns expected status'
-            it_behaves_like 'assigns an ivar to its expected value', :status_code, 422
+            it_behaves_like 'assigns an ivar to its expected value', :status_code, 500
           end
 
           context 'when available subjects request fails' do

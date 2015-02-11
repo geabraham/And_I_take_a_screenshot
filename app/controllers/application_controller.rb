@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   ERROR_CAUSE = {
     ActionController::UnpermittedParameters => :unprocessable_entity,
+    ActionController::ParameterMissing => :unprocessable_entity,
     IMedidataClient::IMedidataClientError => :not_found,
     Euresource::ResourceNotFound => :not_found,
     Faraday::Error::ConnectionFailed => :service_unavailable }
@@ -52,8 +53,7 @@ class ApplicationController < ActionController::Base
     render_error(exception)
   end
 
-  # TODO: This should probably default to 404 or 500
-  def status_code(reason_phrase_symbol = :unprocessable_entity)
+  def status_code(reason_phrase_symbol = :internal_server_error)
     @status_code ||= Rack::Utils::SYMBOL_TO_STATUS_CODE[reason_phrase_symbol]
   end
 
