@@ -78,10 +78,12 @@ describe 'patient management invitation form', ->
             jasmine.Ajax.requests.mostRecent().response inviteResponse
 
           it 'shows the error', ->
-            expect($('#invite-form-error')).not.toHaveAttr('class', 'hidden')
+            expect($('#invite-form-error')).not.toHaveClass('hidden')
             expect($('#invite-form-error')).toHaveText(/Subject not available. Please try again later./)
 
           describe 'the x button', ->
-            it 'hides the error'
+            it 'hides the error', ->
+              $('#error-x-button').click()
+              expect($('#invite-form-error')).toHaveClass('hidden')
 
   return
