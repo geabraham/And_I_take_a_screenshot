@@ -1,3 +1,4 @@
+# Korean (ko)
 kor:
   security_questions:
     - {id: 1, name: '태어난 해가 언제입니까?'}

@@ -1,3 +1,4 @@
+# Hebrew (he)
 heb:
   security_questions:
     - {id: 1, name: 'באיזו שנה נולדת?'}

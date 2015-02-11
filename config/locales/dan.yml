@@ -1,3 +1,4 @@
+# Danish (da)
 dan:
   security_questions:
     - {id: 1, name: 'Hvilket år er du født?'}

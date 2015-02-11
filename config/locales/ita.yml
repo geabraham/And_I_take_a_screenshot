@@ -1,3 +1,4 @@
+# Italian (it)
 ita:
   security_questions:
     - {id: 1, name: 'In che anno sai nato?'}
