@@ -19,3 +19,7 @@
     .form-group
       = f.label :submit, {class: 'invisible'}
       = f.submit 'Invite', id: 'invite-button', class: 'btn btn-primary', disabled: true
+  .alert.alert-danger.hidden#invite-form-error
+    %span.sr-only Error:
+    %span.message
+    #error-x-button.pull-right X

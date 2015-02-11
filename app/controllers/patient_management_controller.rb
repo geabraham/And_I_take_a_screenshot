@@ -11,6 +11,7 @@ class PatientManagementController < ApplicationController
     if @study_site = selected_and_authorized_study_site
       @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
       @available_subjects = fetch_available_subjects_for_select
+      #@available_subjects = (0..4).map {|as| ["Subject-00#{as}", "Subject-00#{as}"]}
       @study_uuid, @study_site_name, @study_site_uuid = params[:study_uuid], @study_site['name'], @study_site['uuid']
       return render 'patient_management_grid'
     end
@@ -33,8 +34,10 @@ class PatientManagementController < ApplicationController
     if invitation_response.is_a?(Euresource::PatientEnrollment)
       render json: invitation_response, status: :created
     else
-      render json: invitation_response, status: :not_found
+      render json: 'Subject not available. Please try again.', status: :not_found
     end
+  rescue Euresource::ResourceNotSaved
+    render json: 'Subject not available. Please try again.', status: :not_found
   end
 
   def render_error(exception = nil)

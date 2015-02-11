@@ -8,10 +8,16 @@ $(function() {
   })
 
   $("#invite-form").on("ajax:success", function(e, data, status, xhr) {
-    $("#invite-form").append(xhr.responseText)
+    resetErrors()
   }).on("ajax:error", function(e, xhr, status, error) {
-    $("#invite-form").append("<p>ERROR</p>")
+    resetErrors()
+    $("#invite-form-error").removeClass('hidden')
+    $("#invite-form-error span.message").append(xhr.responseText)
   });
+
+  $('#error-x-button').on('click', function() {
+    resetErrors()
+  })
 });
 
 var inviteButtonEnabledDisabled = function() {
@@ -23,4 +29,9 @@ var inviteButtonEnabledDisabled = function() {
   } else {
     $('input#invite-button').attr('disabled', 'disabled')
   }
+}
+
+var resetErrors = function() {
+  $("#invite-form-error").addClass('hidden')
+  $("#invite-form-error span.message").text('')
 }
