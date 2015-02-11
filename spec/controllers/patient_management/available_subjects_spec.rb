@@ -5,6 +5,7 @@ describe PatientManagementController do
     let(:verb)      { :get }
     let(:action)    { :available_subjects }
     let(:user_uuid) { '1f0e0d68-d679-4661-8689-b08311142ba0' }
+
     before do
       allow(CASClient::Frameworks::Rails::Filter).to receive(:filter).and_return(true)
       session[:cas_extra_attributes] = {
@@ -30,6 +31,7 @@ describe PatientManagementController do
       context 'when request fails' do
         let(:expected_body)        { [].to_json }
         let(:expected_status_code) { 200 }
+
         before do
           allow(Euresource::Subject).to receive(:get).with(:all, {params: {
             study_uuid: study_uuid,
@@ -49,6 +51,7 @@ describe PatientManagementController do
         let(:subject1)             { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject1_attrs)} }
         let(:subject2)             { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject2_attrs)} }
         let(:subjects)             { [subject1, subject2] }
+
         before do
           allow(Euresource::Subject).to receive(:get).with(:all, {params: {
             study_uuid: study_uuid,
