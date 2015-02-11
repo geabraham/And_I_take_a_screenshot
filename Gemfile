@@ -38,7 +38,7 @@ gem 'dice_bag-mdsol', git: 'git@github.com:mdsol/dice_bag-mdsol.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'sass-rails',   '~> 4.0.3'
+gem 'sass-rails',   '~> 4.0.3', require: false
 gem 'uglifier', '>= 2.5.3'
 # gem 'asset_sync', '~> 1.1.0'
 
@@ -67,7 +67,7 @@ group :test, :development do
   gem 'rspec', '~> 3.1'
   gem 'rspec-rails', '~> 3.1'
   gem 'kender', git: 'git@github.com:mdsol/kender.git', branch: 'master'
-  gem 'shamus', git: 'git@github.com:mdsol/shamus.git', tag: '2013.3.0'
+  gem 'shamus', git: 'git@github.com:mdsol/shamus.git', tag: '0.10.2'
   gem 'brakeman', '~> 2.6.3'
   gem 'capybara', '~> 2.4.4'
   gem 'factory_girl', '~> 3.5'
