@@ -25,7 +25,7 @@ describe PatientManagementController do
     context 'with study and study site parameters' do
       let(:study_uuid)      { '7b0bc206-9609-45e5-8d8b-8fe067cba4ea' }
       let(:study_site_uuid) { '39311a11-8310-47f3-9cea-e763c2381fec' }
-      let(:params)               { {study_uuid: study_uuid, study_site_uuid: study_site_uuid} }
+      let(:params)          { {study_uuid: study_uuid, study_site_uuid: study_site_uuid} }
 
       context 'when request fails' do
         let(:expected_body)        { [].to_json }

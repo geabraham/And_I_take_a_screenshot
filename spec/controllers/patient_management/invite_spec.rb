@@ -2,14 +2,16 @@ require 'spec_helper'
 
 describe PatientManagementController do
   describe 'POST invite' do
-    let(:verb)   { :post }
-    let(:action) { :invite }
-    let(:study_uuid) { 'b11715eb-c63a-4bc6-9822-5565b61e27ba' }
+    let(:verb)            { :post }
+    let(:action)          { :invite }
+    let(:study_uuid)      { 'b11715eb-c63a-4bc6-9822-5565b61e27ba' }
     let(:study_site_uuid) { '9667f770-9391-4f2d-a759-a44033fff8bf' }
-    let(:subject) { 'Subject-489' }
+    let(:subject)         { 'Subject-489' }
     let(:enrollment_type) { 'in-person' }
-    let(:language_code) { 'eng' }
-    let(:country_code) { 'US' }
+    let(:language_code)   { 'eng' }
+    let(:country_code)    { 'US' }
+    let(:user_uuid)       { SecureRandom.uuid }
+    let(:http_headers)    { {http_headers: {'X-MWS-Impersonate' => user_uuid}} }
     let(:params) do
       {
         study_site_uuid: study_site_uuid,
@@ -21,8 +23,6 @@ describe PatientManagementController do
         }
       }.stringify_keys
     end
-    let(:user_uuid) { SecureRandom.uuid }
-    let(:http_headers) { {http_headers: {'X-MWS-Impersonate' => user_uuid}} }
     let(:params_for_patient_enrollment) do
       {
         patient_enrollment: {

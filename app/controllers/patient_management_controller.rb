@@ -12,14 +12,14 @@ class PatientManagementController < ApplicationController
     if @study_site = selected_and_authorized_study_site
       @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
       @available_subjects = fetch_available_subjects_for_select
-      @study_uuid, @study_site_name, @study_site_uuid = params[:study_uuid], @study_site['name'], @study_site['uuid']
+      @study_site_name, @study_site_uuid, @study_uuid = @study_site['name'], @study_site['uuid'], params[:study_uuid]
       return render 'patient_management_grid'
     end
     @study_or_studies = studies_selection_list
   end
 
   def invite
-    patient_enrollment = invite_or_render_unavailable!
+    patient_enrollment = invite_or_raise!
     render json: patient_enrollment, status: :created
   rescue Euresource::ResourceNotSaved
     render_subject_not_available
@@ -43,7 +43,7 @@ class PatientManagementController < ApplicationController
   private
 
   # Return a patient enrollment or raise an error
-  def invite_or_render_unavailable!
+  def invite_or_raise!
     invitation_response = Euresource::PatientEnrollment.post!({
       patient_enrollment: clean_params_for_patient_enrollment(params)}, http_headers: impersonate_header)
     raise(Euresource::ResourceNotSaved.new()) unless invitation_response.is_a?(Euresource::PatientEnrollment)

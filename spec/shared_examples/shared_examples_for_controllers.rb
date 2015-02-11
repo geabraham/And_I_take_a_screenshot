@@ -50,7 +50,3 @@ shared_examples_for 'logs the expected messages at the expected levels' do
     send(verb, action, params)
   end
 end
-
-
-
-
