@@ -64,8 +64,10 @@ describe 'patient management invitation form', ->
             $('#invite-button').click()
             jasmine.Ajax.requests.mostRecent().response inviteResponse
 
-          it 'is hidden', ->
+          it 'has no error on the page', ->
             expect($('#invite-form-error')).toHaveClass('hidden')
+
+          it 'refreshes the subject drop down'
 
         describe 'when the call returns an error', ->
           inviteResponse =           
@@ -80,6 +82,8 @@ describe 'patient management invitation form', ->
           it 'shows the error', ->
             expect($('#invite-form-error')).not.toHaveClass('hidden')
             expect($('#invite-form-error')).toHaveText(/Subject not available. Please try again later./)
+
+          it 'refreshes the subject drop down'
 
           describe 'the x button', ->
             it 'hides the error', ->

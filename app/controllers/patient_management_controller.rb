@@ -25,6 +25,13 @@ class PatientManagementController < ApplicationController
     render_subject_not_available
   end
 
+  def available_subjects
+    params.require(:study_uuid)
+    params.require(:study_site_uuid)
+  end
+
+  # TODO: This should be render_error_page for disambiguation between this and plain text or json errors.
+  #
   def render_error(exception = nil)
     render 'error', locals: {status_code: status_code}, status: status_code
   end

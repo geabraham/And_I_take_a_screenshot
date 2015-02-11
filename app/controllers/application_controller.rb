@@ -52,6 +52,7 @@ class ApplicationController < ActionController::Base
     render_error(exception)
   end
 
+  # TODO: This should probably default to 404 or 500
   def status_code(reason_phrase_symbol = :unprocessable_entity)
     @status_code ||= Rack::Utils::SYMBOL_TO_STATUS_CODE[reason_phrase_symbol]
   end
