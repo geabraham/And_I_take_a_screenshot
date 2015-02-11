@@ -26,8 +26,7 @@ class PatientManagementController < ApplicationController
   end
 
   def available_subjects
-    params.require(:study_uuid)
-    params.require(:study_site_uuid)
+    params.require(:study_uuid) && params.require(:study_site_uuid)
     begin
       render json: fetch_available_subjects_for_select, status: :ok
     rescue
