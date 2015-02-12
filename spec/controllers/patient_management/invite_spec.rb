@@ -45,7 +45,8 @@ describe PatientManagementController do
     end
 
     context 'when backend service is unavailable' do
-      let(:expected_template) { 'error' }
+      let(:expected_body)        { 'Subject not available. Please try again.' }
+      let(:expected_status_code) { 404 }
 
       before do
         allow(Euresource::PatientEnrollment).to receive(:post!)
@@ -53,8 +54,8 @@ describe PatientManagementController do
           .and_raise(Faraday::Error::ConnectionFailed.new('Cannot connect'))
       end
 
-      it_behaves_like 'renders expected template'
-      it_behaves_like 'assigns an ivar to its expected value', :status_code, 503
+      it_behaves_like 'returns expected body'
+      it_behaves_like 'returns expected status'
     end
 
     context 'when response is anything other than a new patient enrollment' do

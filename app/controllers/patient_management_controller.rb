@@ -21,7 +21,8 @@ class PatientManagementController < ApplicationController
   def invite
     patient_enrollment = invite_or_raise!
     render json: patient_enrollment, status: :created
-  rescue Euresource::ResourceNotSaved
+  rescue StandardError => e
+    Rails.logger.error_with_data("Rescuing error during patient invitation.", error: e.inspect)
     render json: 'Subject not available. Please try again.', status: :not_found
   end
 
