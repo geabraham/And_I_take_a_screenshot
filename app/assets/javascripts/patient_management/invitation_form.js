@@ -1,11 +1,7 @@
 // Add an on change handler to each dropdown item study and study site.
 //
 $(function() {
-  var requiredFields = ['#patient_enrollment_subject', '#patient_enrollment_country_language']
-
-  _.each(requiredFields, function(field) {
-    $(field).on('change', function() { return inviteButtonEnabledDisabled(); })
-  })
+  $('#patient_enrollment_subject, #patient_enrollment_country_language').on('change', function() { return inviteButtonEnabledDisabled(); })
 
   $("#invite-form").on("ajax:success", function(e, data, status, xhr) {
     resetErrors();
