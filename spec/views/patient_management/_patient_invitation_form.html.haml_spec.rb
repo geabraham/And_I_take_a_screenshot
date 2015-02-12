@@ -64,4 +64,12 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
   describe 'submit button' do
     it('exists') { expect(rendered).to have_selector('input[@type="submit"][@value="Invite"]')}
   end
+
+  describe 'the error div' do
+    it('exists') { expect(rendered).to have_css('#invite-form-error') }
+    it('is hidden') { expect(rendered).to have_css('#invite-form-error.hidden') }
+    it('has a sr-only span with error text') { expect(rendered).to have_css('#invite-form-error .sr-only', text: 'Error:') }
+    it('has an empty message span') { expect(rendered).to have_css('#invite-form-error .message', text: nil) }
+    it('has an x button') { expect(rendered).to have_css('#invite-form-error #error-x-button', text: 'X') }
+  end
 end
