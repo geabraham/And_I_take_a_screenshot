@@ -25,5 +25,8 @@ cache/
 public/apps/*
 
 coverage/
+.yardoc/
 config/imedidata.yml
 config/initializers/cas.rb
+
+.irbrc
