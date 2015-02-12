@@ -25,7 +25,9 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
   describe 'available subjects dropdown' do
     it 'has options with the expected text and values' do
       expect(rendered).to have_selector("option[@value='']", text: 'Subject')
-      expect(rendered).to have_selector("option[@value='Subject-001']", text: 'Subject-001')
+      available_subjects.each do |subject|
+        expect(rendered).to have_selector("option[@value='#{subject[0]}']", text: subject[1])
+      end
     end
 
     it 'has all the subjects and no extras' do
