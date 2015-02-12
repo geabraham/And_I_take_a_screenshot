@@ -13,6 +13,10 @@ module PatientInvitationFormHelper
 
   private
 
+  # Creates methods 'check_required_params!' and 'check_required_patient_enrollment_params!'
+  #  These methods check for the presence of required params in the argument,
+  #  and raise an argument error if not all exist.
+  #
   [:required_params, :required_patient_enrollment_params].each do |param_group|
     define_method("check_#{param_group.to_s}!") do |params|
       unless send(param_group).all? { |pg| params.include?(pg) }
