@@ -22,6 +22,7 @@ class PatientManagementController < ApplicationController
     patient_enrollment = invite_or_raise!
     render json: patient_enrollment, status: :created
   rescue StandardError => e
+    raise e if e.is_a?(Faraday::Error::ConnectionFailed)
     Rails.logger.error_with_data("Rescuing error during patient invitation.", error: e.inspect)
     render json: 'Subject not available. Please try again.', status: :not_found
   end

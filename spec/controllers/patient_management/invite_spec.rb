@@ -45,13 +45,29 @@ describe PatientManagementController do
     end
 
     context 'when backend service is unavailable' do
-      let(:expected_body)        { 'Subject not available. Please try again.' }
-      let(:expected_status_code) { 404 }
+      let(:expected_template) { 'error' }
 
       before do
         allow(Euresource::PatientEnrollment).to receive(:post!)
           .with(params_for_patient_enrollment, http_headers)
           .and_raise(Faraday::Error::ConnectionFailed.new('Cannot connect'))
+      end
+
+      it_behaves_like 'renders expected template'
+      it_behaves_like 'assigns an ivar to its expected value', :status_code, 503
+    end
+
+    context 'when backend service raises an error' do
+      let(:expected_body)        { 'Subject not available. Please try again.' }
+      let(:expected_status_code) { 404 }
+      let(:error)                { StandardError.new() }
+      let(:log_message_args)     { ["Rescuing error during patient invitation.", {error: error.inspect}] }
+      let(:expected_logs)        { [{log_method: :error_with_data, args: log_message_args}] }
+
+      before do
+        allow(Euresource::PatientEnrollment).to receive(:post!)
+          .with(params_for_patient_enrollment, http_headers)
+          .and_raise(error)
       end
 
       it_behaves_like 'returns expected body'
