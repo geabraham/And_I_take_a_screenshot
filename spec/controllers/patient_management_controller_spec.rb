@@ -108,7 +108,7 @@ describe PatientManagementController do
             let(:log_message_1_args) { ["Checking for selected and authorized study site.", {params: params_with_user}] }
             let(:log_message_2_args) { ["Not all params or insufficient permissions for patient management.", {params: params_with_user}] }
             let(:expected_logs) do
-              [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :info_with_data, args: log_message_2_args}]
+              [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :error_with_data, args: log_message_2_args}]
             end
             before do
               allow(controller).to receive(:request_study_sites!).and_return([])

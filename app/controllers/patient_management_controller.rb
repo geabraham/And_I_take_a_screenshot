@@ -58,7 +58,7 @@ class PatientManagementController < ApplicationController
     if params[:study_uuid] && params[:study_site_uuid] && study_sites = request_study_sites!(params).presence
       study_sites['study_sites'].find {|ss| ss['uuid'] == params[:study_site_uuid]}
     else
-      Rails.logger.info_with_data("Not all params or insufficient permissions for patient management.", params: params)
+      Rails.logger.error_with_data("Not all params or insufficient permissions for patient management.", params: params)
       nil
     end
   end
