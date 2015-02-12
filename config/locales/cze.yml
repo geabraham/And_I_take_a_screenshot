@@ -1,3 +1,4 @@
+# Czech (cs) 
 cze:
   security_questions:
     - {id: 1, name: 'V kterém roce jste se narodil(a)?'}

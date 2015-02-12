@@ -15,6 +15,16 @@ class PatientManagementController < ApplicationController
       ['NASA-OcularHealthInAstronauts', SecureRandom.uuid]]
   end
 
+  def invite
+    patient_enrollment_params = {'patient_enrollment' => params.require(:patient_enrollment)}
+    headers = {'MCC-Impersonate' => params[:user_uuid]}
+    Euresource::PatientEnrollment.post(patient_enrollment_params, headers)
+  end
+
+  def render_error(exception = nil)
+    render 'error', locals: {status_code: status_code}, status: status_code
+  end
+
   private
 
   def selected_and_authorized_study_site

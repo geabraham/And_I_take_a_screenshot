@@ -1,3 +1,4 @@
+# Japanese (ja)
 jpn:
   security_questions:
     - {id: 1, name: 生まれた年を入力してください。}

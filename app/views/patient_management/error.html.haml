@@ -1,0 +1,12 @@
+- content_for :page_body do
+  - status_code = defined?(status_code) ? status_code : nil
+  %div{class: "error_dialog error#{status_code}"}
+    .explanation_text
+      %h1= t("error.status_#{status_code}.heading")
+      %div
+        = t("error.status_#{status_code}.message")
+        = t('error.helpdesk_html', help_desk_url: HELP_DESK, home_button_url: HOME_BUTTON)
+      %br
+      %div
+    .fa#clipboard_image
+      = image_tag('error_clipboard.png')

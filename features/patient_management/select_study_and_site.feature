@@ -17,7 +17,7 @@ Feature: Patient Management Study Site Selection
       | TestStudy002 | GenesisPlanet        |
       | TestStudy003 | StarfleetAcademy     |
 
-  @Review[SQA]
+  @Validation
   @Release2015.1.0
   @PB130363-001
   @Headed
@@ -37,7 +37,7 @@ Feature: Patient Management Study Site Selection
     When I select "DeepSpaceStation" from the list of sites
     Then I should be able to navigate to the patient management table
 
-  @Review[SQA]
+  @Validation
   @Release2015.1.0
   @PB130363-002
   @Headed
@@ -53,16 +53,16 @@ Feature: Patient Management Study Site Selection
     When I select "GalacticQuadrantBeta" from the list of sites
     Then I should be able to navigate to the patient management table
 
-  @Review[SQA]
+  @Validation
   @Release2015.1.0
   @PB130363-003
   @Headed
   Scenario: An unauthorized patient management user who is logged in tries to navigate to the study site selection page is shown a helpful error message.
     Given I am logged in
     When I navigate to patient management via the apps pane in iMedidata
-    Then I should see the message "Studies request failed"
+    Then I should see a not found error page
 
-  @Review[SQA]
+  @Validation
   @Release2015.1.0
   @PB130363-004
   @Headed

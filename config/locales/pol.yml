@@ -1,3 +1,4 @@
+# Polish (pl)
 pol:
   security_questions:
     - {id: 1, name: Podaj swój rok urodzenia}

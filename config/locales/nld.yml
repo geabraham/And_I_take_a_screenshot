@@ -1,4 +1,5 @@
-dut:
+# Dutch (nl)
+nld:
   security_questions:
     - {id: 1, name: 'In welk jaar bent u geboren?'}
     - {id: 2, name: 'Laatste vier cijfers van rijksregisternummer?'}

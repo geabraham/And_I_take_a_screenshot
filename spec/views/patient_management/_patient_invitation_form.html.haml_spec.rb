@@ -19,16 +19,29 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
 
   describe 'basic page' do
     it('has a prompt') { expect(rendered).to have_text("Add a patient to #{study_site_name}.") }
+    it('has a disabled invite button') { expect(rendered).to have_selector("input#invite-button[@disabled='disabled']") }
   end
 
   describe 'available subjects dropdown' do
     it 'has options with the expected text and values' do
-      expect(rendered).to have_selector("option[@value='']", text: 'Subject Identifier')
+      expect(rendered).to have_selector("option[@value='']", text: 'Subject')
       expect(rendered).to have_selector("option[@value='Subject-001']", text: 'Subject-001')
     end
 
     it 'has all the subjects and no extras' do
-      expect(rendered).to have_css('#_patient_management_invite_subject_identifier option', count: 6)
+      expect(rendered).to have_css('#_patient_management_invite_subject option', count: 6)
+    end
+
+    context 'when there are no subjects' do
+      let(:available_subjects)  { [] }
+
+      it "has only one option" do
+        expect(rendered).to have_css('#_patient_management_invite_subject option', count: 1)
+      end
+
+      it "has a default option of 'No subjects available'" do
+        expect(rendered).to have_selector("option[@value='']", text: 'No subjects available')
+      end
     end
   end
 

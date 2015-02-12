@@ -1,6 +1,8 @@
-id: patient_enrollments:v1.0.2
+# !!!TODO: Update me. I am from a working branch.
+#
+id: patient_enrollments:v1.0.3
 name: patient_enrollments
-version: v1.0.2
+version: v1.0.3
 title: PatientEnrollment
 description: Service to associate authenticated users as subjects enrolled in a study.
 documentationLink: https://github.com/mdsol/subjects
@@ -9,6 +11,10 @@ basePath: /v1/
 aliases:
   slts:
     slt_1: &single_resource       # For standard single resource show/update/delete endpoints.
+      99th_percentile: 350ms
+      std_dev: 70ms
+      requests_per_second: 8
+    slt_2: &collection            # For resource collection endpoints.
       99th_percentile: 350ms
       std_dev: 70ms
       requests_per_second: 8
@@ -47,6 +53,32 @@ aliases:
     tou_accepted_at:
       type: datetime
       description: The date of the acceptance of the TOU/DPN agreement.
+
+  patient_enrollment_create_properties_alias: &patient_enrollment_create_properties_alias
+    initials:
+      type: string
+      description: A human-readable patient identifier; typically the first letter of the patient's first and last names.
+    email:
+      type: string
+      description: The e-mail address of the patient. The location to which an enrollment email is sent.
+    enrollment_type:
+      type: string
+      description: The type of enrollment. Either "email" or "in-person".
+    language_code:
+      type: string
+      description: The ISO 639-2 language code of the patient's language preference.
+    country_code:
+      type: string
+      description: The ISO_3166-1 Alpha-3 country code of the site where the patient is enrolled.
+    study_uuid:
+      type: string
+      description: The UUID of the study of the patient enrollment.
+    study_site_uuid:
+      type: string
+      description: The UUID of the study site of the patient enrollment.
+    subject_id:
+      type: string
+      description: The Rave study's subject id associated with the patient enrollment.
 
   registration_request_properties_alias: &registration_request_properties_alias
     activation_code:
@@ -106,6 +138,11 @@ schemas:
     resource: patient_enrollments
     type: object
     properties: *patient_enrollment_properties_alias
+  PatientEnrollmentCreateRequest:
+    id: schemas/PatientEnrollmentCreateRequest/v1.0.0
+    resource: patient_enrollments
+    type: object
+    properties: *patient_enrollment_create_properties_alias
   RegistrationRequest:
     id: schemas/RegistrationRequest/v1.0.0
     resource: patient_enrollments
@@ -125,6 +162,34 @@ schemas:
 resources:
   patient_enrollments:
     methods:
+      index:
+        id: patient_enrollments.index
+        path: patient_enrollments
+        httpMethod: GET
+        description: Get a list of all patient enrollments for a given study_site.
+        parameters:
+          study_site_uuid:
+            type: string
+            location: query
+            required: true
+          study_uuid:
+            type: string
+            location: query
+            required: true
+        response:
+          type: array
+          items:
+            $ref: schemas/PatientEnrollment/v1.0.0
+        slt: *collection
+      create:
+        id: patient_enrollments.create
+        path: patient_enrollments
+        httpMethod: POST
+        description: Create a patient enrollment.
+        request:
+          $ref: schemas/PatientEnrollmentCreateRequest/v1.0.0
+        response:
+          $ref: schemas/PatientEnrollment/v1.0.0
       register:
         id: patient_enrollments.register
         path: patient_enrollments/{uuid}/register

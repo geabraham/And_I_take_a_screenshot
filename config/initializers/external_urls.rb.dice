@@ -1,0 +1,3 @@
+# Default END_USER_MODE is on, will display end-user pages instead of developer pages
+HOME_BUTTON="<%= configured[:production].home_button || 'http://www.imedidata.com/' %>"
+HELP_DESK="<%= configured[:production].help_desk || 'https://www.mdsol.com/contact' %>"
