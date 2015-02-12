@@ -1,4 +1,3 @@
-@Draft
 Feature: A provider can invite a user to particpate in a study
   As a provider
   I want to invite patients to a study and study site
@@ -21,17 +20,17 @@ Feature: A provider can invite a user to particpate in a study
       | Israel  | Arabic   |
       | Israel  | Hebrew   |
     And the following subject names are avaible for site "DeepSpaceStation":
-      | subject    |
-      | Subject001 |
-      | Subject002 |
-      | Subject003 |
+      | subject_identifier |
+      | Subject001         |
+      | Subject002         |
+      | Subject003         |
 
   @Release2015.1.0
   @PB130799-001
   @Headed
   Scenario: As an authorized provider who has logged in, I am able to select a country/language pair and a subject name when inviting a new patient.
     Given I am logged in
-    And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
+    And I am authorized to manage patients for studies "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then I should be able to select from the following country / language pairs:
       | pair             |
