@@ -93,28 +93,28 @@ Feature: A provider can invite a user to particpate in a study
 
   @Realse2015.1.0
   @PB130799-005
-  @Headded
+  @Headed
   Scenario: As an authorized provider who has logged in, I see an error page when the backend does not respond.
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And I invite a user with all required attributes
     When the backend service does not respond
-    Then I should see an error message: 'Service unavailable, please try again later.'
+    Then I should see an error message: "Service unavailable, please try again later."
 
   @Realse2015.1.0
   @PB130799-006
-  @Headded
+  @Headed
   Scenario: As an authorized provider who has logged in, I see a message when there are are no subjects available.
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001"
-    And the request for available subjects does not return any subjects
+    And the request for available subjects for site "DeepSpaceStation" does not return any subjects
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then the only subject option should read "No subjects available"
 
   @Realse2015.1.0
   @PB130799-007
-  @Headded
+  @Headed
   Scenario: As an authorized provider who has logged in, I see a message when a request for available subjects returns an error.
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001"
