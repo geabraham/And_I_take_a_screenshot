@@ -33,12 +33,7 @@ class PatientManagementController < ApplicationController
 
   def available_subjects
     params.require(:study_uuid) && params.require(:study_site_uuid)
-    available_subjects_response = begin
-      fetch_available_subjects_for_select
-    rescue StandardError
-      []
-    end
-    render json: available_subjects_response, status: :ok
+    render json: fetch_available_subjects_for_select, status: :ok
   end
 
   # TODO: This should be render_error_page for disambiguation between this and plain text or json errors.
@@ -87,6 +82,8 @@ class PatientManagementController < ApplicationController
     Rails.logger.info_with_data("Received response for available subjects request.", available_subjects_response: available_subjects.inspect)
     subjects = attributes_or_empty_array(available_subjects, ['subject_identifier'])
     subjects.map {|s| [s['subject_identifier'], s['subject_identifier']]}
+  rescue StandardError
+    []
   end
 
   # Defend against unexpected response types

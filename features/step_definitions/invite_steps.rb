@@ -20,11 +20,20 @@ end
 Given(/^the request for available subjects for site "(.*?)" (does not return any subjects|returns any error)$/) do |site_name, return_type|
   site_object = study_or_site_object(site_name, 'sites')
   error = return_type == 'returns any error' ? true : false
-  allow(Euresource::Subject).to receive(:get).with(:all, {params: {
-    study_uuid: site_object['study_uuid'],
-    study_site_uuid: site_object['uuid'],
-    available: true
-  }}).and_return(error ? ->(){raise StandardError.new()} : [])
+
+  if error
+    allow(Euresource::Subject).to receive(:get).with(:all, {params: {
+      study_uuid: site_object['study_uuid'],
+      study_site_uuid: site_object['uuid'],
+      available: true
+    }}).and_raise(StandardError.new())
+  else
+    allow(Euresource::Subject).to receive(:get).with(:all, {params: {
+      study_uuid: site_object['study_uuid'],
+      study_site_uuid: site_object['uuid'],
+      available: true
+    }}).and_return([])
+  end
 end
 
 When(/^I navigate to patient management via study "(.*?)" and site "(.*?)"$/) do |_, site_name|

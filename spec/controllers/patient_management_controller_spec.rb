@@ -160,7 +160,8 @@ describe PatientManagementController do
           end
 
           context 'when available subjects request fails' do
-            let(:expected_status_code) { 404 }
+            let(:expected_template)    { 'patient_management_grid' }
+            let(:expected_status_code) { 200 }
             before do
               allow(Euresource::Subject).to receive(:get)
                 .with(:all, {params: {
@@ -171,7 +172,7 @@ describe PatientManagementController do
             end
 
             it_behaves_like 'returns expected status'
-            it_behaves_like 'assigns an ivar to its expected value', :status_code, 404
+            it_behaves_like 'assigns an ivar to its expected value', :available_subjects, []
           end
         end
 
