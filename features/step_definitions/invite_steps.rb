@@ -1,8 +1,8 @@
 Given(/^patient cloud supports the following country \/ language pairs:$/) do |table|
-  mock_tou_dpns = table.hashes.map do |attrs|
+  @mock_tou_dpns = table.hashes.map do |attrs|
     double('tou_dpn_agreement').tap {|tda| allow(tda).to receive(:attributes).and_return(attrs)}
   end
-  allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return(mock_tou_dpns)
+  allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return(@mock_tou_dpns)
 end
 
 Given(/^the following subject names are avaible for site "(.*?)":$/) do |site_name, table|
@@ -18,8 +18,8 @@ Given(/^the following subject names are avaible for site "(.*?)":$/) do |site_na
 end
 
 When(/^I navigate to patient management via study "(.*?)" and site "(.*?)"$/) do |_, site_name|
-  site_object = study_or_site_object(site_name, 'sites')
-  @current_path = "/patient_management?study_uuid=#{site_object['study_uuid']}&study_site_uuid=#{site_object['uuid']}"
+  @current_site_object = study_or_site_object(site_name, 'sites')
+  @current_path = "/patient_management?study_uuid=#{@current_site_object['study_uuid']}&study_site_uuid=#{@current_site_object['uuid']}"
   visit @current_path
 end
 
@@ -50,4 +50,37 @@ end
 
 Then(/^I am unable to invite a patient$/) do
   expect(find('input#invite-button')['disabled']).to eq('true')
+end
+
+When(/^I invite a user with all required attributes$/) do
+  @selected_country_language = @mock_tou_dpns.sample.attributes
+  country_language_string = "#{@selected_country_language['country']} / #{@selected_country_language['language']}"
+  @selected_mock_subject = @mock_subjects.sample.attributes
+
+  select @selected_mock_subject['subject_identifier'], from: 'patient_enrollment_subject'
+  select country_language_string, from: 'patient_enrollment_country_language'
+end
+
+When(/^the backend service returns an error response$/) do
+  allow(Euresource::PatientEnrollment).to receive(:post!).with({patient_enrollment:
+    {
+      email: '',
+      initials: '',
+      country_code: @selected_country_language['country_code'],
+      language_code: @selected_country_language['language_code'],
+      enrollment_type: 'in-person',
+      study_uuid: @current_site_object['study_uuid'],
+      study_site_uuid: @current_site_object['uuid'],
+      subject_id: @selected_mock_subject['subject_identifier']
+    }.stringify_keys}, http_headers: {'X-MWS-Impersonate' => @user_uuid}).and_raise(StandardError.new())
+
+  click_on 'Invite'
+end
+
+Then(/^I should see an error message: "(.*?)"$/) do |message|
+  expect(page).to have_content(message)
+end
+
+Then(/^the subject dropdown should get refreshed$/) do
+  expect(page).to have_select('patient_enrollment_subject', selected: 'Subject')
 end

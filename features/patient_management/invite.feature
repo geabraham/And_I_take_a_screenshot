@@ -12,13 +12,13 @@ Feature: A provider can invite a user to particpate in a study
       | TestStudy001 | DeepSpaceStation     |
       | TestStudy001 | GalacticQuadrantBeta |
     And patient cloud supports the following country / language pairs:
-      | country | language |
-      | USA     | English  |
-      | USA     | Spanish  |
-      | Canada  | English  |
-      | Canada  | French   |
-      | Israel  | Arabic   |
-      | Israel  | Hebrew   |
+      | country | language | country_code | language_code |
+      | USA     | English  | US           | eng           |
+      | USA     | Spanish  | US           | spa           |
+      | Canada  | English  | CA           | eng           |
+      | Canada  | French   | FR           | fre           |
+      | Israel  | Arabic   | IS           | ara           |
+      | Israel  | Hebrew   | IS           | heb           |
     And the following subject names are avaible for site "DeepSpaceStation":
       | subject_identifier |
       | Subject001         |
@@ -81,13 +81,13 @@ Feature: A provider can invite a user to particpate in a study
 
   @Release2015.1.0
   @PB130799-004
-  @Headded
+  @Headed
   Scenario: As an authorized provider who has logged in, I see an error message when the backend service returns an error.
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And I invite a user with all required attributes
-    When the backend service returns an error response with message "Subject not available."
+    When the backend service returns an error response
     Then I should see an error message: "Subject not available. Please try again."
     And the subject dropdown should get refreshed
 
