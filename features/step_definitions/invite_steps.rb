@@ -89,6 +89,7 @@ Then(/^I should see an error message: "(.*?)"$/) do |message|
 end
 
 Then(/^the subject dropdown should get refreshed$/) do
+  expect(page).to have_select('patient_enrollment_subject', selected: 'Subject')
   # Expected length is the total number of mock subjects we started with,
   #   minus 1 we removed in the second response and plus 1 for the default option.
   #
