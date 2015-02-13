@@ -115,7 +115,7 @@ end
 When(/^I navigate to patient management via a study and site$/) do
   site = @study_sites.sample
   site_name, study_name = site['name'], @studies.find{|s| s['uuid'] == site['study_uuid']}['name']
-  %Q(I navigate to patient management via study "#{study_name}" and site "#{site_name}")
+  step %Q(I navigate to patient management via study "#{study_name}" and site "#{site_name}")
 end
 
 Then(/^I should see an error message: "(.*?)"$/) do |message|
