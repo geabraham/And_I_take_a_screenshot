@@ -59,13 +59,11 @@ end
 
 When(/^the backend service returns an error response$/) do
   mock_invite_error_response_with(StandardError.new())
-
   click_on 'Invite'
 end
 
 When(/^the backend service does not respond$/) do
   mock_invite_error_response_with(Faraday::Error::ConnectionFailed.new('Cannot connect.'))
-
   click_on 'Invite'
 end
 
