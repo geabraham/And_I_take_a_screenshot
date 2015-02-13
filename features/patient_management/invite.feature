@@ -119,6 +119,9 @@ Feature: A provider can invite a user to particpate in a study
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then the only subject option should read "No subjects available"
 
+  # REVIEW: We haven't covered the case where avaible subjects request gets a failed connection / service down error.
+  #   Should we add scenario and functionality for service down when requesting available subjects?
+  #
   @Realse2015.1.0
   @PB130799-007
   @Headed
