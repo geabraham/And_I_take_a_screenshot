@@ -131,18 +131,13 @@ describe PatientManagementController do
           end
 
           context 'when subjects request returns okay with anything other than an array' do
-            let(:subjects_available_params) do
-              {
-                study_uuid: study_uuid,
-                study_site_uuid: study_site_uuid,
-                available: true
-              }
-            end
+            let(:subjects_available_params) { {study_uuid: study_uuid, study_site_uuid: study_site_uuid, available: true} }
             let(:log_message_1_args) { ["Requesting available subjects.", {subjects_available_params: subjects_available_params}] }
             let(:log_message_2_args) { ["Received response for available subjects request.", {available_subjects_response: ''.inspect}] }
             let(:expected_logs) do
               [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :info_with_data, args: log_message_2_args}]
             end
+
             before do
               allow(Euresource::Subject).to receive(:get).with(:all, {params: subjects_available_params}).and_return('')
             end
@@ -152,16 +147,19 @@ describe PatientManagementController do
           end
 
           context 'when tou dpn agreements request fails' do
+            let(:expected_template)    { 'error' }
             let(:expected_status_code) { 500 }
             before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_raise(StandardError.new('TouDpnAgreements not found')) }
 
             it_behaves_like 'returns expected status'
+            it_behaves_like 'renders expected template'
             it_behaves_like 'assigns an ivar to its expected value', :status_code, 500
           end
 
           context 'when available subjects request fails' do
             let(:expected_template)    { 'patient_management_grid' }
             let(:expected_status_code) { 200 }
+
             before do
               allow(Euresource::Subject).to receive(:get)
                 .with(:all, {params: {
@@ -172,6 +170,7 @@ describe PatientManagementController do
             end
 
             it_behaves_like 'returns expected status'
+            it_behaves_like 'renders expected template'
             it_behaves_like 'assigns an ivar to its expected value', :available_subjects, []
           end
         end
