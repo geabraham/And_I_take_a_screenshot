@@ -22,13 +22,7 @@ class PatientManagementController < ApplicationController
     patient_enrollment = invite_or_raise!
     render json: patient_enrollment, status: :created
   rescue StandardError => e
-    message, status = if e.is_a?(Faraday::Error::ConnectionFailed)
-      [I18n.t('error.status_503.message'), :service_unavailable]
-    else
-      # TODO: Localize me!
-      #
-      ['Subject not available. Please try again.', :not_found]
-    end
+    message, status = available_subjects_error(e)
     Rails.logger.error_with_data("Rescuing error during patient invitation.", error: e.inspect)
     render json: message, status: status
   end
@@ -45,6 +39,16 @@ class PatientManagementController < ApplicationController
   end
 
   private
+
+  # Returns [message, status] corresponding to a 503 for connection error
+  #  and defaulting to ['Subject not available. Please try again.', :not_found]
+  def available_subjects_error(error)
+    if error.is_a?(Faraday::Error::ConnectionFailed)
+      [I18n.t('error.status_503.message'), :service_unavailable]
+    else
+      ['Subject not available. Please try again.', :not_found]
+    end
+  end
 
   # Return a patient enrollment or raise an error
   def invite_or_raise!
