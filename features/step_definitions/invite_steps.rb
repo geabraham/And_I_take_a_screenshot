@@ -30,12 +30,6 @@ When(/^I navigate to patient management via study "(.*?)" and site "(.*?)"$/) do
   visit @current_path
 end
 
-Then(/^I should be able to select from the following (subjects|country \/ language pairs):$/) do |_, table|
-  table.rows.flatten.each do |option_text|
-    expect(html).to have_selector("option", text: option_text)
-  end
-end
-
 When(/^I invite a user with the following attributes:$/) do |table|
   attributes = table.hashes
   initials = attributes.find {|attr| attr['attribute_name'] == 'initials'}
@@ -53,10 +47,6 @@ end
 
 When(/^I select a subject but I don't select a country \/ language pair$/) do
   select @mock_subjects.sample.attributes['subject_identifier'], from: 'patient_enrollment_subject'
-end
-
-Then(/^I am unable to invite a patient$/) do
-  expect(find('input#invite-button')['disabled']).to eq('true')
 end
 
 When(/^I invite a user with all required attributes$/) do
@@ -83,6 +73,16 @@ When(/^I navigate to patient management via a study and site$/) do
   site = @study_sites.sample
   site_name, study_name = site['name'], @studies.find{|s| s['uuid'] == site['study_uuid']}['name']
   step %Q(I navigate to patient management via study "#{study_name}" and site "#{site_name}")
+end
+
+Then(/^I am unable to invite a patient$/) do
+  expect(find('input#invite-button')['disabled']).to eq('true')
+end
+
+Then(/^I should be able to select from the following (subjects|country \/ language pairs):$/) do |_, table|
+  table.rows.flatten.each do |option_text|
+    expect(html).to have_selector("option", text: option_text)
+  end
 end
 
 Then(/^I should see an error message: "(.*?)"$/) do |message|
