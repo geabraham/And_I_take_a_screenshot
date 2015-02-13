@@ -45,24 +45,27 @@ describe PatientManagementController do
     end
 
     context 'when backend service is unavailable' do
-      let(:expected_template) { 'error' }
+      let(:expected_body)        { I18n.t('error.status_503.message') }
+      let(:expected_status_code) { 503 }
+      let(:error)                { Faraday::Error::ConnectionFailed.new('Cannot connect.') }
+      let(:log_message_args)     { ["Rescuing error during patient invitation.", {error: error.inspect}] }
+      let(:expected_logs)        { [{log_method: :error_with_data, args: log_message_args}] }
 
       before do
         allow(Euresource::PatientEnrollment).to receive(:post!)
           .with(params_for_patient_enrollment, http_headers)
-          .and_raise(Faraday::Error::ConnectionFailed.new('Cannot connect'))
+          .and_raise(error)
       end
 
-      it_behaves_like 'renders expected template'
-      it_behaves_like 'assigns an ivar to its expected value', :status_code, 503
+      it_behaves_like 'returns expected body'
+      it_behaves_like 'returns expected status'
+      it_behaves_like 'logs the expected messages at the expected levels'
     end
 
     context 'when backend service raises an error' do
       let(:expected_body)        { 'Subject not available. Please try again.' }
       let(:expected_status_code) { 404 }
       let(:error)                { StandardError.new() }
-      let(:log_message_args)     { ["Rescuing error during patient invitation.", {error: error.inspect}] }
-      let(:expected_logs)        { [{log_method: :error_with_data, args: log_message_args}] }
 
       before do
         allow(Euresource::PatientEnrollment).to receive(:post!)

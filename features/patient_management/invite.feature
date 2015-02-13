@@ -100,9 +100,7 @@ Feature: A provider can invite a user to particpate in a study
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And I invite a user with all required attributes
     When the backend service does not respond
-    # TODO: Update this when standard wording is provided.
-    Then I should see an error page with the message:
-      | Oops! Service is unavailable. Please try again later. |
+    Then I should see an error message: 'Service unavailable, please try again later.'
 
   @Realse2015.1.0
   @PB130799-006
