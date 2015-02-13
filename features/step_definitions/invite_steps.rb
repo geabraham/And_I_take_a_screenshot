@@ -14,7 +14,8 @@ Given(/^the following subject names are avaible for site "(.*?)":$/) do |site_na
     study_uuid: site_object['study_uuid'],
     study_site_uuid: site_object['uuid'],
     available: true
-  }}).and_return(@mock_subjects)
+  # Remove a subject so if this is called a second time we get a different set
+  }}).and_return(@mock_subjects, @mock_subjects[0..-2])
 end
 
 Given(/^the request for available subjects for site "(.*?)" (does not return any subjects|returns any error)$/) do |site_name, return_type|
@@ -88,7 +89,10 @@ Then(/^I should see an error message: "(.*?)"$/) do |message|
 end
 
 Then(/^the subject dropdown should get refreshed$/) do
-  expect(page).to have_select('patient_enrollment_subject', selected: 'Subject')
+  # Expected length is the total number of mock subjects we started with,
+  #   minus 1 we removed in the second response and plus 1 for the default option.
+  #
+  expect(page).to have_selector('#patient_enrollment_subject option', count: @mock_subjects.length)
 end
 
 Then(/^the only subject option should read "(.*?)"$/) do |selected_value|
