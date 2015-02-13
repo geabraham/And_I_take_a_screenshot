@@ -4,6 +4,15 @@ class PatientEnrollment
                 :tou_dpn_agreement
   RIGHT_TO_LEFT_LANGUAGE_CODES = ['ara', 'heb']
 
+  def self.by_site_and_study_site(study_uuid, study_site_uuid)
+    raise ArgumentError.new('Required argument study_uuid is blank.') if study_uuid.blank?
+    raise ArgumentError.new('Required argument study_site_uuid is blank.') if study_site_uuid.blank?
+
+  rescue => e
+    Rails.logger.error(e.message)
+    raise
+  end
+
   def tou_dpn_agreement_body
     Nokogiri::HTML(tou_dpn_agreement['html']).css('body').to_s.html_safe
   end

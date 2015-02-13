@@ -8,6 +8,50 @@ describe PatientEnrollment do
       :login_confirmation ]
   end
 
+  describe '#by_study_and_study_site' do
+    before { allow(Rails.logger).to receive(:info) }
+
+    context 'when study_uuid is blank' do
+      it 'logs the error' do
+        expect(Rails.logger).to receive(:error).with('Required argument study_uuid is blank.')
+        PatientEnrollment.by_site_and_study_site('', 'study_site_uuid') rescue nil
+      end
+
+      it 'raises an error' do
+        expect { PatientEnrollment.by_site_and_study_site('', 'study_site_uuid') }
+          .to raise_error(ArgumentError, 'Required argument study_uuid is blank.')
+      end
+    end
+
+    context 'when study_site_uuid is blank' do
+      it 'logs the error' do
+        expect(Rails.logger).to receive(:error).with('Required argument study_site_uuid is blank.')
+        PatientEnrollment.by_site_and_study_site('study_uuid', '') rescue nil
+      end
+
+      it 'raises an error' do
+        expect { PatientEnrollment.by_site_and_study_site('study_uuid', '') }
+          .to raise_error(ArgumentError, 'Required argument study_site_uuid is blank.')
+      end
+    end
+
+    context 'when required parameters are provided' do
+      context 'when Euresource encounters an error' do
+        it 'logs the error'
+        it 'raises the error'
+      end
+
+      context 'when Euresource successfully returns 0 enrollments' do
+        it 'returns an empty array'
+      end
+
+      context 'when Euresource returns 1 or more patient enrollments' do
+        it 'returns an array of PatientEnrollment objects derived from the Euresource response body'
+      end
+    end
+  end
+
+
   describe 'instance methods' do
     include_context 'Euresource::PatientEnrollment#tou_dpn_agreement response'
     let(:tou_dpn_agreement_body)     { "<body><p>Maybe Christmas, the Grinch thought, doesn't come from a store.</p></body>" }
