@@ -20,20 +20,8 @@ end
 Given(/^the request for available subjects for site "(.*?)" (does not return any subjects|returns any error)$/) do |site_name, return_type|
   site_object = study_or_site_object(site_name, 'sites')
   error = return_type == 'returns any error' ? true : false
-
-  if error
-    allow(Euresource::Subject).to receive(:get).with(:all, {params: {
-      study_uuid: site_object['study_uuid'],
-      study_site_uuid: site_object['uuid'],
-      available: true
-    }}).and_raise(StandardError.new())
-  else
-    allow(Euresource::Subject).to receive(:get).with(:all, {params: {
-      study_uuid: site_object['study_uuid'],
-      study_site_uuid: site_object['uuid'],
-      available: true
-    }}).and_return([])
-  end
+  subject_params = {params: {study_uuid: site_object['study_uuid'], study_site_uuid: site_object['uuid'], available: true}}
+  allow(Euresource::Subject).to receive(:get).with(:all, subject_params) { error ? raise(StandardError.new) : [] }
 end
 
 When(/^I navigate to patient management via study "(.*?)" and site "(.*?)"$/) do |_, site_name|
@@ -75,7 +63,6 @@ When(/^I invite a user with all required attributes$/) do
   @selected_country_language = @mock_tou_dpns.sample.attributes
   country_language_string = "#{@selected_country_language['country']} / #{@selected_country_language['language']}"
   @selected_mock_subject = @mock_subjects.sample.attributes
-
   select @selected_mock_subject['subject_identifier'], from: 'patient_enrollment_subject'
   select country_language_string, from: 'patient_enrollment_country_language'
 end
@@ -111,6 +98,6 @@ Then(/^the only subject option should read "(.*?)"$/) do |selected_value|
 end
 
 Then(/^I should see an error page with the message:$/) do |message|
-  expect(page).to have_selector('.page-header-text h4', text: I18n.t('error.error'))
+  expect(page).to have_selector('.page-header-text h4', text: 'Error'
   expect(page).to have_content(message.headers.first)
 end
