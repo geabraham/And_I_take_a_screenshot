@@ -53,7 +53,7 @@ describe PatientManagementController do
       before do
         allow(Euresource::PatientEnrollment).to receive(:post!)
           .with(params_for_patient_enrollment, http_headers)
-          .and_raise(Faraday::Error::ConnectionFailed.new('Cannot connect.'))
+          .and_raise(Faraday::Error::ConnectionFailed.new('Cannot connect'))
       end
 
       it_behaves_like 'returns expected body'
