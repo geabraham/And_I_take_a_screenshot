@@ -17,13 +17,14 @@ Given(/^the following subject names are avaible for site "(.*?)":$/) do |site_na
   }}).and_return(@mock_subjects)
 end
 
-Given(/^the request for available subjects for site "(.*?)" does not return any subjects$/) do |site_name|
+Given(/^the request for available subjects for site "(.*?)" (does not return any subjects|returns any error)$/) do |site_name, return_type|
   site_object = study_or_site_object(site_name, 'sites')
+  error = return_type == 'returns any error' ? true : false
   allow(Euresource::Subject).to receive(:get).with(:all, {params: {
     study_uuid: site_object['study_uuid'],
     study_site_uuid: site_object['uuid'],
     available: true
-  }}).and_return([])
+  }}).and_return(error ? ->(){raise StandardError.new()} : [])
 end
 
 When(/^I navigate to patient management via study "(.*?)" and site "(.*?)"$/) do |_, site_name|

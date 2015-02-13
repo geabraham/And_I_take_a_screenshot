@@ -118,7 +118,7 @@ Feature: A provider can invite a user to particpate in a study
   Scenario: As an authorized provider who has logged in, I see a message when a request for available subjects returns an error.
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001"
-    And the request for available subjects returns any error
+    And the request for available subjects for site "DeepSpaceStation" returns any error
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then the only subject option should read "No subjects available"
 
