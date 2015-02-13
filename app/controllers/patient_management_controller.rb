@@ -25,6 +25,8 @@ class PatientManagementController < ApplicationController
     message, status = if e.is_a?(Faraday::Error::ConnectionFailed)
       [I18n.t('error.status_503.message'), :service_unavailable]
     else
+      # TODO: Localize me!
+      #
       ['Subject not available. Please try again.', :not_found]
     end
     Rails.logger.error_with_data("Rescuing error during patient invitation.", error: e.inspect)
