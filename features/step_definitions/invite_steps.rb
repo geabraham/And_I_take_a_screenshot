@@ -103,6 +103,12 @@ When(/^the backend service does not respond$/) do
   click_on 'Invite'
 end
 
+When(/^I navigate to patient management via a study and site$/) do
+  site = @study_sites.sample
+  site_name, study_name = site['name'], @studies.find{|s| s['uuid'] == site['study_uuid']}['name']
+  %Q(I navigate to patient management via study "#{study_name}" and site "#{site_name}")
+end
+
 Then(/^I should see an error message: "(.*?)"$/) do |message|
   expect(page).to have_content(message)
 end
@@ -115,3 +121,7 @@ Then(/^the only subject option should read "(.*?)"$/) do |selected_value|
   expect(page).to have_select('patient_enrollment_subject', selected: selected_value, count: 1)
 end
 
+Then(/^I should see an error page with the message:$/) do |message|
+  expect(page).to have_selector('.page-header-text h4', text: I18n.t('error.error'))
+  expect(page).to have_content(message.headers.first)
+end
