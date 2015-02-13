@@ -90,19 +90,6 @@ describe PatientManagementController do
       it_behaves_like 'returns expected status'
     end
 
-    context 'when response is a raised Euresource::ResourceNotSaved error' do
-      let(:expected_body)        { 'Subject not available. Please try again.' }
-      let(:expected_status_code) { 404 }
-      before do
-        allow(Euresource::PatientEnrollment).to receive(:post!)
-          .with(params_for_patient_enrollment, http_headers)
-          .and_raise(Euresource::ResourceNotSaved.new())
-      end
-
-      it_behaves_like 'returns expected body'
-      it_behaves_like 'returns expected status'
-    end
-
     context 'when response is a success' do
       let(:expected_body)        { patient_enrollment_response.to_json }
       let(:expected_status_code) { 201 }
