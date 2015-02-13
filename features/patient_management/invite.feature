@@ -28,6 +28,7 @@ Feature: A provider can invite a user to particpate in a study
   @Release2015.1.0
   @PB130799-001
   @Headed
+  @Review[SQA]
   Scenario: As an authorized provider who has logged in, I am able to select a country/language pair and a subject name when inviting a new patient.
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001"
@@ -49,6 +50,7 @@ Feature: A provider can invite a user to particpate in a study
   @Release2015.1.0
   @PB130799-002
   @Headed
+  @Review[SQA]
   Scenario: As an authorized provider who has logged in, an attempt to invite a patient is successful.
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001"
@@ -59,6 +61,7 @@ Feature: A provider can invite a user to particpate in a study
       | email            | lt-commander-data@mdsol.com |
       | subject          | Subject001                  |
       | country_language | Israel / Arabic             |
+    # REVIEW: This is pending - should it be Review[SQA] or Review[ENG]?
     # Note: Pending patient management grid feature.
     #  In the intermediary, manual tests should check subjects database for expected objects and attributes.
     Then I should see a newly created patient enrollment for user LCD in the patient management grid with:
@@ -72,6 +75,7 @@ Feature: A provider can invite a user to particpate in a study
   @Release2015.1.0
   @PB130799-003
   @Headed
+  @Review[SQA]
   Scenario: As an authorized provider who has logged in, I am unable to invite a patient until all required attributes are provided.
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001"
@@ -82,6 +86,7 @@ Feature: A provider can invite a user to particpate in a study
   @Release2015.1.0
   @PB130799-004
   @Headed
+  @Review[SQA]
   Scenario: As an authorized provider who has logged in, I see an error message when the backend service returns an error.
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001"
@@ -94,6 +99,7 @@ Feature: A provider can invite a user to particpate in a study
   @Realse2015.1.0
   @PB130799-005
   @Headed
+  @Review[SQA]
   Scenario: As an authorized provider who has logged in, I see an error page when the backend does not respond.
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001"
@@ -105,6 +111,7 @@ Feature: A provider can invite a user to particpate in a study
   @Realse2015.1.0
   @PB130799-006
   @Headed
+  @Review[SQA]
   Scenario: As an authorized provider who has logged in, I see a message when there are are no subjects available.
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001"
@@ -115,6 +122,7 @@ Feature: A provider can invite a user to particpate in a study
   @Realse2015.1.0
   @PB130799-007
   @Headed
+  @Review[SQA]
   Scenario: As an authorized provider who has logged in, I see a message when a request for available subjects returns an error.
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001"
@@ -125,6 +133,7 @@ Feature: A provider can invite a user to particpate in a study
   @Release2015.1.0
   @PB130799-008
   @Headed
+  @Review[SQA]
   Scenario: As a logged user with no patient management permissions, an attempt to access patient management fails.
     Given I am logged in
     When I navigate to patient management via a study and site
@@ -134,6 +143,7 @@ Feature: A provider can invite a user to particpate in a study
   @Release2015.1.0
   @PB130799-009
   @Headed
+  @Review[SQA]
   Scenario: As a user who is not logged in, an attempt to access patient management redirects to login.
     Given I am not logged in
     When I navigate to patient management via a study and site
