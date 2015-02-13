@@ -71,6 +71,10 @@ end
 When(/^I navigate to patient management via a study and site$/) do
   site = @study_sites.sample
   site_name, study_name = site['name'], @studies.find{|s| s['uuid'] == site['study_uuid']}['name']
+
+  mock_study_sites_request = IMedidataClient::StudySitesRequest.new(user_uuid: @user_uuid, study_uuid: site['study_uuid'])
+  stub_request(:get, IMED_BASE_URL + mock_study_sites_request.path).to_return(status: 404, body: 'Not found')
+
   step %Q(I navigate to patient management via study "#{study_name}" and site "#{site_name}")
 end
 
