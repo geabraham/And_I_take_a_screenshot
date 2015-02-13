@@ -13,12 +13,12 @@ Feature: A provider can invite a user to particpate in a study
       | TestStudy001 | GalacticQuadrantBeta |
     And patient cloud supports the following country / language pairs:
       | country | language | country_code | language_code |
-      | USA     | English  | US           | eng           |
-      | USA     | Spanish  | US           | spa           |
-      | Canada  | English  | CA           | eng           |
-      | Canada  | French   | FR           | fre           |
-      | Israel  | Arabic   | IS           | ara           |
-      | Israel  | Hebrew   | IS           | heb           |
+      | USA     | English  | USA          | eng           |
+      | USA     | Spanish  | USA          | spa           |
+      | Canada  | English  | CAN          | eng           |
+      | Canada  | French   | FRA          | fra           |
+      | Israel  | Arabic   | ISR          | ara           |
+      | Israel  | Hebrew   | ISR          | heb           |
     And the following subject names are avaible for site "DeepSpaceStation":
       | subject_identifier |
       | Subject001         |
