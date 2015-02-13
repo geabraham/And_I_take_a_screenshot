@@ -81,33 +81,13 @@ When(/^I invite a user with all required attributes$/) do
 end
 
 When(/^the backend service returns an error response$/) do
-  allow(Euresource::PatientEnrollment).to receive(:post!).with({patient_enrollment:
-    {
-      email: '',
-      initials: '',
-      country_code: @selected_country_language['country_code'],
-      language_code: @selected_country_language['language_code'],
-      enrollment_type: 'in-person',
-      study_uuid: @current_site_object['study_uuid'],
-      study_site_uuid: @current_site_object['uuid'],
-      subject_id: @selected_mock_subject['subject_identifier']
-    }.stringify_keys}, http_headers: {'X-MWS-Impersonate' => @user_uuid}).and_raise(StandardError.new())
+  mock_invite_error_response_with(StandardError.new())
 
   click_on 'Invite'
 end
 
 When(/^the backend service does not respond$/) do
-  allow(Euresource::PatientEnrollment).to receive(:post!).with({patient_enrollment:
-    {
-      email: '',
-      initials: '',
-      country_code: @selected_country_language['country_code'],
-      language_code: @selected_country_language['language_code'],
-      enrollment_type: 'in-person',
-      study_uuid: @current_site_object['study_uuid'],
-      study_site_uuid: @current_site_object['uuid'],
-      subject_id: @selected_mock_subject['subject_identifier']
-    }.stringify_keys}, http_headers: {'X-MWS-Impersonate' => @user_uuid}).and_raise(Faraday::Error::ConnectionFailed.new('Cannot connect.'))
+  mock_invite_error_response_with(Faraday::Error::ConnectionFailed.new('Cannot connect.'))
 
   click_on 'Invite'
 end
