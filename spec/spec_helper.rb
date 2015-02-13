@@ -46,7 +46,12 @@ RSpec.configure do |config|
     # Prevents you from mocking or stubbing a method that does not exist on
     # a real object. This is generally recommended, and will default to
     # `true` in RSpec 4.
-    mocks.verify_partial_doubles = true
+
+    # NOTE: Purposefully assigned as false.
+    # Astinus::Logger#<log_level>_with_data relies on a method_missing method.
+    # Having this as true thus results in "Astinus::Logger ... does not implement: info_with_data" error,
+    #   which is probably what we want for everything else but the Astinus library.
+    mocks.verify_partial_doubles = false
   end
 
   # The settings below are suggested to provide a good initial experience

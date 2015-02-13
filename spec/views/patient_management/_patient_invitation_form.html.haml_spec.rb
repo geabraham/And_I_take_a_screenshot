@@ -25,18 +25,20 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
   describe 'available subjects dropdown' do
     it 'has options with the expected text and values' do
       expect(rendered).to have_selector("option[@value='']", text: 'Subject')
-      expect(rendered).to have_selector("option[@value='Subject-001']", text: 'Subject-001')
+      available_subjects.each do |subject|
+        expect(rendered).to have_selector("option[@value='#{subject[0]}']", text: subject[1])
+      end
     end
 
     it 'has all the subjects and no extras' do
-      expect(rendered).to have_css('#_patient_management_invite_subject option', count: 6)
+      expect(rendered).to have_css('#patient_enrollment_subject option', count: 6)
     end
 
     context 'when there are no subjects' do
       let(:available_subjects)  { [] }
 
       it "has only one option" do
-        expect(rendered).to have_css('#_patient_management_invite_subject option', count: 1)
+        expect(rendered).to have_css('#patient_enrollment_subject option', count: 1)
       end
 
       it "has a default option of 'No subjects available'" do
@@ -54,14 +56,22 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
   end
 
   it 'has a subject initials field' do
-    expect(rendered).to have_selector('input#_patient_management_invite_email')
+    expect(rendered).to have_selector('input#patient_enrollment_email')
   end
 
   it 'has a subject email field' do
-    expect(rendered).to have_selector('input#_patient_management_invite_initials')
+    expect(rendered).to have_selector('input#patient_enrollment_initials')
   end
 
   describe 'submit button' do
     it('exists') { expect(rendered).to have_selector('input[@type="submit"][@value="Invite"]')}
+  end
+
+  describe 'the error div' do
+    it('exists') { expect(rendered).to have_css('#invite-form-error') }
+    it('is hidden') { expect(rendered).to have_css('#invite-form-error.hidden') }
+    it('has a sr-only span with error text') { expect(rendered).to have_css('#invite-form-error .sr-only', text: 'Error:') }
+    it('has an empty message span') { expect(rendered).to have_css('#invite-form-error .message', text: nil) }
+    it('has an x button') { expect(rendered).to have_css('#invite-form-error #error-x-button', text: 'X') }
   end
 end

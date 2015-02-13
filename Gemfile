@@ -15,8 +15,8 @@ gem 'rack-status', '~> 1.0.0'
 
 # Medidata Gems
 # UI Gems
-gem 'astinus', git: 'git@github.com:mdsol/astinus.git', tag: 'v0.4.0'
-
+gem 'astinus', git: 'git@github.com:mdsol/astinus.git', tag: 'v0.6.0'
+gem 'cross_application_tracer', :git => 'git@github.com:mdsol/cross_application_tracer.git', :require => 'cross_application_tracer', :tag => 'v0.2.1'
 gem 'sandman-rails', git: 'git@github.com:mdsol/sandman-rails.git', tag: '0.5.1'
 gem 'hollywood', git: 'git@github.com:mdsol/hollywood.git', branch: 'develop'
 

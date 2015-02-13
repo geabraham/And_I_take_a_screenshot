@@ -8,12 +8,19 @@ GIT
 
 GIT
   remote: git@github.com:mdsol/astinus.git
-  revision: e5786341f75cc127eb434b43d97744a37df4782d
-  tag: v0.4.0
+  revision: e5690fbf0811ddaa872409bd709a127ccc72ab05
+  tag: v0.6.0
   specs:
-    astinus (0.4.0)
+    astinus (0.6.0)
       json
       log4r (~> 1.1)
+
+GIT
+  remote: git@github.com:mdsol/cross_application_tracer.git
+  revision: 038726eb27daa925d376e0e8cad378ed057836d1
+  tag: v0.2.1
+  specs:
+    cross_application_tracer (0.2.1)
 
 GIT
   remote: git@github.com:mdsol/dice_bag-mdsol.git
@@ -502,6 +509,7 @@ DEPENDENCIES
   brakeman (~> 2.6.3)
   capybara (~> 2.4.4)
   coffee-script (~> 2.3.0)
+  cross_application_tracer!
   cucumber (~> 1.3.17)
   cucumber-rails
   dice_bag!
