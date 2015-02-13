@@ -93,5 +93,5 @@ eng:
       heading: 500 System Error
       message: "The link or URL you used resulted in a system error, and we can't display the information you requested."
     status_503:
-      heading: 503 System Error
+      heading: 503 Service Unavailable
       message: "Service unavailable, please try again later."
