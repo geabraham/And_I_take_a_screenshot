@@ -51,7 +51,7 @@ Feature: A provider can invite a user to particpate in a study
   @Headed
   Scenario: As an authorized provider who has logged in, an attempt to invite a patient is successful.
     Given I am logged in
-    And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
+    And I am authorized to manage patients for studies "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And I invite a user with the following attributes:
       | attribute_name   | attribute_value             |
@@ -74,7 +74,7 @@ Feature: A provider can invite a user to particpate in a study
   @Headed
   Scenario: As an authorized provider who has logged in, I am unable to invite a patient until all required attributes are provided.
     Given I am logged in
-    And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
+    And I am authorized to manage patients for studies "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And I select a subject but I don't select a country / language pair
     Then I am unable to invite a patient
@@ -84,7 +84,7 @@ Feature: A provider can invite a user to particpate in a study
   @Headded
   Scenario: As an authorized provider who has logged in, I see an error message when the backend service returns an error.
     Given I am logged in
-    And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
+    And I am authorized to manage patients for studies "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And I invite a user with all required attributes
     When the backend service returns an error response with message "Subject not available."
@@ -96,7 +96,7 @@ Feature: A provider can invite a user to particpate in a study
   @Headded
   Scenario: As an authorized provider who has logged in, I see an error page when the backend does not respond.
     Given I am logged in
-    And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
+    And I am authorized to manage patients for studies "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And I invite a user with all required attributes
     When the backend service does not respond
@@ -109,7 +109,7 @@ Feature: A provider can invite a user to particpate in a study
   @Headded
   Scenario: As an authorized provider who has logged in, I see a message when there are are no subjects available.
     Given I am logged in
-    And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
+    And I am authorized to manage patients for studies "TestStudy001"
     And the request for available subjects does not return any subjects
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then the only subject option should read "No subjects available"
@@ -119,7 +119,7 @@ Feature: A provider can invite a user to particpate in a study
   @Headded
   Scenario: As an authorized provider who has logged in, I see a message when a request for available subjects returns an error.
     Given I am logged in
-    And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
+    And I am authorized to manage patients for studies "TestStudy001"
     And the request for available subjects returns any error
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then the only subject option should read "No subjects available"
