@@ -96,6 +96,6 @@ Then(/^the only subject option should read "(.*?)"$/) do |selected_value|
 end
 
 Then(/^I should see an error page with the message:$/) do |message|
-  expect(page).to have_selector('.page-header-text h4', text: 'Error'
+  expect(page).to have_selector('.page-header-text h4', text: 'Error')
   expect(page).to have_content(message.headers.first)
 end
