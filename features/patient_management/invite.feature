@@ -92,7 +92,7 @@ Feature: A provider can invite a user to particpate in a study
     And I am authorized to manage patients for study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And I invite a user with all required attributes
-    When the backend service returns an error response
+    And the backend service returns an error response
     Then I should see an error message: "Subject not available. Please try again."
     And the subject dropdown should get refreshed
 
@@ -105,7 +105,7 @@ Feature: A provider can invite a user to particpate in a study
     And I am authorized to manage patients for study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And I invite a user with all required attributes
-    When the backend service does not respond
+    And the backend service does not respond
     Then I should see an error message: "Service unavailable, please try again later."
 
   @Release2015.1.0
