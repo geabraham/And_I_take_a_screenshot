@@ -25,7 +25,7 @@ Given(/^I am not logged in$/) do
   # Don't need to do anything!
 end
 
-Given(/^I am authorized to manage patients for studies "(.*?)"$/) do |studies|
+Given(/^I am authorized to manage patients for (study|studies) "(.*?)"$/) do |_, studies|
   my_studies = studies.split(', ')
   my_studies = @studies.select {|s| my_studies.include?(s['name'])}
   mock_studies_request = IMedidataClient::StudiesRequest.new(user_uuid: @user_uuid)
