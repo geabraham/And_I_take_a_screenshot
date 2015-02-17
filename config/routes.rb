@@ -14,6 +14,7 @@ Minotaur::Application.routes.draw do
   resource :patient_management, controller: :patient_management, only: [] do
     get :index, to: :select_study_and_site
     post :invite
+    get :available_subjects
   end
 
   resources :study_sites, only: [:index]

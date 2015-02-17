@@ -4,9 +4,11 @@ class PatientEnrollmentsController < ApplicationController
   def new
     @patient_enrollment_uuid = SecureRandom.uuid
     @patient_enrollment = PatientEnrollment.new(uuid: @patient_enrollment_uuid)
+
     @tou_dpn_agreement_body = Nokogiri::HTML(File.read('config/tou_dpn_agreement.html')).css('body').to_s.html_safe
     @script_direction = 'rtl'
     @security_questions = [['In what year were you born?', 1], ['What was the make of your first car or bike?', 2]]
+
   rescue StandardError => e
     # TODO: render error modal
     return render json: {message: "Unable to continue with registration. Error: #{e.message}"}, status: 422

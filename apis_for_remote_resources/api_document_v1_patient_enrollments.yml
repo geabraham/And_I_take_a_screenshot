@@ -1,8 +1,6 @@
-# !!!TODO: Update me. I am from a working branch.
-#
-id: patient_enrollments:v1.0.3
+id: patient_enrollments:v1.0.4
 name: patient_enrollments
-version: v1.0.3
+version: v1.0.4
 title: PatientEnrollment
 description: Service to associate authenticated users as subjects enrolled in a study.
 documentationLink: https://github.com/mdsol/subjects

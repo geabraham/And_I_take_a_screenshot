@@ -5,6 +5,7 @@ require 'imedidata/client'
 class PatientManagementController < ApplicationController
   layout 'patient_management'
   include IMedidataClient
+
   # before_filter :authorize_user
 
   def select_study_and_site
@@ -13,24 +14,52 @@ class PatientManagementController < ApplicationController
     @study_or_studies = [
       ['NASA-AdvancedFoodTechnologyProject', SecureRandom.uuid],
       ['NASA-OcularHealthInAstronauts', SecureRandom.uuid]]
+
   end
 
   def invite
-    patient_enrollment_params = {'patient_enrollment' => params.require(:patient_enrollment)}
-    headers = {'MCC-Impersonate' => params[:user_uuid]}
-    Euresource::PatientEnrollment.post(patient_enrollment_params, headers)
+    patient_enrollment = invite_or_raise!
+    render json: patient_enrollment, status: :created
+  rescue StandardError => e
+    raise e if e.is_a?(Faraday::Error::ConnectionFailed)
+    Rails.logger.error_with_data("Rescuing error during patient invitation.", error: e.inspect)
+    render json: 'Subject not available. Please try again.', status: :not_found
   end
 
+  def available_subjects
+    params.require(:study_uuid) && params.require(:study_site_uuid)
+    available_subjects_response = begin
+      fetch_available_subjects_for_select
+    rescue StandardError
+      []
+    end
+    render json: available_subjects_response, status: :ok
+  end
+
+  # TODO: This should be render_error_page for disambiguation between this and plain text or json errors.
+  #
   def render_error(exception = nil)
     render 'error', locals: {status_code: status_code}, status: status_code
   end
 
   private
 
+  # Return a patient enrollment or raise an error
+  def invite_or_raise!
+    Rails.logger.info_with_data("Attempting to invite a new patient.", params: params)
+    invitation_response = Euresource::PatientEnrollment.post!({
+      patient_enrollment: clean_params_for_patient_enrollment(params)}, http_headers: impersonate_header)
+    Rails.logger.info_with_data("Received response for patient invitation request.", invitation_response: invitation_response.inspect)
+    raise Euresource::ResourceNotSaved.new() unless invitation_response.is_a?(Euresource::PatientEnrollment)
+    invitation_response
+  end
+
   def selected_and_authorized_study_site
+    Rails.logger.info_with_data("Checking for selected and authorized study site.", params: params)
     if params[:study_uuid] && params[:study_site_uuid] && study_sites = request_study_sites!(params).presence
       study_sites['study_sites'].find {|ss| ss['uuid'] == params[:study_site_uuid]}
     else
+      Rails.logger.error_with_data("Not all params or insufficient permissions for patient management.", params: params)
       nil
     end
   end
@@ -39,16 +68,18 @@ class PatientManagementController < ApplicationController
   #  All are caught with application controller rescuing standard error which seems the best we can do.
   #
   def fetch_tou_dpn_agreements_for_select
+    Rails.logger.info("Requesting TouDpnAgreements.")
     tou_dpn_agreements = Euresource::TouDpnAgreement.get(:all)
+    Rails.logger.info_with_data("Received response for TouDpnAgreements request.", tou_dpn_agreements_response: tou_dpn_agreements.inspect)
     languages_and_countries = attributes_or_empty_array(tou_dpn_agreements, tou_dpn_agreement_attributes)
     languages_and_countries.map { |lc| ["#{lc['country']} / #{lc['language']}", lc.slice('language_code', 'country_code').to_json] }
   end
 
   def fetch_available_subjects_for_select
-    available_subjects = Euresource::Subject.get(:all, {params: {
-      study_uuid: params[:study_uuid],
-      study_site_uuid: params[:study_site_uuid],
-      available: true}})
+    subjects_available_params = {study_uuid: params[:study_uuid], study_site_uuid: params[:study_site_uuid], available: true}
+    Rails.logger.info_with_data("Requesting available subjects.", subjects_available_params: subjects_available_params)
+    available_subjects = Euresource::Subject.get(:all, {params: subjects_available_params})
+    Rails.logger.info_with_data("Received response for available subjects request.", available_subjects_response: available_subjects.inspect)
     subjects = attributes_or_empty_array(available_subjects, ['subject_identifier'])
     subjects.map {|s| [s['subject_identifier'], s['subject_identifier']]}
   end

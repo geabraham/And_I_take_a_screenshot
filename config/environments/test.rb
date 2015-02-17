@@ -1,3 +1,4 @@
+require 'haml/template' # Solves Shamus incompatibility with Haml 4.
 Minotaur::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 

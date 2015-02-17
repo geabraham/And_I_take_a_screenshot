@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   ERROR_CAUSE = {
     ActionController::UnpermittedParameters => :unprocessable_entity,
+    ActionController::ParameterMissing => :unprocessable_entity,
     IMedidataClient::IMedidataClientError => :not_found,
     Euresource::ResourceNotFound => :not_found,
     Faraday::Error::ConnectionFailed => :service_unavailable }
@@ -22,6 +23,11 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def impersonate_header
+    {'X-MWS-Impersonate' => params[:user_uuid]}
+  end
+
   # Set user's locale from request, assuming it comes from Checkmate.
   #TODO in future locale may be in header instead of params, depending on Checkmate
   def set_locale
@@ -47,11 +53,11 @@ class ApplicationController < ActionController::Base
     render_error(exception)
   end
 
-  def status_code(reason_phrase_symbol = :unprocessable_entity)
+  def status_code(reason_phrase_symbol = :internal_server_error)
     @status_code ||= Rack::Utils::SYMBOL_TO_STATUS_CODE[reason_phrase_symbol]
   end
 
   def render_error(exception = nil)
-    render json: {errors: exception.message}, status: status_code
+    render json: {errors: exception.try(:message)}, status: status_code
   end
 end

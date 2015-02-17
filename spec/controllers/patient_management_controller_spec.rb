@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe PatientManagementController do
+  before { allow(Rails.logger).to receive(:info_with_data) }
   describe "GET 'select_study_and_site'" do
     context 'when user is not logged in' do
       it 'redirects to iMedidata' do
@@ -102,35 +103,60 @@ describe PatientManagementController do
 
         describe 'failure cases' do
           context 'when user has not been authorized for the study and site' do
-            let(:expected_template) { 'select_study_and_site' }
+            let(:expected_template)  { 'select_study_and_site' }
+            let(:params_with_user)   { params.merge(user_uuid: user_uuid).stringify_keys }
+            let(:log_message_1_args) { ["Checking for selected and authorized study site.", {params: params_with_user}] }
+            let(:log_message_2_args) { ["Not all params or insufficient permissions for patient management.", {params: params_with_user}] }
+            let(:expected_logs) do
+              [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :error_with_data, args: log_message_2_args}]
+            end
             before do
               allow(controller).to receive(:request_study_sites!).and_return([])
               allow(controller).to receive(:studies_selection_list).and_return([])
             end
+
             it_behaves_like 'renders expected template'
+            it_behaves_like 'logs the expected messages at the expected levels'
           end
 
           context 'when tou dpn agreements request returns okay with anything other than an array' do
+            let(:log_message_2_args) { ["Received response for TouDpnAgreements request.", {tou_dpn_agreements_response: '""'}] }
+            let(:expected_logs) do
+              [{log_method: :info, args: ["Requesting TouDpnAgreements."]}, {log_method: :info_with_data, args: log_message_2_args}]
+            end
             before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return('') } 
+
             it_behaves_like 'assigns an ivar to its expected value', :tou_dpn_agreements, []
+            it_behaves_like 'logs the expected messages at the expected levels'
           end
 
           context 'when subjects request returns okay with anything other than an array' do
-            before do
-              allow(Euresource::Subject).to receive(:get).with(:all, {params: {
+            let(:subjects_available_params) do
+              {
                 study_uuid: study_uuid,
                 study_site_uuid: study_site_uuid,
-                available: true}}).and_return('')
+                available: true
+              }
             end
+            let(:log_message_1_args) { ["Requesting available subjects.", {subjects_available_params: subjects_available_params}] }
+            let(:log_message_2_args) { ["Received response for available subjects request.", {available_subjects_response: ''.inspect}] }
+            let(:expected_logs) do
+              [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :info_with_data, args: log_message_2_args}]
+            end
+            before do
+              allow(Euresource::Subject).to receive(:get).with(:all, {params: subjects_available_params}).and_return('')
+            end
+
             it_behaves_like 'assigns an ivar to its expected value', :available_subjects, []
+            it_behaves_like 'logs the expected messages at the expected levels'
           end
 
           context 'when tou dpn agreements request fails' do
-            let(:expected_status_code) { 422 }
+            let(:expected_status_code) { 500 }
             before { allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_raise(StandardError.new('TouDpnAgreements not found')) }
 
             it_behaves_like 'returns expected status'
-            it_behaves_like 'assigns an ivar to its expected value', :status_code, 422
+            it_behaves_like 'assigns an ivar to its expected value', :status_code, 500
           end
 
           context 'when available subjects request fails' do

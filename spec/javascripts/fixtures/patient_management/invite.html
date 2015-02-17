@@ -1,22 +1,24 @@
 <script src="/assets/patient_management/invitation_form.js"></script>
-<div class="clearfix">
-  <div class="panel panel-default center-block col-md-10 pull-none light-grey-border">
-    <h3 class="form_header">Add a patient to Alfred Hospital.</h3>
-    <hr>
-    <div class="form-group">
-      <label class="invisible" for="_patient_management_invite_subject">Subject identifier</label>
-      <select class="form-control" id="_patient_management_invite_subject" name="/patient_management/invite[subject]">
-        <option value="">Subject Identifier</option>
-        <option value="Subject-000">Subject-000</option>
-        <option value="Subject-001">Subject-001</option>
-        <option value="Subject-002">Subject-002</option>
-        <option value="Subject-003">Subject-003</option>
-        <option value="Subject-004">Subject-004</option>
-      </select>
+<div class="panel panel-default center-block col-md-10 pull-none light-grey-border">
+  <h3 class="form_header">Add a patient to Alfred Hospital.</h3>
+  <hr>
+  <form accept-charset="UTF-8" action="/patient_management/invite?study_site_uuid=161332d2-9fe2-11df-a531-12313900d531&amp;study_uuid=fda08b50-9fe1-11df-a531-12313900d531" class="form-inline margin-bottom-thirty" data-remote="true" data-study_site_uuid="161332d2-9fe2-11df-a531-12313900d531" data-study_uuid="fda08b50-9fe1-11df-a531-12313900d531" id="invite-form" method="post">
+    <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+    <p class="required">
+      <label>Required</label>
+    </p>
+    <div class="form-group required">
+      <label for="patient_enrollment_subject">Subject</label>
+      <select class="form-control" id="patient_enrollment_subject" name="patient_enrollment[subject]"><option value="">Subject</option>
+      <option value="Subject-000">Subject-000</option>
+      <option value="Subject-001">Subject-001</option>
+      <option value="Subject-002">Subject-002</option>
+      <option value="Subject-003">Subject-003</option>
+      <option value="Subject-004">Subject-004</option></select>
     </div>
-    <div class="form-group">
-      <label class="invisible" for="_patient_management_invite_country_language">Country / Language</label>
-      <select class="form-control" id="_patient_management_invite_country_language" name="/patient_management/invite[country_language]"><option value="">Country / Language</option>
+    <div class="form-group required">
+      <label for="patient_enrollment_country_language">Country / Language</label>
+      <select class="form-control" id="patient_enrollment_country_language" name="patient_enrollment[country_language]"><option value="">Country / Language</option>
       <option value="{'language_code':'ara','country_code':'ISR'}">Israel / Arabic</option>
       <option value="{'language_code':'cze','country_code':'CZE'}">Czech Republic / Czech</option>
       <option value="{'language_code':'dan','country_code':'DNK'}">Denmark / Danish</option>
@@ -39,16 +41,21 @@
       <option value="{'language_code':'chi','country_code':'CHN'}">China / Chinese Traditional</option></select>
     </div>
     <div class="form-group">
-      <label for="_patient_management_invite_email">Subject email</label>
-      <input class="form-control" id="_patient_management_invite_email" name="/patient_management/invite[email]" type="email">
+      <label for="patient_enrollment_email">Subject email</label>
+      <input class="form-control" id="patient_enrollment_email" name="patient_enrollment[email]" type="email">
     </div>
     <div class="form-group">
-      <label for="_patient_management_invite_initials">Subject initials</label>
-      <input class="form-control" id="_patient_management_invite_initials" name="/patient_management/invite[initials]" type="text">
+      <label for="patient_enrollment_initials">Subject initials</label>
+      <input class="form-control" id="patient_enrollment_initials" name="patient_enrollment[initials]" type="text">
     </div>
     <div class="form-group">
-      <label class="invisible" for="_patient_management_invite_submit">Submit</label>
-      <input class="btn btn-primary" disabled="disabled" id="invite-button" name="commit" type="submit" value="Invite">
+      <label class="invisible" for="patient_enrollment_submit">Submit</label>
+      <input class="btn btn-primary" id="invite-button" name="commit" type="submit" value="Invite">
     </div>
+  </form>
+  <div class="alert alert-danger hidden" id="invite-form-error">
+    <span class="sr-only">Error:</span>
+    <span class="message"></span>
+    <div class="pull-right" id="error-x-button">X</div>
   </div>
 </div>

@@ -63,6 +63,6 @@ var readyForLaunch = function() {
     $('input#launch-patient-management').prop('disabled', false)
   } else {
     $('a#launch-link').removeAttr('href')
-    $('input#launch-patient-management').prop('disabled', 'disabled')
+    $('input#launch-patient-management').attr('disabled', 'disabled')
   }
 }
