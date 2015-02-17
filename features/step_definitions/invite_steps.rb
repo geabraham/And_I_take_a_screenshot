@@ -68,7 +68,7 @@ When(/^the backend service does not respond$/) do
   click_on 'Invite'
 end
 
-When(/^I navigate to patient management via a study and site$/) do
+When(/^I navigate to patient management for a study site for which I am not authorized$/) do
   site = @study_sites.sample
   site_name, study_name = site['name'], @studies.find{|s| s['uuid'] == site['study_uuid']}['name']
 
