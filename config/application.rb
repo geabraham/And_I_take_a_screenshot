@@ -83,5 +83,9 @@ module Minotaur
     require 'astinus'
     config.middleware.insert_after CrossApplicationTracer::RackHandler, Astinus::SetRequestInfo
     Astinus::Configurator.setup_logger_for(Rails, 'Minotaur', '2015.1.0')
+
+    if ENV['USE_ARANEA']
+      config.middleware.insert_before CrossApplicationTracer::RackHandler, Aranea::Rack::FailureCreator
+    end
   end
 end
