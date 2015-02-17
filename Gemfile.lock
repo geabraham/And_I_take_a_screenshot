@@ -7,6 +7,15 @@ GIT
       kaminari
 
 GIT
+  remote: git@github.com:mdsol/aranea.git
+  revision: 39cdfe87b6119fd7131612130cf8a212ea9f97c3
+  specs:
+    aranea (0.0.0)
+      activesupport
+      faraday
+      rack
+
+GIT
   remote: git@github.com:mdsol/astinus.git
   revision: e5690fbf0811ddaa872409bd709a127ccc72ab05
   tag: v0.6.0
@@ -503,6 +512,7 @@ PLATFORMS
 
 DEPENDENCIES
   api_pagination!
+  aranea!
   astinus!
   better_errors
   binding_of_caller
