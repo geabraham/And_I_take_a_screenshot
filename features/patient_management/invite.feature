@@ -96,7 +96,7 @@ Feature: A provider can invite a user to particpate in a study
     Then I should see an error message: "Subject not available. Please try again."
     And the subject dropdown should get refreshed
 
-  @Realse2015.1.0
+  @Release2015.1.0
   @PB130799-005
   @Headed
   @Review[SQA]
@@ -108,7 +108,7 @@ Feature: A provider can invite a user to particpate in a study
     When the backend service does not respond
     Then I should see an error message: "Service unavailable, please try again later."
 
-  @Realse2015.1.0
+  @Release2015.1.0
   @PB130799-006
   @Headed
   @Review[SQA]
@@ -122,7 +122,7 @@ Feature: A provider can invite a user to particpate in a study
   # REVIEW: We haven't covered the case where avaible subjects request gets a failed connection / service down error.
   #   Should we add scenario and functionality for service down when requesting available subjects?
   #
-  @Realse2015.1.0
+  @Release2015.1.0
   @PB130799-007
   @Headed
   @Review[SQA]
