@@ -16,6 +16,7 @@
 /config/mauth_key
 /config/cucumber.yml
 /config/newrelic.yml
+/config/secrets.yml
 /config/initializers/euresource.rb
 /config/initializers/secret_token.rb
 /config/initializers/external_urls.rb

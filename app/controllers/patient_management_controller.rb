@@ -21,19 +21,14 @@ class PatientManagementController < ApplicationController
     patient_enrollment = invite_or_raise!
     render json: patient_enrollment, status: :created
   rescue StandardError => e
-    raise e if e.is_a?(Faraday::Error::ConnectionFailed)
+    message, status = available_subjects_error(e)
     Rails.logger.error_with_data("Rescuing error during patient invitation.", error: e.inspect)
-    render json: 'Subject not available. Please try again.', status: :not_found
+    render json: message, status: status
   end
 
   def available_subjects
     params.require(:study_uuid) && params.require(:study_site_uuid)
-    available_subjects_response = begin
-      fetch_available_subjects_for_select
-    rescue StandardError
-      []
-    end
-    render json: available_subjects_response, status: :ok
+    render json: fetch_available_subjects_for_select, status: :ok
   end
 
   # TODO: This should be render_error_page for disambiguation between this and plain text or json errors.
@@ -44,7 +39,19 @@ class PatientManagementController < ApplicationController
 
   private
 
+  # Returns [message, status] corresponding to a 503 for connection error
+  #  and defaulting to ['Subject not available. Please try again.', :not_found]
+  #
+  def available_subjects_error(error)
+    if error.is_a?(Faraday::Error::ConnectionFailed)
+      [I18n.t('error.status_503.message'), :service_unavailable]
+    else
+      ['Subject not available. Please try again.', :not_found]
+    end
+  end
+
   # Return a patient enrollment or raise an error
+  #
   def invite_or_raise!
     Rails.logger.info_with_data("Attempting to invite a new patient.", params: params)
     invitation_response = Euresource::PatientEnrollment.post!({
@@ -54,6 +61,10 @@ class PatientManagementController < ApplicationController
     invitation_response
   end
 
+  # Checks for existence of study and study site parameters and authorizes user for the study site if they are present.
+  # Returns the study site representation for the current study site uuid if authorized
+  #   and returns nil if unauthorized.
+  #
   def selected_and_authorized_study_site
     Rails.logger.info_with_data("Checking for selected and authorized study site.", params: params)
     if params[:study_uuid] && params[:study_site_uuid] && study_sites = request_study_sites!(params).presence
@@ -64,6 +75,7 @@ class PatientManagementController < ApplicationController
     end
   end
 
+  # Request all TouDpnAgreements
   # Review: Euresource, it appears, throws errors as opposed to error responses we can pass along.
   #  All are caught with application controller rescuing standard error which seems the best we can do.
   #
@@ -75,6 +87,9 @@ class PatientManagementController < ApplicationController
     languages_and_countries.map { |lc| ["#{lc['country']} / #{lc['language']}", lc.slice('language_code', 'country_code').to_json] }
   end
 
+  # Request available subjects for the current study and study site.
+  # Returns available subjects for select or an empty array.
+  #
   def fetch_available_subjects_for_select
     subjects_available_params = {study_uuid: params[:study_uuid], study_site_uuid: params[:study_site_uuid], available: true}
     Rails.logger.info_with_data("Requesting available subjects.", subjects_available_params: subjects_available_params)
@@ -82,6 +97,8 @@ class PatientManagementController < ApplicationController
     Rails.logger.info_with_data("Received response for available subjects request.", available_subjects_response: available_subjects.inspect)
     subjects = attributes_or_empty_array(available_subjects, ['subject_identifier'])
     subjects.map {|s| [s['subject_identifier'], s['subject_identifier']]}
+  rescue StandardError
+    []
   end
 
   # Defend against unexpected response types

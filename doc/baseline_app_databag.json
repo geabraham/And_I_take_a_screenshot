@@ -34,6 +34,7 @@
     "MAUTH_APP_UUID": "<MAUTH_APP_UUID>",
     "MAUTH_URL": "https://mauth-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
     "PRIVATE_KEY": "<MAUTH_PRIVATE_KEY>",
-    "CAS_BASE_URL": "https://login-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>"
+    "CAS_BASE_URL": "https://login-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
+    "SECRET_KEY_BASE": "<generate a key with `bundle exec rake secret`>"
   }
 }
