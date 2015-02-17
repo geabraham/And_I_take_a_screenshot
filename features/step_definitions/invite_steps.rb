@@ -5,7 +5,7 @@ Given(/^patient cloud supports the following country \/ language pairs:$/) do |t
   allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return(@mock_tou_dpns)
 end
 
-Given(/^the following subject names are avaible for site "(.*?)":$/) do |site_name, table|
+Given(/^the following subject names are available for site "(.*?)":$/) do |site_name, table|
   site_object = study_or_site_object(site_name, 'sites')
   @mock_subjects = table.hashes.map do |attrs|
     double('subject').tap {|sub| allow(sub).to receive(:attributes).and_return(attrs)}
