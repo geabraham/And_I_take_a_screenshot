@@ -4,7 +4,7 @@ $desktop: 400px;
 
   .patient {
     // desktop fake mobile
-    @media screen and (min-width: $desktop) and (min-resolution: 1dppx){
+    @media screen and (min-width: $desktop) and (min-resolution: 1dppx) {
       min-height: 500px;
       // activation screen
       .activation-header {
@@ -40,12 +40,8 @@ $desktop: 400px;
       border: 1px solid #ddd;
       background-color: #fff;
     }
-    //  separate from reg/activation
-    .btn-block {
-      width: 50%;
-      margin: 0 auto;
-    }
   }
+
   // enrollments
   .patient-enrollment {
     .header {
@@ -72,15 +68,11 @@ $desktop: 400px;
         } 
       }
     }
-    .bottom-bar {
-      margin: 15px 0;
-      
-    }
   }
 }
 
 body {
-  @media screen and (min-width: $desktop) {
+  @media screen and (min-width: $desktop) and (min-resolution: 1dppx) {
     background-color: #eee;
   }
 }
@@ -99,23 +91,21 @@ body {
     width: 24.15%;
     background-color: #999999;
   }
-  .step-default {
+  .step.default {
     width: 24.25%;
     height: 5px;
+    background-color: #00f;
   }
-  .step-incomplete {
-    width: 24.25%;height: 5px;
-  }
-  .progress-bar-spacer {
-    background-color: #ffffff;
-    width: 1%;
+  .step.incomplete {
+    width: 24.25%;
+    height: 5px;
   }
 }
 
 // slides
 #registration-details {
   .btn-block {
-    width: auto;
+    // width: auto;
     margin: 15px 0;
   }
   // position: relative;
@@ -167,10 +157,7 @@ body {
     }
   }
   #security_question {
-    .btn-block {
-      width: auto;
-      margin: 15px 0;
-    }
+    
   }
 
 }
@@ -178,4 +165,7 @@ body {
 // error styling
 input.error {
   border: 1px solid red;
+}
+.validation_error {
+  color: red;
 }
