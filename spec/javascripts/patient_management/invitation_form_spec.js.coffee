@@ -4,11 +4,6 @@ describe 'patient management invitation form', ->
   study_uuid = 'fda08b50-9fe1-11df-a531-12313900d531'
   study_site_uuid = '161332d2-9fe2-11df-a531-12313900d531'
   inviteUrl = '/patient_management/invite?study_site_uuid=' + study_site_uuid + '&study_uuid=' + study_uuid
-  availableSubjectsUrl = '/patient_management/available_subjects?study_uuid=' + study_uuid + '&study_site_uuid=' + study_site_uuid
-  availableSubjectsResponse =
-    status: 200
-    contentType: 'application/json'
-    responseText: JSON.stringify([])
 
   beforeEach ->
     loadFixtures 'patient_management/invite.html'
@@ -111,8 +106,17 @@ describe 'patient management invitation form', ->
               expect($('#invite-form-error')).toHaveClass('hidden')
 
   describe 'refreshSubjects', ->
+    availableSubjectsUrl = '/patient_management/available_subjects?study_uuid=' + study_uuid + '&study_site_uuid=' + study_site_uuid
+    subjects = undefined
+    availableSubjectsResponse = undefined
+
     beforeEach ->
       refreshSubjects()
+      subjects = []
+      availableSubjectsResponse =
+        status: 200
+        contentType: 'application/json'
+        responseText: JSON.stringify(subjects)
 
     it 'requests new subjects', ->
       expect(jasmine.Ajax.requests.mostRecent().url).toBe availableSubjectsUrl
@@ -124,11 +128,14 @@ describe 'patient management invitation form', ->
         expect($('#patient_enrollment_subject option').first().text()).toEqual('No subjects available')
 
     describe 'when there are still available subjects', ->
-      it 'repopulates the subjects dropdown with the response', ->
+      beforeEach ->
+        subjects = [["Subject-001", "Subject-001"], ["Subject-002", "Subject-002"]]
         availableSubjectsResponse =
           status: 200
           contentType: 'application/json'
-          responseText: JSON.stringify([["Subject-001", "Subject-001"], ["Subject-002", "Subject-002"]])
+          responseText: JSON.stringify(subjects)
+
+      it 'repopulates the subjects dropdown with the response', ->
         jasmine.Ajax.requests.mostRecent().response availableSubjectsResponse
         expect($('#patient_enrollment_subject option').length).toEqual(3)
         expect($('#patient_enrollment_subject option')[0].text).toEqual('Subject')
