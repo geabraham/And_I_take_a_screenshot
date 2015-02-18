@@ -6,20 +6,21 @@ describe 'patient management invitation form', ->
   inviteUrl = '/patient_management/invite?study_site_uuid=' + study_site_uuid + '&study_uuid=' + study_uuid
   email = 'jasmine@mdsol.com'
   initials = 'J.M.'
+  inviteButtonEnabledDisabledSpy = undefined
 
   beforeEach ->
     loadFixtures 'patient_management/invite.html'
+    inviteButtonEnabledDisabledSpy = spyOn(window, "inviteButtonEnabledDisabled")
     jasmine.Ajax.install()
 
   afterEach ->
+    inviteButtonEnabledDisabledSpy.calls.reset()
     jasmine.Ajax.uninstall()
 
   describe 'clicking the invite button', ->
-    inviteButtonEnabledDisabledSpy = undefined
     refreshSubjectsSpy = undefined
 
     beforeEach ->
-      inviteButtonEnabledDisabledSpy = spyOn(window, "inviteButtonEnabledDisabled")
       refreshSubjectsSpy = spyOn(window, "refreshSubjects")
       $('#patient_enrollment_subject').val(subject).change()
       $('#patient_enrollment_country_language').val(countryLanguagePair).change()
@@ -28,7 +29,6 @@ describe 'patient management invitation form', ->
 
     afterEach ->
       refreshSubjectsSpy.calls.reset()
-      inviteButtonEnabledDisabledSpy.calls.reset()
 
     it 'makes a request to patient management invite', ->
       $('#invite-button').click()
@@ -127,10 +127,14 @@ describe 'patient management invitation form', ->
         expect($('#patient_enrollment_subject option')[2].text).toEqual(subjects[1][1])
 
   describe 'inviteButtonEnabledDisabled', ->
+    beforeEach ->
+      # This is here on purpose, so we know the event handlers exist on $('#patient_enrollment_subject')
+      #   and $('#patient_enrollment_country_language').
+      inviteButtonEnabledDisabledSpy.and.callThrough()
+
     describe 'when a subject is selected', ->
       beforeEach ->
         $('#patient_enrollment_subject').val(subject).change()
-        inviteButtonEnabledDisabled()
 
       it 'is disabled', ->
         expect($('input#invite-button')).toHaveAttr('disabled', 'disabled')
@@ -138,7 +142,6 @@ describe 'patient management invitation form', ->
     describe 'when a country / language pair is selected', ->
       beforeEach ->
         $('#patient_enrollment_country_language').val(countryLanguagePair).change()
-        inviteButtonEnabledDisabled()
 
       it 'is disabled', ->
         expect($('input#invite-button')).toHaveAttr('disabled', 'disabled')
@@ -147,7 +150,6 @@ describe 'patient management invitation form', ->
       beforeEach ->
         $('#patient_enrollment_subject').val(subject).change()
         $('#patient_enrollment_country_language').val(countryLanguagePair).change()
-        inviteButtonEnabledDisabled()
 
       it 'is enabled', ->
         expect($('input#invite-button')).not.toHaveAttr('disabled')
@@ -157,7 +159,6 @@ describe 'patient management invitation form', ->
         $('#patient_enrollment_subject').val(subject).change()
         $('#patient_enrollment_country_language').val(countryLanguagePair).change()
         $('#patient_enrollment_subject').val('').change()
-        inviteButtonEnabledDisabled()
 
       it 'is disabled', ->
         expect($('input#invite-button')).toHaveAttr('disabled', 'disabled')
