@@ -139,7 +139,7 @@ describe 'patient management invitation form', ->
         jasmine.Ajax.requests.mostRecent().response availableSubjectsResponse
         expect($('#patient_enrollment_subject option').length).toEqual(3)
         expect($('#patient_enrollment_subject option')[0].text).toEqual('Subject')
-        expect($('#patient_enrollment_subject option')[1].text).toEqual('Subject-001')
-        expect($('#patient_enrollment_subject option')[2].text).toEqual('Subject-002')
+        expect($('#patient_enrollment_subject option')[1].text).toEqual(subjects[0][0])
+        expect($('#patient_enrollment_subject option')[2].text).toEqual(subjects[1][1])
 
   return
