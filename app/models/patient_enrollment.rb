@@ -1,7 +1,8 @@
 class PatientEnrollment
   include ActiveModel::Model
   attr_accessor :uuid, :login, :password, :security_question, :answer, :activation_code, :login_confirmation,
-                :tou_dpn_agreement
+                :tou_dpn_agreement, :initials, :email, :enrollment_type, :study_uuid, :study_site_uuid,
+                :subject_id, :state, :tou_accepted_at
   RIGHT_TO_LEFT_LANGUAGE_CODES = ['ara', 'heb']
 
   def self.by_site_and_study_site(study_uuid, study_site_uuid)
@@ -17,8 +18,15 @@ class PatientEnrollment
     Nokogiri::HTML(tou_dpn_agreement['html']).css('body').to_s.html_safe
   end
 
+  # Language code is either assigned or retrieved from the TOU/DPN.
+  # TODO: Can we drop the TOU/DPN retrieval? It should always match the TOU/DPN.
+  #
   def language_code
-    tou_dpn_agreement['language_code']
+    @language_code || tou_dpn_agreement['language_code']
+  end
+
+  def language_code=(value)
+    @language_code = value
   end
 
   def tou_dpn_agreement
