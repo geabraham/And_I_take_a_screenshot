@@ -5,17 +5,25 @@ $(function() {
 
   $("#invite-form").on("ajax:success", function(e, data, status, xhr) {
     resetErrors();
+    clearUserFields();
     refreshSubjects();
+    inviteButtonEnabledDisabled();
   }).on("ajax:error", function(e, xhr, status, error) {
     resetErrors();
     addError(xhr.responseText);
     refreshSubjects();
+    inviteButtonEnabledDisabled();
   });
 
   $('#error-x-button').on('click', function() {
     resetErrors();
   })
 });
+
+var clearUserFields = function() {
+  $('#patient_enrollment_email').val('')
+  $('#patient_enrollment_initials').val('')
+}
 
 var inviteButtonEnabledDisabled = function() {
   var subject = $('#patient_enrollment_subject option:selected')[0].value

@@ -4,6 +4,8 @@ describe 'patient management invitation form', ->
   study_uuid = 'fda08b50-9fe1-11df-a531-12313900d531'
   study_site_uuid = '161332d2-9fe2-11df-a531-12313900d531'
   inviteUrl = '/patient_management/invite?study_site_uuid=' + study_site_uuid + '&study_uuid=' + study_uuid
+  email = 'jasmine@mdsol.com'
+  initials = 'J.M.'
 
   beforeEach ->
     loadFixtures 'patient_management/invite.html'
@@ -51,6 +53,8 @@ describe 'patient management invitation form', ->
         refreshSubjectsSpy = spyOn(window, "refreshSubjects")
         $('#patient_enrollment_subject').val(subject).change()
         $('#patient_enrollment_country_language').val(countryLanguagePair).change()
+        $('#patient_enrollment_email').val(email)
+        $('#patient_enrollment_initials').val(initials)
 
       afterEach ->
         refreshSubjectsSpy.calls.reset()
@@ -58,8 +62,6 @@ describe 'patient management invitation form', ->
       it 'makes a request to patient management invite', ->
         $('#invite-button').click()
         expect(jasmine.Ajax.requests.mostRecent().url).toBe inviteUrl
-
-      it 'disables the invite button'
 
       describe 'errors', ->
         describe 'when there is no error', ->
@@ -79,7 +81,9 @@ describe 'patient management invitation form', ->
           it 'refreshes the subject drop down', ->
             expect(refreshSubjectsSpy).toHaveBeenCalled()
 
-          it 'clears the email and intial fields'
+          it 'clears the email and initial fields', ->
+            expect($('#patient_enrollment_email').val()).toEqual('')
+            expect($('#patient_enrollment_initials').val()).toEqual('')
 
         describe 'when the call returns an error', ->
           inviteResponse =           
@@ -98,7 +102,9 @@ describe 'patient management invitation form', ->
           it 'refreshes the subject drop down', ->
             expect(refreshSubjectsSpy).toHaveBeenCalled()
 
-          it 'does not clears the email and intial fields'
+          it 'does not clear the email and initial fields', ->
+            expect($('#patient_enrollment_email').val()).toEqual(email)
+            expect($('#patient_enrollment_initials').val()).toEqual(initials)
 
           describe 'the x button', ->
             it 'hides the error', ->
