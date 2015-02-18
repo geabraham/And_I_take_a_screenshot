@@ -44,7 +44,10 @@ class PatientManagementController < ApplicationController
   #  and defaulting to ['Subject not available. Please try again.', :not_found]
   #
   def available_subjects_error(error)
-    if error.is_a?(Faraday::Error::ConnectionFailed)
+    # Faraday::Error::ConnectionFailed is raised when subjects service is down,
+    # Euresource::ServerError is raised when iMedidata is down (subjects has to talk to iMedidata to authenticate the provider)
+    #
+    if error.is_a?(Faraday::Error::ConnectionFailed) || error.is_a?(Euresource::ServerError)
       [I18n.t('error.status_503.message'), :service_unavailable]
     else
       ['Subject not available. Please try again.', :not_found]
