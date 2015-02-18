@@ -34,8 +34,8 @@ describe 'patient management invitation form', ->
       $('#invite-button').click()
       expect(jasmine.Ajax.requests.mostRecent().url).toBe inviteUrl
 
-    describe 'errors', ->
-      describe 'when there is no error', ->
+    describe 'ajax responses', ->
+      describe 'success', ->
         inviteResponse =           
             status: 201
             contentType: 'text/plain'
@@ -45,7 +45,7 @@ describe 'patient management invitation form', ->
           $('#invite-button').click()
           jasmine.Ajax.requests.mostRecent().response inviteResponse
 
-        it 'has no error on the page', ->
+        it 'does not have an error on the page', ->
           expect($('#invite-form-error')).toHaveClass('hidden')
 
         it 'refreshes the subject drop down', ->
@@ -58,7 +58,7 @@ describe 'patient management invitation form', ->
         it 'enables or disables the invite button', ->
           expect(inviteButtonEnabledDisabledSpy).toHaveBeenCalled()
 
-      describe 'when the call returns an error', ->
+      describe 'error', ->
         inviteResponse =           
             status: 404
             contentType: 'application/json'
@@ -68,7 +68,7 @@ describe 'patient management invitation form', ->
           $('#invite-button').click()
           jasmine.Ajax.requests.mostRecent().response inviteResponse
 
-        it 'shows the error', ->
+        it 'has an error on the page', ->
           expect($('#invite-form-error')).not.toHaveClass('hidden')
           expect($('#invite-form-error')).toHaveText(/Subject not available. Please try again later./)
 
@@ -106,12 +106,12 @@ describe 'patient management invitation form', ->
           contentType: 'application/json'
           responseText: JSON.stringify(subjects)
 
-      it 'populates the subjects dropdown with a "No subjects available message"', ->
+      it 'populates the subjects dropdown with a "No subjects available" message', ->
         jasmine.Ajax.requests.mostRecent().response availableSubjectsResponse
         expect($('#patient_enrollment_subject option').length).toEqual(1)
         expect($('#patient_enrollment_subject option').first().text()).toEqual('No subjects available')
 
-    describe 'when there are still available subjects', ->
+    describe 'when there are more available subjects', ->
       beforeEach ->
         subjects = [["Subject-001", "Subject-001"], ["Subject-002", "Subject-002"]]
         availableSubjectsResponse =
@@ -119,7 +119,7 @@ describe 'patient management invitation form', ->
           contentType: 'application/json'
           responseText: JSON.stringify(subjects)
 
-      it 'repopulates the subjects dropdown with the response', ->
+      it 'repopulates the subjects dropdown with the available subjects', ->
         jasmine.Ajax.requests.mostRecent().response availableSubjectsResponse
         expect($('#patient_enrollment_subject option').length).toEqual(3)
         expect($('#patient_enrollment_subject option')[0].text).toEqual('Subject')
