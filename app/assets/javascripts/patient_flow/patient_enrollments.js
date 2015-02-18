@@ -24,10 +24,11 @@ $(function () {
       //show email page
       $('#email').show().toggleClass('active');
       $('.progress-indicator .step:eq(1)').removeClass('incomplete').addClass('default');
-      
+      $('#patient_enrollment_login').focus();
       $('#patient_enrollment_login, #patient_enrollment_login_confirmation').on('keyup', function() {
         if($form.valid()) {
-          $('#next-email').removeClass('disabled');
+          $('#next-email').removeClass('disabled').focus();
+
         }
       });
     }
@@ -40,12 +41,13 @@ $(function () {
    // hide email page
     $('#email').hide().toggleClass('active');
     //show password page
-    $('#password').show().toggleClass('active'); 
+    $('#password').show().toggleClass('active');
+    $('#patient_enrollment_password').focus();
     $('.progress-indicator .step:eq(2)').removeClass('incomplete').addClass('default');
     addPasswordRules();
     $('#patient_enrollment_password, #patient_enrollment_password_confirmation').on('keyup', function() {
       if($form.valid()) {
-        $('#next-password').removeClass('disabled');
+        $('#next-password').removeClass('disabled').focus();
       }
     });
   });
@@ -57,23 +59,31 @@ $(function () {
       //show password page
     $('#security_question').show().toggleClass('active');
     $('.progress-indicator .step:eq(3)').removeClass('incomplete').addClass('default');
-
+    $('#patient_enrollment_security_question').focus()
     $('#patient_enrollment_answer').on('keyup', function() {
-      
+      // validate security question
+      if (validateSecurityQuestions() && $('#reg-form').valid()) {
+        $('#create-account').removeAttr('disabled').removeClass('disabled');
+      } else {
+        $('#create-account').attr('disabled', true).addClass('disabled');
+      }
+    });
+    $('#patient_enrollment_security_question').on('change', function() {
+      $('#patient_enrollment_answer').val('');
+      $('#create-account').attr('disabled', true).addClass('disabled');
     });
 
   });
 
   // security question
-  $('#create-account').on('click', function(e) {
+  // $('#create-account').on('click', function(e) {
     
-    e.preventDefault();
-    console.log('create account')
-    // $('#password').hide().toggleClass('active');
-      //show password page
-    // $('#security_question').show().toggleClass('active');
+  //   e.preventDefault();
 
-  });
+  //   console.log('create account');
+
+
+  // });
 
   // $('.back_arrow').on('click', backClick);
 
@@ -92,12 +102,35 @@ var validateSecurityQuestions = function() {
   //custom validation works better than jQuery validate here
   //because there are fewer edge cases and .validate has
   //issues with the rails dropdown
-  return ($.trim($('#patient_enrollment_answer').val()).length > 0 &&
+
+  return ( $.trim($('#patient_enrollment_answer').val() ).length >= 4 &&
           $('#patient_enrollment_security_question').val() !== '');
 }
 
 
 
+
+
+
+var questionChange = function() {
+  if (validateSecurityQuestions() && $('#reg-form').valid()) {
+    $('#create-account').removeAttr('disabled').removeClass('disabled');
+  } else {
+    $('#create-account').attr('disabled', true).addClass('disabled');
+  }
+}
+
+var hideErrors = function() {
+  $('.active .validation_error').addClass('invisible');
+  $('.active .registration-input, .active label').removeClass('invalid');
+}
+
+var isBlankEntry = function() {
+  return (($('.active .registration-input').first().val().length === 0) 
+       && ($('.active .registration-input').last().val().length === 0));
+}
+
+// ----------------------------------------------------------------------------------------
 var backClick = function() {
   var currentPage = getCurrentPage();
   
@@ -121,36 +154,6 @@ var backClick = function() {
   }
 }
 
-
-
-  var answerKeyup = function() {
-
-    if (validateSecurityQuestions() && $('#reg-form').valid()) {
-      $('#create-account').removeAttr('disabled');
-    } else {
-      $('#create-account').attr('disabled', 'disabled');
-    }
-  }
-
-var questionChange = function() {
-  if (validateSecurityQuestions() && $('#reg-form').valid()) {
-    $('#create-account').removeAttr('disabled').removeClass('disabled');
-  } else {
-    $('#create-account').attr('disabled', true).addClass('disabled');
-  }
-}
-
-var hideErrors = function() {
-  $('.active .validation_error').addClass('invisible');
-  $('.active .registration-input, .active label').removeClass('invalid');
-}
-
-var isBlankEntry = function() {
-  return (($('.active .registration-input').first().val().length === 0) 
-       && ($('.active .registration-input').last().val().length === 0));
-}
-
-// ----------------------------------------------------------------------------------------
 var progressBar = {
   advance: function() {
 
@@ -169,56 +172,7 @@ var reverseProgressBar = function() {
   $('.progress-bar-default').last().addClass('progress-bar-incomplete');
   $('.progress-bar-default').last().removeClass('progress-bar-default');
 }
-// ----------------------------------------------------------------------------------------
 
 // var getCurrentPage = function() {
 //   return $('.item.active').attr('id')
-// }
-
-// var confirmTerms = function() {
-//   var proceed = confirm("You acknowledge that you have read, understood, and agree to be bound by the Terms of Use and the Privacy Policy referenced herein.");
-  
-//   if (proceed === true) {
-//     advanceToEmailPage();
-//   }
-// }
-
-// var advanceToEmailPage = function() {
-//   $('#agree-button').addClass('hidden');
-//   $('#next-button').removeClass('hidden');
-  
-//   advanceProgressBar();
-//   advanceCarousel();
-// }
-
-
-// var nextButtonClick = function() {
-//   var currentPage = getCurrentPage();
-
-//   // carousel = $('.carousel');
-  
-//   if (currentPage === 'landing_page') {
-//     $('#next-button').addClass('hidden');
-//     $('#agree-button').removeClass('hidden');
-//     $('.progress').removeClass('hidden');
-//     advanceCarousel();
-//   } else if (currentPage === 'tou_dpn_agreement') {
-//     confirmTerms();
-//   } else if($('#reg-form').valid()) {
-//     hideErrors();
-    
-//     if(currentPage === 'email') {
-//       addPasswordRules();
-//       advanceProgressBar();
-//       advanceCarousel();
-//       $('.back_arrow').removeClass('hidden');
-//     } else if(currentPage === 'password') {
-//       $('#next-button').addClass('hidden');
-//       $('#create-account').removeClass('hidden');
-//       advanceProgressBar();
-//       advanceCarousel();
-//     } else if(currentPage === 'security_question') {
-//       $('#create-account').trigger('click');
-//     }
-//   }
 // }
