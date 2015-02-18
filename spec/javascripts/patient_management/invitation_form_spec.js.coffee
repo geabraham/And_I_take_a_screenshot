@@ -112,16 +112,18 @@ describe 'patient management invitation form', ->
 
     beforeEach ->
       refreshSubjects()
-      subjects = []
-      availableSubjectsResponse =
-        status: 200
-        contentType: 'application/json'
-        responseText: JSON.stringify(subjects)
 
     it 'requests new subjects', ->
       expect(jasmine.Ajax.requests.mostRecent().url).toBe availableSubjectsUrl
 
     describe 'when there are no more available subjects', ->
+      beforeEach ->
+        subjects = []
+        availableSubjectsResponse =
+          status: 200
+          contentType: 'application/json'
+          responseText: JSON.stringify(subjects)
+
       it 'populates the subjects dropdown with a "No subjects available message"', ->
         jasmine.Ajax.requests.mostRecent().response availableSubjectsResponse
         expect($('#patient_enrollment_subject option').length).toEqual(1)
