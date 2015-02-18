@@ -111,13 +111,14 @@ describe 'patient management invitation form', ->
               expect($('#invite-form-error')).toHaveClass('hidden')
 
   describe 'refreshSubjects', ->
-    it 'requests new subjects', ->
+    beforeEach ->
       refreshSubjects()
+
+    it 'requests new subjects', ->
       expect(jasmine.Ajax.requests.mostRecent().url).toBe availableSubjectsUrl
 
     describe 'when there are no more available subjects', ->
       it 'populates the subjects dropdown with a "No subjects available message"', ->
-        refreshSubjects()
         jasmine.Ajax.requests.mostRecent().response availableSubjectsResponse
         expect($('#patient_enrollment_subject option').length).toEqual(1)
         expect($('#patient_enrollment_subject option').first().text()).toEqual('No subjects available')
@@ -128,7 +129,6 @@ describe 'patient management invitation form', ->
           status: 200
           contentType: 'application/json'
           responseText: JSON.stringify([["Subject-001", "Subject-001"], ["Subject-002", "Subject-002"]])
-        refreshSubjects()
         jasmine.Ajax.requests.mostRecent().response availableSubjectsResponse
         expect($('#patient_enrollment_subject option').length).toEqual(3)
         expect($('#patient_enrollment_subject option')[0].text).toEqual('Subject')
