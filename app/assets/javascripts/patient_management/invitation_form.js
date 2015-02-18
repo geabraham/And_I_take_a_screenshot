@@ -19,8 +19,7 @@ $(function() {
 });
 
 var clearUserFields = function() {
-  $('#patient_enrollment_email').val('')
-  $('#patient_enrollment_initials').val('')
+  $('#patient_enrollment_email, #patient_enrollment_initials').val('')
 }
 
 var inviteButtonEnabledDisabled = function() {
@@ -50,9 +49,9 @@ var refreshSubjects = function() {
 
   $.getJSON('/patient_management/available_subjects?study_uuid=' + study_uuid + '&study_site_uuid=' + study_site_uuid)
   .done(function(availableSubjects) {
-    if (availableSubjects.length > 0) {
+    if (availableSubjects.length) {
       $('#patient_enrollment_subject').empty().append('<option value>Subject</option>');
-      var options = ''
+      var options;
       $.each(availableSubjects, function(index, value) {
         options += '<option value=' + value[1] + '>' + value[0] + '</option>'
       });
