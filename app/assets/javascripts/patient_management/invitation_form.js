@@ -7,12 +7,10 @@ $(function() {
     resetErrors();
     clearUserFields();
     refreshSubjects();
-    inviteButtonEnabledDisabled();
   }).on("ajax:error", function(e, xhr, status, error) {
     resetErrors();
     addError(xhr.responseText);
     refreshSubjects();
-    inviteButtonEnabledDisabled();
   });
 
   $('#error-x-button').on('click', function() {
@@ -62,5 +60,7 @@ var refreshSubjects = function() {
     } else {
       $('#patient_enrollment_subject').empty().append('<option value>No subjects available</option>');
     }
+    // Wait until the subjects dropdown is re-populated to enable / disable (i.e. disable) the invite button.
+    inviteButtonEnabledDisabled();
   });
 }
