@@ -14,102 +14,78 @@ describe 'patient management invitation form', ->
   afterEach ->
     jasmine.Ajax.uninstall()
 
-  describe 'invite button', ->
-    describe 'when a subject is selected', ->
-      beforeEach ->
-        $('#patient_enrollment_subject').val(subject).change()
+  describe 'clicking the invite button', ->
+    inviteButtonEnabledDisabledSpy = undefined
+    refreshSubjectsSpy = undefined
 
-      it 'is disabled', ->
-        expect($('input#invite-button')).toHaveAttr('disabled', 'disabled')
+    beforeEach ->
+      inviteButtonEnabledDisabledSpy = spyOn(window, "inviteButtonEnabledDisabled")
+      refreshSubjectsSpy = spyOn(window, "refreshSubjects")
+      $('#patient_enrollment_subject').val(subject).change()
+      $('#patient_enrollment_country_language').val(countryLanguagePair).change()
+      $('#patient_enrollment_email').val(email)
+      $('#patient_enrollment_initials').val(initials)
 
-    describe 'when a country / language pair is selected', ->
-      beforeEach ->
-        $('#patient_enrollment_country_language').val(countryLanguagePair).change()
+    afterEach ->
+      refreshSubjectsSpy.calls.reset()
+      inviteButtonEnabledDisabledSpy.calls.reset()
 
-      it 'is disabled', ->
-        expect($('input#invite-button')).toHaveAttr('disabled', 'disabled')
+    it 'makes a request to patient management invite', ->
+      $('#invite-button').click()
+      expect(jasmine.Ajax.requests.mostRecent().url).toBe inviteUrl
 
-    describe 'when both a subject and country / language pair are selected', ->
-      beforeEach ->
-        $('#patient_enrollment_subject').val(subject).change()
-        $('#patient_enrollment_country_language').val(countryLanguagePair).change()
+    describe 'errors', ->
+      describe 'when there is no error', ->
+        inviteResponse =           
+            status: 201
+            contentType: 'text/plain'
+            responseText: ''
 
-      it 'is enabled', ->
-        expect($('input#invite-button')).not.toHaveAttr('disabled')
+        beforeEach ->
+          $('#invite-button').click()
+          jasmine.Ajax.requests.mostRecent().response inviteResponse
 
-    describe 'when it is enabled and then a subject is deselected', ->
-      beforeEach ->
-        $('#patient_enrollment_subject').val(subject).change()
-        $('#patient_enrollment_country_language').val(countryLanguagePair).change()
-        $('#patient_enrollment_subject').val('').change()
+        it 'has no error on the page', ->
+          expect($('#invite-form-error')).toHaveClass('hidden')
 
-      it 'is disabled', ->
-        expect($('input#invite-button')).toHaveAttr('disabled', 'disabled')
+        it 'refreshes the subject drop down', ->
+          expect(refreshSubjectsSpy).toHaveBeenCalled()
 
-    describe 'when clicked', ->
-      refreshSubjectsSpy = undefined
+        it 'clears the email and initial fields', ->
+          expect($('#patient_enrollment_email').val()).toEqual('')
+          expect($('#patient_enrollment_initials').val()).toEqual('')
 
-      beforeEach ->
-        refreshSubjectsSpy = spyOn(window, "refreshSubjects")
-        $('#patient_enrollment_subject').val(subject).change()
-        $('#patient_enrollment_country_language').val(countryLanguagePair).change()
-        $('#patient_enrollment_email').val(email)
-        $('#patient_enrollment_initials').val(initials)
+        it 'enables or disables the invite button', ->
+          expect(inviteButtonEnabledDisabledSpy).toHaveBeenCalled()
 
-      afterEach ->
-        refreshSubjectsSpy.calls.reset()
+      describe 'when the call returns an error', ->
+        inviteResponse =           
+            status: 404
+            contentType: 'application/json'
+            responseText: 'Subject not available. Please try again later.'
 
-      it 'makes a request to patient management invite', ->
-        $('#invite-button').click()
-        expect(jasmine.Ajax.requests.mostRecent().url).toBe inviteUrl
+        beforeEach ->
+          $('#invite-button').click()
+          jasmine.Ajax.requests.mostRecent().response inviteResponse
 
-      describe 'errors', ->
-        describe 'when there is no error', ->
-          inviteResponse =           
-              status: 201
-              contentType: 'text/plain'
-              responseText: ''
+        it 'shows the error', ->
+          expect($('#invite-form-error')).not.toHaveClass('hidden')
+          expect($('#invite-form-error')).toHaveText(/Subject not available. Please try again later./)
 
-          beforeEach ->
-            $('#invite-button').click()
-            jasmine.Ajax.requests.mostRecent().response inviteResponse
+        it 'refreshes the subject drop down', ->
+          expect(refreshSubjectsSpy).toHaveBeenCalled()
 
+        it 'does not clear the email and initial fields', ->
+          expect($('#patient_enrollment_email').val()).toEqual(email)
+          expect($('#patient_enrollment_initials').val()).toEqual(initials)
 
-          it 'has no error on the page', ->
+        it 'enables or disables the invite button', ->
+          expect(inviteButtonEnabledDisabledSpy).toHaveBeenCalled()
+
+        describe 'the x button', ->
+          it 'hides the error', ->
+            $('#error-x-button').click()
             expect($('#invite-form-error')).toHaveClass('hidden')
-
-          it 'refreshes the subject drop down', ->
-            expect(refreshSubjectsSpy).toHaveBeenCalled()
-
-          it 'clears the email and initial fields', ->
-            expect($('#patient_enrollment_email').val()).toEqual('')
-            expect($('#patient_enrollment_initials').val()).toEqual('')
-
-        describe 'when the call returns an error', ->
-          inviteResponse =           
-              status: 404
-              contentType: 'application/json'
-              responseText: 'Subject not available. Please try again later.'
-
-          beforeEach ->
-            $('#invite-button').click()
-            jasmine.Ajax.requests.mostRecent().response inviteResponse
-
-          it 'shows the error', ->
-            expect($('#invite-form-error')).not.toHaveClass('hidden')
-            expect($('#invite-form-error')).toHaveText(/Subject not available. Please try again later./)
-
-          it 'refreshes the subject drop down', ->
-            expect(refreshSubjectsSpy).toHaveBeenCalled()
-
-          it 'does not clear the email and initial fields', ->
-            expect($('#patient_enrollment_email').val()).toEqual(email)
-            expect($('#patient_enrollment_initials').val()).toEqual(initials)
-
-          describe 'the x button', ->
-            it 'hides the error', ->
-              $('#error-x-button').click()
-              expect($('#invite-form-error')).toHaveClass('hidden')
 
   describe 'refreshSubjects', ->
     availableSubjectsUrl = '/patient_management/available_subjects?study_uuid=' + study_uuid + '&study_site_uuid=' + study_site_uuid
@@ -149,5 +125,41 @@ describe 'patient management invitation form', ->
         expect($('#patient_enrollment_subject option')[0].text).toEqual('Subject')
         expect($('#patient_enrollment_subject option')[1].text).toEqual(subjects[0][0])
         expect($('#patient_enrollment_subject option')[2].text).toEqual(subjects[1][1])
+
+  describe 'inviteButtonEnabledDisabled', ->
+    describe 'when a subject is selected', ->
+      beforeEach ->
+        $('#patient_enrollment_subject').val(subject).change()
+        inviteButtonEnabledDisabled()
+
+      it 'is disabled', ->
+        expect($('input#invite-button')).toHaveAttr('disabled', 'disabled')
+
+    describe 'when a country / language pair is selected', ->
+      beforeEach ->
+        $('#patient_enrollment_country_language').val(countryLanguagePair).change()
+        inviteButtonEnabledDisabled()
+
+      it 'is disabled', ->
+        expect($('input#invite-button')).toHaveAttr('disabled', 'disabled')
+
+    describe 'when both a subject and country / language pair are selected', ->
+      beforeEach ->
+        $('#patient_enrollment_subject').val(subject).change()
+        $('#patient_enrollment_country_language').val(countryLanguagePair).change()
+        inviteButtonEnabledDisabled()
+
+      it 'is enabled', ->
+        expect($('input#invite-button')).not.toHaveAttr('disabled')
+
+    describe 'when it is enabled and then a subject is deselected', ->
+      beforeEach ->
+        $('#patient_enrollment_subject').val(subject).change()
+        $('#patient_enrollment_country_language').val(countryLanguagePair).change()
+        $('#patient_enrollment_subject').val('').change()
+        inviteButtonEnabledDisabled()
+
+      it 'is disabled', ->
+        expect($('input#invite-button')).toHaveAttr('disabled', 'disabled')
 
   return
