@@ -60,6 +60,14 @@ describe PatientManagementController do
       it_behaves_like 'returns expected body'
       it_behaves_like 'returns expected status'
       it_behaves_like 'logs the expected messages at the expected levels'
+
+      context 'when Euresource::ServerError' do
+        let(:error) { Euresource::ServerError.new('Cannot connect.') }
+
+        it_behaves_like 'returns expected body'
+        it_behaves_like 'returns expected status'
+        it_behaves_like 'logs the expected messages at the expected levels'
+      end
     end
 
     context 'when backend service raises an error' do

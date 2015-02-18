@@ -7,6 +7,7 @@
 <% mauth_private_key_file = 'config/mauth_key' %>
 <% entitystore            = configured[:production].entitystore || 'file:cache/rack/body' %>
 <% metastore              = configured[:production].metastore || 'file:cache/rack/meta' %>
+<% use_aranea             = configured.use_aranea %>
 
 require 'euresource'
 require 'eureka_tools'
@@ -20,6 +21,14 @@ Euresource.configure do
       # Only set if you want different logger for MAuth
       #mauth_config.logger MauthLogger.new
     end
+
+<% if use_aranea %>
+  <% if Rails.env.production? && URI.parse(eureka_url).host.split('-').last != 'sandbox.imedidata.net' %>
+    <% raise(RuntimeError, "Aranea being used but host domain not allowed") %>
+  <% end %>
+  defaults.use Aranea::Faraday::FailureSimulator
+<% end %>
+
     defaults.use MAuth::Faraday::RequestSigner, defaults.mauth_config
 
     # Turns on develop mode for local development, which adds extra logging and forces API deployments to Eureka
