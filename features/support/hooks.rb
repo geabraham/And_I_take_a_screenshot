@@ -1,7 +1,6 @@
 Before('@PatientFlow') do
-  @security_questions ||= [{name: 'What year were you born?', id: '1'},
-                         {name: 'Last four digits of SSN or Tax ID number?', id: '2'},
-                         {name: 'What is your father\'s middle name?', id: '3'}]
+  @security_questions ||= [{name: 'In what year were you born?', id: '1'},
+                         {name: 'What was the make of your first car or bike?', id: '2'}]
   @patient_enrollment_uuid ||= SecureRandom.uuid
   @activation_code ||= ([*('A'..'Z'),*('0'..'9')] - %w(I O 1 0)).sample(6).join
   @activation_code_attrs ||= {

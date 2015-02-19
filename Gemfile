@@ -81,5 +81,3 @@ group :test, :development do
   gem 'pry-nav', '~> 0.2'
 end
 
-# Used in Blueprint/Sandman Docs
-gem 'simple-navigation'

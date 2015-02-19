@@ -23,7 +23,7 @@ end
 
 When(/^I accept the TOU\/DPN$/) do
   # Move past the instructional steps page
-  click_on 'Next'
+  click_on 'Create Account'
   assert_text('We think in generalities, but we live in detail.')
   sleep(1)
   click_on 'I agree'
