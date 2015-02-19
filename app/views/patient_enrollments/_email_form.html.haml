@@ -1,13 +1,13 @@
 %h3.form_header
-  ='Email'
+  = t("registration.email_form.email_label")
 %p.form_instruction
-  ='Enter and confirm your email address below.'
+  = t("registration.email_form.form_instruction")
 
 = fields_for @patient_enrollment do |f|
   .form-group
-    = f.label :login, 'Email'
+    = f.label :login, t("registration.email_form.email_label")
     = f.email_field :login, class: 'registration-input form-control'
-  .form-group  
-    = f.label :login_confirmation, 'Re-enter Email'
+  .form-group
+    = f.label :login_confirmation, t("registration.email_form.reenter_label")
     = f.email_field :login_confirmation, class: 'registration-input form-control'
 .validation_error.invisible

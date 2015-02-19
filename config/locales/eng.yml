@@ -30,10 +30,15 @@ eng:
   registration:
     form_heading: Registration Details
     welcome:
-      welcome_message: > 
+      header: Welcome to Patient Cloud
+      welcome_message: >
         Welcome to Patient Cloud registration. You are only a few steps away from creating your log in credentials
         and downloading the Patient Cloud app. Take a moment to read through the terms of use and data privacy notice,
         then click or tap I agree to get started.
+      register_1: Review The Privacy Policy and Terms of Use
+      register_2: Create account information
+      download: Download the Patient Cloud app
+      login: Open Patient Cloud and use your account information to log in
     terms_of_use:
       tou_header: Introduction to Medidata Patient Cloud app and Privacy Notice
     tou_agreement:
@@ -47,25 +52,34 @@ eng:
       email_label: Email
       reenter_label: Re-enter Email
       validation_error: Enter a valid email.
+      mismatch_error: Your emails do not match
       modal_already_registered: >
         You are already registered as a participant in this study and may not register as another participant. Please
         inform your healthcare provider.
     password_form:
       form_instruction_1: Enter and Confirm a Password of your choosing.
-      form_instruction_2: >
-        Your Password must be at least 8 characters long, contain at least one upper-case letter, one lower-case letter
-        and one numeric digit.
+      form_instruction_1_bold: Password
+      form_instruction_1_2: TBD
+      
+      ul_1:
+      ul_2:
+      ul_3:
+      ul_4: 
       password_label: Password
       reenter_label: Re-enter Password
-      validation_error: Your passwords do not match.
+      mismatch_error: Your passwords do not match
+      validation_error: Enter a valid password
     security_question_form:
-      form_instruction: Select a security question.
+      form_instruction: Select a 
+      form_instruction_bold: security question.
+      dropdown_placeholder: Security Question
       answer_label: Security Answer 1
       answer_placeholder: Enter your response to the question
       btn_create: Create my account
       modal_error: >
         Please let your healthcare provider know that your user record could not be registered as a subject 
         in the study.
+      modal_error_ok: "OK"
   download:
     header: >
       You are now registered as a participant in this study. Last step is to download the Patient Cloud app 
