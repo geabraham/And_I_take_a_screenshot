@@ -52,7 +52,7 @@ eng:
       email_label: Email
       reenter_label: Re-enter Email
       validation_error: Enter a valid email.
-      mismatch_error: Your emails do not match
+      mismatch_error: Your emails do not match.
       modal_already_registered: >
         You are already registered as a participant in this study and may not register as another participant. Please
         inform your healthcare provider.
@@ -61,10 +61,10 @@ eng:
       form_instruction_1_bold: Password
       form_instruction_1_2: TBD
       
-      ul_1:
-      ul_2:
-      ul_3:
-      ul_4: 
+      ul_1: At least 8 characters long
+      ul_2: At least one upper-case letter
+      ul_3: At least one lower-case letter
+      ul_4: At least one numeric digit
       password_label: Password
       reenter_label: Re-enter Password
       mismatch_error: Your passwords do not match

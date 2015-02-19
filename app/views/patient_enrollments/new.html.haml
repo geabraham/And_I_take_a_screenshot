@@ -36,4 +36,4 @@
     %a.btn.btn-primary.btn-block#next-button(href="#registration-details" role="button")= t("application.btn_next")
     .submit#submit-button
       = fields_for @patient_enrollment do |f|
-        = f.submit 'Create account', class: 'btn btn-primary btn-block hidden', disabled: true, id: 'create-account'
+        = f.submit t("registration.security_question_form.btn_create"), class: 'btn btn-primary btn-block hidden', disabled: true, id: 'create-account'
