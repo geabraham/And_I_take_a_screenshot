@@ -6,6 +6,7 @@ class PatientManagementController < ApplicationController
   layout 'patient_management'
   include IMedidataClient
   include PatientInvitationFormHelper
+  include PatientInvitationListHelper
   before_filter :authorize_user
 
   def select_study_and_site
@@ -13,7 +14,7 @@ class PatientManagementController < ApplicationController
       @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
       @available_subjects = fetch_available_subjects_for_select
       @study_site_name, @study_site_uuid, @study_uuid = @study_site['name'], @study_site['uuid'], params[:study_uuid]
-      @patient_enrollments = PatientEnrollment.fetch_patient_enrollments
+      @patient_enrollments = fetch_patient_enrollments
       return render 'patient_management_grid'
     end
     @study_or_studies = studies_selection_list
