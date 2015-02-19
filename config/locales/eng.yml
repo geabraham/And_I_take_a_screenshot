@@ -73,7 +73,7 @@ eng:
       form_instruction: Select a 
       form_instruction_bold: security question.
       dropdown_placeholder: Security Question
-      answer_label: Security Answer 1
+      answer_label: Security Answer
       answer_placeholder: Enter your response to the question
       btn_create: Create my account
       modal_error: >
