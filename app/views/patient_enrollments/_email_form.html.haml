@@ -10,6 +10,6 @@
   .form-group  
     = f.label :login_confirmation, 'Re-enter Email'
     = f.email_field :login_confirmation, class: 'registration-input form-control'
-.validation_error
+.validation_error.invisible
 
 %a.btn.btn-primary.btn-block.disabled#next-email(href="#registration-details" role="button")='Next'

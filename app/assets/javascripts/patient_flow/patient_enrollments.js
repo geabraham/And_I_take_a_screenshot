@@ -25,7 +25,7 @@ $(function () {
       $('#email').show().toggleClass('active');
       $('.progress-indicator .step:eq(1)').removeClass('incomplete').addClass('default');
       $('#patient_enrollment_login').focus();
-      $('#patient_enrollment_login, #patient_enrollment_login_confirmation').on('keyup', function() {
+      $('#patient_enrollment_login, #patient_enrollment_login_confirmation').on('blur', function() {
         if($form.valid()) {
           // hideErrors();
           $('#next-email').removeClass('disabled').focus();
@@ -46,7 +46,7 @@ $(function () {
     $('#patient_enrollment_password').focus();
     $('.progress-indicator .step:eq(2)').removeClass('incomplete').addClass('default');
     addPasswordRules();
-    $('#patient_enrollment_password, #patient_enrollment_password_confirmation').on('keyup', function() {
+    $('#patient_enrollment_password, #patient_enrollment_password_confirmation').on('blur', function() {
       if($form.valid()) {
         // hideErrors();
         $('#next-password').removeClass('disabled').focus();
