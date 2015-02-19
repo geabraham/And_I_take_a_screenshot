@@ -57,9 +57,9 @@ eng:
         You are already registered as a participant in this study and may not register as another participant. Please
         inform your healthcare provider.
     password_form:
-      form_instruction_1: Enter and Confirm a Password of your choosing.
+      form_instruction_1: Enter and Confirm a
       form_instruction_1_bold: Password
-      form_instruction_1_2: TBD
+      form_instruction_1_2: of your choosing.
       
       ul_1: At least 8 characters long
       ul_2: At least one upper-case letter
