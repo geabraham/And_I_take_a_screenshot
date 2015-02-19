@@ -3,43 +3,16 @@ $desktop: 400px;
 .registration {
 
   .patient {
+    
     // desktop fake mobile
     @media screen and (min-width: $desktop) and (min-resolution: 1dppx) {
       min-height: 500px;
-      // activation screen
-      .activation-header {
-        padding: 10px;
-        img {
-          width: 100%;
-        }
-      }
-      .activation-code-content {
-        text-align: center;
-        input {
-          text-align: center;
-          margin-top: 20px;
-          margin-bottom: 10px;
-          width: 50%;
-          font-size: 150%;
-          border-radius: 3px;
-          border: 1px solid #ddd;
-        }
-        .activation-code.has-error {
-          input {
-            border: 1px solid red;
-          }
-        }
-        .validation_error {
-          display: none;
-          margin-bottom: 10px;
-          color: red;
-        }
-      }
       width: $desktop;
       margin: 0 auto;
       border: 1px solid #ddd;
       background-color: #fff;
     }
+
   }
 
   // enrollments
