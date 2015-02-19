@@ -1,4 +1,4 @@
-%h3.form_header='Security Question'
+%h3.form-header='Security Question'
 .form_instruction
   ='Select a '
   %strong='security question.'
@@ -9,6 +9,6 @@
     = f.select :security_question, @security_questions, {include_blank: 'Security Question'}, {class: 'form-control'}
   .form-group
     = f.label :answer, 'Security Answer'
-    = f.text_field :answer, class: 'registration-input form-control', placeholder: 'Enter your response to the question'
+    = f.text_field :answer, class: 'registration-input form-control', placeholder: 'Enter your response to the question', autocomplete: 'off'
 
   %button.btn.btn-primary.btn-block.disabled#create-account{ type: 'submit'}= 'Create account'

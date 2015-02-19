@@ -1,5 +1,6 @@
 $(function() {
   $('#reg-form').validate({ //initialize the form validator
+    errorClass: 'invalid',
     errorPlacement: function(error, element) {
       $('.active .validation_error').html(error);
     },
@@ -15,9 +16,13 @@ $(function() {
       'patient_enrollment[login]': 'Enter a valid email.',
       'patient_enrollment[login_confirmation]': 'Your Emails do not match.'
     },
-    invalidHandler: function() {
+    highlight: function() {
       $('.active .validation_error').removeClass('invisible');
-      $('.active .registration-input, .active label').addClass('invalid');
+      $('.active .form-group').addClass('invalid');
+    },
+    unhighlight: function() {
+      $('.active .validation_error').addClass('invisible');
+      $('.active .form-group').removeClass('invalid');  
     }
   });
   

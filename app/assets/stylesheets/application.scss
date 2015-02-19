@@ -10,8 +10,10 @@
 @import 'mixins';
 
 @import 'registration';
-// @import 'patient';
 @import 'activation';
-// @import 'desktop';
+
+// @import 'patient';
+@import 'desktop';
+
 @import 'patient_management';
 @import 'patient_management_error';

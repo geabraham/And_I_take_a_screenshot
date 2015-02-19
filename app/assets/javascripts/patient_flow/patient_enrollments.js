@@ -27,6 +27,7 @@ $(function () {
       $('#patient_enrollment_login').focus();
       $('#patient_enrollment_login, #patient_enrollment_login_confirmation').on('keyup', function() {
         if($form.valid()) {
+          // hideErrors();
           $('#next-email').removeClass('disabled').focus();
 
         }
@@ -47,6 +48,7 @@ $(function () {
     addPasswordRules();
     $('#patient_enrollment_password, #patient_enrollment_password_confirmation').on('keyup', function() {
       if($form.valid()) {
+        // hideErrors();
         $('#next-password').removeClass('disabled').focus();
       }
     });
@@ -75,20 +77,7 @@ $(function () {
 
   });
 
-  // security question
-  // $('#create-account').on('click', function(e) {
-    
-  //   e.preventDefault();
-
-  //   console.log('create account');
-
-
-  // });
-
   // $('.back_arrow').on('click', backClick);
-
-  
-  // $('#patient_enrollment_security_question').on('textchange', questionChange);
   
   // $(document).keypress(function(e){
   //     if (e.which == 13){
@@ -97,6 +86,9 @@ $(function () {
   // });
 
 });
+
+
+// ----------------------------------------------------------------------------------------
 
 var validateSecurityQuestions = function() {
   //custom validation works better than jQuery validate here
@@ -107,11 +99,6 @@ var validateSecurityQuestions = function() {
           $('#patient_enrollment_security_question').val() !== '');
 }
 
-
-
-
-
-
 var questionChange = function() {
   if (validateSecurityQuestions() && $('#reg-form').valid()) {
     $('#create-account').removeAttr('disabled').removeClass('disabled');
@@ -120,15 +107,6 @@ var questionChange = function() {
   }
 }
 
-var hideErrors = function() {
-  $('.active .validation_error').addClass('invisible');
-  $('.active .registration-input, .active label').removeClass('invalid');
-}
-
-var isBlankEntry = function() {
-  return (($('.active .registration-input').first().val().length === 0) 
-       && ($('.active .registration-input').last().val().length === 0));
-}
 
 // ----------------------------------------------------------------------------------------
 var backClick = function() {
@@ -154,14 +132,20 @@ var backClick = function() {
   }
 }
 
-var progressBar = {
-  advance: function() {
+// var progressBar = function() {
+  
+//   advance: function() {
 
-  },
-  reverse: function() {
+//   },
+//   reverse: function() {
 
-  }
-}
+//   }
+
+//   return {
+//     reverse: reverse,
+//     advance: advance
+//   }
+// }
 
 var advanceProgressBar = function() {
   $('.progress-bar-incomplete').first().addClass('progress-bar-default');
@@ -173,6 +157,6 @@ var reverseProgressBar = function() {
   $('.progress-bar-default').last().removeClass('progress-bar-default');
 }
 
-// var getCurrentPage = function() {
-//   return $('.item.active').attr('id')
-// }
+var getCurrentPage = function() {
+  return $('.item.active').attr('id')
+}

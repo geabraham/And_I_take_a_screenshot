@@ -1,18 +1,13 @@
 // activation and enrollments layouts
 $desktop: 400px;
 .registration {
+  
+  background-color: #fff;
 
   .patient {
-    
-    // desktop fake mobile
-    @media screen and (min-width: $desktop) and (min-resolution: 1dppx) {
-      min-height: 500px;
-      width: $desktop;
-      margin: 0 auto;
-      border: 1px solid #ddd;
-      background-color: #fff;
+    .btn-block {
+      font-size: 140%;
     }
-
   }
 
   // enrollments
@@ -35,18 +30,16 @@ $desktop: 400px;
         left: 0;
         font-size: 28px;
         color: #fff;
-        outline: 1px dotted red;
         &:hover {
           color: red;
         } 
       }
     }
-  }
-}
+    
+    .form-header {
+      font-weight: 200;
+    }
 
-body {
-  @media screen and (min-width: $desktop) and (min-resolution: 1dppx) {
-    background-color: #eee;
   }
 }
 
@@ -61,36 +54,41 @@ body {
     margin-top: -5px;
     height: 5px;
     padding-right: 0;
-    width: 24.15%;
+    width: 24%;
     background-color: #999999;
   }
   .step.default {
-    width: 24.25%;
+    // width: 24.25%;
     height: 5px;
     background-color: #00f;
   }
   .step.incomplete {
-    width: 24.25%;
+    // width: 24.25%;
     height: 5px;
   }
 }
 
-// slides
+// slides container
 #registration-details {
+  margin: 0 15px;
+
+  // all buttons in slides
   .btn-block {
-    // width: auto;
     margin: 15px 0;
   }
-  // position: relative;
-  margin: 0 15px;
-  outline: 1px dotted pink;
+  
+  // general slides
   .item {
-    // position: absolute;
+
+    // hidden by default
     display: none;
+
     &.active {
+      // block when active
       display: block;
     }
   }
+
   // individual slides by ID
   #landing_page {
     font-size: 16px;
@@ -104,9 +102,11 @@ body {
         } 
       }
     }
+
     p {
       vertical-align: center;
     }
+
   }
 
   #tou_dpn_agreement {
@@ -115,30 +115,33 @@ body {
       overflow: scroll;
       margin-bottom: 15px;
     }
-    .btn-block {
-      margin: 25px 0;
-    }
-  }
-  #email {
-    .btn-block {
-      margin: 25px 0;
-    }
-  }
-  #password {
-    .btn-block {
-      margin: 25px 0;
-    }
-  }
-  #security_question {
     
   }
+
+  #email {}
+  
+  #password {
+    ul {
+      margin: 10px;
+    }
+  }
+  
+  #security_question {}
 
 }
 
 // error styling
-input.error {
-  border: 1px solid red;
+.form-group.invalid {
+  label {
+    color: red;
+  }
+  input {
+    background-color: #dddddd;
+    border: 1px solid red;
+  }
 }
+
+
 .validation_error {
   color: red;
 }
