@@ -95,3 +95,13 @@ eng:
     status_503:
       heading: 503 Service Unavailable
       message: "Service unavailable, please try again later."
+    activation_code_invalid_error:
+      message: "Activation code not found. Please try again."
+    activation_code_backend_error:
+      message: "Internal server error. Please try again later."
+    invalid_subject_id_registration_error:
+      message: "An error occurred and you are unable to register, please contact your provider."
+    existing_email_registration_error:
+      message: "This email has already been registered, please register with a different email."
+    registration_backend_error:
+      message: "Internal server error. Please try again later."
