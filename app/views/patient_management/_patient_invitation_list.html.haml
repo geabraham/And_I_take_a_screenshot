@@ -1,36 +1,30 @@
 .panel.panel-default.center-block.col-md-10.pull-none.light-grey-border
-  #patient-list
-    %h5
-      .row
-        .col-md-2= 'Added on'
-        .col-md-2= 'Subject I.D.'
-        .col-md-2= 'Email'
-        .col-md-2= 'Initials'
-        .col-md-2= 'Activation Code'
-        .col-md-2= 'Registered'
-    %hr
-    /TODO partialize
-    .list.row
-      .col-md-2= '5/14/86'
-      .col-md-2= 'SUB029'
-      .col-md-2= 'to****@****.com'
-      .col-md-2= 'TM'
-      .col-md-2= 'GW346J'
-      .col-md-2= 'Pending'
-    //
-    %hr
-    .bottom.row
-      .col-md-8
-        %strong= '30 Total Results' 
-        %span#pagination-control='Per page' 
-        %a.btn.btn-primary='10'
-        %a.btn='25'
-        %a.btn='50'
-        %a.btn='100'
-      .col-md-3
-        %a.btn='<<'
-        %a.btn='<'
-        %span='1 of 3'
-        %a.btn='>'
-        %a.btn='>>'
-      / = 'No patient invitations found. Use the form above to invite some.'
+  - if @patient_invitations.any?
+    #patient-list
+      %h5
+        .row
+          .col-md-2= 'Added on'
+          .col-md-2= 'Subject I.D.'
+          .col-md-2= 'Email'
+          .col-md-2= 'Initials'
+          .col-md-2= 'Activation Code'
+          .col-md-2= 'Registered'
+      - @patient_invitations.each do |invite|
+        = render 'patient_list_element', invite: invite
+      %hr
+      .bottom.row
+        .col-md-8
+          %strong= '30 Total Results' 
+          %span#pagination-control='Per page' 
+          %a.btn='10'
+          %a.btn.btn-primary='25'
+          %a.btn='50'
+          %a.btn='100'
+        .col-md-3
+          %a.btn='<<'
+          %a.btn='<'
+          %span='1 of 3'
+          %a.btn='>'
+          %a.btn='>>'
+  - else
+    = 'No patient invitations found. Use the form above to invite some.'
