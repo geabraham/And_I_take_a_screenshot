@@ -1,5 +1,5 @@
 .panel.panel-default.center-block.col-md-10.pull-none.light-grey-border
-  - if @patient_invitations.any?
+  - if @patient_enrollments.any?
     #patient-list
       %h5
         .row
@@ -9,8 +9,8 @@
           .col-md-2= 'Initials'
           .col-md-2= 'Activation Code'
           .col-md-2= 'Registered'
-      - @patient_invitations.each do |invite|
-        = render 'patient_list_element', invite: invite
+      - @patient_enrollments.each do |enrollment|
+        = render 'patient_list_element', enrollment: enrollment
       %hr
       .bottom.row
         .col-md-8

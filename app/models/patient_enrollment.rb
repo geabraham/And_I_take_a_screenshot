@@ -19,6 +19,10 @@ class PatientEnrollment
   def script_direction
     RIGHT_TO_LEFT_LANGUAGE_CODES.include?(language_code) ? 'rtl' : 'ltr'
   end
+  
+  def self.fetch_patient_enrollments
+    [{created_at: '5/14/86', subject_identifier: 'SUB029', email: 'todd@blah.org', initials: 'TM', activation_code: 'GW346J', state: 'Pending'}]
+  end
 
   private
   # Returns the body of the remote tou dpn agreement.
