@@ -1,9 +1,10 @@
 module PatientManagementPermissionsHelper
   include IMedidataClient
 
-  # Checks for existence of study and study site parameters and authorizes user for the study or study site if they are present.
-  # Assigns studies, study and study_site and returns true if permissions exist.
-  #  Otherwise raises an error via iMedidataClient or Permissions Error.
+  # Checks for existence of study and study site parameters and authorizes user for those identifiers if they are present.
+  # If permissions check out, assigns appropriate instance variables (studies, study and study_site).
+  #  If no permissions exist, an error is raised via the IMedidataClient.
+  #  If response from iMedidata does not include the expected study or study site, an error is raised.
   #
   def check_study_and_study_site_permissions!
     params[:study_site_uuid] ? check_study_site_permissions : check_study_permissions
