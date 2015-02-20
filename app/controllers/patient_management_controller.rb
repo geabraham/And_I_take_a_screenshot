@@ -100,13 +100,7 @@ class PatientManagementController < ApplicationController
   end
 
   def studies_selection_list
-    studies = request_studies!(params)['studies']
-    if params[:study_uuid].present?
-      study = studies.find {|s| s['uuid'] == params[:study_uuid]}
-      [[study['name'], study['uuid']]]
-    else
-      name_uuid_options_array(studies)
-    end
+    @study ? [[@study['name'], @study['uuid']]] : name_uuid_options_array(@studies)
   end
 
   def tou_dpn_agreement_attributes
