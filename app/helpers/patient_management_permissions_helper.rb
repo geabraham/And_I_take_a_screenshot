@@ -26,7 +26,7 @@ module PatientManagementPermissionsHelper
     @studies = request_studies!(params)['studies']
     if params[:study_uuid]
       @study = @studies.find {|s| s['uuid'] == params[:study_uuid]}
-      raise no_study_permissions_error('study', params[:study_uuid]) unless @study.present?
+      raise no_permissions_error('study', params[:study_uuid]) unless @study.present?
     end
     true
   end
