@@ -29,11 +29,11 @@ var getCurrentPage = function() {
 }
 
 var confirmTerms = function() {
-    var proceed = confirm(window.I18n.registration.tou_agreement.modal_question);
+    var proceed = confirm(window.I18n.registration.tou_agreement.modal_confirm);
 
-  if (proceed === true) {
-    advanceToEmailPage();
-  }
+    if (proceed === true) {
+        advanceToEmailPage();
+    }
 }
 
 var advanceToEmailPage = function() {

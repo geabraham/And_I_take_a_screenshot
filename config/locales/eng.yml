@@ -42,7 +42,7 @@ eng:
     terms_of_use:
       tou_header: Introduction to Medidata Patient Cloud app and Privacy Notice
     tou_agreement:
-      modal_question: Do you agree to the Terms of Use and Data Privacy Notice?
+      modal_confirm: Do you agree to the Terms of Use and Data Privacy Notice?
       modal_cancel: >
          If you tap 'Cancel', you will not be registered as a study participant for electronic patient reported
          outcomes and any information you entered will be erased. If you wish to continue the registration process,
