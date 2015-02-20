@@ -2,6 +2,12 @@ $(function() {
   // Render page 1 with the default subset of records per page (25)
   renderEnrollments(1, 25);
   
+  MUI.currentPage = 1;
+  MUI.perPage = 25;
+  MUI.recordCount = parseInt($('#total-count').html());
+  MUI.totalPages = Math.ceil(MUI.recordCount/MUI.perPage);
+  $('.total-pages').html(MUI.totalPages);
+  
   $('a.next').on('click', nextPage)
   
   //TODO none of this works right now
