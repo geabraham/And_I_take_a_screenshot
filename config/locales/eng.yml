@@ -24,7 +24,7 @@ eng:
     index:
       code_heading: Please enter your activation code
       code_instruction: > 
-        If you have already registered, return to the Patient Cloud App. If you have not registered and 
+        If you have already registered, return to the Patient Cloud App. If you have not registered and
         do not have an activation code or email invite please contact your provider.
       validation_error: This code is incorrect. Contact your provider.
   registration:
