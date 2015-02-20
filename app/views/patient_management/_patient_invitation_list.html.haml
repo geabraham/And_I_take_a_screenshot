@@ -1,3 +1,5 @@
+.hidden{id: 'enrollments'}
+  =@patient_enrollments.to_json
 .panel.panel-default
   - if @patient_enrollments.any?
     #patient-list
@@ -11,8 +13,7 @@
             %th= 'Activation Code'
             %th= 'Registered'
         %tbody
-          - @patient_enrollments.each do |enrollment|
-            = render 'patient_list_element', enrollment: enrollment
+          / patient invitation elements are appended here!
       .panel-footer
         .paginate.clearfix
           .total-results
