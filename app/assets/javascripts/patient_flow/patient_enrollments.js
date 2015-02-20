@@ -25,7 +25,7 @@ var validateSecurityQuestions = function() {
 }
 
 var getCurrentPage = function() {
-  return $('.item.active').attr('id')
+    return $('.item.active').attr('id');
 }
 
 var confirmTerms = function() {
