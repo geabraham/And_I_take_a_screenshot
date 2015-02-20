@@ -15,25 +15,29 @@ module PatientManagementPermissionsHelper
   def check_study_site_permissions
     Rails.logger.info_with_data("Checking for selected and authorized study site.", params: params)
     study_sites = request_study_sites!(params)
-    unless study_sites.present?
-      Rails.logger.error_with_data("Not all params or insufficient permissions for patient management.", params: params)
-      raise no_permissions_error('study_site', params[:study_site_uuid])
-    end
+    raise_and_log('study_site') unless study_sites.present?
     @study_site = study_sites['study_sites'].find { |ss| ss['uuid'] == params[:study_site_uuid]}
     true
   end
 
   def check_study_permissions
+    Rails.logger.info_with_data("Checking for authorized studies.", params: params)
     @studies = request_studies!(params)['studies']
     if params[:study_uuid]
       @study = @studies.find {|s| s['uuid'] == params[:study_uuid]}
-      raise no_permissions_error('study', params[:study_uuid]) unless @study.present?
+      raise_and_log('study') unless @study.present?
     end
     true
   end
 
+  def raise_and_log(object_type)
+    error_message = no_permissions_error(object_type, object_type == 'study_site' ? params[:study_site_uuid] : params[:study_uuid])
+    Rails.logger.error_with_data(error_message, params: params)
+    raise PermissionsError.new(error_message)
+  end
+
   def no_permissions_error(object_type, object_uuid)
-    PermissionsError.new("No study permissions for user #{params[:user_uuid]} for #{object_type} #{object_uuid}")
+    "No study permissions for user #{params[:user_uuid]} for #{object_type} #{object_uuid}"
   end
 
   class PermissionsError < StandardError; end
