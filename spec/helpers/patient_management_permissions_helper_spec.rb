@@ -79,7 +79,7 @@ describe PatientManagementPermissionsHelper do
           expect do
             test_class.check_study_and_study_site_permissions!
           end.to raise_error(
-            PatientManagementPermissionsHelper::PatientManagementPermissionsError,
+            PatientManagementPermissionsHelper::PermissionsError,
             "No study permissions for user #{user_uuid} for study #{study1[:uuid]}")
         end
       end
