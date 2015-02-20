@@ -1,12 +1,13 @@
 $(function() {
-  // Render page 1 with the default subset of records per page (25)
-  renderEnrollments(1, 25);
-  
+  // set up global page state-related goodies
   MUI.currentPage = 1;
   MUI.perPage = 25;
   MUI.recordCount = parseInt($('#total-count').html());
   MUI.totalPages = Math.ceil(MUI.recordCount/MUI.perPage);
   $('.total-pages').html(MUI.totalPages);
+  
+  // Render page 1 with the default subset of records per page (25)
+  renderEnrollments(1, 25);
   
   $('a.next').on('click', nextPage)
   
@@ -38,8 +39,12 @@ $(function() {
 
 var nextPage = function() {
  //TODO validate that we can go to another page?
-  
-  renderEnrollments(26, 50); 
+  if(MUI.currentPage < MUI.totalPages - 1) {
+    MUI.currentPage++;
+    firstRecord = 1 + (MUI.currentPage - 1) * MUI.perPage;
+    lastRecord = MUI.currentPage * MUI.perPage;
+    renderEnrollments(firstRecord, lastRecord);
+  } 
 }
 
 var renderEnrollments = function(first, last) {
@@ -59,4 +64,7 @@ var renderEnrollments = function(first, last) {
       state: MUI.patientEnrollments[el].state
     }));
   }
+  
+  // update the current page value in the control
+  $('#current-page').val(MUI.currentPage);
 }
