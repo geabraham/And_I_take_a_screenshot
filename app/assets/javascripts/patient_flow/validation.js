@@ -12,22 +12,22 @@ $(function() {
         equalToIgnoreCase: '#patient_enrollment_login' }
     },
     messages: {
-      'patient_enrollment[login]': 'Enter a valid email.',
-      'patient_enrollment[login_confirmation]': 'Your Emails do not match.'
+        'patient_enrollment[login]': window.I18n.registration.email_form.validation_error,
+        'patient_enrollment[login_confirmation]': window.I18n.registration.email_form.mismatch_error
     },
     invalidHandler: function() {
       $('.active .validation_error').removeClass('invisible');
       $('.active .registration-input, .active label').addClass('invalid');
     }
   });
-  
+
   // validation rule for case insensitive comparison
   $.validator.addMethod("equalToIgnoreCase", function (value, element, param) {
     return value.toUpperCase() === $(param).val().toUpperCase();
   });
-  
+
   // custom validation for our password rules
-  $.validator.addMethod("pwcheck", function(value) { 
+  $.validator.addMethod("pwcheck", function(value) {
     return  /[a-z]/.test(value) // has a lowercase letter
       && /[A-Z]/.test(value) // has an uppercase letter
       && /\d/.test(value) // has a digit
@@ -46,15 +46,15 @@ var addPasswordRules = function() {
     minlength: 8,
     pwcheck: true,
     messages: {
-      required: 'Enter a valid password.',
-      minlength: 'Enter a valid password.',
-      pwcheck: 'Enter a valid password.'
+        required: window.I18n.registration.email_form.validation_error,
+        minlength: window.I18n.registration.email_form.validation_error,
+        pwcheck: window.I18n.registration.email_form.validation_error
     }
   });
   $('#patient_enrollment_password_confirmation').rules('add', {
     equalTo: '#patient_enrollment_password',
     messages: {
-      equalTo: 'Your passwords do not match.'
+        equalTo: window.I18n.registration.email_form.mismatch_error
     }
   });
 }
