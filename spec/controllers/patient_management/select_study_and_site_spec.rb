@@ -103,7 +103,7 @@ describe PatientManagementController do
 
         describe 'failure cases' do
           context 'when user has not been authorized for the study and site' do
-            let(:expected_template)  { 'select_study_and_site' }
+            let(:expected_template)  { 'error' }
             let(:params_with_user)   { params.merge(user_uuid: user_uuid).stringify_keys }
             let(:log_message_1_args) { ["Checking for selected and authorized study site.", {params: params_with_user}] }
             let(:log_message_2_args) { ["Not all params or insufficient permissions for patient management.", {params: params_with_user}] }
