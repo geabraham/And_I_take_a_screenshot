@@ -33,7 +33,7 @@ $(function() {
       && /\d/.test(value) // has a digit
       && !(/(  )/.test(value)) //doesn't have consecutive whitespace
       && (value.indexOf(' ') !== 0) //doesn't start with whitespace
-      && (value.lastIndexOf(' ') !== value.length - 1) //doesn't end with whitespace
+      && (value.lastIndexOf(' ') !== value.length - 1); //doesn't end with whitespace
   });
 });
 
