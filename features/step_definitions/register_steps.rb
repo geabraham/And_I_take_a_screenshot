@@ -43,7 +43,7 @@ When(/^I submit registration info as a new subject$/) do
   click_on 'Next'
 
   fill_in 'Password', with: @patient_enrollment.password
-  fill_in 'Confirm Password', with: @patient_enrollment.password
+  fill_in 'Re-enter Password', with: @patient_enrollment.password
   sleep(1)
   click_on 'Next'
 
@@ -58,7 +58,7 @@ When(/^the request to create account is successful$/) do
     .with(:register, {uuid: @patient_enrollment_uuid}, {patient_enrollment: @patient_enrollment_register_params})
     .and_return(response_double)
 
-  click_on 'Create account'
+  click_on 'Create my account'
 end
 
 When(/^the back\-end service returns an error$/) do
@@ -72,7 +72,7 @@ When(/^the back\-end service returns an error$/) do
     .with(:register, {uuid: @patient_enrollment_uuid}, {patient_enrollment: @patient_enrollment_register_params})
     .and_return(response_double)
 
-  click_on 'Create account'
+  click_on 'Create my account'
 end
 
 Then(/^I should see a link to download the Patient Cloud app$/) do
