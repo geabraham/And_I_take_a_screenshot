@@ -5,8 +5,8 @@ class PatientEnrollmentsController < ApplicationController
     @patient_enrollment_uuid = SecureRandom.uuid
     @patient_enrollment = PatientEnrollment.new(uuid: @patient_enrollment_uuid)
 
-    # @tou_dpn_agreement_body = Nokogiri::HTML(File.read('config/tou_dpn_agreement.html')).css('body').to_s.html_safe
-    @tou_dpn_agreement_body = 'We think in generalities, but we live in detail.'
+    @tou_dpn_agreement_body = Nokogiri::HTML(File.read('config/tou_dpn_agreement.html')).css('body').to_s.html_safe
+    # @tou_dpn_agreement_body = 'We think in generalities, but we live in detail.'
     @script_direction = 'rtl'
     @security_questions = [['In what year were you born?', 1], ['What was the make of your first car or bike?', 2]]
 

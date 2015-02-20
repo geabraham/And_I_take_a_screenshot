@@ -24,7 +24,7 @@ $(function () {
       //show email page
       $('#email').show().toggleClass('active');
       $('.progress-indicator .step:eq(1)').removeClass('incomplete').addClass('default');
-      $('#patient_enrollment_login').focus();
+      // $('#patient_enrollment_login').focus();
       $('#patient_enrollment_login, #patient_enrollment_login_confirmation').on('keyup', function() {
         if($form.valid()) {
           // hideErrors();
@@ -43,6 +43,7 @@ $(function () {
     $('#email').hide().toggleClass('active');
     //show password page
     $('#password').show().toggleClass('active');
+    $('.back-arrow').removeClass('hidden');
     $('#patient_enrollment_password').focus();
     $('.progress-indicator .step:eq(2)').removeClass('incomplete').addClass('default');
     addPasswordRules();
@@ -60,6 +61,7 @@ $(function () {
     $('#password').hide().toggleClass('active');
       //show password page
     $('#security_question').show().toggleClass('active');
+
     $('.progress-indicator .step:eq(3)').removeClass('incomplete').addClass('default');
     $('#patient_enrollment_security_question').focus()
     $('#patient_enrollment_answer').on('keyup', function() {
@@ -77,7 +79,7 @@ $(function () {
 
   });
 
-  // $('.back_arrow').on('click', backClick);
+  $('.back-arrow').on('click', progressBar.reverse);
   
   // $(document).keypress(function(e){
   //     if (e.which == 13){
@@ -87,6 +89,66 @@ $(function () {
 
 });
 
+
+// ----------------------------------------------------------------------------------------
+var backClick = function() {
+
+  // var currentPage = getCurrentPage();
+  
+  // if (currentPage !== 'landing_page' && currentPage !== 'tou_dpn_agreement' && currentPage !== 'email') {
+  //   //TODO currently we are validating on back button click
+  //   //to prevent a confusing UX issue where the error message
+  //   //disappears (on back click) and cannot be restored
+  //   //unless the form is corrected and rebroken
+  //   //there might be a better workaround, discuss
+  //   if($('#reg-form').valid() || isBlankEntry()) {
+  //     hideErrors();
+  //     reverseProgressBar();
+  //     $('.carousel').carousel('prev');
+  //     if (currentPage === 'password') {
+  //       $('.back_arrow').addClass('hidden');
+  //     } else if (currentPage === 'security_question') {
+  //       $('#create-account').addClass('hidden');
+  //       $('#next-button').removeClass('hidden');
+  //     }
+  //   }
+  // }
+}
+
+var progressBar = (function() {
+  var $slides = $('#registration-details .item'),
+      $progressBar = $('.progress-indicator'),
+      slideCount = $slides.length;
+
+  console.log('progressBar', slideCount);
+
+  var advance =  function() {
+
+  }
+
+  reverse = function() {
+    console.log('reverse')
+  }
+
+  return {
+    reverse: reverse,
+    advance: advance
+  }
+}());
+
+var advanceProgressBar = function() {
+  $('.progress-bar-incomplete').first().addClass('progress-bar-default');
+  $('.progress-bar-incomplete').first().removeClass('progress-bar-incomplete');
+}
+
+var reverseProgressBar = function() {
+  $('.progress-bar-default').last().addClass('progress-bar-incomplete');
+  $('.progress-bar-default').last().removeClass('progress-bar-default');
+}
+
+var getCurrentPage = function() {
+  return $('.item.active').attr('id')
+}
 
 // ----------------------------------------------------------------------------------------
 
@@ -105,58 +167,4 @@ var questionChange = function() {
   } else {
     $('#create-account').attr('disabled', true).addClass('disabled');
   }
-}
-
-
-// ----------------------------------------------------------------------------------------
-var backClick = function() {
-  var currentPage = getCurrentPage();
-  
-  if (currentPage !== 'landing_page' && currentPage !== 'tou_dpn_agreement' && currentPage !== 'email') {
-    //TODO currently we are validating on back button click
-    //to prevent a confusing UX issue where the error message
-    //disappears (on back click) and cannot be restored
-    //unless the form is corrected and rebroken
-    //there might be a better workaround, discuss
-    if($('#reg-form').valid() || isBlankEntry()) {
-      hideErrors();
-      reverseProgressBar();
-      $('.carousel').carousel('prev');
-      if (currentPage === 'password') {
-        $('.back_arrow').addClass('hidden');
-      } else if (currentPage === 'security_question') {
-        $('#create-account').addClass('hidden');
-        $('#next-button').removeClass('hidden');
-      }
-    }
-  }
-}
-
-// var progressBar = function() {
-  
-//   advance: function() {
-
-//   },
-//   reverse: function() {
-
-//   }
-
-//   return {
-//     reverse: reverse,
-//     advance: advance
-//   }
-// }
-
-var advanceProgressBar = function() {
-  $('.progress-bar-incomplete').first().addClass('progress-bar-default');
-  $('.progress-bar-incomplete').first().removeClass('progress-bar-incomplete');
-}
-
-var reverseProgressBar = function() {
-  $('.progress-bar-default').last().addClass('progress-bar-incomplete');
-  $('.progress-bar-default').last().removeClass('progress-bar-default');
-}
-
-var getCurrentPage = function() {
-  return $('.item.active').attr('id')
 }
