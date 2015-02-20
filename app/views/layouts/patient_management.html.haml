@@ -20,9 +20,10 @@
     = render 'shared/checkmate_header', user_name: @user_email, home_url: IMED_BASE_URL
     = render 'shared/page_header'
 
-    .clearfix
+    .container
       = yield :page_body
-
+    #loading-image
+      = image_tag('ajax-loader.gif')
     = cdn_javascript_include_tag 'jquery'
     = cdn_javascript_include_tag 'platform'
     = javascript_include_tag :application

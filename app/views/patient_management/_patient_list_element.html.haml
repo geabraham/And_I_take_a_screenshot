@@ -1,8 +1,7 @@
-%hr
-.list.row
-  .col-md-2= enrollment['created_at']
-  .col-md-2= enrollment['subject_identifier']
-  .col-md-2= enrollment['email']
-  .col-md-2= enrollment['initials']
-  .col-md-2= enrollment['activation_code']
-  .col-md-2= enrollment['state']
+%tr
+  %td= enrollment['created_at']
+  %td= enrollment['subject_identifier']
+  %td= enrollment['email']
+  %td= enrollment['initials']
+  %td= enrollment['activation_code']
+  %td= enrollment['state']
