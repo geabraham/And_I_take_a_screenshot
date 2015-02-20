@@ -21,7 +21,7 @@ module PatientManagementPermissionsHelper
   end
 
   def check_study_permissions
-    Rails.logger.info_with_data("Checking for authorized studies.", params: params)
+    Rails.logger.info_with_data("Checking authorizations for patient management.", params: params)
     @studies = request_studies!(params)['studies']
     if params[:study_uuid]
       @study = @studies.find {|s| s['uuid'] == params[:study_uuid]}
@@ -37,7 +37,7 @@ module PatientManagementPermissionsHelper
   end
 
   def no_permissions_error(object_type, object_uuid)
-    "No study permissions for user #{params[:user_uuid]} for #{object_type} #{object_uuid}"
+    "No patient management permissions for user #{params[:user_uuid]} for #{object_type} #{object_uuid}"
   end
 
   class PermissionsError < StandardError; end

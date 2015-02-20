@@ -34,6 +34,8 @@ describe PatientManagementController do
           end
           let(:params)               { default_params }
           let(:expected_status_code) { error_status }
+          let(:log_message_1_args)   { ["Checking authorizations for patient management.", {params: params.merge('user_uuid' => user_uuid)}] }
+          let(:expected_logs)        { [{log_method: :info_with_data, args: log_message_1_args}] }
 
           before do
             allow(controller).to receive(:request_studies!).with(default_params.merge(user_uuid: user_uuid))
@@ -42,6 +44,7 @@ describe PatientManagementController do
 
           it_behaves_like 'returns expected status'
           it_behaves_like 'assigns an ivar to its expected value', :status_code, 404
+          it_behaves_like 'logs the expected messages at the expected levels'
         end
 
         context 'when user has studies for patient management' do
@@ -106,7 +109,7 @@ describe PatientManagementController do
             let(:expected_template)  { 'error' }
             let(:params_with_user)   { params.merge(user_uuid: user_uuid).stringify_keys }
             let(:log_message_1_args) { ["Checking for selected and authorized study site.", {params: params_with_user}] }
-            let(:log_message_2_args) { ["Not all params or insufficient permissions for patient management.", {params: params_with_user}] }
+            let(:log_message_2_args) { ["No patient management permissions for user #{user_uuid} for study_site #{study_site_uuid}", {params: params_with_user}] }
             let(:expected_logs) do
               [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :error_with_data, args: log_message_2_args}]
             end
