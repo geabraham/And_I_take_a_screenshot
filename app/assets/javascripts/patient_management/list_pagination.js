@@ -1,8 +1,8 @@
 $(function() {
-  var patientEnrollments = JSON.parse($('#enrollments').html());
-      
   // Render page 1 with the default subset of records per page (25)
-  renderEnrollments(patientEnrollments, 1, 25);
+  renderEnrollments(1, 25);
+  
+  $('a.next').on('click', nextPage)
   
   //TODO none of this works right now
   //$("#current-page").data('validListPage', $("#current-page").val());
@@ -30,17 +30,27 @@ $(function() {
   //  });
 });
 
-var renderEnrollments = function(enrollments, first, last) {
-  var compiled = _.template("<tr><td><%= created_at %></td><td><%= subject_identifier %></td><td><%= email %></td><td><%= initials %></td><td><%= activation_code %></td><td><%= state %></td></tr>");
+var nextPage = function() {
+ //TODO validate that we can go to another page?
   
+  renderEnrollments(26, 50); 
+}
+
+var renderEnrollments = function(first, last) {
+  var compiled = _.template('<tr class="patient_row"><td><%= created_at %></td><td><%= subject_identifier %></td><td><%= email %></td><td><%= initials %></td><td><%= activation_code %></td><td><%= state %></td></tr>');
+  
+  //remove the previous page of enrollments
+  $('.patient_row').remove();
+  
+  //render the current page of enrollments
   for(el = (first - 1); el <= (last - 1); el++) {
     $('#patient-list tbody').append(compiled({
-      created_at: enrollments[el].created_at, 
-      subject_identifier: enrollments[el].subject_identifier,
-      email: enrollments[el].email,
-      initials: enrollments[el].initials,
-      activation_code: enrollments[el].activation_code,
-      state: enrollments[el].state
+      created_at: MUI.patientEnrollments[el].created_at, 
+      subject_identifier: MUI.patientEnrollments[el].subject_identifier,
+      email: MUI.patientEnrollments[el].email,
+      initials: MUI.patientEnrollments[el].initials,
+      activation_code: MUI.patientEnrollments[el].activation_code,
+      state: MUI.patientEnrollments[el].state
     }));
   }
 }
