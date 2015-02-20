@@ -112,11 +112,11 @@ class PatientManagementController < ApplicationController
   end
 
   def studies_selection_list
+    studies = request_studies!(params)['studies']
     if params[:study_uuid].present?
-      study = request_study!(params)['study']
+      study = studies.find {|s| s['uuid'] == params[:study_uuid]}
       [[study['name'], study['uuid']]]
-    elsif
-      studies = request_studies!(params)['studies']
+    else
       name_uuid_options_array(studies)
     end
   end
