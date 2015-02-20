@@ -5,9 +5,15 @@ class PatientEnrollment
                 :subject_id, :state, :tou_accepted_at
   RIGHT_TO_LEFT_LANGUAGE_CODES = ['ara', 'heb']
 
-  def self.by_site_and_study_site(study_uuid, study_site_uuid)
+  def self.by_study_and_study_site(study_uuid, study_site_uuid)
     raise ArgumentError.new('Required argument study_uuid is blank.') if study_uuid.blank?
     raise ArgumentError.new('Required argument study_site_uuid is blank.') if study_site_uuid.blank?
+
+    response = Euresource::PatientEnrollments.get(:all, params: { study_uuid: study_uuid, study_site_uuid: study_site_uuid })
+
+    if response.last_response.status == 200
+      JSON.parse(response.last_response.body).map{ |pe_hash|  PatientEnrollment.new(pe_hash) }
+    end
 
   rescue => e
     Rails.logger.error(e.message)

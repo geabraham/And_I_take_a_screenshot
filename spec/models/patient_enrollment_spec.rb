@@ -15,11 +15,11 @@ describe PatientEnrollment do
     context 'when study_uuid is blank' do
       it 'logs the error' do
         expect(Rails.logger).to receive(:error).with('Required argument study_uuid is blank.')
-        PatientEnrollment.by_site_and_study_site('', 'study_site_uuid') rescue nil
+        PatientEnrollment.by_study_and_study_site('', 'study_site_uuid') rescue nil
       end
 
       it 'raises an error' do
-        expect { PatientEnrollment.by_site_and_study_site('', 'study_site_uuid') }
+        expect { PatientEnrollment.by_study_and_study_site('', 'study_site_uuid') }
           .to raise_error(ArgumentError, 'Required argument study_uuid is blank.')
       end
     end
@@ -27,27 +27,104 @@ describe PatientEnrollment do
     context 'when study_site_uuid is blank' do
       it 'logs the error' do
         expect(Rails.logger).to receive(:error).with('Required argument study_site_uuid is blank.')
-        PatientEnrollment.by_site_and_study_site('study_uuid', '') rescue nil
+        PatientEnrollment.by_study_and_study_site('study_uuid', '') rescue nil
       end
 
       it 'raises an error' do
-        expect { PatientEnrollment.by_site_and_study_site('study_uuid', '') }
+        expect { PatientEnrollment.by_study_and_study_site('study_uuid', '') }
           .to raise_error(ArgumentError, 'Required argument study_site_uuid is blank.')
       end
     end
 
     context 'when required parameters are provided' do
+      let(:study_uuid)      { 'fc3d182b-5a9d-43bb-a8ee-bb2c132805e9' }
+      let(:study_site_uuid) { '1e05f961-040b-40a3-a714-fec78efd9b14' }
+      let(:last_response)   { double 'last object', status: response_status, body: response_body}
+      let(:response_object) { double 'response object', last_response: last_response }
+
+
       context 'when Euresource encounters an error' do
         it 'logs the error'
         it 'raises the error'
       end
 
+      context 'when Euresource returns a non-200 status' do
+        it '?????'
+      end
+
       context 'when Euresource successfully returns 0 enrollments' do
-        it 'returns an empty array'
+        let(:response_body)   { [].to_json }
+        let(:response_status) { 200 }
+
+        before do
+          allow(Euresource::PatientEnrollments).to receive(:get)
+            .with(:all, { params: { study_uuid: study_uuid, study_site_uuid: study_site_uuid } })
+            .and_return(response_object)
+        end
+
+        it 'returns an empty array' do
+          expect(PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid)).to eq []
+        end
       end
 
       context 'when Euresource returns 1 or more patient enrollments' do
-        it 'returns an array of PatientEnrollment objects derived from the Euresource response body'
+        let(:attribute_list) do
+          [:uuid, :initials, :email, :enrollment_type, :activation_code, :language_code, :study_uuid, :study_site_uuid,
+           :subject_id, :state, :tou_accepted_at]
+        end
+        let(:patient_enrollment_1) do
+          build :patient_enrollment,
+                uuid: "25c06a8b-47ed-4382-a44f-9b45ea87216a",
+                initials: 'TD',
+                email: 'the-dude@gmail.com',
+                enrollment_type: 'in-person',
+                activation_code: 'ABCDEFG',
+                language_code: 'eng',
+                study_uuid: study_uuid,
+                study_site_uuid: study_site_uuid,
+                subject_id: 'Subject-001',
+                state: 'invited',
+                tou_accepted_at: nil
+        end
+        let(:patient_enrollment_2) do
+          build :patient_enrollment,
+                uuid: "e52d1c1f-3482-4849-94b0-5dd7e2ce5b4f",
+                initials: 'WS',
+                email: 'walter.sobchak@gmail.com',
+                enrollment_type: 'in-person',
+                activation_code: '123456',
+                language_code: 'eng',
+                study_uuid: study_uuid,
+                study_site_uuid: study_site_uuid,
+                subject_id: 'Subject-002',
+                state: 'registered',
+                tou_accepted_at: Time.now.to_s
+        end
+        let(:patient_enrollments) { [patient_enrollment_1, patient_enrollment_2] }
+        let(:response_body)       { patient_enrollments.each{ |pe| Hash[attribute_list.zip(attribute_list.map{ |a| pe.send(a) } )] }.to_json }
+        let(:response_status)     { 200 }
+
+        before do
+          allow(Euresource::PatientEnrollments).to receive(:get)
+            .with(:all, { params: { study_uuid: study_uuid, study_site_uuid: study_site_uuid } })
+            .and_return(response_object)
+        end
+
+        # TODO: Does this adequately test?
+        it 'returns an array of PatientEnrollment objects derived from the Euresource response body' do
+          array = PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid)
+          response_array = JSON.parse(response_body)
+
+          array.each do |pe|
+            item_in_body = response_array.select{ |item| item['uuid'] == pe.uuid }.first.with_indifferent_access
+
+            item_in_body.each do |attribute, value|
+              expect(pe.send(attribute)).to eq value
+            end
+          end
+
+          expect(array.count).to eq response_array.count
+        end
       end
     end
   end
