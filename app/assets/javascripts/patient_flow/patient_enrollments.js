@@ -3,33 +3,26 @@ $(function () {
   var $form = $('#reg-form');
 
   // landing page - next button
-  $('#next-button').on('click', function(e) {
+  $('#next-landing').on('click', function(e) {    
     e.preventDefault();
-    //hide landing page
     $('#landing_page').hide().toggleClass('active');
-    //show agreement
     $('#tou_dpn_agreement').show().toggleClass('active');
     $('.progress-indicator').removeClass('hidden');
   });
 
   // agreement
-  $('#agree-button').on('click', function(e) {
+  $('#next-agree').on('click', function(e) {
     e.preventDefault();
-    
-    // confirm agreement
     var proceed = confirm("You acknowledge that you have read, understood, and agree to be bound by the Terms of Use and the Privacy Policy referenced herein.");
     if (proceed) {
       // hide agreement page
       $('#tou_dpn_agreement').hide().toggleClass('active');
       //show email page
       $('#email').show().toggleClass('active');
-      $('.progress-indicator .step:eq(1)').removeClass('incomplete').addClass('default');
-      // $('#patient_enrollment_login').focus();
+      progressBar.advance(1);
       $('#patient_enrollment_login, #patient_enrollment_login_confirmation').on('keyup', function() {
         if($form.valid()) {
-          // hideErrors();
           $('#next-email').removeClass('disabled').focus();
-
         }
       });
     }
@@ -39,13 +32,17 @@ $(function () {
   $('#next-email').on('click', function(e) {
     
     e.preventDefault();
-   // hide email page
+    
+    // hide email page
     $('#email').hide().toggleClass('active');
+    
     //show password page
     $('#password').show().toggleClass('active');
-    $('.back-arrow').removeClass('hidden');
-    $('#patient_enrollment_password').focus();
-    $('.progress-indicator .step:eq(2)').removeClass('incomplete').addClass('default');
+    
+    // $('.back-arrow').removeClass('hidden');
+
+    progressBar.advance(2);
+    // validate password
     addPasswordRules();
     $('#patient_enrollment_password, #patient_enrollment_password_confirmation').on('keyup', function() {
       if($form.valid()) {
@@ -62,7 +59,7 @@ $(function () {
       //show password page
     $('#security_question').show().toggleClass('active');
 
-    $('.progress-indicator .step:eq(3)').removeClass('incomplete').addClass('default');
+    progressBar.advance(3);
     $('#patient_enrollment_security_question').focus()
     $('#patient_enrollment_answer').on('keyup', function() {
       // validate security question
@@ -80,55 +77,30 @@ $(function () {
   });
 
   $('.back-arrow').on('click', progressBar.reverse);
-  
-  // $(document).keypress(function(e){
-  //     if (e.which == 13){
-  //         $("#next-button").click();
-  //     }
-  // });
 
 });
 
 
 // ----------------------------------------------------------------------------------------
-var backClick = function() {
 
-  // var currentPage = getCurrentPage();
-  
-  // if (currentPage !== 'landing_page' && currentPage !== 'tou_dpn_agreement' && currentPage !== 'email') {
-  //   //TODO currently we are validating on back button click
-  //   //to prevent a confusing UX issue where the error message
-  //   //disappears (on back click) and cannot be restored
-  //   //unless the form is corrected and rebroken
-  //   //there might be a better workaround, discuss
-  //   if($('#reg-form').valid() || isBlankEntry()) {
-  //     hideErrors();
-  //     reverseProgressBar();
-  //     $('.carousel').carousel('prev');
-  //     if (currentPage === 'password') {
-  //       $('.back_arrow').addClass('hidden');
-  //     } else if (currentPage === 'security_question') {
-  //       $('#create-account').addClass('hidden');
-  //       $('#next-button').removeClass('hidden');
-  //     }
-  //   }
-  // }
-}
 
 var progressBar = (function() {
   var $slides = $('#registration-details .item'),
       $progressBar = $('.progress-indicator'),
+      $progressIndicators = $progressBar.find('.step'),
       slideCount = $slides.length;
 
-  console.log('progressBar', slideCount);
-
-  var advance =  function() {
-
-  }
-
-  reverse = function() {
-    console.log('reverse')
-  }
+  // methods
+  var advance =  function(index) {
+      $progressIndicators.eq(index)
+        .removeClass('incomplete');
+    },
+    reverse = function() {
+      console.log('reverse')
+    },
+    getCurrentPage = function() {
+      return $('.item.active').attr('id');
+    };
 
   return {
     reverse: reverse,
@@ -136,19 +108,6 @@ var progressBar = (function() {
   }
 }());
 
-var advanceProgressBar = function() {
-  $('.progress-bar-incomplete').first().addClass('progress-bar-default');
-  $('.progress-bar-incomplete').first().removeClass('progress-bar-incomplete');
-}
-
-var reverseProgressBar = function() {
-  $('.progress-bar-default').last().addClass('progress-bar-incomplete');
-  $('.progress-bar-default').last().removeClass('progress-bar-default');
-}
-
-var getCurrentPage = function() {
-  return $('.item.active').attr('id')
-}
 
 // ----------------------------------------------------------------------------------------
 

@@ -1,6 +1,7 @@
 $(function() {
   $('#reg-form').validate({ //initialize the form validator
     errorClass: 'invalid',
+    onkeyup:  false,
     errorPlacement: function(error, element) {
       $('.active .validation_error').html(error);
     },
@@ -56,10 +57,12 @@ var addPasswordRules = function() {
       pwcheck: 'Enter a valid password.'
     }
   });
+
   $('#patient_enrollment_password_confirmation').rules('add', {
     equalTo: '#patient_enrollment_password',
     messages: {
       equalTo: 'Your passwords do not match.'
     }
   });
+
 }

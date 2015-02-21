@@ -30,8 +30,8 @@ $desktop: 400px;
         left: 0;
         font-size: 28px;
         color: #fff;
-        &:hover {
-          color: red;
+        &:active {
+          color: #eee;
         } 
       }
     }
@@ -55,16 +55,11 @@ $desktop: 400px;
     height: 5px;
     padding-right: 0;
     width: 24%;
-    background-color: #999999;
-  }
-  .step.default {
-    // width: 24.25%;
-    height: 5px;
     background-color: #00f;
-  }
-  .step.incomplete {
-    // width: 24.25%;
-    height: 5px;
+    &.incomplete {
+      background-color: #999999;
+      height: 5px;
+    }
   }
 }
 
@@ -75,6 +70,9 @@ $desktop: 400px;
   // all buttons in slides
   .btn-block {
     margin: 15px 0;
+    &:active {
+      background-color: #002855;
+    }
   }
   
   // general slides
