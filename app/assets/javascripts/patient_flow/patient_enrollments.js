@@ -29,7 +29,7 @@ var getCurrentPage = function() {
 }
 
 var confirmTerms = function() {
-    var proceed = confirm(window.I18n.registration.tou_agreement.modal_confirm);
+    var proceed = confirm(window.t("registration.tou_agreement.modal_confirm"));
 
     if (proceed === true) {
         advanceToEmailPage();
