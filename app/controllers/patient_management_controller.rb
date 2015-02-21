@@ -5,16 +5,17 @@ require 'imedidata/client'
 class PatientManagementController < ApplicationController
   layout 'patient_management'
   include IMedidataClient
-
-  # before_filter :authorize_user
+  include PatientInvitationFormHelper
+  before_filter :authorize_user
 
   def select_study_and_site
-    # TODO: If both study uuid and study site uuid are present,
-    #  redirect to the patient management grid.
-    @study_or_studies = [
-      ['NASA-AdvancedFoodTechnologyProject', SecureRandom.uuid],
-      ['NASA-OcularHealthInAstronauts', SecureRandom.uuid]]
-
+    if @study_site = selected_and_authorized_study_site
+      @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
+      @available_subjects = fetch_available_subjects_for_select
+      @study_site_name, @study_site_uuid, @study_uuid = @study_site['name'], @study_site['uuid'], params[:study_uuid]
+      return render 'patient_management_grid'
+    end
+    @study_or_studies = studies_selection_list
   end
 
   def invite

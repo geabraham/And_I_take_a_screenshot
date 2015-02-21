@@ -2,14 +2,11 @@ class PatientEnrollmentsController < ApplicationController
   layout "patient_registration"
 
   def new
-    @patient_enrollment_uuid = SecureRandom.uuid
+    @patient_enrollment_uuid = session[:patient_enrollment_uuid]
     @patient_enrollment = PatientEnrollment.new(uuid: @patient_enrollment_uuid)
-
-    @tou_dpn_agreement_body = Nokogiri::HTML(File.read('config/tou_dpn_agreement.html')).css('body').to_s.html_safe
-    # @tou_dpn_agreement_body = 'We think in generalities, but we live in detail.'
-    @script_direction = 'rtl'
-    @security_questions = [['In what year were you born?', 1], ['What was the make of your first car or bike?', 2]]
-
+    @tou_dpn_agreement_body = @patient_enrollment.tou_dpn_agreement_body
+    @script_direction = @patient_enrollment.script_direction
+    @security_questions = SecurityQuestions.find(@patient_enrollment.language_code || I18n.default_locale).map { |sq|  [sq[:name], sq[:id]]}
   rescue StandardError => e
     # TODO: render error modal
     return render json: {message: "Unable to continue with registration. Error: #{e.message}"}, status: 422
