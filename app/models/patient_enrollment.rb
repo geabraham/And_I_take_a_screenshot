@@ -13,6 +13,8 @@ class PatientEnrollment
 
     if response.last_response.status == 200
       JSON.parse(response.last_response.body).map{ |pe_hash|  PatientEnrollment.new(pe_hash) }
+    else
+      raise EuresourceError.new(response.last_response.body)
     end
 
   rescue => e

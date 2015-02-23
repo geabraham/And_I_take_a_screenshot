@@ -61,7 +61,26 @@ describe PatientEnrollment do
       end
 
       context 'when Euresource returns a non-200 status' do
-        it '?????'
+        let(:response_body)   { 'Test error message' }
+        let(:response_status) { 404 }
+
+        before do
+          allow(Rails.logger).to receive(:error)
+          allow(Euresource::PatientEnrollments).to receive(:get)
+            .with(:all, { params: { study_uuid: study_uuid, study_site_uuid: study_site_uuid } })
+            .and_return(response_object)
+        end
+
+        it 'logs the error' do
+          PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid) rescue nil
+          expect(Rails.logger).to have_received(:error).with 'Error retrieving patient enrollments: Test error message'
+        end
+
+        it 'raises a EuresourceError with an appropriate message' do
+          expect { PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid) }
+            .to raise_error(EuresourceError, 'Test error message')
+        end
+
       end
 
       context 'when Euresource successfully returns 0 enrollments' do
