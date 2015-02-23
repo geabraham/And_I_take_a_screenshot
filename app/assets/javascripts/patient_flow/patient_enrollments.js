@@ -1,13 +1,11 @@
 $(function () {
-
   var $form = $('#reg-form');
-
   // landing page - next button
   $('#next-landing').on('click', function(e) {    
-    e.preventDefault();
     $('#landing_page').hide().toggleClass('active');
     $('#tou_dpn_agreement').show().toggleClass('active');
     $('.progress-indicator').removeClass('hidden');
+    e.preventDefault();
   });
 
   // agreement
@@ -15,13 +13,17 @@ $(function () {
     e.preventDefault();
     var proceed = confirm("You acknowledge that you have read, understood, and agree to be bound by the Terms of Use and the Privacy Policy referenced herein.");
     if (proceed) {
+      
       // hide agreement page
       $('#tou_dpn_agreement').hide().toggleClass('active');
       //show email page
       $('#email').show().toggleClass('active');
+      
       progressBar.advance(1);
+
       $('#patient_enrollment_login, #patient_enrollment_login_confirmation').on('keyup', function() {
         if($form.valid()) {
+
           $('#next-email').removeClass('disabled').focus();
         }
       });
@@ -35,7 +37,6 @@ $(function () {
     
     // hide email page
     $('#email').hide().toggleClass('active');
-    
     //show password page
     $('#password').show().toggleClass('active');
     
@@ -111,19 +112,4 @@ var progressBar = (function() {
 
 // ----------------------------------------------------------------------------------------
 
-var validateSecurityQuestions = function() {
-  //custom validation works better than jQuery validate here
-  //because there are fewer edge cases and .validate has
-  //issues with the rails dropdown
 
-  return ( $.trim($('#patient_enrollment_answer').val() ).length >= 4 &&
-          $('#patient_enrollment_security_question').val() !== '');
-}
-
-var questionChange = function() {
-  if (validateSecurityQuestions() && $('#reg-form').valid()) {
-    $('#create-account').removeAttr('disabled').removeClass('disabled');
-  } else {
-    $('#create-account').attr('disabled', true).addClass('disabled');
-  }
-}
