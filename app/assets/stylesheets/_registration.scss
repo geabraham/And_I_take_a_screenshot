@@ -73,6 +73,10 @@ $desktop: 400px;
     &:active {
       background-color: #002855;
     }
+    &.disabled:focus {
+      background-color: #fff;
+      color:#bababa
+    } 
   }
   
   // general slides
