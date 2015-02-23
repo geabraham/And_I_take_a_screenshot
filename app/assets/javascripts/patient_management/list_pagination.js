@@ -9,7 +9,54 @@ $(function() {
   // Render page 1 with the default subset of records per page (25)
   renderEnrollments(1, 25);
   
-  $('a.next').on('click', nextPage)
+  //TODO $('a.first').on('click', function() {});
+  
+  $('a.previous').on('click', function() {
+    //TODO firstRecord = 1 + MUI.currentPage * MUI.perPage;
+    if(MUI.currentPage == 2) {
+      $(this).attr('disabled', true).addClass('disabled');
+      $('a.first').attr('disabled', true).addClass('disabled');
+      //TODO lastrecord
+    }
+    else if {MUI.currentPage > 2) {
+      //TODO lastrecord
+    }
+    MUI.currentPage--;
+    renderEnrollments(firstRecord, lastRecord);
+  });
+  
+  $('a.next').on('click', function() {
+    if(MUI.currentPage < MUI.totalPages) {
+      firstRecord = 1 + MUI.currentPage * MUI.perPage;
+      if (MUI.currentPage == 1) {
+        $('a.first').removeAttr('disabled').removeClass('disabled');
+        $('a.previous').removeAttr('disabled').removeClass('disabled');
+      }
+      if (MUI.currentPage < MUI.totalPages - 1) {
+        lastRecord = (1 + MUI.currentPage) * MUI.perPage;
+      }
+      else if (MUI.currentPage == MUI.totalPages - 1) {
+        lastRecord = MUI.recordCount;
+        $(this).attr('disabled', true).addClass('disabled');
+        $('a.last').attr('disabled', true).addClass('disabled');
+      }
+      MUI.currentPage++;
+      renderEnrollments(firstRecord, lastRecord);
+    }
+  });
+  
+  $('a.last').on('click', function() {
+    if (MUI.currentPage == 1) {
+      $('a.first').removeAttr('disabled').removeClass('disabled');
+      $('a.previous').removeAttr('disabled').removeClass('disabled');
+    }
+    firstRecord = (MUI.totalPages - 1) * MUI.perPage + 1;
+    lastRecord = MUI.recordCount;
+    MUI.currentPage = MUI.totalPages;
+    $('a.next').attr('disabled', true).addClass('disabled');
+    $(this).attr('disabled', true).addClass('disabled');
+    renderEnrollments(firstRecord, lastRecord);
+  });
   
   //TODO none of this works right now
   //$("#current-page").data('validListPage', $("#current-page").val());
@@ -36,20 +83,6 @@ $(function() {
   //    errorPlacement:function() {}
   //  });
 });
-
-var nextPage = function() {
-  if(MUI.currentPage < MUI.totalPages) {
-    MUI.currentPage++;
-    firstRecord = 1 + (MUI.currentPage - 1) * MUI.perPage;
-    if (MUI.currentPage < MUI.totalPages - 1) {
-      lastRecord = MUI.currentPage * MUI.perPage;
-    }
-    else if (MUI.currentPage < MUI.totalPages) {
-      lastRecord = MUI.recordCount;
-    }
-    renderEnrollments(firstRecord, lastRecord);
-  } 
-}
 
 var renderEnrollments = function(first, last) {
   var compiled = _.template('<tr class="patient_row"><td><%= created_at %></td><td><%= subject_identifier %></td><td><%= email %></td><td><%= initials %></td><td><%= activation_code %></td><td><%= state %></td></tr>');
