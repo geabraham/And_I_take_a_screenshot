@@ -38,11 +38,15 @@ $(function() {
 });
 
 var nextPage = function() {
- //TODO validate that we can go to another page?
-  if(MUI.currentPage < MUI.totalPages - 1) {
+  if(MUI.currentPage < MUI.totalPages) {
     MUI.currentPage++;
     firstRecord = 1 + (MUI.currentPage - 1) * MUI.perPage;
-    lastRecord = MUI.currentPage * MUI.perPage;
+    if (MUI.currentPage < MUI.totalPages - 1) {
+      lastRecord = MUI.currentPage * MUI.perPage;
+    }
+    else if (MUI.currentPage < MUI.totalPages) {
+      lastRecord = MUI.recordCount;
+    }
     renderEnrollments(firstRecord, lastRecord);
   } 
 }
