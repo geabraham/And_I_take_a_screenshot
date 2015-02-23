@@ -14,7 +14,7 @@ describe PatientEnrollment do
 
     context 'when study_uuid is blank' do
       it 'logs the error' do
-        expect(Rails.logger).to receive(:error).with('Required argument study_uuid is blank.')
+        expect(Rails.logger).to receive(:error).with('Error retrieving patient enrollments: Required argument study_uuid is blank.')
         PatientEnrollment.by_study_and_study_site('', 'study_site_uuid') rescue nil
       end
 
@@ -26,7 +26,7 @@ describe PatientEnrollment do
 
     context 'when study_site_uuid is blank' do
       it 'logs the error' do
-        expect(Rails.logger).to receive(:error).with('Required argument study_site_uuid is blank.')
+        expect(Rails.logger).to receive(:error).with('Error retrieving patient enrollments: Required argument study_site_uuid is blank.')
         PatientEnrollment.by_study_and_study_site('study_uuid', '') rescue nil
       end
 
@@ -44,8 +44,20 @@ describe PatientEnrollment do
 
 
       context 'when Euresource encounters an error' do
-        it 'logs the error'
-        it 'raises the error'
+        let(:exception) { StandardError.new('Test error') }
+        before do
+          allow(Rails.logger).to receive(:error)
+          allow(Euresource::PatientEnrollments).to receive(:get) { raise exception }
+        end
+
+        it 'logs the error' do
+          PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid) rescue nil
+          expect(Rails.logger).to have_received(:error).with 'Error retrieving patient enrollments: Test error'
+        end
+
+        it 'raises the error' do
+          expect { PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid) }.to raise_error(exception)
+        end
       end
 
       context 'when Euresource returns a non-200 status' do
