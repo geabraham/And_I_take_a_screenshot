@@ -45,7 +45,7 @@ describe PatientManagementPermissionsHelper do
       end
     end
 
-    context 'when study is present in the request' do
+    context 'when study uuid is present in the request' do
       let(:params) { {user_uuid: user_uuid, study_uuid: study1[:uuid]} }
 
       it 'checks permissions for the user\'s studies' do
@@ -54,18 +54,20 @@ describe PatientManagementPermissionsHelper do
       end
 
       context 'when user has permissions' do
-        it 'returns true' do
-          expect(test_class.check_study_and_study_site_permissions!).to eq(true)
-        end
+        context 'when study uuid is in the list of users\'s studies' do        
+          it 'returns true' do
+            expect(test_class.check_study_and_study_site_permissions!).to eq(true)
+          end
 
-        it 'assigns studies' do
-          test_class.check_study_and_study_site_permissions!
-          expect(test_class.instance_variable_get("@studies")).to eq(studies['studies'])
-        end
+          it 'assigns studies' do
+            test_class.check_study_and_study_site_permissions!
+            expect(test_class.instance_variable_get("@studies")).to eq(studies['studies'])
+          end
 
-        it 'assigns study' do
-          test_class.check_study_and_study_site_permissions!
-          expect(test_class.instance_variable_get("@study")).to eq(study1.stringify_keys)
+          it 'assigns study' do
+            test_class.check_study_and_study_site_permissions!
+            expect(test_class.instance_variable_get("@study")).to eq(study1.stringify_keys)
+          end
         end
 
         context 'when study uuid is not in the user\'s studies' do
