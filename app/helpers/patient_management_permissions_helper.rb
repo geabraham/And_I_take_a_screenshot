@@ -13,7 +13,7 @@ module PatientManagementPermissionsHelper
   private
 
   def check_study_site_permissions
-    Rails.logger.info_with_data("Checking for selected and authorized study site.", params: params)
+    Rails.logger.info_with_data("Checking study site authorizations for patient management.", params: params)
     study_sites = request_study_sites!(params)
     raise_and_log('study_site') unless study_sites.present?
     @study_site = study_sites['study_sites'].find { |ss| ss['uuid'] == params[:study_site_uuid]}
@@ -21,7 +21,7 @@ module PatientManagementPermissionsHelper
   end
 
   def check_study_permissions
-    Rails.logger.info_with_data("Checking authorizations for patient management.", params: params)
+    Rails.logger.info_with_data("Checking study authorizations for patient management.", params: params)
     @studies = request_studies!(params)['studies']
     if params[:study_uuid]
       @study = @studies.find {|s| s['uuid'] == params[:study_uuid]}

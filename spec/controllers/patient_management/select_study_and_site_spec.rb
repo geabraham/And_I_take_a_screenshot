@@ -34,7 +34,7 @@ describe PatientManagementController do
           end
           let(:params)               { default_params }
           let(:expected_status_code) { error_status }
-          let(:log_message_1_args)   { ["Checking authorizations for patient management.", {params: params.merge('user_uuid' => user_uuid)}] }
+          let(:log_message_1_args)   { ["Checking study authorizations for patient management.", {params: params.merge('user_uuid' => user_uuid)}] }
           let(:expected_logs)        { [{log_method: :info_with_data, args: log_message_1_args}] }
 
           before do
@@ -108,7 +108,7 @@ describe PatientManagementController do
           context 'when user has not been authorized for the study and site' do
             let(:expected_template)  { 'error' }
             let(:params_with_user)   { params.merge(user_uuid: user_uuid).stringify_keys }
-            let(:log_message_1_args) { ["Checking for selected and authorized study site.", {params: params_with_user}] }
+            let(:log_message_1_args) { ["Checking study site authorizations for patient management.", {params: params_with_user}] }
             let(:log_message_2_args) { ["No patient management permissions for user #{user_uuid} for study_site #{study_site_uuid}", {params: params_with_user}] }
             let(:expected_logs) do
               [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :error_with_data, args: log_message_2_args}]
