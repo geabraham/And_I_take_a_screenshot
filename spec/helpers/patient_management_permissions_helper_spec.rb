@@ -151,5 +151,44 @@ describe PatientManagementPermissionsHelper do
         end
       end
     end
+
+    context 'when request has only study site uuid' do
+      let(:study_site1_uuid) { '7fd784a8-32ce-40e2-a68a-0a9d4faa5b18' }
+      let(:params)           { {user_uuid: user_uuid, study_site_uuid: study_site1_uuid} }
+
+      it 'makes a request for the users\'s studies' do
+        expect(test_class).to receive(:request_studies!).with(params)
+        test_class.check_study_and_study_site_permissions!
+      end
+
+      context 'when user has permissions' do
+        it 'returns true' do
+          expect(test_class.check_study_and_study_site_permissions!).to eq(true)
+        end
+
+        it 'assigns studies' do
+          test_class.check_study_and_study_site_permissions!
+          expect(test_class.instance_variable_get("@studies")).to eq(studies['studies'])
+        end
+      end
+
+      context 'when no permissions exist' do
+        include IMedidataClient
+        let(:error_status) { 404 }
+        let(:error_body)   { 'Not found' }
+        let(:error_response) do
+          double('error_response').tap do |er|
+            allow(er).to receive(:status).and_return(error_status)
+            allow(er).to receive(:body).and_return(error_body)
+          end
+        end
+        let(:client_error) { imedidata_client_error('Study Sites', params, error_response) }
+        before { allow(test_class).to receive(:request_studies!).with(params).and_raise(client_error) }
+
+        it 'raises an error' do
+          expect { test_class.check_study_and_study_site_permissions! }.to raise_error(client_error)
+        end
+      end
+    end
   end
 end

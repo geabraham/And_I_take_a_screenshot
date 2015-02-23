@@ -7,7 +7,7 @@ module PatientManagementPermissionsHelper
   #  If response from iMedidata does not include the expected study or study site, an error is raised.
   #
   def check_study_and_study_site_permissions!
-    params[:study_site_uuid] ? check_study_site_permissions : check_study_permissions
+    params[:study_site_uuid] && params[:study_uuid] ? check_study_site_permissions : check_study_permissions
   end
 
   private
