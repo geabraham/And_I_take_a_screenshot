@@ -31,17 +31,12 @@ describe PatientManagementPermissionsHelper do
         end
       end
 
-      context 'when user does not have permissions' do
+      context 'when user does not have permissions for patient management' do
         include IMedidataClient
-        let(:error_status) { 404 }
-        let(:error_body)   { 'Not found' }
-        let(:error_response) do
-          double('error_response').tap do |er|
-            allow(er).to receive(:status).and_return(error_status)
-            allow(er).to receive(:body).and_return(error_body)
-          end
-        end
-        let(:client_error) { imedidata_client_error('Studies', params, error_response) }
+        let(:error_status)   { 404 }
+        let(:error_body)     { 'Not found' }
+        let(:error_response) { double('error_response', status: error_status, body: error_body) }
+        let(:client_error)   { imedidata_client_error('Studies', params, error_response) }
         before { allow(test_class).to receive(:request_studies!).with(params).and_raise(client_error) }
 
         it 'raises an error' do
