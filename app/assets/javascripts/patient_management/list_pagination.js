@@ -7,7 +7,7 @@ $(function() {
   $('.total-pages').html(MUI.totalPages);
   
   renderEnrollments(1, 25);
-  
+    
   $('a.first').on('click', function() {
     if(MUI.currentPage == MUI.totalPages) {
       $('a.next, a.last').removeAttr('disabled').removeClass('disabled');
@@ -72,6 +72,25 @@ $(function() {
     
     renderEnrollments(firstRecord, MUI.recordCount);
   });
+  
+  $('#10-pp, #25-pp, #50-pp, #100-pp').on('click', function() {
+    var button = $(this), 
+        oldButton = $('#' + MUI.perPage + '-pp')
+        newVal = parseInt(button.html());
+    
+    if (newVal != MUI.perPage && !button.hasClass('disabled')) {
+      oldButton.removeClass('selected disabled');
+      button.addClass('selected disabled');
+      
+      //TODO DRY
+      MUI.perPage = newVal;
+      MUI.totalPages = Math.ceil(MUI.recordCount/MUI.perPage);
+      $('.total-pages').html(MUI.totalPages);
+      
+      MUI.currentPage = 1;
+      renderEnrollments(1, MUI.perPage);
+    }
+  })
   
   //TODO none of this works right now
   //$("#current-page").data('validListPage', $("#current-page").val());
