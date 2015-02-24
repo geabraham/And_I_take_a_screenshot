@@ -9,14 +9,7 @@ $(function() {
   renderEnrollments(1, 25);
     
   $('a.first').on('click', function() {
-    if(MUI.currentPage == MUI.totalPages) {
-      $('a.next, a.last').removeAttr('disabled').removeClass('disabled');
-    }
-    
-    $('a.first, a.previous').attr('disabled', true).addClass('disabled');
-    
     MUI.currentPage = 1;
-    
     renderEnrollments(1, MUI.perPage);
   });
   
@@ -26,13 +19,6 @@ $(function() {
     firstRecord = (MUI.currentPage - 1) * MUI.perPage + 1;
     lastRecord = MUI.currentPage * MUI.perPage;
     
-    if(MUI.currentPage == MUI.totalPages - 1) {
-      $('a.next, a.last').removeAttr('disabled').removeClass('disabled');
-    }
-    else if(MUI.currentPage == 1) {
-      $('a.first', 'a.previous').attr('disabled', true).addClass('disabled');
-    }
-    
     renderEnrollments(firstRecord, lastRecord);
   });
   
@@ -40,32 +26,19 @@ $(function() {
     if(MUI.currentPage < MUI.totalPages) {
       firstRecord = 1 + (MUI.currentPage * MUI.perPage);
       
-      if (MUI.currentPage == 1) {
-        $('a.first, a.previous').removeAttr('disabled').removeClass('disabled');
-      }
-      
       if (MUI.currentPage < MUI.totalPages - 1) {
         lastRecord = (1 + MUI.currentPage) * MUI.perPage;
       }
       else if (MUI.currentPage == MUI.totalPages - 1) {
         lastRecord = MUI.recordCount;
-        
-        $('a.next, a.last').attr('disabled', true).addClass('disabled');
       }
       
       MUI.currentPage++;
-      
       renderEnrollments(firstRecord, lastRecord);
     }
   });
   
   $('a.last').on('click', function() {
-    if (MUI.currentPage == 1) {
-      $('a.first, a.previous').removeAttr('disabled').removeClass('disabled');
-    }
-    
-    $('a.next, a.last').attr('disabled', true).addClass('disabled');
-    
     firstRecord = (MUI.totalPages - 1) * MUI.perPage + 1;
     
     MUI.currentPage = MUI.totalPages;
@@ -135,6 +108,26 @@ var renderEnrollments = function(first, last) {
       activation_code: MUI.patientEnrollments[el].activation_code,
       state: MUI.patientEnrollments[el].state
     }));
+  }
+  
+  // determine which of the arrow controls to enable
+  // for first page
+  if (MUI.currentPage == 1) {
+    $('a.first, a.previous').attr('disabled', true).addClass('disabled');
+    
+    if (MUI.totalPages > 1) {
+      $('a.next, a.last').removeAttr('disabled').removeClass('disabled');
+    }
+  }
+  // for pages between the beginning and end
+  else if (MUI.currentPage > 1 && MUI.currentPage < MUI.totalPages) {
+    $('a.previous, a.first').removeAttr('disabled').removeClass('disabled');
+    $('a.next, a.last').removeAttr('disabled').removeClass('disabled');
+  }
+  // for last page
+  else if (MUI.currentPage == MUI.totalPages) {
+    $('a.previous, a.first').removeAttr('disabled').removeClass('disabled');
+    $('a.next, a.last').attr('disabled', true).addClass('disabled');
   }
   
   // update the current page value in the control
