@@ -34,6 +34,8 @@ describe PatientManagementController do
           end
           let(:params)               { default_params }
           let(:expected_status_code) { error_status }
+          let(:log_message_1_args)   { ["Checking study authorizations for patient management.", {params: params.merge('user_uuid' => user_uuid)}] }
+          let(:expected_logs)        { [{log_method: :info_with_data, args: log_message_1_args}] }
 
           before do
             allow(controller).to receive(:request_studies!).with(default_params.merge(user_uuid: user_uuid))
@@ -42,6 +44,7 @@ describe PatientManagementController do
 
           it_behaves_like 'returns expected status'
           it_behaves_like 'assigns an ivar to its expected value', :status_code, 404
+          it_behaves_like 'logs the expected messages at the expected levels'
         end
 
         context 'when user has studies for patient management' do
@@ -67,13 +70,13 @@ describe PatientManagementController do
         let(:study_uuid)           { SecureRandom.uuid }
         let(:params)               { default_params.merge(study_uuid: study_uuid) }
         let(:study_attributes)     { {name: 'Mediflex', uuid: study_uuid} }
-        let(:study_response)       { {study: study_attributes}.deep_stringify_keys }
+        let(:study_response)       { {studies: [study_attributes]}.deep_stringify_keys }
         let(:expected_status_code) { 200 }
         let(:expected_ivars)       { [{name: 'study_or_studies', value: expected_ivar_value}] }
         let(:expected_ivar_value)  { [[study_attributes[:name], study_attributes[:uuid]]] }
 
         before do
-          allow(controller).to receive(:request_study!).with(params.merge(user_uuid: user_uuid)).and_return(study_response)
+          allow(controller).to receive(:request_studies!).with(params.merge(user_uuid: user_uuid)).and_return(study_response)
         end
 
         it_behaves_like 'returns expected status'
@@ -103,10 +106,10 @@ describe PatientManagementController do
 
         describe 'failure cases' do
           context 'when user has not been authorized for the study and site' do
-            let(:expected_template)  { 'select_study_and_site' }
+            let(:expected_template)  { 'error' }
             let(:params_with_user)   { params.merge(user_uuid: user_uuid).stringify_keys }
-            let(:log_message_1_args) { ["Checking for selected and authorized study site.", {params: params_with_user}] }
-            let(:log_message_2_args) { ["Not all params or insufficient permissions for patient management.", {params: params_with_user}] }
+            let(:log_message_1_args) { ["Checking study site authorizations for patient management.", {params: params_with_user}] }
+            let(:log_message_2_args) { ["No patient management permissions for user #{user_uuid} for study_site #{study_site_uuid}", {params: params_with_user}] }
             let(:expected_logs) do
               [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :error_with_data, args: log_message_2_args}]
             end

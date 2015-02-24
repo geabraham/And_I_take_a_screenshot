@@ -42,6 +42,9 @@ describe PatientManagementController do
         user_email: 'testuser@gmail.com',
         user_uuid: user_uuid
       }.stringify_keys
+      mock_study_sites_request = IMedidataClient::StudySitesRequest.new(user_uuid: user_uuid, study_uuid: study_uuid)
+      stub_request(:get, IMED_BASE_URL + mock_study_sites_request.path)
+        .to_return(status: 200, body: {study_sites: [{name: 'StudySite001', uuid: study_site_uuid}]}.to_json)
     end
 
     context 'when backend service is unavailable' do
@@ -112,6 +115,7 @@ describe PatientManagementController do
       end
 
       before do
+        allow(Rails.logger).to receive(:info_with_data)
         allow(Euresource::PatientEnrollment).to receive(:post!)
           .with(params_for_patient_enrollment, http_headers)
           .and_return(patient_enrollment_response)
