@@ -46,9 +46,9 @@ var addPasswordRules = function() {
     minlength: 8,
     pwcheck: true,
     messages: {
-        required: window.t("registration.email_form.validation_error"),
-        minlength: window.t("registration.email_form.validation_error"),
-        pwcheck: window.t("registration.email_form.validation_error")
+        required: window.t("registration.password_form.validation_error"),
+        minlength: window.t("registration.password_form.validation_error"),
+        pwcheck: window.t("registration.password_form.validation_error")
     }
   });
   $('#patient_enrollment_password_confirmation').rules('add', {
