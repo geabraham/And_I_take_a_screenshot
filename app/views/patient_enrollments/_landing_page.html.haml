@@ -1,21 +1,21 @@
-%h3.form_header
+%h3.form_header{:dir => "#{@script_direction}"}
   = t("registration.form_heading")
-%p.form_instruction
+%p.form_instruction{:dir => "#{@script_direction}"}
   = t("registration.welcome.welcome_message")
 .row
   .col-xs-2
     =image_tag 'register.png', id: 'register'
   .col-xs-10
-    %p= t("registration.welcome.register_1")
-    %p= t("registration.welcome.register_2")
+    %p{:dir => "#{@script_direction}"}= t("registration.welcome.register_1")
+    %p{:dir => "#{@script_direction}"}= t("registration.welcome.register_2")
 .row
   .col-xs-2
     =image_tag 'download.png', id: 'download'
   .col-xs-10
     %p
-    %p= t("registration.welcome.download")
+    %p{:dir => "#{@script_direction}"}= t("registration.welcome.download")
 .row
   .col-xs-2
     =image_tag 'login.png', id: 'login'
   .col-xs-10
-    %p= t("registration.welcome.login")
+    %p{:dir => "#{@script_direction}"}= t("registration.welcome.login")

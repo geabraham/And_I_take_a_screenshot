@@ -1,13 +1,13 @@
-%h3.form_header
+%h3.form_header{:dir => "#{@script_direction}"}
   = t("registration.email_form.email_label")
-%p.form_instruction
+%p.form_instruction{:dir => "#{@script_direction}"}
   = t("registration.email_form.form_instruction")
 
 = fields_for @patient_enrollment do |f|
   .form-group
-    = f.label :login, t("registration.email_form.email_label")
-    = f.email_field :login, class: 'registration-input form-control'
+    = f.label :login, t("registration.email_form.email_label"), {dir: "#{@script_direction}"}
+    = f.email_field :login, class: 'registration-input form-control', dir: "#{@script_direction}"
   .form-group
-    = f.label :login_confirmation, t("registration.email_form.reenter_label")
-    = f.email_field :login_confirmation, class: 'registration-input form-control'
+    = f.label :login_confirmation, t("registration.email_form.reenter_label"), {dir: "#{@script_direction}"}
+    = f.email_field :login_confirmation, class: 'registration-input form-control', dir: "#{@script_direction}"
 .validation_error.invisible
