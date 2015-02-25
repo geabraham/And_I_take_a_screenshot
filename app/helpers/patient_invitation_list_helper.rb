@@ -10,21 +10,32 @@ module PatientInvitationListHelper
     (1..100).each { |a| stubby_return << {created_at: '2012-02-18 06:08:08', subject_identifier: "dup#{a}", email: "todd#{a}@mdsol.com", initials: "#{a}", activation_code: "SFH#{a}", state: 'Pending'} }
     # real code below
     @enrollments = stubby_return.sort_by { |e| e[:created_at] }.reverse
-    @enrollments.each do |enrollment| 
-      enrollment[:email] = anonymize_email(enrollment[:email])
-      enrollment[:created_at] = Date.strptime(enrollment[:created_at]).strftime('%d-%^b-%Y')
-    end
+    @enrollments.each { |e| format_and_anonymize(e) }
   end
   
+  def format_and_anonymize(enrollment)
+    enrollment[:email] = anonymize_email(enrollment[:email])
+    #TODO remove nil check once created_at is added to PatientEnrollment resource
+    enrollment[:created_at] = format_date(enrollment[:created_at].nil? ? Date.today.to_s : enrollment[:created_at])
+    enrollment
+  end
+  
+  private
   def anonymize_email(email)
     user = email.split('@').first.chars
-    user = user.take(2).join << '*' * (user.length > 20 ? 18 : user.length - 2)
+    user = user.take(2).join 
+    user << '*' * (user.length > 20 ? 18 : user.length - 2) unless user.length <= 2
     
     domain = email.split('@').last.split('.').first.chars
-    domain = domain.take(2).join << '*' * (domain.length > 10 ? 8 : domain.length - 2)
+    domain = domain.take(2).join 
+    domain << '*' * (domain.length > 10 ? 8 : domain.length - 2) unless domain.length <= 2
     
     tld = email.split('@').last.split('.').from(1).join('.')
     
     "#{user}@#{domain}.#{tld}"
+  end
+  
+  def format_date(date)
+    Date.strptime(date).strftime('%d-%^b-%Y')
   end
 end

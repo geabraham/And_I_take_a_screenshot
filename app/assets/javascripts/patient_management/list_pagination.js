@@ -133,3 +133,23 @@ var renderEnrollments = function(first, last) {
   // update the current page value in the control
   $('#current-page').val(MUI.currentPage);
 }
+
+var updateGrid = function(data) {
+  // build new enrollment row...
+  var newEnrollment = new Object();
+  newEnrollment.created_at = data.created_at;
+  newEnrollment.subject_identifier = data.subject_id;
+  newEnrollment.email = data.email;
+  newEnrollment.initials = data.initials;
+  newEnrollment.activation_code = data.activation_code;
+  newEnrollment.state = data.state;
+  
+  //... and update globals
+  MUI.patientEnrollments.unshift(newEnrollment);
+  MUI.recordCount++;
+  MUI.totalPages = Math.ceil(MUI.recordCount/MUI.perPage);
+  $('.total-pages').html(MUI.totalPages);
+  
+  // TODO do this based on which page we're on
+  renderEnrollments(1, MUI.perPage);
+}

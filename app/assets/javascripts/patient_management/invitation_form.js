@@ -7,6 +7,7 @@ $(function() {
     resetErrors();
     clearUserFields();
     refreshSubjects();
+    updateGrid(data);
   }).on("ajax:error", function(e, xhr, status, error) {
     resetErrors();
     addError(xhr.responseText);

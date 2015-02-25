@@ -22,7 +22,7 @@ class PatientManagementController < ApplicationController
 
   def invite
     patient_enrollment = invite_or_raise!
-    render json: patient_enrollment, status: :created
+    render json: format_and_anonymize(patient_enrollment.attributes.symbolize_keys), status: :created
   rescue StandardError => e
     message, status = available_subjects_error(e)
     Rails.logger.error_with_data("Rescuing error during patient invitation.", error: e.inspect)
