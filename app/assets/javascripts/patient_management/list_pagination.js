@@ -10,40 +10,22 @@ $(function() {
     
   $('a.first').on('click', function() {
     MUI.currentPage = 1;
-    renderEnrollments(1, MUI.perPage);
+    renderEnrollments(MUI.currentPage);
   });
   
   $('a.previous').on('click', function() {
     MUI.currentPage--;
-    
-    firstRecord = (MUI.currentPage - 1) * MUI.perPage + 1;
-    lastRecord = MUI.currentPage * MUI.perPage;
-    
-    renderEnrollments(firstRecord, lastRecord);
+    renderEnrollments(MUI.currentPage);
   });
   
   $('a.next').on('click', function() {
-    if(MUI.currentPage < MUI.totalPages) {
-      firstRecord = 1 + (MUI.currentPage * MUI.perPage);
-      
-      if (MUI.currentPage < MUI.totalPages - 1) {
-        lastRecord = (1 + MUI.currentPage) * MUI.perPage;
-      }
-      else if (MUI.currentPage == MUI.totalPages - 1) {
-        lastRecord = MUI.recordCount;
-      }
-      
-      MUI.currentPage++;
-      renderEnrollments(firstRecord, lastRecord);
-    }
+    MUI.currentPage++;
+    renderEnrollments(MUI.currentPage);
   });
   
   $('a.last').on('click', function() {
-    firstRecord = (MUI.totalPages - 1) * MUI.perPage + 1;
-    
     MUI.currentPage = MUI.totalPages;
-    
-    renderEnrollments(firstRecord, MUI.recordCount);
+    renderEnrollments(MUI.currentPage);
   });
   
   $('#10-pp, #25-pp, #50-pp, #100-pp').on('click', function() {
@@ -91,12 +73,46 @@ $(function() {
   //  });
 });
 
-// render a page, or rather a range of instances of a template, corresponding to the specified first and last record
-var renderEnrollments = function(first, last) {
-  var compiled = _.template('<tr class="patient_row"><td><%= created_at %></td><td><%= subject_identifier %></td><td><%= email %></td><td><%= initials %></td><td><%= activation_code %></td><td><%= state %></td></tr>');
+// render a page of enrollments
+var renderEnrollments = function(pageNumber) {
+  var compiled = _.template('<tr class="patient_row"><td><%= created_at %></td><td><%= subject_identifier %></td><td><%= email %></td><td><%= initials %></td><td><%= activation_code %></td><td><%= state %></td></tr>'),
+      first = 0,
+      last = 0;
   
   //remove the previous page of enrollments
   $('.patient_row').remove();
+  
+  // determine the first and last records on the current page and enable/disable controls
+  // for the first page
+  if (MUI.currentPage == 1) {
+    $('a.first, a.previous').attr('disabled', true).addClass('disabled');
+    first = 1;
+    last = MUI.perPage;
+    
+    // if first page is not the only page
+    if (MUI.totalPages > 1) {
+      $('a.next, a.last').removeAttr('disabled').removeClass('disabled');
+    }
+  }
+  // for pages between the beginning and end
+  else if (MUI.currentPage > 1 && MUI.currentPage < MUI.totalPages) {
+    first = (MUI.currentPage - 1) * MUI.perPage + 1;
+    last = MUI.currentPage * MUI.perPage;
+    
+    $('a.previous, a.first').removeAttr('disabled').removeClass('disabled');
+    $('a.next, a.last').removeAttr('disabled').removeClass('disabled');
+  }
+  // for the last page
+  else if (MUI.currentPage == MUI.totalPages) {
+    first = (MUI.totalPages - 1) * MUI.perPage + 1;
+    last = MUI.recordCount;
+    
+    $('a.previous, a.first').removeAttr('disabled').removeClass('disabled');
+    $('a.next, a.last').attr('disabled', true).addClass('disabled');
+  }
+  
+  // update the current page value in the control
+  $('#current-page').val(MUI.currentPage);
   
   //render the current page of enrollments
   for(el = (first - 1); el <= (last - 1); el++) {
@@ -109,29 +125,6 @@ var renderEnrollments = function(first, last) {
       state: MUI.patientEnrollments[el].state
     }));
   }
-  
-  // determine which of the arrow controls to enable
-  // for first page
-  if (MUI.currentPage == 1) {
-    $('a.first, a.previous').attr('disabled', true).addClass('disabled');
-    
-    if (MUI.totalPages > 1) {
-      $('a.next, a.last').removeAttr('disabled').removeClass('disabled');
-    }
-  }
-  // for pages between the beginning and end
-  else if (MUI.currentPage > 1 && MUI.currentPage < MUI.totalPages) {
-    $('a.previous, a.first').removeAttr('disabled').removeClass('disabled');
-    $('a.next, a.last').removeAttr('disabled').removeClass('disabled');
-  }
-  // for last page
-  else if (MUI.currentPage == MUI.totalPages) {
-    $('a.previous, a.first').removeAttr('disabled').removeClass('disabled');
-    $('a.next, a.last').attr('disabled', true).addClass('disabled');
-  }
-  
-  // update the current page value in the control
-  $('#current-page').val(MUI.currentPage);
 }
 
 var updateGrid = function(data) {
