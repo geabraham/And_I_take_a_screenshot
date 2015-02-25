@@ -133,8 +133,8 @@ describe PatientManagementPermissionsHelper do
         end
       end
 
-      context 'when user does not have permissions' do
-        context 'when user has no study sites patient management permissions' do
+      context 'when user is not authorized' do
+        context 'when user is authenticated but has no study sites for patient management' do
           before { allow(test_class).to receive(:request_study_sites!).with(params).and_return({study_sites: []}.stringify_keys)}
 
           it 'raises an error' do
