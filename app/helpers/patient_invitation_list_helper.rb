@@ -23,12 +23,18 @@ module PatientInvitationListHelper
   private
   def anonymize_email(email)
     user = email.split('@').first.chars
-    user = user.take(2).join 
-    user << '*' * (user.length > 20 ? 18 : user.length - 2) unless user.length <= 2
+    if user.length >= 2
+      user = user.take(2).join << '*' * (user.length > 20 ? 18 : user.length - 2)
+    else
+      user = user.take(2).join << '***'
+    end
     
     domain = email.split('@').last.split('.').first.chars
-    domain = domain.take(2).join 
-    domain << '*' * (domain.length > 10 ? 8 : domain.length - 2) unless domain.length <= 2
+    if domain.length >= 2
+      domain = domain.take(2).join << '*' * (domain.length > 10 ? 8 : domain.length - 2)
+    else
+      domain = domain.take(2).join << '***'
+    end
     
     tld = email.split('@').last.split('.').from(1).join('.')
     
