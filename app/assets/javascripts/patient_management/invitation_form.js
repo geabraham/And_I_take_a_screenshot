@@ -64,3 +64,9 @@ var refreshSubjects = function() {
     inviteButtonEnabledDisabled();
   });
 }
+
+$(document).ajaxStart(function() {
+  $('#loading-image').show();
+}).ajaxStop(function() {
+  $('#loading-image').hide();
+})
