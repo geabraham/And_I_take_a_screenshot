@@ -137,12 +137,12 @@ var updateGrid = function(data) {
   newEnrollment.activation_code = data.activation_code;
   newEnrollment.state = data.state;
   
-  //... and update globals
+  //... and update page state
   MUI.patientEnrollments.unshift(newEnrollment);
-  MUI.recordCount++;
+  $('#total-count').html(++MUI.recordCount)
   MUI.totalPages = Math.ceil(MUI.recordCount/MUI.perPage);
   $('.total-pages').html(MUI.totalPages);
   
   // TODO do this based on which page we're on
-  renderEnrollments(1, MUI.perPage);
+  renderEnrollments(MUI.currentPage);
 }
