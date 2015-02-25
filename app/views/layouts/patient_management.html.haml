@@ -15,7 +15,7 @@
     = cdn_stylesheet_link_tag    'platform'
     = stylesheet_link_tag        'application'
     = csrf_meta_tags
-  %body
+  %body{dir: "#{@script_direction}"}
     - content_for :page_header_text do
       %h4= @error ? t('error.error') : t('application.patient_management')
 

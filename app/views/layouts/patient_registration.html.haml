@@ -15,7 +15,7 @@
     = cdn_stylesheet_link_tag    'platform'
     = stylesheet_link_tag        'application'
     = csrf_meta_tags
-  %body
+    %body{dir: "RTL"}
     #main.clearfix
       .patient
         = yield :page_body

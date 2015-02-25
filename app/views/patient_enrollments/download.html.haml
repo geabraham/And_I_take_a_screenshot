@@ -2,7 +2,7 @@
   .header
     =image_tag 'Medidata_Logo_white_RGB_2.png'
 
-  %p#download-instruction{:dir => "#{@script_direction}"}= t("registration.download.header")
+  %p#download-instruction= t("registration.download.header")
   =image_tag 'Progress_bar_download.png', id: 'progress-img'
   .downloads
     %a.download-android
