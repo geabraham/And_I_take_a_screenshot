@@ -6,7 +6,7 @@
   / label is included so capybara can find the control, but not displayed on the page.  Not localizing because not displayed
   .form-group
     = f.label :security_question, 'Security Question', {id: "question-label", class: 'invisible', dir: "#{@script_direction}"}
-    = f.select :security_question, @security_questions, {include_blank:  t("registration.security_question_form.dropdown_placeholder")}, {class: 'form-control'}
+    = f.select :security_question, @security_questions, {include_blank:  t("registration.security_question_form.dropdown_placeholder")}, {class: 'form-control', dir: "#{@script_direction}"}
   .form-group
     = f.label :answer,  t("registration.security_question_form.answer_label", {dir: "#{@script_direction}"})
     = f.text_field :answer, class: 'registration-input form-control', placeholder:  t("registration.security_question_form.answer_placeholder", dir: "#{@script_direction}")
