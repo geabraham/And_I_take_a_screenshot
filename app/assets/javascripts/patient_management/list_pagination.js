@@ -2,9 +2,9 @@ $(function() {
   // set up global pagination state variables
   MUI.currentPage = 1;
   MUI.perPage = 25;
-  MUI.recordCount = parseInt($('#total-count').html());
+  MUI.recordCount = parseInt($('#total-count').html(), 10);
   MUI.totalPages = Math.ceil(MUI.recordCount/MUI.perPage);
-  $('.total-pages').html(MUI.totalPages);
+  $('#total-pages').html(MUI.totalPages);
   
   renderEnrollments(1, 25);
     
@@ -31,46 +31,20 @@ $(function() {
   $('#10-pp, #25-pp, #50-pp, #100-pp').on('click', function() {
     var button = $(this), 
         oldButton = $('#' + MUI.perPage + '-pp')
-        newVal = parseInt(button.html());
+        newVal = parseInt(button.html(), 10);
     
     if (newVal != MUI.perPage && !button.hasClass('disabled')) {
       oldButton.removeClass('selected disabled');
       button.addClass('selected disabled');
       
-      //TODO DRY
       MUI.perPage = newVal;
       MUI.totalPages = Math.ceil(MUI.recordCount/MUI.perPage);
-      $('.total-pages').html(MUI.totalPages);
+      $('#total-pages').html(MUI.totalPages);
       
       MUI.currentPage = 1;
       renderEnrollments(1, MUI.perPage);
     }
   })
-  
-  //TODO none of this works right now
-  //$("#current-page").data('validListPage', $("#current-page").val());
-  //  $.validator.addMethod("validPageNumber",
-  //    function(value, element) {
-  //      var current_value = parseInt(value, 10),
-  //        total_pages = parseInt($("#total-pages").text(), 10),
-  //        logic = this.optional(element) || /^[1-9][0-9]*$/.test(value) && current_value <= total_pages;
-  //      if (!logic) {
-  //        $("#current-page").val($("#current-page").data('validListPage'));
-  //      }
-  //      return logic;
-  //    },
-  //    "Must be in range from 1 to the total number of pages"
-  //  );
-  //
-  //  $("#page-form").validate({
-  //    onfocusout:function(element) {
-  //      $(element).valid();
-  //    },
-  //    onkeyup:function(element) {
-  //      $(element).valid();
-  //    },
-  //    errorPlacement:function() {}
-  //  });
 });
 
 // render a page of enrollments
@@ -141,7 +115,7 @@ var updateGrid = function(data) {
   MUI.patientEnrollments.unshift(newEnrollment);
   $('#total-count').html(++MUI.recordCount)
   MUI.totalPages = Math.ceil(MUI.recordCount/MUI.perPage);
-  $('.total-pages').html(MUI.totalPages);
+  $('#total-pages').html(MUI.totalPages);
   
   // TODO do this based on which page we're on
   renderEnrollments(MUI.currentPage);

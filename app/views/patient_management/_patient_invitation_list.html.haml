@@ -38,11 +38,11 @@
                 %i.fa.fa-angle-left
                 %span.sr-only previous
             %li.counter
-              %form{action: '/', method: 'get', novalidate: 'novalidate', 'accept-charset' => 'UTF-8'}
+              %form#page-form
                 %div{style: 'margin:0;padding:0;display:inline'}
-                %input#current-page{name: 'page', size: '2', type: 'text', value: '1', maxlength: '2', autocomplete: 'off'}
+                %input#current-page{name: 'current-page', size: '2', type: 'text', value: '1', maxlength: '2', autocomplete: 'off'}
                 of
-                %span.total-pages
+                %span#total-pages
             %li
               %a.next
                 %i.fa.fa-angle-right
@@ -53,6 +53,7 @@
                 %span.sr-only last
   - else
     = 'No patient invitations found. Use the form above to invite some.'
+.validation_error
 
 :javascript
   var MUI = MUI || {};
