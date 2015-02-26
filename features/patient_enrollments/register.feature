@@ -15,7 +15,7 @@ Feature: Patient Registration
     And the request to create account is successful
     Then I should see a link to download the Patient Cloud app
     And I should be registered for a study
-
+ 
   @Review[ENG]
   @Release2015.1.0
   @PB130361-001
@@ -48,4 +48,26 @@ Feature: Patient Registration
   @PatientFlow
   Scenario: An invalid activation code displays an error message
     When I fill in an invalid activation code
+    Then I should see a representation of the error from back-end service
+
+  @Review[SQA]
+  @Release2015.1.0
+  @PB130359-001
+  @Headed
+  @PatientFlow
+  Scenario: A new iMedidata user should be able to register for a study in a language other than english
+    When I fill in a valid activation code with a language code of deu
+    And I accept the TOU/DPN
+    And I submit registration info as a new subject
+    And the request to create account is successful
+    Then I should see a link to download the Patient Cloud app
+    And I should be registered for a study
+
+@Review[SQA]
+  @Release2015.1.0
+  @PB130359-001
+  @Headed
+  @PatientFlow
+  Scenario: An activation code with an invalid language code displays an error message
+    When I fill in a invalid activation code with a language code of xxx
     Then I should see a representation of the error from back-end service
