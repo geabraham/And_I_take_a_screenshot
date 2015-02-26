@@ -21,7 +21,7 @@ class PatientEnrollment
     end
 
   rescue => e
-    Rails.logger.error("Error retrieving patient enrollments: #{e.message}")
+    Rails.logger.error_with_data("Error retrieving patient enrollments: #{e.message}", options)
     raise
   end
 

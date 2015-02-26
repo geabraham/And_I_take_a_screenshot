@@ -20,7 +20,8 @@ describe PatientEnrollment do
       let(:args) { 'abc' }
 
       it 'logs the error' do
-        expect(Rails.logger).to receive(:error).with('Error retrieving patient enrollments: Argument must be a hash.')
+        expect(Rails.logger).to receive(:error_with_data)
+          .with('Error retrieving patient enrollments: Argument must be a hash.', args)
         PatientEnrollment.by_study_and_study_site(args) rescue nil
       end
 
@@ -33,7 +34,8 @@ describe PatientEnrollment do
       let(:args) { { study_uuid: '', study_site_uuid: study_site_uuid, user_uuid: user_uuid } }
 
       it 'logs the error' do
-        expect(Rails.logger).to receive(:error).with('Error retrieving patient enrollments: Required argument study_uuid is blank.')
+        expect(Rails.logger).to receive(:error_with_data)
+          .with('Error retrieving patient enrollments: Required argument study_uuid is blank.', args)
         PatientEnrollment.by_study_and_study_site(args) rescue nil
       end
 
@@ -47,7 +49,8 @@ describe PatientEnrollment do
       let(:args) { { study_uuid: study_uuid, study_site_uuid: '', user_uuid: user_uuid } }
 
       it 'logs the error' do
-        expect(Rails.logger).to receive(:error).with('Error retrieving patient enrollments: Required argument study_site_uuid is blank.')
+        expect(Rails.logger).to receive(:error_with_data)
+          .with('Error retrieving patient enrollments: Required argument study_site_uuid is blank.', args)
         PatientEnrollment.by_study_and_study_site(args) rescue nil
       end
 
@@ -61,7 +64,8 @@ describe PatientEnrollment do
       let(:args) { { study_uuid: study_uuid, study_site_uuid: study_site_uuid, user_uuid: ''} }
 
       it 'logs the error' do
-        expect(Rails.logger).to receive(:error).with('Error retrieving patient enrollments: Required argument user_uuid is blank.')
+        expect(Rails.logger).to receive(:error_with_data)
+          .with('Error retrieving patient enrollments: Required argument user_uuid is blank.', args)
         PatientEnrollment.by_study_and_study_site(args) rescue nil
       end
 
@@ -85,13 +89,14 @@ describe PatientEnrollment do
       context 'when Euresource encounters an error' do
         let(:exception) { StandardError.new('Test error') }
         before do
-          allow(Rails.logger).to receive(:error)
+          allow(Rails.logger).to receive(:error_with_data)
           allow(Euresource::PatientEnrollments).to receive(:get) { raise exception }
         end
 
         it 'logs the error' do
           PatientEnrollment.by_study_and_study_site(args) rescue nil
-          expect(Rails.logger).to have_received(:error).with 'Error retrieving patient enrollments: Test error'
+          expect(Rails.logger).to have_received(:error_with_data)
+            .with 'Error retrieving patient enrollments: Test error', args
         end
 
         it 'raises the error' do
@@ -104,15 +109,14 @@ describe PatientEnrollment do
         let(:response_status) { 404 }
 
         before do
-          allow(Rails.logger).to receive(:error)
-          allow(Euresource::PatientEnrollments).to receive(:get)
-            .with(:all, euresource_params)
-            .and_return(response_object)
+          allow(Rails.logger).to receive(:error_with_data)
+          allow(Euresource::PatientEnrollments).to receive(:get).with(:all, euresource_params).and_return(response_object)
         end
 
         it 'logs the error' do
           PatientEnrollment.by_study_and_study_site(args) rescue nil
-          expect(Rails.logger).to have_received(:error).with 'Error retrieving patient enrollments: Test error message'
+          expect(Rails.logger).to have_received(:error_with_data)
+            .with 'Error retrieving patient enrollments: Test error message', args
         end
 
         it 'raises a EuresourceError with an appropriate message' do
