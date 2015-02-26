@@ -54,7 +54,7 @@ var addPasswordRules = function() {
   $('#patient_enrollment_password_confirmation').rules('add', {
     equalTo: '#patient_enrollment_password',
     messages: {
-        equalTo: window.t("registration.email_form.mismatch_error")
+        equalTo: window.t("registration.password_form.mismatch_error")
     }
   });
 }
