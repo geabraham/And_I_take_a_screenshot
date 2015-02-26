@@ -1,15 +1,43 @@
 class PatientEnrollment
   include ActiveModel::Model
   attr_accessor :uuid, :login, :password, :security_question, :answer, :activation_code, :login_confirmation,
-                :tou_dpn_agreement
+                :tou_dpn_agreement, :initials, :email, :enrollment_type, :study_uuid, :study_site_uuid,
+                :subject_id, :state, :tou_accepted_at
   RIGHT_TO_LEFT_LANGUAGE_CODES = ['ara', 'heb']
+
+  def self.by_study_and_study_site(options)
+    raise ArgumentError.new('Argument must be a hash.') unless options.is_a?(Hash)
+    [:study_uuid, :study_site_uuid, :user_uuid].each do |key|
+      raise ArgumentError.new("Required argument #{key} is blank.") if options[key].blank?
+    end
+
+    response = Euresource::PatientEnrollments.get(:all, params: options.slice(:study_uuid, :study_site_uuid),
+      http_headers: { 'X-MWS-Impersonate' => options[:user_uuid] })
+
+    if response.last_response.status == 200
+      JSON.parse(response.last_response.body).map{ |pe_hash| PatientEnrollment.new(pe_hash) }
+    else
+      raise EuresourceError.new(response.last_response.body)
+    end
+
+  rescue => e
+    Rails.logger.error_with_data("Error retrieving patient enrollments: #{e.message}", options)
+    raise
+  end
 
   def tou_dpn_agreement_body
     Nokogiri::HTML(tou_dpn_agreement['html']).css('body').to_s.html_safe
   end
 
+  # Language code is either assigned or retrieved from the TOU/DPN.
+  # TODO: Can we drop the TOU/DPN retrieval? It should always match the TOU/DPN.
+  #
   def language_code
-    tou_dpn_agreement['language_code']
+    @language_code || tou_dpn_agreement['language_code']
+  end
+
+  def language_code=(value)
+    @language_code = value
   end
 
   def tou_dpn_agreement
