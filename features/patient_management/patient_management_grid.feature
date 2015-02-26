@@ -16,7 +16,7 @@ Feature: A provider can view patient enrollments in a study
   @PB130352-001
   @Headed
   @Review[ENG]       
-  Scenario: A provider should be able to view enrollment statuses:
+  Scenario: A provider should be able to view enrollment statuses.
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
     And a patient enrollment exists for Subject001
@@ -29,7 +29,7 @@ Feature: A provider can view patient enrollments in a study
   @PB130352-002
   @Headed
   @Review[ENG] 
-  Scenario: A provider views patient management grid when there are no patient enrollments:
+  Scenario: A provider views patient management grid when there are no patient enrollments.
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
     And I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
@@ -40,7 +40,7 @@ Feature: A provider can view patient enrollments in a study
   @PB130352-003
   @Headed
   @Review[ENG]
-  Scenario: A provider views patient management grid when backend returns an error:
+  Scenario: A provider views patient management grid when backend returns an error.
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
     And I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
@@ -51,7 +51,7 @@ Feature: A provider can view patient enrollments in a study
   @PB130352-004
   @Headed
   @Review[ENG]
-  Scenario: A provider should be able to page through a large number of enrollments:
+  Scenario: A provider should be able to page through a large number of enrollments.
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
