@@ -102,7 +102,7 @@ describe PatientManagementPermissionsHelper do
       end
     end
 
-    context 'when study site is present in the request' do
+    context 'when study and study site uuids are present in the request' do
       let(:study_site1_uuid) { '7fd784a8-32ce-40e2-a68a-0a9d4faa5b18' }
       let(:study_site2_uuid) { '811692e7-2981-4512-b46c-fda6fbcae119' }
       let(:study_site1)      { {uuid: study_site1_uuid, name: 'TestStudySite1'}.stringify_keys }
@@ -133,21 +133,33 @@ describe PatientManagementPermissionsHelper do
         end
       end
 
-      context 'when user does not have permissions' do
-        include IMedidataClient
-        let(:error_status) { 404 }
-        let(:error_body)   { 'Not found' }
-        let(:error_response) do
-          double('error_response').tap do |er|
-            allow(er).to receive(:status).and_return(error_status)
-            allow(er).to receive(:body).and_return(error_body)
+      context 'when user is not authorized' do
+        context 'when user is authenticated but has no study sites for patient management' do
+          before { allow(test_class).to receive(:request_study_sites!).with(params).and_return({study_sites: []}.stringify_keys)}
+
+          it 'raises an error' do
+            expect { test_class.check_study_and_study_site_permissions! }.to raise_error(
+              PatientManagementPermissionsHelper::PermissionsError,
+              "No patient management permissions for user #{user_uuid} for study_site #{study_site1_uuid}")
           end
         end
-        let(:client_error) { imedidata_client_error('Study Sites', params, error_response) }
-        before { allow(test_class).to receive(:request_study_sites!).with(params).and_raise(client_error) }
 
-        it 'raises an error' do
-          expect { test_class.check_study_and_study_site_permissions! }.to raise_error(client_error)
+        context 'when iMedidata raises an error' do
+          include IMedidataClient
+          let(:error_status) { 404 }
+          let(:error_body)   { 'Not found' }
+          let(:error_response) do
+            double('error_response').tap do |er|
+              allow(er).to receive(:status).and_return(error_status)
+              allow(er).to receive(:body).and_return(error_body)
+            end
+          end
+          let(:client_error) { imedidata_client_error('Study Sites', params, error_response) }
+          before { allow(test_class).to receive(:request_study_sites!).with(params).and_raise(client_error) }
+
+          it 'raises an error' do
+            expect { test_class.check_study_and_study_site_permissions! }.to raise_error(client_error)
+          end
         end
       end
     end

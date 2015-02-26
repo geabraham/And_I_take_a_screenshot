@@ -114,7 +114,7 @@ describe PatientManagementController do
               [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :error_with_data, args: log_message_2_args}]
             end
             before do
-              allow(controller).to receive(:request_study_sites!).and_return([])
+              allow(controller).to receive(:request_study_sites!).and_return({study_sites: []}.stringify_keys)
               allow(controller).to receive(:studies_selection_list).and_return([])
             end
 
