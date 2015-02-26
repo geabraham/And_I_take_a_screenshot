@@ -2,7 +2,7 @@ class PatientEnrollment
   include ActiveModel::Model
   attr_accessor :uuid, :login, :password, :security_question, :answer, :activation_code, :login_confirmation,
                 :tou_dpn_agreement, :initials, :email, :enrollment_type, :study_uuid, :study_site_uuid,
-                :subject_id, :state, :tou_accepted_at
+                :subject_id, :state, :tou_accepted_at, :created_at
   RIGHT_TO_LEFT_LANGUAGE_CODES = ['ara', 'heb']
 
   def self.by_study_and_study_site(options)
