@@ -5,13 +5,14 @@ class PatientEnrollment
                 :subject_id, :state, :tou_accepted_at
   RIGHT_TO_LEFT_LANGUAGE_CODES = ['ara', 'heb']
 
-  def self.by_study_and_study_site(study_uuid, study_site_uuid, user_uuid)
-    raise ArgumentError.new('Required argument study_uuid is blank.') if study_uuid.blank?
-    raise ArgumentError.new('Required argument study_site_uuid is blank.') if study_site_uuid.blank?
-    raise ArgumentError.new('Required argument user_uuid is blank.') if user_uuid.blank?
+  def self.by_study_and_study_site(options)
+    raise ArgumentError.new('Argument must be a hash.') unless options.is_a?(Hash)
+    raise ArgumentError.new('Required argument study_uuid is blank.') if options[:study_uuid].blank?
+    raise ArgumentError.new('Required argument study_site_uuid is blank.') if options[:study_site_uuid].blank?
+    raise ArgumentError.new('Required argument user_uuid is blank.') if options[:user_uuid].blank?
 
-    response = Euresource::PatientEnrollments.get(:all, params: { study_uuid: study_uuid, study_site_uuid: study_site_uuid },
-      http_headers: { 'X-MWS-Impersonate' => user_uuid })
+    response = Euresource::PatientEnrollments.get(:all, params: options.slice(:study_uuid, :study_site_uuid),
+      http_headers: { 'X-MWS-Impersonate' => options[:user_uuid] })
 
     if response.last_response.status == 200
       JSON.parse(response.last_response.body).map{ |pe_hash|  PatientEnrollment.new(pe_hash) }

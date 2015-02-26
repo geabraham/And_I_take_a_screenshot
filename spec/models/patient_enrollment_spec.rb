@@ -16,45 +16,65 @@ describe PatientEnrollment do
 
     before { allow(Rails.logger).to receive(:info) }
 
-    context 'when study_uuid is blank' do
+    context 'when argument is not a hash' do
+      let(:args) { 'abc' }
+
       it 'logs the error' do
-        expect(Rails.logger).to receive(:error).with('Error retrieving patient enrollments: Required argument study_uuid is blank.')
-        PatientEnrollment.by_study_and_study_site('', study_site_uuid, user_uuid) rescue nil
+        expect(Rails.logger).to receive(:error).with('Error retrieving patient enrollments: Argument must be a hash.')
+        PatientEnrollment.by_study_and_study_site(args) rescue nil
       end
 
       it 'raises an error' do
-        expect { PatientEnrollment.by_study_and_study_site('', study_site_uuid, user_uuid) }
+        expect { PatientEnrollment.by_study_and_study_site(args) }.to raise_error(ArgumentError, 'Argument must be a hash.')
+      end
+    end
+
+    context 'when study_uuid is blank' do
+      let(:args) { { study_uuid: '', study_site_uuid: study_site_uuid, user_uuid: user_uuid } }
+
+      it 'logs the error' do
+        expect(Rails.logger).to receive(:error).with('Error retrieving patient enrollments: Required argument study_uuid is blank.')
+        PatientEnrollment.by_study_and_study_site(args) rescue nil
+      end
+
+      it 'raises an error' do
+        expect { PatientEnrollment.by_study_and_study_site(args) }
           .to raise_error(ArgumentError, 'Required argument study_uuid is blank.')
       end
     end
 
     context 'when study_site_uuid is blank' do
+      let(:args) { { study_uuid: study_uuid, study_site_uuid: '', user_uuid: user_uuid } }
+
       it 'logs the error' do
         expect(Rails.logger).to receive(:error).with('Error retrieving patient enrollments: Required argument study_site_uuid is blank.')
-        PatientEnrollment.by_study_and_study_site(study_uuid, '', user_uuid) rescue nil
+        PatientEnrollment.by_study_and_study_site(args) rescue nil
       end
 
       it 'raises an error' do
-        expect { PatientEnrollment.by_study_and_study_site(study_uuid, '', user_uuid) }
+        expect { PatientEnrollment.by_study_and_study_site(args) }
           .to raise_error(ArgumentError, 'Required argument study_site_uuid is blank.')
       end
     end
 
     context 'when user_uuid is blank' do
+      let(:args) { { study_uuid: study_uuid, study_site_uuid: study_site_uuid, user_uuid: ''} }
+
       it 'logs the error' do
         expect(Rails.logger).to receive(:error).with('Error retrieving patient enrollments: Required argument user_uuid is blank.')
-        PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid, '') rescue nil
+        PatientEnrollment.by_study_and_study_site(args) rescue nil
       end
 
       it 'raises an error' do
-        expect { PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid, '') }
+        expect { PatientEnrollment.by_study_and_study_site(args) }
           .to raise_error(ArgumentError, 'Required argument user_uuid is blank.')
       end
     end
 
     context 'when required parameters are provided' do
-      let(:last_response)      { double 'last object', status: response_status, body: response_body}
-      let(:response_object)    { double 'response object', last_response: last_response }
+      let(:args)            { { study_uuid: study_uuid, study_site_uuid: study_site_uuid, user_uuid: user_uuid } }
+      let(:last_response)   { double 'last object', status: response_status, body: response_body}
+      let(:response_object) { double 'response object', last_response: last_response }
       let(:euresource_params) do
         {
           params: { study_uuid: study_uuid, study_site_uuid: study_site_uuid },
@@ -70,12 +90,12 @@ describe PatientEnrollment do
         end
 
         it 'logs the error' do
-          PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid, user_uuid) rescue nil
+          PatientEnrollment.by_study_and_study_site(args) rescue nil
           expect(Rails.logger).to have_received(:error).with 'Error retrieving patient enrollments: Test error'
         end
 
         it 'raises the error' do
-          expect { PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid, user_uuid) }.to raise_error(exception)
+          expect { PatientEnrollment.by_study_and_study_site(args) }.to raise_error(exception)
         end
       end
 
@@ -91,12 +111,12 @@ describe PatientEnrollment do
         end
 
         it 'logs the error' do
-          PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid, user_uuid) rescue nil
+          PatientEnrollment.by_study_and_study_site(args) rescue nil
           expect(Rails.logger).to have_received(:error).with 'Error retrieving patient enrollments: Test error message'
         end
 
         it 'raises a EuresourceError with an appropriate message' do
-          expect { PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid, user_uuid) }
+          expect { PatientEnrollment.by_study_and_study_site(args) }
             .to raise_error(EuresourceError, 'Test error message')
         end
 
@@ -113,7 +133,7 @@ describe PatientEnrollment do
         end
 
         it 'returns an empty array' do
-          expect(PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid, user_uuid)).to eq []
+          expect(PatientEnrollment.by_study_and_study_site(args)).to eq []
         end
       end
 
@@ -162,7 +182,7 @@ describe PatientEnrollment do
 
         # TODO: Does this adequately test?
         it 'returns an array of PatientEnrollment objects derived from the Euresource response body' do
-          array = PatientEnrollment.by_study_and_study_site(study_uuid, study_site_uuid, user_uuid)
+          array = PatientEnrollment.by_study_and_study_site(args)
           response_array = JSON.parse(response_body)
 
           array.each do |pe|
