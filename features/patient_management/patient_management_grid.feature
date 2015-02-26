@@ -1,5 +1,4 @@
 @Draft
-
 Feature: A provider can view the statuses of enrollments in a study
   As a provider
   I want to view the statuses of all of the enrollments in a study site
@@ -19,7 +18,11 @@ Feature: A provider can view the statuses of enrollments in a study
       | subject    |
       | Subject001 |
       | Subject002 |
-          
+   
+  @Release2015.1.0
+  @PB130352-001
+  @Headed
+  @Review[ENG]       
   Scenario: A provider should be able to view enrollment statuses:
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
@@ -28,7 +31,11 @@ Feature: A provider can view the statuses of enrollments in a study
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then I should see a row for Subject001
     And I should see a row for Subject002
-    
+   
+  @Release2015.1.0
+  @PB130352-002
+  @Headed
+  @Review[ENG] 
   Scenario: A provider views patient management grid when there are no patient enrollments:
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
@@ -36,6 +43,10 @@ Feature: A provider can view the statuses of enrollments in a study
     And there are 0 patient enrollments for study  "TestStudy001" and site "DeepSpaceStation"
     Then I should see a message saying 'There are currently no patient enrollments for this study'
 
+  @Release2015.1.0
+  @PB130352-003
+  @Headed
+  @Review[ENG]
   Scenario: A provider views patient management grid when backend returns an error:
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
@@ -43,6 +54,10 @@ Feature: A provider can view the statuses of enrollments in a study
     And the request for patient enrollments returns any error 
     Then I should see a message saying 'There are currently no patient enrollments for this study'
 
+  @Release2015.1.0
+  @PB130352-004
+  @Headed
+  @Review[ENG]
   Scenario: A provider should be able to page through a large number of enrollments:
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
