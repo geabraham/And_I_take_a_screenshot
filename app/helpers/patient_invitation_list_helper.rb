@@ -1,22 +1,14 @@
 # Retrieves patient_enrollments from Subject service, deserializes and does anonymization/formatting for views
 module PatientInvitationListHelper
   def fetch_patient_enrollments
-    # actual request will replace this
-    stubby_return = [{created_at: '2014-02-18 23:08:08', subject_identifier: 'SUB029', email: 'todfsdfsdfdsfsdfsdfdd@blahhahhahahaha.org', initials: 'TM', activation_code: 'GW346J', state: 'Pending'},
-                    {created_at: '2015-02-18 11:08:08', subject_identifier: 'SUB030', email: 'chad@hotmail.com', initials: 'CV', activation_code: 'FH8492', state: 'Pending'},
-                    {created_at: '2013-02-18 07:08:08', subject_identifier: 'SUB031', email: 'aimee@gmail.com', initials: 'AB', activation_code: 'ASDF98', state: 'Registered'},
-                    {created_at: '2013-01-18 06:08:08', subject_identifier: 'SUB032', email: 'kent@mdsol.com', initials: 'KD', activation_code: 'SFH839', state: 'Pending'}]
-                    
-    (1..100).each { |a| stubby_return << {created_at: '2012-02-18 06:08:08', subject_identifier: "dup#{a}", email: "todd#{a}@mdsol.com", initials: "#{a}", activation_code: "SFH#{a}", state: 'Pending'} }
-    # real code below
-    @enrollments = stubby_return.sort_by { |e| e[:created_at] }.reverse
+    @enrollments = PatientEnrollment.by_study_and_study_site(params)
+    @enrollments = @enrollments.sort_by { |e| e.created_at }.reverse
     @enrollments.each { |e| format_and_anonymize(e) }
   end
   
   def format_and_anonymize(enrollment)
-    enrollment[:email] = anonymize_email(enrollment[:email])
-    #TODO remove nil check once created_at is added to PatientEnrollment resource
-    enrollment[:created_at] = format_date(enrollment[:created_at].nil? ? Date.today.to_s : enrollment[:created_at])
+    enrollment.email = anonymize_email(enrollment.email)
+    enrollment.created_at = format_date(enrollment.created_at)
     enrollment
   end
   
