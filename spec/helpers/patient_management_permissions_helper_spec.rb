@@ -144,6 +144,16 @@ describe PatientManagementPermissionsHelper do
           end
         end
 
+        context 'when user is authenticated but study site uuid is not in the list of returned study sites' do
+          let(:study_sites)      { {'study_sites' => [study_site2]} }
+
+          it 'raises an error' do
+            expect { test_class.check_study_and_study_site_permissions! }.to raise_error(
+              PatientManagementPermissionsHelper::PermissionsError,
+              "No patient management permissions for user #{user_uuid} for study_site #{study_site1_uuid}")
+          end
+        end
+
         context 'when iMedidata raises an error' do
           include IMedidataClient
           let(:error_status) { 404 }
