@@ -15,7 +15,7 @@ class PatientEnrollment
       http_headers: { 'X-MWS-Impersonate' => options[:user_uuid] })
 
     if response.last_response.status == 200
-      JSON.parse(response.last_response.body).map{ |pe_hash|  PatientEnrollment.new(pe_hash) }
+      JSON.parse(response.last_response.body).map{ |pe_hash| PatientEnrollment.new(pe_hash) }
     else
       raise EuresourceError.new(response.last_response.body)
     end
