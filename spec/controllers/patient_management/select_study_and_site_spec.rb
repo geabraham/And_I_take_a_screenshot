@@ -90,6 +90,12 @@ describe PatientManagementController do
         let(:study_site1)              { {uuid: '811692e7-2981-4512-b46c-fda6fbcae119', name: 'TestStudySite1'}.stringify_keys }
         let(:study_site2)              { {uuid: study_site_uuid, name: 'TestStudySite2'}.stringify_keys }
         let(:study_sites_response)     { {'study_sites' => [study_site1, study_site2]} }
+        let(:euresource_enrollments_params) do
+          {
+            params: { study_uuid: study_uuid, study_site_uuid: study_site_uuid },
+            http_headers: { 'X-MWS-Impersonate' => user_uuid }
+          }
+        end
 
         before do
           allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return([])
@@ -97,6 +103,7 @@ describe PatientManagementController do
             study_uuid: study_uuid,
             study_site_uuid: study_site_uuid,
             available: true}}).and_return([])
+          allow(Euresource::PatientEnrollments).to receive(:get).with(:all, euresource_enrollments_params).and_return([])
           session[:cas_extra_attributes] = {
             user_uuid: user_uuid,
             authorized_study_sites: [{name: 'TestSite', uuid: study_site_uuid}]
@@ -162,6 +169,8 @@ describe PatientManagementController do
           context 'when available subjects request fails' do
             let(:expected_template)    { 'patient_management_grid' }
             let(:expected_status_code) { 200 }
+            let(:last_response)   { double 'last object', status: 200, body: [].to_json}
+            let(:response_object) { double 'response object', last_response: last_response }
 
             before do
               allow(Euresource::Subject).to receive(:get)
@@ -170,6 +179,7 @@ describe PatientManagementController do
                   study_site_uuid: study_site_uuid,
                   available: true}})
                 .and_raise(Euresource::ResourceNotFound.new('Failed.'))
+              allow(Euresource::PatientEnrollments).to receive(:get).with(:all, euresource_enrollments_params).and_return(response_object)
             end
 
             it_behaves_like 'returns expected status'
