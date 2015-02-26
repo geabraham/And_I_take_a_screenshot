@@ -70,6 +70,7 @@ var renderEnrollments = function(pageNumber) {
       last = MUI.perPage;
     }
     else {
+      $('a.next, a.last').attr('disabled', true).addClass('disabled');
       last = MUI.recordCount;
     }
   }
