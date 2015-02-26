@@ -7,9 +7,9 @@ class PatientEnrollment
 
   def self.by_study_and_study_site(options)
     raise ArgumentError.new('Argument must be a hash.') unless options.is_a?(Hash)
-    raise ArgumentError.new('Required argument study_uuid is blank.') if options[:study_uuid].blank?
-    raise ArgumentError.new('Required argument study_site_uuid is blank.') if options[:study_site_uuid].blank?
-    raise ArgumentError.new('Required argument user_uuid is blank.') if options[:user_uuid].blank?
+    [:study_uuid, :study_site_uuid, :user_uuid].each do |key|
+      raise ArgumentError.new("Required argument #{key} is blank.") if options[key].blank?
+    end
 
     response = Euresource::PatientEnrollments.get(:all, params: options.slice(:study_uuid, :study_site_uuid),
       http_headers: { 'X-MWS-Impersonate' => options[:user_uuid] })
