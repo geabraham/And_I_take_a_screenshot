@@ -51,7 +51,7 @@ $(function() {
 var renderEnrollments = function(pageNumber) {
   $('.validation_error').addClass('invisible');
   
-  var compiled = _.template('<tr class="patient_row"><td><%= created_at %></td><td><%= subject_identifier %></td><td><%= email %></td><td><%= initials %></td><td><%= activation_code %></td><td><%= state %></td></tr>'),
+  var compiled = _.template('<tr class="patient_row"><td><%= created_at %></td><td><%= subject_id %></td><td><%= email %></td><td><%= initials %></td><td><%= activation_code %></td><td><%= state %></td></tr>'),
       first = 0,
       last = 0;
   
@@ -98,7 +98,7 @@ var renderEnrollments = function(pageNumber) {
   for(el = (first - 1); el <= (last - 1); el++) {
     $('#patient-list tbody').append(compiled({
       created_at: MUI.patientEnrollments[el].created_at, 
-      subject_identifier: MUI.patientEnrollments[el].subject_identifier,
+      subject_id: MUI.patientEnrollments[el].subject_id,
       email: MUI.patientEnrollments[el].email,
       initials: MUI.patientEnrollments[el].initials,
       activation_code: MUI.patientEnrollments[el].activation_code,
@@ -111,7 +111,7 @@ var updateGrid = function(data) {
   // build new enrollment row...
   var newEnrollment = new Object();
   newEnrollment.created_at = data.created_at;
-  newEnrollment.subject_identifier = data.subject_id;
+  newEnrollment.subject_id = data.subject_id;
   newEnrollment.email = data.email;
   newEnrollment.initials = data.initials;
   newEnrollment.activation_code = data.activation_code;

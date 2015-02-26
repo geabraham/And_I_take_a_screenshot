@@ -24,7 +24,7 @@ class PatientManagementController < ApplicationController
 
   def invite
     patient_enrollment = invite_or_raise!
-    render json: format_and_anonymize(patient_enrollment.attributes.symbolize_keys), status: :created
+    render json: format_and_anonymize(patient_enrollment), status: :created
   rescue StandardError => e
     message, status = available_subjects_error(e)
     Rails.logger.error_with_data("Rescuing error during patient invitation.", error: e.inspect)
@@ -66,7 +66,7 @@ class PatientManagementController < ApplicationController
       patient_enrollment: clean_params_for_patient_enrollment(params)}, http_headers: impersonate_header)
     Rails.logger.info_with_data("Received response for patient invitation request.", invitation_response: invitation_response.inspect)
     raise Euresource::ResourceNotSaved.new() unless invitation_response.is_a?(Euresource::PatientEnrollment)
-    invitation_response
+    PatientEnrollment.new(JSON.parse(invitation_response.last_response.body))
   end
 
   # Request all TouDpnAgreements
