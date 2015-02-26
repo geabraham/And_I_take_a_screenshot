@@ -11,13 +11,6 @@ Feature: A provider can view patient enrollments in a study
     And patient management is a part of the following sites:
       | study_name   | name                 |
       | TestStudy001 | DeepSpaceStation     |
-    And patient cloud supports the following country / language pairs:
-      | country | language |
-      | USA     | English  |
-    And the following subject names are avaible for site "DeepSpaceStation":
-      | subject    |
-      | Subject001 |
-      | Subject002 |
    
   @Release2015.1.0
   @PB130352-001
