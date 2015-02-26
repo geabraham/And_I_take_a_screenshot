@@ -6,7 +6,7 @@ $(function() {
   MUI.totalPages = Math.ceil(MUI.recordCount/MUI.perPage);
   $('#total-pages').html(MUI.totalPages);
   
-  renderEnrollments(1, 25);
+  renderEnrollments(1, MUI.recordCount);
     
   $('a.first').on('click', function() {
     MUI.currentPage = 1;
@@ -49,6 +49,8 @@ $(function() {
 
 // render a page of enrollments
 var renderEnrollments = function(pageNumber) {
+  $('.validation_error').addClass('invisible');
+  
   var compiled = _.template('<tr class="patient_row"><td><%= created_at %></td><td><%= subject_identifier %></td><td><%= email %></td><td><%= initials %></td><td><%= activation_code %></td><td><%= state %></td></tr>'),
       first = 0,
       last = 0;
@@ -61,11 +63,14 @@ var renderEnrollments = function(pageNumber) {
   if (MUI.currentPage == 1) {
     $('a.first, a.previous').attr('disabled', true).addClass('disabled');
     first = 1;
-    last = MUI.perPage;
     
     // if first page is not the only page
     if (MUI.totalPages > 1) {
       $('a.next, a.last').removeAttr('disabled').removeClass('disabled');
+      last = MUI.perPage;
+    }
+    else {
+      last = MUI.recordCount;
     }
   }
   // for pages between the beginning and end
@@ -87,7 +92,7 @@ var renderEnrollments = function(pageNumber) {
   
   // update the current page value in the control
   $('#current-page').val(MUI.currentPage);
-  
+
   //render the current page of enrollments
   for(el = (first - 1); el <= (last - 1); el++) {
     $('#patient-list tbody').append(compiled({
