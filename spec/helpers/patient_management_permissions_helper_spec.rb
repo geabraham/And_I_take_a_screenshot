@@ -144,7 +144,7 @@ describe PatientManagementPermissionsHelper do
           end
         end
 
-        context 'when user is authenticated but study site uuid is not in the list of returned study sites' do
+        context 'when user is authenticated but study site is not in the list of user\'s study sites for patient management' do
           let(:study_sites)      { {'study_sites' => [study_site2]} }
 
           it 'raises an error' do
