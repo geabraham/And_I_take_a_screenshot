@@ -45,6 +45,7 @@ Feature: A provider can view patient enrollments in a study
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
     And the request for patient enrollments returns any error 
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    #TODO figure out error message and localize
     Then I should see a message saying "<some error string>"
 
   @Release2015.1.0
