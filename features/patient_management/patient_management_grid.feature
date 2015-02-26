@@ -54,8 +54,8 @@ Feature: A provider can view patient enrollments in a study
   Scenario: A provider should be able to page through a large number of enrollments.
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
-    When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And there are 70 patient enrollments for study  "TestStudy001" and site "DeepSpaceStation"
+    When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then I should see that I am on page 1 of 3
     And 25 patient enrollments are displayed
     And patient enrollments are ordered by date
