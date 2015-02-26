@@ -30,6 +30,8 @@
                 %a#100-pp{href: '#'} 100
           %ul.controls
             %li
+              .validation_error
+            %li
               %a.disabled.first{href: '#'}
                 %i.fa.fa-angle-double-left
                 %span.sr-only first
@@ -53,7 +55,6 @@
                 %span.sr-only last
   - else
     = 'No patient invitations found. Use the form above to invite some.'
-.validation_error
 
 :javascript
   var MUI = MUI || {};
