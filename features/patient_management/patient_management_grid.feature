@@ -29,8 +29,8 @@ Feature: A provider can view the statuses of enrollments in a study
     And a patient enrollment exists for Subject001
     And a patient enrollment exists for Subject002
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
-    Then I should see a row for Subject001
-    And I should see a row for Subject002
+    Then I should see a row for Subject001 with an obscured email, an activation code, an inactive status, a formatted date, subject and initials
+    And I should see a row for Subject002 with an obscured email, an activation code, an inactive status, a formatted date, subject and initials
    
   @Release2015.1.0
   @PB130352-002
@@ -52,7 +52,7 @@ Feature: A provider can view the statuses of enrollments in a study
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
     And I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And the request for patient enrollments returns any error 
-    Then I should see a message saying 'There are currently no patient enrollments for this study'
+    Then I should see a message saying '<some error string>'
 
   @Release2015.1.0
   @PB130352-004
@@ -66,6 +66,7 @@ Feature: A provider can view the statuses of enrollments in a study
     And there are 70 patient enrollments for study  "TestStudy001" and site "DeepSpaceStation"
     Then I should see that I am on page 1 of 3
     And 25 patient enrollments are displayed
+    And patient enrollments are ordered by date
     And there is an active Next Page button
     And there is an inactive Previous Page button
                                           
