@@ -1,7 +1,7 @@
 @Draft
-Feature: A provider can view the statuses of enrollments in a study
+Feature: A provider can view patient enrollments in a study
   As a provider
-  I want to view the statuses of all of the enrollments in a study site
+  I want to view the all of the patient enrollments in a study site
   So I can manage the enrollment process.
 
   Background:
