@@ -6,7 +6,7 @@ describe PatientEnrollment do
   describe 'accessors' do
     it_behaves_like 'includes ActiveModel::Model', [:uuid, :login, :password, :security_question, :answer, :activation_code,
       :login_confirmation, :initials, :email, :enrollment_type, :activation_code, :language_code, :study_uuid, :study_site_uuid,
-      :subject_id, :state, :tou_accepted_at]
+      :subject_id, :state, :tou_accepted_at, :created_at]
   end
 
   describe '#by_study_and_study_site' do
@@ -144,7 +144,7 @@ describe PatientEnrollment do
       context 'when Euresource returns 1 or more patient enrollments' do
         let(:attribute_list) do
           [:uuid, :initials, :email, :enrollment_type, :activation_code, :language_code, :study_uuid, :study_site_uuid,
-           :subject_id, :state, :tou_accepted_at]
+           :subject_id, :state, :tou_accepted_at, :created_at]
         end
         let(:patient_enrollment_1) do
           build :patient_enrollment,
@@ -158,7 +158,8 @@ describe PatientEnrollment do
                 study_site_uuid: study_site_uuid,
                 subject_id: 'Subject-001',
                 state: 'invited',
-                tou_accepted_at: nil
+                tou_accepted_at: nil,
+                created_at: '2015-02-26 18:47:07 UTC'
         end
         let(:patient_enrollment_2) do
           build :patient_enrollment,
@@ -172,7 +173,8 @@ describe PatientEnrollment do
                 study_site_uuid: study_site_uuid,
                 subject_id: 'Subject-002',
                 state: 'registered',
-                tou_accepted_at: Time.now.to_s
+                tou_accepted_at: Time.now.to_s,
+                created_at: '2015-02-26 18:49:30 UTC'
         end
         let(:patient_enrollments) { [patient_enrollment_1, patient_enrollment_2] }
         let(:response_body)       { patient_enrollments.each{ |pe| Hash[attribute_list.zip(attribute_list.map{ |a| pe.send(a) } )] }.to_json }
