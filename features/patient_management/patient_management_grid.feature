@@ -32,8 +32,8 @@ Feature: A provider can view patient enrollments in a study
   Scenario: A provider views patient management grid when there are no patient enrollments.
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
-    And I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And there are 0 patient enrollments for study  "TestStudy001" and site "DeepSpaceStation"
+    When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then I should see a message saying 'There are currently no patient enrollments for this study'
 
   @Release2015.1.0
@@ -43,8 +43,8 @@ Feature: A provider can view patient enrollments in a study
   Scenario: A provider views patient management grid when backend returns an error.
     Given I am logged in
     And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
-    And I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     And the request for patient enrollments returns any error 
+    When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then I should see a message saying '<some error string>'
 
   @Release2015.1.0
