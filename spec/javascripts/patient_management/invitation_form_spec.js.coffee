@@ -7,6 +7,7 @@ describe 'patient management invitation form', ->
   email = 'jasmine@mdsol.com'
   initials = 'J.M.'
   inviteButtonEnabledDisabledSpy = undefined
+  updateGridSpy = undefined
 
   beforeEach ->
     loadFixtures 'patient_management/invite.html'
@@ -43,6 +44,7 @@ describe 'patient management invitation form', ->
 
         beforeEach ->
           $('#invite-button').click()
+          updateGridSpy = spyOn(window, 'updateGrid')
           jasmine.Ajax.requests.mostRecent().response inviteResponse
 
         it 'does not have an error on the page', ->
@@ -57,6 +59,9 @@ describe 'patient management invitation form', ->
 
         it 'enables or disables the invite button', ->
           expect(inviteButtonEnabledDisabledSpy).toHaveBeenCalled()
+          
+        it 'updates the patient management grid', ->
+          expect(updateGridSpy).toHaveBeenCalled()
 
       describe 'error', ->
         inviteResponse =           
