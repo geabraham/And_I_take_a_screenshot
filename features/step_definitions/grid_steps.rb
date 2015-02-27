@@ -62,9 +62,9 @@ end
 
 Given(/^(\d+) patient enrollments exist for site "(.*?)"$/) do |count, site_name|
   site_object = study_or_site_object(site_name, 'sites')
-  
+
   patient_enrollments = []
-  (1..count).each do |index|
+  (1..count.to_i).each do |index|
     patient_enrollments <<
       { initials: "TEST#{index}",
         email: "a-user#{index}@mdsol.com",
@@ -87,6 +87,10 @@ Given(/^(\d+) patient enrollments exist for site "(.*?)"$/) do |count, site_name
   enrollment_params = { study_uuid: site_object['study_uuid'], study_site_uuid: site_object['uuid'] }
   allow(Euresource::PatientEnrollments).to receive(:get).with(:all, params: enrollment_params, http_headers: { 'X-MWS-Impersonate' => @user_uuid })
     .and_return(mock_response)
+end
+
+Given(/^the request for patient enrollments returns an error$/) do
+  allow(Euresource::PatientEnrollments).to receive(:get).and_raise(Euresource::ResourceNotFound.new(404,"Live long and prosper."))
 end
 
 Then(/^I should see a message saying "(.*?)"$/) do |message|

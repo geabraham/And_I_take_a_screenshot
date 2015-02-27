@@ -38,7 +38,7 @@ Feature: A provider can view patient enrollments in a study
   @Review[ENG]
   Scenario: A provider views patient management grid when backend returns an error.
     Given I am authorized to manage patients for study "TestStudy001"
-    And the request for patient enrollments returns any error 
+    And the request for patient enrollments returns an error 
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     #TODO figure out error message and localize
     Then I should see a message saying "<some error string>"
@@ -49,7 +49,7 @@ Feature: A provider can view patient enrollments in a study
   @Review[ENG]
   Scenario: A provider should be able to page through a large number of enrollments.
     Given I am authorized to manage patients for study "TestStudy001"
-    And there are 70 patient enrollments for study  "TestStudy001" and site "DeepSpaceStation"
+    And 70 patient enrollments exist for site "DeepSpaceStation"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then I should see that I am on page 1 of 3
     And 25 patient enrollments are displayed
