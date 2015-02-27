@@ -50,7 +50,13 @@ $(function() {
       MUI.currentPage = 1;
       renderEnrollments(1, MUI.perPage);
     }
-  })
+  });
+  
+  $('#page-form').on('keypress', function(event) {
+    if (event.keyCode == 13) {
+      return false;
+    }
+  });
 });
 
 // render a page of enrollments
