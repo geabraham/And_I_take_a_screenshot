@@ -2,10 +2,10 @@
   .activation-header
     =image_tag 'mdsol_patient_cloud_retina.png', :class => 'logo'
   .activation-code-content
-    %h3 Please enter your activation code
-    %p= "If you have already registered, please return to the Patient Cloud App. If you have not registered and do not have an activation code or email invite please contact your doctor."
+    %h3= t("activation_codes.index.code_heading")
+    %p= t("activation_codes.index.code_instruction")
     .activation-code
       %input#code{maxlength: 6, tabindex: 1, size: 6}
-    .validation_error.invisible="Incorrect code."
+      .validation_error.invisible= t("activation_codes.index.validation_error")
   .bottom-bar
-    %a.btn.btn-primary.btn-block.disabled#activate-button(href="" role="button")='Activate'
+    %a.btn.btn-primary.btn-block.disabled#activate-button(href="" role="button")= 'Activate'

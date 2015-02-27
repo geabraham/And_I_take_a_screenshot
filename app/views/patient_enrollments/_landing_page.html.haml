@@ -1,21 +1,21 @@
 %h3.form_header
-  ='Welcome to Patient Cloud'
+  = t("registration.form_heading")
 %p.form_instruction
-  ='You are only a few steps away from creating your log in credentials and downloading the Patient Cloud app.'
+  = t("registration.welcome.welcome_message")
 .row
   .col-xs-2
     =image_tag 'register.png', id: 'register'
   .col-xs-10
-    %p='Review the Privacy Policy and Terms of Use'
-    %p='Create account information'
+    %p= t("registration.welcome.register_1")
+    %p= t("registration.welcome.register_2")
 .row
   .col-xs-2
     =image_tag 'download.png', id: 'download'
   .col-xs-10
     %p
-    %p='Download the Patient Cloud app'
+    %p= t("registration.welcome.download")
 .row
   .col-xs-2
     =image_tag 'login.png', id: 'login'
   .col-xs-10
-    %p='Open Patient Cloud and use your account information to log in'
+    %p= t("registration.welcome.login")

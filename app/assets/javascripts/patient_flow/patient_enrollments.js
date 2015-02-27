@@ -1,14 +1,14 @@
 $(function () {
   $('.carousel').carousel(); //initialize the carousel
-  
+
   $('#next-button, #agree-button').on('click', nextButtonClick);
 
   $('.back_arrow').on('click', backClick);
 
   $('#patient_enrollment_answer').on('keyup', answerKeyup);
-  
+
   $('#patient_enrollment_security_question').on('textchange', questionChange);
-  
+
   $(document).keypress(function(e){
       if (e.which == 13){
           $("#next-button").click();
@@ -25,28 +25,28 @@ var validateSecurityQuestions = function() {
 }
 
 var getCurrentPage = function() {
-  return $('.item.active').attr('id')
+    return $('.item.active').attr('id');
 }
 
 var confirmTerms = function() {
-  var proceed = confirm("You acknowledge that you have read, understood, and agree to be bound by the Terms of Use and the Privacy Policy referenced herein.");
-  
-  if (proceed === true) {
-    advanceToEmailPage();
-  }
+    var proceed = confirm(window.t("registration.tou_agreement.modal_confirm"));
+
+    if (proceed === true) {
+        advanceToEmailPage();
+    }
 }
 
 var advanceToEmailPage = function() {
   $('#agree-button').addClass('hidden');
   $('#next-button').removeClass('hidden');
-  
+
   advanceProgressBar();
   advanceCarousel();
 }
 
 var advanceCarousel = function () {
   $('.carousel').carousel('next');
-  
+
   //fix for mobile field focus cutting off top of page
   window.scrollTo(0, 0);
   document.body.scrollTop = 0;
@@ -55,7 +55,7 @@ var advanceCarousel = function () {
 var nextButtonClick = function() {
   var currentPage = getCurrentPage(),
   carousel = $('.carousel');
-  
+
   if (currentPage === 'landing_page') {
     $('#next-button').addClass('hidden');
     $('#agree-button').removeClass('hidden');
@@ -65,7 +65,7 @@ var nextButtonClick = function() {
     confirmTerms();
   } else if($('#reg-form').valid()) {
     hideErrors();
-    
+
     if(currentPage === 'email') {
       addPasswordRules();
       advanceProgressBar();
@@ -84,7 +84,7 @@ var nextButtonClick = function() {
 
 var backClick = function() {
   var currentPage = getCurrentPage();
-  
+
   if (currentPage !== 'landing_page' && currentPage !== 'tou_dpn_agreement' && currentPage !== 'email') {
     //TODO currently we are validating on back button click
     //to prevent a confusing UX issue where the error message
@@ -137,6 +137,6 @@ var hideErrors = function() {
 }
 
 var isBlankEntry = function() {
-  return (($('.active .registration-input').first().val().length === 0) 
+  return (($('.active .registration-input').first().val().length === 0)
        && ($('.active .registration-input').last().val().length === 0));
 }
