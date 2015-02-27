@@ -1,4 +1,3 @@
-@Draft
 Feature: A provider can view patient enrollments in a study
   As a provider
   I want to view the all of the patient enrollments in a study site
@@ -11,14 +10,14 @@ Feature: A provider can view patient enrollments in a study
     And patient management is a part of the following sites:
       | study_name   | name                 |
       | TestStudy001 | DeepSpaceStation     |
+    And I am logged in
    
   @Release2015.1.0
   @PB130352-001
   @Headed
   @Review[ENG]       
-  Scenario: A provider should be able to view enrollment statuses.
-    Given I am logged in
-    And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
+  Scenario: A provider should be able to view existing enrollments.
+    Given I am authorized to manage patients for study "TestStudy001"
     And a patient enrollment exists for Subject001
     And a patient enrollment exists for Subject002
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
@@ -30,8 +29,7 @@ Feature: A provider can view patient enrollments in a study
   @Headed
   @Review[ENG] 
   Scenario: A provider views patient management grid when there are no patient enrollments.
-    Given I am logged in
-    And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
+    Given I am authorized to manage patients for study "TestStudy001"
     And there are 0 patient enrollments for study  "TestStudy001" and site "DeepSpaceStation"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then I should see a message saying "There are currently no patient enrollments for this study"
@@ -41,8 +39,7 @@ Feature: A provider can view patient enrollments in a study
   @Headed
   @Review[ENG]
   Scenario: A provider views patient management grid when backend returns an error.
-    Given I am logged in
-    And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
+    Given I am authorized to manage patients for study "TestStudy001"
     And the request for patient enrollments returns any error 
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     #TODO figure out error message and localize
@@ -53,8 +50,7 @@ Feature: A provider can view patient enrollments in a study
   @Headed
   @Review[ENG]
   Scenario: A provider should be able to page through a large number of enrollments.
-    Given I am logged in
-    And I am authorized to manage patients for study site "DeepSpaceStation" in study "TestStudy001"
+    Given I am authorized to manage patients for study "TestStudy001"
     And there are 70 patient enrollments for study  "TestStudy001" and site "DeepSpaceStation"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then I should see that I am on page 1 of 3
