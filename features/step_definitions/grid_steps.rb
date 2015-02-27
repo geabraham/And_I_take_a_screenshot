@@ -7,5 +7,4 @@ Then(/^I should see a row for "(.*?)" with an obscured email, an activation code
   page.should have_text(@returned_enrollment[:initials])
   page.should have_text(status)
   page.should have_text(subject_id)
-  
 end

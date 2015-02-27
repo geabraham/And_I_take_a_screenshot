@@ -68,7 +68,7 @@ When(/^I invite a user with the following attributes:$/) do |table|
       "study_site_uuid" => @current_site_object['uuid'] } }
   http_headers = { http_headers: { 'X-MWS-Impersonate' => @user_uuid } }
   
-  returned_enrollment = 
+  @returned_enrollment = 
     { initials: initials['attribute_value'],
       email: email['attribute_value'],
       enrollment_type: "in-person",
@@ -80,7 +80,7 @@ When(/^I invite a user with the following attributes:$/) do |table|
       study_site_uuid: @current_site_object['uuid'],
       subject_id: "MN003",
       created_at: "2015-02-27 20:52:46 UTC" }
-  last_response = double('last object').tap { |lr| allow(lr).to receive(:body).and_return(returned_enrollment.to_json) }
+  last_response = double('last object').tap { |lr| allow(lr).to receive(:body).and_return(@returned_enrollment.to_json) }
   response_object = double('response object').tap { |ro| allow(ro).to receive(:last_response).and_return(last_response) }
   
   allow(Euresource::PatientEnrollment).to receive(:post!)
