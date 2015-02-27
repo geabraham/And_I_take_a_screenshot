@@ -204,6 +204,8 @@ describe PatientManagementController do
           let(:subject2)           { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject2_attrs)} }
           let(:subjects)           { [subject1, subject2] }
           let(:expected_template)  { 'patient_management_grid' }
+          let(:last_response)      { double 'last object', status: 200, body: [].to_json}
+          let(:response_object)    { double 'response object', last_response: last_response }
 
           it_behaves_like 'renders expected template'
 
@@ -213,6 +215,7 @@ describe PatientManagementController do
               study_uuid: study_uuid,
               study_site_uuid: study_site_uuid,
               available: true}}).and_return(subjects)
+            allow(Euresource::PatientEnrollments).to receive(:get).with(:all, euresource_enrollments_params).and_return(response_object)
           end
 
           it_behaves_like 'assigns an ivar to its expected value', :tou_dpn_agreements, [
