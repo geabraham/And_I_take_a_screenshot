@@ -149,7 +149,11 @@ describe PatientManagementController do
         allow(response_object).to receive(:is_a?).with(Euresource::PatientEnrollment).and_return(true)
       end
 
-      it_behaves_like 'returns expected body'
+      it 'returns the expected body' do
+        send(verb, action, params)
+        expect(JSON.parse(response.body).with_indifferent_access).to match JSON.parse(expected_body).with_indifferent_access
+      end
+      
       it_behaves_like 'returns expected status'
       it_behaves_like 'logs the expected messages at the expected levels'
     end
