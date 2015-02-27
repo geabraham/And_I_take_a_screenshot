@@ -63,7 +63,7 @@ Feature: Patient Registration
     Then I should see a link to download the Patient Cloud app
     And I should be registered for a study
 
-@Review[SQA]
+  @Review[SQA]
   @Release2015.1.0
   @PB130359-001
   @Headed
