@@ -6,7 +6,13 @@ $(function() {
   MUI.totalPages = Math.ceil(MUI.recordCount/MUI.perPage);
   $('#total-pages').html(MUI.totalPages);
   
-  renderEnrollments(1, MUI.recordCount);
+  if(MUI.recordCount > 0) {
+    renderEnrollments(1, MUI.recordCount);
+  }
+  else {
+    $('#patient-list').addClass('hidden');
+    $('#none-message').removeClass('hidden');
+  }
     
   $('a.first').on('click', function() {
     MUI.currentPage = 1;
@@ -108,6 +114,7 @@ var renderEnrollments = function(pageNumber) {
 }
 
 var updateGrid = function(data) {
+  
   // build new enrollment row...
   var newEnrollment = new Object();
   newEnrollment.created_at = data.created_at;
@@ -122,6 +129,12 @@ var updateGrid = function(data) {
   $('#total-count').html(++MUI.recordCount)
   MUI.totalPages = Math.ceil(MUI.recordCount/MUI.perPage);
   $('#total-pages').html(MUI.totalPages);
+  
+  // hide the "no enrollments" message
+  if (MUI.recordCount == 1) {
+    $('#patient-list').removeClass('hidden');
+    $('#none-message').addClass('hidden');
+  }
   
   // TODO do this based on which page we're on
   renderEnrollments(MUI.currentPage);
