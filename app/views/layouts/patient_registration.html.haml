@@ -4,6 +4,8 @@
 %html.no-js{ :lang => "en" }
   <!--<![endif]-->
   %head
+    %script{:type=>"text/javascript"}
+      window.I18n= #{current_translations.to_json.html_safe}
     %meta{ charset: 'utf-8' }
     %meta{ 'http-equiv' => 'X-UA-Compatible', content: 'IE=edge,chrome=1' }
     %title= t('application.title')
@@ -13,7 +15,7 @@
     = cdn_stylesheet_link_tag    'platform'
     = stylesheet_link_tag        'application'
     = csrf_meta_tags
-  %body
+  %body{dir: "#{@script_direction}"}
     #main.clearfix
       .patient
         = yield :page_body
