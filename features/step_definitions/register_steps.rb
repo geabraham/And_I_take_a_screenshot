@@ -76,7 +76,7 @@ When(/^the back\-end service returns an error$/) do
     .with(:register, {uuid: @patient_enrollment_uuid}, {patient_enrollment: @patient_enrollment_register_params})
     .and_return(response_double)
 
-  click_on 'Create my account'
+  click_on I18n.t("application.btn_create")
 end
 
 Then(/^I should see a link to download the Patient Cloud app$/) do
