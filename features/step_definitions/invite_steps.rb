@@ -25,6 +25,18 @@ Given(/^the request for available subjects for site "(.*?)" (does not return any
   allow(Euresource::Subject).to receive(:get).with(:all, subject_params) { error ? raise(StandardError.new) : [] }
 end
 
+Given(/^no patient enrollments exist for site "(.*?)"$/) do |site_name|
+  site_object = study_or_site_object(site_name, 'sites')
+  mock_last_response = double('last response').tap do |lr| 
+    allow(lr).to receive(:status).and_return(200) 
+    allow(lr).to receive(:body).and_return([].to_json)
+  end
+  mock_response = double('response').tap { |re| allow(re).to receive(:last_response).and_return(mock_last_response) }
+  enrollment_params = { study_uuid: site_object['study_uuid'], study_site_uuid: site_object['uuid'] }
+  allow(Euresource::PatientEnrollments).to receive(:get).with(:all, params: enrollment_params, http_headers: { 'X-MWS-Impersonate' => @user_uuid })
+    .and_return(mock_response)
+end
+
 When(/^I navigate to patient management via study "(.*?)" and site "(.*?)"$/) do |_, site_name|
   @current_site_object = study_or_site_object(site_name, 'sites')
   @current_path = "/patient_management?study_uuid=#{@current_site_object['study_uuid']}&study_site_uuid=#{@current_site_object['uuid']}"

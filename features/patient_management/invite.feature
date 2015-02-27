@@ -1,4 +1,4 @@
-Feature: A provider can invite a user to particpate in a study
+Feature: A provider can invite a user to participate in a study
   As a provider
   I want to invite patients to a study and study site
   So they can use the patient cloud
@@ -25,6 +25,7 @@ Feature: A provider can invite a user to particpate in a study
       | Subject002         |
       | Subject003         |
     And I am logged in
+    And no patient enrollments exist for site "DeepSpaceStation"
 
   @Release2015.1.0
   @PB130799-001
