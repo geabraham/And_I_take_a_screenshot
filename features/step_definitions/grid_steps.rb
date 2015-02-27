@@ -88,3 +88,7 @@ Given(/^(\d+) patient enrollments exist for site "(.*?)"$/) do |count, site_name
   allow(Euresource::PatientEnrollments).to receive(:get).with(:all, params: enrollment_params, http_headers: { 'X-MWS-Impersonate' => @user_uuid })
     .and_return(mock_response)
 end
+
+Then(/^I should see a message saying "(.*?)"$/) do |message|
+  page.should have_text(message)
+end

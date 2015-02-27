@@ -25,12 +25,12 @@ Feature: A provider can view patient enrollments in a study
   @Release2015.1.0
   @PB130352-002
   @Headed
-  @Review[ENG] 
+  @Review[SQA] 
   Scenario: A provider views patient management grid when there are no patient enrollments.
     Given I am authorized to manage patients for study "TestStudy001"
-    And there are 0 patient enrollments for study  "TestStudy001" and site "DeepSpaceStation"
+    And no patient enrollments exist for site "DeepSpaceStation"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
-    Then I should see a message saying "There are currently no patient enrollments for this study"
+    Then I should see a message saying "There are currently no patient enrollments for this study."
 
   @Release2015.1.0
   @PB130352-003
