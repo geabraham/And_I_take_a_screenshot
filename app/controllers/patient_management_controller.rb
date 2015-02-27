@@ -6,10 +6,12 @@ class PatientManagementController < ApplicationController
   layout 'patient_management'
   include IMedidataClient
   include PatientInvitationFormHelper
+  include PatientManagementPermissionsHelper
   before_filter :authorize_user
+  before_filter :check_study_and_study_site_permissions!
 
   def select_study_and_site
-    if @study_site = selected_and_authorized_study_site
+    if @study_site
       @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
       @available_subjects = fetch_available_subjects_for_select
       @study_site_name, @study_site_uuid, @study_uuid = @study_site['name'], @study_site['uuid'], params[:study_uuid]
@@ -44,7 +46,10 @@ class PatientManagementController < ApplicationController
   #  and defaulting to ['Subject not available. Please try again.', :not_found]
   #
   def available_subjects_error(error)
-    if error.is_a?(Faraday::Error::ConnectionFailed)
+    # Faraday::Error::ConnectionFailed is raised when subjects service is down,
+    # Euresource::ServerError is raised when iMedidata is down (subjects has to talk to iMedidata to authenticate the provider)
+    #
+    if error.is_a?(Faraday::Error::ConnectionFailed) || error.is_a?(Euresource::ServerError)
       [I18n.t('error.status_503.message'), :service_unavailable]
     else
       ['Subject not available. Please try again.', :not_found]
@@ -60,20 +65,6 @@ class PatientManagementController < ApplicationController
     Rails.logger.info_with_data("Received response for patient invitation request.", invitation_response: invitation_response.inspect)
     raise Euresource::ResourceNotSaved.new() unless invitation_response.is_a?(Euresource::PatientEnrollment)
     invitation_response
-  end
-
-  # Checks for existence of study and study site parameters and authorizes user for the study site if they are present.
-  # Returns the study site representation for the current study site uuid if authorized
-  #   and returns nil if unauthorized.
-  #
-  def selected_and_authorized_study_site
-    Rails.logger.info_with_data("Checking for selected and authorized study site.", params: params)
-    if params[:study_uuid] && params[:study_site_uuid] && study_sites = request_study_sites!(params).presence
-      study_sites['study_sites'].find {|ss| ss['uuid'] == params[:study_site_uuid]}
-    else
-      Rails.logger.error_with_data("Not all params or insufficient permissions for patient management.", params: params)
-      nil
-    end
   end
 
   # Request all TouDpnAgreements
@@ -109,13 +100,7 @@ class PatientManagementController < ApplicationController
   end
 
   def studies_selection_list
-    if params[:study_uuid].present?
-      study = request_study!(params)['study']
-      [[study['name'], study['uuid']]]
-    elsif
-      studies = request_studies!(params)['studies']
-      name_uuid_options_array(studies)
-    end
+    @study ? [[@study['name'], @study['uuid']]] : name_uuid_options_array(@studies)
   end
 
   def tou_dpn_agreement_attributes

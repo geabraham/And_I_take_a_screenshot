@@ -5,17 +5,22 @@ $(function() {
 
   $("#invite-form").on("ajax:success", function(e, data, status, xhr) {
     resetErrors();
-    updateAvailableSubjects();
+    clearUserFields();
+    refreshSubjects();
   }).on("ajax:error", function(e, xhr, status, error) {
     resetErrors();
     addError(xhr.responseText);
-    updateAvailableSubjects();
+    refreshSubjects();
   });
 
   $('#error-x-button').on('click', function() {
-    resetErrors()
+    resetErrors();
   })
 });
+
+var clearUserFields = function() {
+  $('#patient_enrollment_email, #patient_enrollment_initials').val('')
+}
 
 var inviteButtonEnabledDisabled = function() {
   var subject = $('#patient_enrollment_subject option:selected')[0].value
@@ -38,17 +43,23 @@ var addError = function(errorMessage) {
   $("#invite-form-error span.message").append(errorMessage)
 }
 
-var updateAvailableSubjects = function() {
+var refreshSubjects = function() {
   study_uuid = $('#invite-form').data().study_uuid
   study_site_uuid = $('#invite-form').data().study_site_uuid
 
   $.getJSON('/patient_management/available_subjects?study_uuid=' + study_uuid + '&study_site_uuid=' + study_site_uuid)
   .done(function(availableSubjects) {
-    $('#patient_enrollment_subject').empty().append('<option value>Subject</option>');
-    var options = ''
-    $.each(availableSubjects, function(index, value) {
-      options += '<option value=' + value[1] + '>' + value[0] + '</option>'
-    });
-    $('#patient_enrollment_subject').append(options)
+    if (availableSubjects.length) {
+      $('#patient_enrollment_subject').empty().append('<option value>Subject</option>');
+      var options;
+      $.each(availableSubjects, function(index, value) {
+        options += '<option value=' + value[1] + '>' + value[0] + '</option>'
+      });
+      $('#patient_enrollment_subject').append(options)
+    } else {
+      $('#patient_enrollment_subject').empty().append('<option value>No subjects available</option>');
+    }
+    // Wait until the subjects dropdown is re-populated to enable / disable (i.e. disable) the invite button.
+    inviteButtonEnabledDisabled();
   });
 }

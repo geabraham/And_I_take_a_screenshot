@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   ERROR_CAUSE = {
     ActionController::UnpermittedParameters => :unprocessable_entity,
     ActionController::ParameterMissing => :unprocessable_entity,
+    PatientManagementPermissionsHelper::PermissionsError => :not_found,
     IMedidataClient::IMedidataClientError => :not_found,
     Euresource::ResourceNotFound => :not_found,
     Faraday::Error::ConnectionFailed => :service_unavailable }
