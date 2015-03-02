@@ -1,7 +1,7 @@
 #invite-form {
   .form-group {
     margin-right: 10px;
-    min-width: 145px;
+    width: 170px;
     label { display: block; }
     select, input { width: 100%; }
   }
@@ -17,8 +17,11 @@
 }
 
 @media (max-width: 1200px) {
-  .form-inline .form-group {
-    display: block;
-    margin-bottom: 15px;
+  #invite-form {
+    .form-group {
+      display: block;
+      margin-bottom: 15px;
+      width: 100%;
+    }
   }
 }
