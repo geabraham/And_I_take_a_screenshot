@@ -126,7 +126,7 @@ describe PatientManagementController do
                 study_uuid: study_uuid,
                 study_site_uuid: study_site_uuid,
                 subject_id: 'Subject-001',
-                state: 'invited',
+                state: 'Invited',
                 tou_accepted_at: nil,
                 created_at: '26-FEB-2015' }
       end
