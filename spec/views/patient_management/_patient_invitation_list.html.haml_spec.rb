@@ -77,9 +77,7 @@ describe 'patient_management/_patient_invitation_list' do
 
     describe 'hidden no patient enrollments message' do
       it 'has the hidden message' do
-        expect(rendered).to have_selector(
-          '#none-message.hidden',
-          text: 'There are currently no patient enrollments for this study.')
+        expect(rendered).to have_selector('#none-message.hidden', text: 'There are currently no patient enrollments for this study.')
       end
     end
   end
