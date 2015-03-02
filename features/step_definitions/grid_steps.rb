@@ -1,5 +1,3 @@
-include PatientInvitationListHelper
-
 Given(/^patient enrollments exist for "(.*?)" and "(.*?)"$/) do |subject_id_1, subject_id_2|
   @patient_enrollments = [subject_id_1, subject_id_2].map do |subj|
     { initials: subj,
