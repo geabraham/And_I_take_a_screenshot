@@ -75,32 +75,32 @@ Given(/^the request for patient enrollments returns an error$/) do
 end
 
 Then(/^I should see a row for "(.*?)" with an obscured email, an activation code, a(|n) (invited|registered) status, a formatted date, subject and initials$/) do |subject_id, _, status|
-  page.should have_text(format_date(@returned_enrollment[:created_at]))
-  page.should have_text(anonymize_email(@returned_enrollment[:email]))
-  page.should have_text(@returned_enrollment[:activation_code])
-  page.should have_text(@returned_enrollment[:initials])
-  page.should have_text(status.capitalize)
-  page.should have_text(subject_id)
+  expect(page).to have_text(format_date(@returned_enrollment[:created_at]))
+  expect(page).to have_text(anonymize_email(@returned_enrollment[:email]))
+  expect(page).to have_text(@returned_enrollment[:activation_code])
+  expect(page).to have_text(@returned_enrollment[:initials])
+  expect(page).to have_text(status.capitalize)
+  expect(page).to have_text(subject_id)
 end
 
 Then(/^I should see a row for each subject with an obscured email, an activation code, a(|n) (invited|registered) status, a formatted date, subject and initials$/) do |_, status|
   @patient_enrollments.each do |enrollment|
-    page.should have_text(format_date(enrollment[:created_at]))
-    page.should have_text(anonymize_email(enrollment[:email]))
-    page.should have_text(enrollment[:activation_code])
-    page.should have_text(enrollment[:initials])
-    page.should have_text(status.capitalize)
-    page.should have_text(enrollment[:subject_id])
+    expect(page).to have_text(format_date(enrollment[:created_at]))
+    expect(page).to have_text(anonymize_email(enrollment[:email]))
+    expect(page).to have_text(enrollment[:activation_code])
+    expect(page).to have_text(enrollment[:initials])
+    expect(page).to have_text(status.capitalize)
+    expect(page).to have_text(enrollment[:subject_id])
   end
 end
 
 Then(/^I should see a message saying "(.*?)"$/) do |message|
-  page.should have_text(message)
+  expect(page).to have_text(message)
 end
 
 Then(/^I should see that I am on page (\d+) of (\d+)$/) do |current_page, total_pages|
   expect(current_page).to eq(page.find('#current-page')[:value])
-  page.should have_selector('#total-pages', text: total_pages)
+  expect(page).to have_selector('#total-pages', text: total_pages)
 end
 
 Then(/^(\d+) patient enrollments are displayed$/) do |count|
