@@ -1,29 +1,40 @@
-describe 'patient management grid', ->
-  # set up some sample patient enrollments to test pagination etc
-  MUI = {}
-  MUI.patientEnrollments = []
-  x = 0
-  while x < 106
-    MUI.patientEnrollments.push
-      activation_code: '24'
-      created_at: '24-MAR-2015'
-      email: '33*@gh**.com'
-      initials: 'CMB'
-      state: 'Invited'
-      subject_id: 'MN008'
-    x++
+describe 'patient management grid', ->  
+  beforeEach ->
+    loadFixtures 'patient_management/grid.html'
     
-  
-  
-  describe 'records per page selector', ->
-    describe '10 per page button', -> # can i make this into shared examples for all the other stuff
-      it 'works', ->
-        expect(2).toEqual(2)
-        
   describe 'pagination controls', ->
-    describe 'first button', ->
-    describe 'previous button', ->
-    describe 'next button', ->
-    describe 'last button', ->
-    describe 'page number input', ->
+    describe 'when disabled', -> #share examples here
+      it 'stays on the current page', ->
+        
+    describe 'when enabled', ->
+      it 'is disabled after click', -> #share examples here
+      
+      describe 'records per page selector', ->
+        describe 'clicking the 10 per page button', -> # can i make this into shared examples for all the other stuff
+          describe 'when enabled', ->
+            beforeEach ->
+              $('#10-pp').click()
+              
+            it 'renders 10 records on the page', ->
+              expect($('tr.patient_row').length).toEqual(10)
+              
+            it 'has the correct total number of pages', ->
+              expect($('#total-pages').html()).toEqual('11')
+              
+            it 'renders the first page', ->
+              expect($('#current-page').val()).toEqual('1')
+              
+      describe 'first button', ->
+        it 'renders the first page', ->
+          
+      describe 'previous button', ->
+        it 'renders the previous page', ->
+          
+      describe 'next button', ->
+        it 'renders the next page', ->
+          
+      describe 'last button', ->
+        it 'renders the last page', ->
+          
+      describe 'page number input', ->
   return
