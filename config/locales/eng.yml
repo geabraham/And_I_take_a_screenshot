@@ -27,6 +27,7 @@ eng:
     per_page: Per page
     first: first
     previous: previous
+    enter_a_valid_page_number: Enter a valid page number.
   patient_management:
     choose_study_and_site: Please choose a study and a site.
     study: Study
