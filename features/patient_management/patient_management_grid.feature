@@ -18,7 +18,7 @@ Feature: A provider can view patient enrollments in a study
   @Review[SQA]       
   Scenario: A provider should be able to view existing enrollments.
     Given I am authorized to manage patients for study "TestStudy001"
-    And patient enrollments exist for "Subject001", "Subject002"
+    And patient enrollments exist for "Subject001" and "Subject002"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then I should see a row for each subject with an obscured email, an activation code, an invited status, a formatted date, subject and initials
    

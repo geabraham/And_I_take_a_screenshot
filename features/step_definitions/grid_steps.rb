@@ -20,7 +20,7 @@ Then(/^I should see a row for each subject with an obscured email, an activation
   end
 end
 
-Given(/^patient enrollments exist for "(.*?)", "(.*?)"$/) do |subject_id_1, subject_id_2|
+Given(/^patient enrollments exist for "(.*?)" and "(.*?)"$/) do |subject_id_1, subject_id_2|
   @patient_enrollments = []
 
   [subject_id_1, subject_id_2].each do |subj|
