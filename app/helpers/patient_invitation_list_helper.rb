@@ -9,6 +9,7 @@ module PatientInvitationListHelper
   def format_and_anonymize(enrollment)
     enrollment.email = anonymize_email(enrollment.email) unless enrollment.email.blank?
     enrollment.created_at = format_date(enrollment.created_at)
+    enrollment.state = enrollment.state.capitalize
     enrollment
   end
   
