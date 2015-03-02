@@ -8,8 +8,7 @@ $(function() {
   
   if(MUI.recordCount > 0) {
     renderEnrollments(1, MUI.recordCount);
-  }
-  else {
+  } else {
     $('#patient-list').addClass('hidden');
     $('#none-message').removeClass('hidden');
   }
@@ -88,22 +87,19 @@ var renderEnrollments = function(pageNumber) {
     if (MUI.totalPages > 1) {
       $('a.next, a.last').removeAttr('disabled').removeClass('disabled');
       last = MUI.perPage;
-    }
-    else {
+    } else {
       $('a.next, a.last').attr('disabled', true).addClass('disabled');
       last = MUI.recordCount;
     }
-  }
-  // for pages between the beginning and end
-  else if (MUI.currentPage > 1 && MUI.currentPage < MUI.totalPages) {
+  } else if (MUI.currentPage > 1 && MUI.currentPage < MUI.totalPages) {
+    // for pages between the beginning and end 
     first = (MUI.currentPage - 1) * MUI.perPage + 1;
     last = MUI.currentPage * MUI.perPage;
     
     $('a.previous, a.first').removeAttr('disabled').removeClass('disabled');
     $('a.next, a.last').removeAttr('disabled').removeClass('disabled');
-  }
-  // for the last page
-  else if (MUI.currentPage == MUI.totalPages) {
+  } else if (MUI.currentPage == MUI.totalPages) {
+    // for the last page
     first = (MUI.totalPages - 1) * MUI.perPage + 1;
     last = MUI.recordCount;
     
