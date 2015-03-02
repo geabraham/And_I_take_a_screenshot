@@ -1,21 +1,18 @@
 include PatientInvitationListHelper
 
 Given(/^patient enrollments exist for "(.*?)" and "(.*?)"$/) do |subject_id_1, subject_id_2|
-  @patient_enrollments = []
-
-  [subject_id_1, subject_id_2].each do |subj|
-    @patient_enrollments <<
-      { initials: subj,
-        email: "aUser#{subj}@mdsol.com",
-        enrollment_type: "in-person",
-        activation_code: "G#{subj}K",
-        language_code: "ara",
-        state: "invited",
-        tou_accepted_at: nil,
-        study_uuid: @studies[0]['uuid'],
-        study_site_uuid: @study_sites[0]['uuid'],
-        subject_id: "SUBJ#{subj}",
-        created_at: "2015-02-27 20:52:46 UTC" }
+  @patient_enrollments = [subject_id_1, subject_id_2].map do |subj|
+    { initials: subj,
+      email: "aUser#{subj}@mdsol.com",
+      enrollment_type: "in-person",
+      activation_code: "G#{subj}K",
+      language_code: "ara",
+      state: "invited",
+      tou_accepted_at: nil,
+      study_uuid: @studies[0]['uuid'],
+      study_site_uuid: @study_sites[0]['uuid'],
+      subject_id: "SUBJ#{subj}",
+      created_at: "2015-02-27 20:52:46 UTC" }
   end
   
   mock_last_response = double('last response').tap do |lr| 
@@ -44,20 +41,18 @@ Given(/^(\d+) patient enrollments exist for site "(.*?)"$/) do |count, site_name
   @count = count
   site_object = study_or_site_object(site_name, 'sites')
 
-  patient_enrollments = []
-  (1..count.to_i).each do |index|
-    patient_enrollments <<
-      { initials: "TEST#{index}",
-        email: "a-user#{index}@mdsol.com",
-        enrollment_type: "in-person",
-        activation_code: "G#{index}K",
-        language_code: "ara",
-        state: "invited",
-        tou_accepted_at: nil,
-        study_uuid: site_object['study_uuid'],
-        study_site_uuid: site_object['uuid'],
-        subject_id: "SUBJ#{index}",
-        created_at: "20#{index < 10 ? 00 : index}-02-27 20:52:46 UTC" }
+  patient_enrollments = (1..count.to_i).map do |index|
+    { initials: "TEST#{index}",
+      email: "a-user#{index}@mdsol.com",
+      enrollment_type: "in-person",
+      activation_code: "G#{index}K",
+      language_code: "ara",
+      state: "invited",
+      tou_accepted_at: nil,
+      study_uuid: site_object['study_uuid'],
+      study_site_uuid: site_object['uuid'],
+      subject_id: "SUBJ#{index}",
+      created_at: "20#{index < 10 ? 00 : index}-02-27 20:52:46 UTC" }
     end
   
   mock_last_response = double('last response').tap do |lr| 
