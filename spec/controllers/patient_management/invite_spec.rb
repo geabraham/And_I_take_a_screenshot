@@ -103,32 +103,32 @@ describe PatientManagementController do
 
     context 'when response is a success' do
       let(:returned_enrollment) do
-              { uuid: "25c06a8b-47ed-4382-a44f-9b45ea87216a",
-                initials: 'TD',
-                email: 'the-dude@gmail.com',
-                enrollment_type: 'in-person',
-                activation_code: 'ABCDEF',
-                language_code: 'eng',
-                study_uuid: study_uuid,
-                study_site_uuid: study_site_uuid,
-                subject_id: 'Subject-001',
-                state: 'invited',
-                tou_accepted_at: nil,
-                created_at: '2015-02-26 18:47:07 UTC' }
+        { uuid: "25c06a8b-47ed-4382-a44f-9b45ea87216a",
+          initials: 'TD',
+          email: 'the-dude@gmail.com',
+          enrollment_type: 'in-person',
+          activation_code: 'ABCDEF',
+          language_code: 'eng',
+          study_uuid: study_uuid,
+          study_site_uuid: study_site_uuid,
+          subject_id: 'Subject-001',
+          state: 'invited',
+          tou_accepted_at: nil,
+          created_at: '2015-02-26 18:47:07 UTC' }
       end
       let(:presentable_enrollment) do
-              { uuid: "25c06a8b-47ed-4382-a44f-9b45ea87216a",
-                initials: 'TD',
-                email: 'th******@gm***.com',
-                enrollment_type: 'in-person',
-                activation_code: 'ABCDEF',
-                language_code: 'eng',
-                study_uuid: study_uuid,
-                study_site_uuid: study_site_uuid,
-                subject_id: 'Subject-001',
-                state: 'Invited',
-                tou_accepted_at: nil,
-                created_at: '26-FEB-2015' }
+        { uuid: "25c06a8b-47ed-4382-a44f-9b45ea87216a",
+          initials: 'TD',
+          email: 'th******@gm***.com',
+          enrollment_type: 'in-person',
+          activation_code: 'ABCDEF',
+          language_code: 'eng',
+          study_uuid: study_uuid,
+          study_site_uuid: study_site_uuid,
+          subject_id: 'Subject-001',
+          state: 'Invited',
+          tou_accepted_at: nil,
+          created_at: '26-FEB-2015' }
       end
       let(:expected_body)        { presentable_enrollment.to_json  }
       let(:expected_status_code) { 201 }
