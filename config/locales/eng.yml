@@ -133,7 +133,7 @@ eng:
     registration_backend_error:
       message: "Internal server error. Please try again later."
     no_patient_enrollments_message:
-      message: No patient enrollements.
+      message: There are currently no patient enrollments for this study.
     subject_not_availble_message:
       message: Subject not available. Please try again.
 
