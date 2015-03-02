@@ -7,7 +7,33 @@ describe 'patient management grid', ->
       it 'stays on the current page', ->
         
     describe 'when enabled', ->
-      it 'is disabled after click', -> #share examples here
+      beforeEach ->
+        $('a.first,a.previous,a.next,a.last,#10-pp,#25-pp,#50-pp,#100-pp').removeClass('disabled')
+        
+      sharedBehaviorForEvent = (event) ->
+        describe 'on click', ->
+          beforeEach ->
+            MUI.perPage = 11 # just a dummy value to set up the page as if we are coming from a different pagination setting
+            $(event.selector).click()
+            
+          it 'is selected and disabled', ->
+            expect($(event.selector)).toHaveClass('selected disabled')
+          
+      sharedBehaviorForEvent(jQuery.Event('click', name: '10 per page button click', selector: '#10-pp', rows: 10))
+      sharedBehaviorForEvent(jQuery.Event('click', name: '25 per page button click', selector: '#25-pp', rows: 25))
+      sharedBehaviorForEvent(jQuery.Event('click', name: '50 per page button click', selector: '#50-pp'))
+      sharedBehaviorForEvent(jQuery.Event('click', name: '100 per page button click', selector: '#100-pp'))
+      
+      sharedBehaviorForEvent = (event) ->
+        describe 'on click', ->
+          beforeEach ->
+            $(event.selector).click()
+            
+          it 'is disabled', ->
+            expect($(event.selector)).toHaveClass('disabled')
+      
+      sharedBehaviorForEvent(jQuery.Event('click', name: 'first button click', selector: 'a.first'))
+      sharedBehaviorForEvent(jQuery.Event('click', name: 'last button click', selector: 'a.last'))
       
       describe 'records per page selector', ->
         sharedBehaviorForEvent = (event) ->
@@ -31,15 +57,21 @@ describe 'patient management grid', ->
               
       describe 'first button', ->
         it 'renders the first page', ->
+          $('a.first').click()
+          expect($('#current-page').val()).toEqual('1')
           
       describe 'previous button', ->
         it 'renders the previous page', ->
           
       describe 'next button', ->
         it 'renders the next page', ->
+          $('a.next').click()
+          expect($('#current-page').val()).toEqual('2')
           
       describe 'last button', ->
         it 'renders the last page', ->
+          $('a.last').click()
+          expect($('#current-page').val()).toEqual('5')
           
       describe 'page number input', ->
   return
