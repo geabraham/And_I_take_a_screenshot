@@ -82,4 +82,28 @@ describe 'patient management grid', ->
             expect($('#current-page').val()).toEqual('5')
           
       describe 'page number input', ->
+        sharedBehaviorForEvent = (event) ->
+          describe event.name, -> 
+            beforeEach ->
+              $('#current-page').val(event.value).keyup()
+              
+            it 'shows a validation error', ->
+              expect($('.validation_error')).not.toHaveClass('invisible')
+              expect($('.validation_error')).toHaveText('Enter a valid page number.')
+              
+            it 'stays on the current page', ->
+              expect(MUI.currentPage).toEqual(1)
+              
+        sharedBehaviorForEvent(new Object(name: 'for an invalid page number', value: '92'))
+        sharedBehaviorForEvent(new Object(name: 'for a non-numeric input', value: 'jk'))
+        
+        describe 'for a valid input', ->
+          beforeEach ->
+            $('#current-page').val(3).trigger('keyup')
+            
+          it 'hides validation errors', ->
+            expect($('.validation_error')).toHaveClass('invisible')
+            
+          it 'advances to the selected page', ->
+            expect(MUI.currentPage).toEqual(3)
   return
