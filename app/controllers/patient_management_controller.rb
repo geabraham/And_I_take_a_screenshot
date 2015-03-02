@@ -12,6 +12,7 @@ class PatientManagementController < ApplicationController
   before_filter :check_study_and_study_site_permissions!
 
   def select_study_and_site
+    #binding.pry
     if @study_site
       @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
       @available_subjects = fetch_available_subjects_for_select
