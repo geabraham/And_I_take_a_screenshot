@@ -15,11 +15,8 @@ Given(/^patient enrollments exist for "(.*?)" and "(.*?)"$/) do |subject_id_1, s
       created_at: "2015-02-27 20:52:46 UTC" }
   end
   
-  mock_last_response = double('last response').tap do |lr| 
-    allow(lr).to receive(:status).and_return(200) 
-    allow(lr).to receive(:body).and_return(@patient_enrollments.to_json)
-  end
-  mock_response = double('response').tap { |re| allow(re).to receive(:last_response).and_return(mock_last_response) }
+  mock_last_response = double('last response', status: 200, body: @patient_enrollments.to_json)
+  mock_response = double('response', last_response: mock_last_response)
   enrollment_params = { study_uuid: @studies[0]['uuid'], study_site_uuid: @study_sites[0]['uuid'] }
   allow(Euresource::PatientEnrollments).to receive(:get).with(:all, params: enrollment_params, http_headers: { 'X-MWS-Impersonate' => @user_uuid })
     .and_return(mock_response)
@@ -27,11 +24,8 @@ end
 
 Given(/^no patient enrollments exist for site "(.*?)"$/) do |site_name|
   site_object = study_or_site_object(site_name, 'sites')
-  mock_last_response = double('last response').tap do |lr| 
-    allow(lr).to receive(:status).and_return(200) 
-    allow(lr).to receive(:body).and_return([].to_json)
-  end
-  mock_response = double('response').tap { |re| allow(re).to receive(:last_response).and_return(mock_last_response) }
+  mock_last_response = double('last response', status: 200, body: [].to_json)
+  mock_response = double('response', last_response: mock_last_response)
   enrollment_params = { study_uuid: site_object['study_uuid'], study_site_uuid: site_object['uuid'] }
   allow(Euresource::PatientEnrollments).to receive(:get).with(:all, params: enrollment_params, http_headers: { 'X-MWS-Impersonate' => @user_uuid })
     .and_return(mock_response)
@@ -55,11 +49,8 @@ Given(/^(\d+) patient enrollments exist for site "(.*?)"$/) do |count, site_name
       created_at: "20#{index < 10 ? 00 : index}-02-27 20:52:46 UTC" }
     end
   
-  mock_last_response = double('last response').tap do |lr| 
-    allow(lr).to receive(:status).and_return(200) 
-    allow(lr).to receive(:body).and_return(patient_enrollments.to_json)
-  end
-  mock_response = double('response').tap { |re| allow(re).to receive(:last_response).and_return(mock_last_response) }
+  mock_last_response = double('last response', status: 200, body: patient_enrollments.to_json)
+  mock_response = double('response', last_response: mock_last_response)
   enrollment_params = { study_uuid: site_object['study_uuid'], study_site_uuid: site_object['uuid'] }
   allow(Euresource::PatientEnrollments).to receive(:get).with(:all, params: enrollment_params, http_headers: { 'X-MWS-Impersonate' => @user_uuid })
     .and_return(mock_response)
