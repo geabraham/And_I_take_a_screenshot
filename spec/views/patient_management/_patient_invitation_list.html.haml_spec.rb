@@ -12,6 +12,10 @@ describe 'patient_management/_patient_invitation_list' do
   end
 
   describe 'table' do
+    it 'is inside the patient list div' do
+      expect(rendered).to have_selector('#patient-list table')
+    end
+
     it 'has the right headers' do
       expect(rendered).to have_selector('th', text: 'Added on')
       expect(rendered).to have_selector('th', text: 'Subject I.D.')
@@ -37,7 +41,11 @@ describe 'patient_management/_patient_invitation_list' do
       end
     end
 
-    describe 'navigation controls' do
+    describe 'controls' do
+      it 'has a place for validation errors' do
+        expect(rendered).to have_selector('.validation_error')
+      end
+
       it 'has a first link' do
         expect(rendered).to have_selector('a.disabled.first', text: 'first')
       end
@@ -46,8 +54,16 @@ describe 'patient_management/_patient_invitation_list' do
         expect(rendered).to have_selector('a.disabled.previous', text: 'previous')
       end
 
+      it 'has a form for the current page' do
+        expect(rendered).to have_selector('form#page-form')
+      end
+
       it 'has an input for the current page' do
         expect(rendered).to have_selector('input#current-page')
+      end
+
+      it 'has a place for total pages' do
+        expect(rendered).to have_selector('#total-pages')
       end
 
       it 'has a next link' do
@@ -56,6 +72,14 @@ describe 'patient_management/_patient_invitation_list' do
 
       it 'has a last link' do
         expect(rendered).to have_selector('a.disabled.last', text: 'last')
+      end
+    end
+
+    describe 'hidden no patient enrollments message' do
+      it 'has the hidden message' do
+        expect(rendered).to have_selector(
+          '#none-message.hidden',
+          text: 'There are currently no patient enrollments for this study.')
       end
     end
   end
