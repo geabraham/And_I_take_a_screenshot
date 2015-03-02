@@ -16,7 +16,7 @@
         = f.email_field :email, {class: 'form-control'}
       .form-group
         = f.label :initials, 'Subject initials'
-        = f.text_field :initials, {class: 'form-control'}
+        = f.text_field :initials, {class: 'form-control', maxlength: 3}
       .form-group
         = f.label :submit, {class: 'invisible'}
         = f.submit 'Invite', id: 'invite-button', class: 'btn btn-primary', disabled: true
