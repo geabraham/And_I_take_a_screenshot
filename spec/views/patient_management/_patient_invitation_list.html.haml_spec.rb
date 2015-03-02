@@ -42,37 +42,14 @@ describe 'patient_management/_patient_invitation_list' do
     end
 
     describe 'controls' do
-      it 'has a place for validation errors' do
-        expect(rendered).to have_selector('.validation_error')
-      end
-
-      it 'has a first link' do
-        expect(rendered).to have_selector('a.disabled.first', text: 'first')
-      end
-
-      it 'has a previous link' do
-        expect(rendered).to have_selector('a.disabled.previous', text: 'previous')
-      end
-
-      it 'has a form for the current page' do
-        expect(rendered).to have_selector('form#page-form')
-      end
-
-      it 'has an input for the current page' do
-        expect(rendered).to have_selector('input#current-page')
-      end
-
-      it 'has a place for total pages' do
-        expect(rendered).to have_selector('#total-pages')
-      end
-
-      it 'has a next link' do
-        expect(rendered).to have_selector('a.disabled.next', text: 'next')
-      end
-
-      it 'has a last link' do
-        expect(rendered).to have_selector('a.disabled.last', text: 'last')
-      end
+      it ('has a place for validation errors') { expect(rendered).to have_selector('.validation_error') }
+      it ('has a first link')                  { expect(rendered).to have_selector('a.disabled.first', text: 'first') }
+      it ('has a previous link')               { expect(rendered).to have_selector('a.disabled.previous', text: 'previous') }
+      it ('has a form for the page')           { expect(rendered).to have_selector('form#page-form') }
+      it ('has an input for the current page') { expect(rendered).to have_selector('input#current-page') }
+      it ('has a place for total pages')       { expect(rendered).to have_selector('#total-pages') }
+      it ('has a next link')                   { expect(rendered).to have_selector('a.disabled.next', text: 'next') }
+      it ('has a last link')                   { expect(rendered).to have_selector('a.disabled.last', text: 'last') }
     end
 
     describe 'hidden no patient enrollments message' do
