@@ -13,7 +13,6 @@ module PatientInvitationListHelper
     enrollment
   end
   
-  private
   def anonymize_email(email)
     user, domain = email.split("@")
     user, domain, tld = if domain.present?
