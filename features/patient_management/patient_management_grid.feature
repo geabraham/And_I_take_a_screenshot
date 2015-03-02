@@ -32,8 +32,9 @@ Feature: A provider can view patient enrollments in a study
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then I should see a message saying "There are currently no patient enrollments for this study."
 
+  @Draft
   @Release2015.1.0
-  @PB130352-003
+  @PB146381-001
   @Headed
   @Review[ENG]
   Scenario: A provider views patient management grid when backend returns an error.
