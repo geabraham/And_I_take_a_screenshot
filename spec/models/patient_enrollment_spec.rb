@@ -287,6 +287,93 @@ describe PatientEnrollment do
       end
     end
   end
+  
+  describe 'format_and_anonymize' do
+    let(:uuid)            { "25c06a8b-47ed-4382-a44f-9b45ea87216a" }
+    let(:initials)        { 'TD' }
+    let(:email)           { 'the-dude@gmail.com' }
+    let(:enrollment_type) { 'in-person' }
+    let(:activation_code) { 'ABCDEFG' }
+    let(:language_code)   { 'eng' }
+    let(:study_uuid)      { 'fc3d182b-5a9d-43bb-a8ee-bb2c132805e9' }
+    let(:study_site_uuid) { '1e05f961-040b-40a3-a714-fec78efd9b14' }
+    let(:subject_id)      { 'Subject-001' }
+    let(:state)           { 'invited' }
+    let(:tou_accepted_at) { nil }
+    let(:created_at)      { '2015-02-26 18:47:07 UTC' }
+    let(:patient_enrollment_attributes) do
+      {
+        uuid: uuid,
+        initials: initials,
+        email: email,
+        enrollment_type: enrollment_type,
+        activation_code: activation_code,
+        language_code: language_code,
+        study_uuid: study_uuid,
+        study_site_uuid: study_site_uuid,
+        subject_id: subject_id,
+        state: state,
+        tou_accepted_at: nil,
+        created_at: created_at
+      }
+    end
+    let(:patient_enrollment_1) { build :patient_enrollment, patient_enrollment_attributes }
+    
+    subject { patient_enrollment_1 }
+    before { patient_enrollment_1.format_and_anonymize }
+
+    context 'with all attributes' do
+      its(:uuid)            { is_expected.to eq(uuid) }
+      its(:initials)        { is_expected.to eq(initials) }
+      its(:email)           { is_expected.to eq('th******@gm***.com') }
+      its(:enrollment_type) { is_expected.to eq(enrollment_type) }
+      its(:activation_code) { is_expected.to eq(activation_code) }
+      its(:study_uuid)      { is_expected.to eq(study_uuid) }
+      its(:study_site_uuid) { is_expected.to eq(study_site_uuid) }
+      its(:subject_id)      { is_expected.to eq(subject_id) }
+      its(:state)           { is_expected.to eq('Invited') }
+      its(:tou_accepted_at) { is_expected.to eq(tou_accepted_at) }
+      its(:created_at)      { is_expected.to eq('26-FEB-2015') }
+    end
+      
+    context 'with missing email' do
+      let(:missing_email_attributes) { patient_enrollment_attributes.merge!(email: nil) }
+      let(:patient_enrollment_1)     { build :patient_enrollment, missing_email_attributes }
+
+      its(:email) { is_expected.to eq(nil) }
+    end
+
+    context 'with missing created at' do
+      let(:missing_created_at_attributes) { patient_enrollment_attributes.merge!(created_at: nil) }
+      let(:patient_enrollment_1)          { build :patient_enrollment, missing_created_at_attributes }
+
+      its(:created_at) { is_expected.to eq(nil) }
+    end
+
+    context 'with missing state' do
+      let(:missing_state_attributes) { patient_enrollment_attributes.merge!(state: nil) }
+      let(:patient_enrollment_1)     { build :patient_enrollment, missing_state_attributes }
+
+      its(:state) { is_expected.to eq(nil) }
+    end
+
+    describe 'anonymize email' do
+      context 'when not an email' do
+        let(:email) { 'some-weird-string' }
+        its(:email) { is_expected.to eq('so***************@***.') }
+      end
+
+      context 'when an empty string' do
+        let(:email) { '' }
+        its(:email) { is_expected.to eq('') }
+      end
+
+      context 'when a short user' do
+        let(:email) { 'a@g.com' }
+        its(:email) { is_expected.to eq('a***@g***.com') }
+      end
+    end
+  end
 end
 
 
