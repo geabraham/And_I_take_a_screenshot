@@ -10,7 +10,7 @@ class PatientEnrollment
     [:study_uuid, :study_site_uuid, :user_uuid].each do |key|
       raise ArgumentError.new("Required argument #{key} is blank.") if options[key].blank?
     end
-    
+
     response = Euresource::PatientEnrollments.get(:all, params: options.slice(:study_uuid, :study_site_uuid),
       http_headers: { 'X-MWS-Impersonate' => options[:user_uuid] })
 
