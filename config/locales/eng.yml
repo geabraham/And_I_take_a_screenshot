@@ -40,12 +40,13 @@ eng:
       subject_initials: Subject initials
       btn_invite: Invite
     enrollment_grid:
-      added_on: Added on
-      subject: Subject
-      email: Email
-      initials: Initials
-      activation_code: Activation Code
-      registered: Registered
+      headers:
+        added_on: Added on
+        subject: Subject
+        email: Email
+        initials: Initials
+        activation_code: Activation Code
+        registered: Registered
   activation_codes:
     index:
       code_heading: Please enter your activation code
