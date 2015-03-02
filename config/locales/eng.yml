@@ -46,7 +46,11 @@ eng:
         email: Email
         initials: Initials
         activation_code: Activation Code
+        status: Status
+      statuses:
         registered: Registered
+        invited: Invited
+        pending: Pending
   activation_codes:
     index:
       code_heading: Please enter your activation code
