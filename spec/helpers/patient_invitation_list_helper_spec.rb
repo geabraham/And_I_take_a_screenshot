@@ -109,13 +109,25 @@ describe PatientInvitationListHelper do
       before do
         allow(PatientEnrollment).to receive(:by_study_and_study_site)
           .and_return([patient_enrollment_2, patient_enrollment_3, patient_enrollment_1])
+        @patient_enrollments = test_class.fetch_patient_enrollments
       end
 
       it 'returns patient enrollments in reverse created at order' do
-        patient_enrollments = test_class.fetch_patient_enrollments
-        expect(patient_enrollments[0].uuid).to eq(patient_enrollment_1.uuid)
-        expect(patient_enrollments[1].uuid).to eq(patient_enrollment_2.uuid)
-        expect(patient_enrollments[2].uuid).to eq(patient_enrollment_3.uuid)
+        expect(@patient_enrollments[0].uuid).to eq(patient_enrollment_1.uuid)
+        expect(@patient_enrollments[1].uuid).to eq(patient_enrollment_2.uuid)
+        expect(@patient_enrollments[2].uuid).to eq(patient_enrollment_3.uuid)
+      end
+
+      it 'returns anonymized emails' do
+        expect(@patient_enrollments[0].email).to eq('th******@gm***.com')
+        expect(@patient_enrollments[1].email).to eq('th******@gm***.com')
+        expect(@patient_enrollments[2].email).to eq('th******@gm***.com')
+      end
+
+      it 'returns formatted dates' do
+        expect(@patient_enrollments[0].created_at).to eq('26-FEB-2015')
+        expect(@patient_enrollments[1].created_at).to eq('25-FEB-2015')
+        expect(@patient_enrollments[2].created_at).to eq('24-FEB-2015')
       end
     end
   end
