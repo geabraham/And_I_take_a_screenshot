@@ -56,7 +56,7 @@ $(function() {
       $('#total-pages').html(MUI.totalPages);
       
       MUI.currentPage = 1;
-      renderEnrollments(1, MUI.perPage);
+      renderEnrollments(MUI.currentPage);
     }
   });
   

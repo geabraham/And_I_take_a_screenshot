@@ -54,24 +54,32 @@ describe 'patient management grid', ->
         sharedBehaviorForEvent(jQuery.Event('click', name: '25 per page button click', selector: '#25-pp', rows: 25))
         sharedBehaviorForEvent(jQuery.Event('click', name: '50 per page button click', selector: '#50-pp', rows: 50))
         sharedBehaviorForEvent(jQuery.Event('click', name: '100 per page button click', selector: '#100-pp', rows: 100))
-              
-      describe 'first button', ->
-        it 'renders the first page', ->
-          $('a.first').click()
-          expect($('#current-page').val()).toEqual('1')
-          
-      describe 'previous button', ->
-        it 'renders the previous page', ->
-          
-      describe 'next button', ->
-        it 'renders the next page', ->
-          $('a.next').click()
-          expect($('#current-page').val()).toEqual('2')
-          
-      describe 'last button', ->
-        it 'renders the last page', ->
-          $('a.last').click()
-          expect($('#current-page').val()).toEqual('5')
+       
+      describe 'pagination nav buttons', ->
+        # uses default pagination of 25 per page with 105 dummy records, so 5 pages in total
+        beforeEach -> #go to a page in the middle so all the buttons have somewhere to go
+          MUI.currentPage = 3
+          renderEnrollments(MUI.currentPage)
+                  
+        describe 'first button', ->
+          it 'renders the first page', ->
+            $('a.first').click()
+            expect($('#current-page').val()).toEqual('1')
+            
+        describe 'previous button', ->
+          it 'renders the previous page', ->
+            $('a.previous').click()
+            expect($('#current-page').val()).toEqual('2')
+            
+        describe 'next button', ->
+          it 'renders the next page', ->
+            $('a.next').click()
+            expect($('#current-page').val()).toEqual('4')
+            
+        describe 'last button', ->
+          it 'renders the last page', ->
+            $('a.last').click()
+            expect($('#current-page').val()).toEqual('5')
           
       describe 'page number input', ->
   return
