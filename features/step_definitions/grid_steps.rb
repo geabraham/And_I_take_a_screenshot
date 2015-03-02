@@ -5,7 +5,7 @@ Then(/^I should see a row for "(.*?)" with an obscured email, an activation code
   page.should have_text(anonymize_email(@returned_enrollment[:email]))
   page.should have_text(@returned_enrollment[:activation_code])
   page.should have_text(@returned_enrollment[:initials])
-  page.should have_text(status)
+  page.should have_text(status.capitalize)
   page.should have_text(subject_id)
 end
 
@@ -15,7 +15,7 @@ Then(/^I should see a row for each subject with an obscured email, an activation
     page.should have_text(anonymize_email(enrollment[:email]))
     page.should have_text(enrollment[:activation_code])
     page.should have_text(enrollment[:initials])
-    page.should have_text(status)
+    page.should have_text(status.capitalize)
     page.should have_text(enrollment[:subject_id])
   end
 end
