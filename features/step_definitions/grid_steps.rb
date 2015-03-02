@@ -74,7 +74,7 @@ Given(/^the request for patient enrollments returns an error$/) do
   allow(Euresource::PatientEnrollments).to receive(:get).and_raise(Euresource::ResourceNotFound.new(404,"Live long and prosper."))
 end
 
-Then(/^I should see a row for "(.*?)" with an obscured email, an activation code, a(|n) (invited|registered) status, a formatted date, subject and initials$/) do |subject_id, _, status|
+Then(/^I should see a row for "(.*?)" with an obscured email, an activation code, an? (invited|registered) status, a formatted date, subject and initials$/) do |subject_id, status|
   expect(page).to have_text(format_date(@returned_enrollment[:created_at]))
   expect(page).to have_text(anonymize_email(@returned_enrollment[:email]))
   expect(page).to have_text(@returned_enrollment[:activation_code])
@@ -83,7 +83,7 @@ Then(/^I should see a row for "(.*?)" with an obscured email, an activation code
   expect(page).to have_text(subject_id)
 end
 
-Then(/^I should see a row for each subject with an obscured email, an activation code, a(|n) (invited|registered) status, a formatted date, subject and initials$/) do |_, status|
+Then(/^I should see a row for each subject with an obscured email, an activation code, an? (invited|registered) status, a formatted date, subject and initials$/) do |status|
   @patient_enrollments.each do |enrollment|
     expect(page).to have_text(format_date(enrollment[:created_at]))
     expect(page).to have_text(anonymize_email(enrollment[:email]))
