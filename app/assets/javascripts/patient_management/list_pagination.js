@@ -15,23 +15,31 @@ $(function() {
   }
     
   $('a.first').on('click', function() {
-    MUI.currentPage = 1;
-    renderEnrollments(MUI.currentPage);
+    if (!$(this).hasClass('disabled')) {
+      MUI.currentPage = 1;
+      renderEnrollments(MUI.currentPage);
+    }
   });
   
   $('a.previous').on('click', function() {
-    MUI.currentPage--;
-    renderEnrollments(MUI.currentPage);
+    if (!$(this).hasClass('disabled')) {
+      MUI.currentPage--;
+      renderEnrollments(MUI.currentPage);
+    }
   });
   
   $('a.next').on('click', function() {
-    MUI.currentPage++;
-    renderEnrollments(MUI.currentPage);
+    if (!$(this).hasClass('disabled')) {
+      MUI.currentPage++;
+      renderEnrollments(MUI.currentPage);
+    }
   });
   
   $('a.last').on('click', function() {
-    MUI.currentPage = MUI.totalPages;
-    renderEnrollments(MUI.currentPage);
+    if (!$(this).hasClass('disabled')) {
+      MUI.currentPage = MUI.totalPages;
+      renderEnrollments(MUI.currentPage);
+    }
   });
   
   $('#10-pp, #25-pp, #50-pp, #100-pp').on('click', function() {
