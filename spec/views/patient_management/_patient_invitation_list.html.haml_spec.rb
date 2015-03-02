@@ -47,7 +47,7 @@ describe 'patient_management/_patient_invitation_list' do
       end
 
       it 'has an input for the current page' do
-        expect(rendered).to have_selector('input#current-page', text: 'previous')
+        expect(rendered).to have_selector('input#current-page')
       end
 
       it 'has a next link' do
