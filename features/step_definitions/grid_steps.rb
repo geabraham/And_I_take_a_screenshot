@@ -1,25 +1,5 @@
 include PatientInvitationListHelper
 
-Then(/^I should see a row for "(.*?)" with an obscured email, an activation code, a(|n) (invited|registered) status, a formatted date, subject and initials$/) do |subject_id, _, status|
-  page.should have_text(format_date(@returned_enrollment[:created_at]))
-  page.should have_text(anonymize_email(@returned_enrollment[:email]))
-  page.should have_text(@returned_enrollment[:activation_code])
-  page.should have_text(@returned_enrollment[:initials])
-  page.should have_text(status.capitalize)
-  page.should have_text(subject_id)
-end
-
-Then(/^I should see a row for each subject with an obscured email, an activation code, a(|n) (invited|registered) status, a formatted date, subject and initials$/) do |_, status|
-  @patient_enrollments.each do |enrollment|
-    page.should have_text(format_date(enrollment[:created_at]))
-    page.should have_text(anonymize_email(enrollment[:email]))
-    page.should have_text(enrollment[:activation_code])
-    page.should have_text(enrollment[:initials])
-    page.should have_text(status.capitalize)
-    page.should have_text(enrollment[:subject_id])
-  end
-end
-
 Given(/^patient enrollments exist for "(.*?)" and "(.*?)"$/) do |subject_id_1, subject_id_2|
   @patient_enrollments = []
 
@@ -92,6 +72,26 @@ end
 
 Given(/^the request for patient enrollments returns an error$/) do
   allow(Euresource::PatientEnrollments).to receive(:get).and_raise(Euresource::ResourceNotFound.new(404,"Live long and prosper."))
+end
+
+Then(/^I should see a row for "(.*?)" with an obscured email, an activation code, a(|n) (invited|registered) status, a formatted date, subject and initials$/) do |subject_id, _, status|
+  page.should have_text(format_date(@returned_enrollment[:created_at]))
+  page.should have_text(anonymize_email(@returned_enrollment[:email]))
+  page.should have_text(@returned_enrollment[:activation_code])
+  page.should have_text(@returned_enrollment[:initials])
+  page.should have_text(status.capitalize)
+  page.should have_text(subject_id)
+end
+
+Then(/^I should see a row for each subject with an obscured email, an activation code, a(|n) (invited|registered) status, a formatted date, subject and initials$/) do |_, status|
+  @patient_enrollments.each do |enrollment|
+    page.should have_text(format_date(enrollment[:created_at]))
+    page.should have_text(anonymize_email(enrollment[:email]))
+    page.should have_text(enrollment[:activation_code])
+    page.should have_text(enrollment[:initials])
+    page.should have_text(status.capitalize)
+    page.should have_text(enrollment[:subject_id])
+  end
 end
 
 Then(/^I should see a message saying "(.*?)"$/) do |message|
