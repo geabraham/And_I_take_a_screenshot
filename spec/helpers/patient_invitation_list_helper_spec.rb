@@ -81,6 +81,11 @@ describe PatientInvitationListHelper do
         let(:email) { '' }
         its(:email) { is_expected.to eq('') }
       end
+
+      context 'when a short user' do
+        let(:email) { 'a@g.com' }
+        its(:email) { is_expected.to eq('a***@g***.com') }
+      end
     end
   end
 
