@@ -10,19 +10,24 @@ describe 'patient management grid', ->
       it 'is disabled after click', -> #share examples here
       
       describe 'records per page selector', ->
-        describe 'clicking the 10 per page button', -> # can i make this into shared examples for all the other stuff
-          describe 'when enabled', ->
+        sharedBehaviorForEvent = (event) ->
+          describe event.name, ->
             beforeEach ->
-              $('#10-pp').click()
+              $(event.selector).click()
               
-            it 'renders 10 records on the page', ->
-              expect($('tr.patient_row').length).toEqual(10)
+            it 'renders the appropriate number of records on the page', ->
+              expect($('tr.patient_row').length).toEqual(event.rows)
               
             it 'has the correct total number of pages', ->
-              expect($('#total-pages').html()).toEqual('11')
+              expect(parseInt($('#total-pages').html()), 10).toEqual(Math.ceil(105 / event.rows))
               
             it 'renders the first page', ->
               expect($('#current-page').val()).toEqual('1')
+              
+        sharedBehaviorForEvent(jQuery.Event('click', name: '10 per page button click', selector: '#10-pp', rows: 10))
+        sharedBehaviorForEvent(jQuery.Event('click', name: '25 per page button click', selector: '#25-pp', rows: 25))
+        sharedBehaviorForEvent(jQuery.Event('click', name: '50 per page button click', selector: '#50-pp', rows: 50))
+        sharedBehaviorForEvent(jQuery.Event('click', name: '100 per page button click', selector: '#100-pp', rows: 100))
               
       describe 'first button', ->
         it 'renders the first page', ->
