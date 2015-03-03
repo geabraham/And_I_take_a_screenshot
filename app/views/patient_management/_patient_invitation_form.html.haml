@@ -12,10 +12,10 @@
         = f.label :country_language, 'Country / Language'
         = f.select :country_language, @tou_dpn_agreements, {include_blank: 'Country / Language'}, {class: 'form-control'}
       .form-group
-        = f.label :email, 'Subject email'
+        = f.label :email, 'Subject Email'
         = f.email_field :email, {class: 'form-control'}
       .form-group
-        = f.label :initials, 'Subject initials'
+        = f.label :initials, 'Subject Initials'
         = f.text_field :initials, {class: 'form-control', maxlength: 3}
       .form-group
         = f.label :submit, {class: 'invisible'}
