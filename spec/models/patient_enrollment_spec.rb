@@ -307,17 +307,16 @@ describe PatientEnrollment do
     end
     
     subject { patient_enrollment }
-    before { patient_enrollment = patient_enrollment.grid_formatted }
 
     context 'with all attributes' do
-      let(:patient_enrollment) { build :patient_enrollment, patient_enrollment_attributes }
+      let(:patient_enrollment) { (build :patient_enrollment, patient_enrollment_attributes).grid_formatted }
       
-      its(:initials)        { is_expected.to eq(initials) }
-      its(:email)           { is_expected.to eq('th******@gm***.com') }
-      its(:activation_code) { is_expected.to eq(activation_code) }
-      its(:subject_id)      { is_expected.to eq(subject_id) }
-      its(:state)           { is_expected.to eq('Invited') }
-      its(:created_at)      { is_expected.to eq('26-FEB-2015') }
+      its([:initials])        { is_expected.to eq(initials) }
+      its([:email])           { is_expected.to eq('th******@gm***.com') }
+      its([:activation_code]) { is_expected.to eq(activation_code) }
+      its([:subject_id])      { is_expected.to eq(subject_id) }
+      its([:state])           { is_expected.to eq('Invited') }
+      its([:created_at])      { is_expected.to eq('26-FEB-2015') }
     end
       
     context 'with missing email' do
@@ -342,19 +341,21 @@ describe PatientEnrollment do
     end
 
     describe 'anonymize email' do
+      let(:patient_enrollment) { build :patient_enrollment, patient_enrollment_attributes }
+      
       context 'when not an email' do
         let(:email) { 'some-weird-string' }
-        its(:email) { is_expected.to eq('so***************@***.') }
+        its(:anonymized_email) { is_expected.to eq('so***************@***.') }
       end
 
       context 'when an empty string' do
         let(:email) { '' }
-        its(:email) { is_expected.to eq('') }
+        its(:anonymized_email) { is_expected.to eq('') }
       end
 
       context 'when a short user' do
         let(:email) { 'a@g.com' }
-        its(:email) { is_expected.to eq('a***@g***.com') }
+        its(:anonymized_email) { is_expected.to eq('a***@g***.com') }
       end
     end
   end

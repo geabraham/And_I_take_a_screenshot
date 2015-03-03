@@ -60,27 +60,31 @@ class PatientEnrollment
   
   # anonymizes emails and caps their length if they are long
   def anonymized_email
-    user, domain = self.email.split("@")
-    user, domain, tld = if domain.present?
-      domain = domain.split('.')
-      [user.chars, domain.first.chars, domain.from(1).join('.')]
+    unless self.email.blank?
+      user, domain = self.email.split("@")
+      user, domain, tld = if domain.present?
+        domain = domain.split('.')
+        [user.chars, domain.first.chars, domain.from(1).join('.')]
+      else
+        [user.chars, ''.chars, '']
+      end
+      
+      if user.length >= 2
+        user = user.take(2).join << '*' * (user.length > 20 ? 18 : user.length - 2)
+      else
+        user = user.take(2).join << '***'
+      end
+      
+      if domain.length >= 2
+        domain = domain.take(2).join << '*' * (domain.length > 10 ? 8 : domain.length - 2)
+      else
+        domain = domain.take(2).join << '***'
+      end
+      
+      "#{user}@#{domain}.#{tld}"
     else
-      [user.chars, ''.chars, '']
+      ''
     end
-
-    if user.length >= 2
-      user = user.take(2).join << '*' * (user.length > 20 ? 18 : user.length - 2)
-    else
-      user = user.take(2).join << '***'
-    end
-    
-    if domain.length >= 2
-      domain = domain.take(2).join << '*' * (domain.length > 10 ? 8 : domain.length - 2)
-    else
-      domain = domain.take(2).join << '***'
-    end
-    
-    "#{user}@#{domain}.#{tld}"
   end
   
   # formats date for display in the patient management grid
