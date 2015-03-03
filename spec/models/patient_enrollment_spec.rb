@@ -320,21 +320,21 @@ describe PatientEnrollment do
     end
       
     context 'with missing email' do
-      let(:missing_email_attributes) { patient_enrollment_attributes.merge!(email: nil) }
+      let(:missing_email_attributes) { patient_enrollment_attributes.merge(email: nil) }
       let(:patient_enrollment)     { build :patient_enrollment, missing_email_attributes }
 
       its(:email) { is_expected.to eq(nil) }
     end
 
     context 'with missing created at' do
-      let(:missing_created_at_attributes) { patient_enrollment_attributes.merge!(created_at: nil) }
+      let(:missing_created_at_attributes) { patient_enrollment_attributes.merge(created_at: nil) }
       let(:patient_enrollment)          { build :patient_enrollment, missing_created_at_attributes }
 
       its(:created_at) { is_expected.to eq(nil) }
     end
 
     context 'with missing state' do
-      let(:missing_state_attributes) { patient_enrollment_attributes.merge!(state: nil) }
+      let(:missing_state_attributes) { patient_enrollment_attributes.merge(state: nil) }
       let(:patient_enrollment)     { build :patient_enrollment, missing_state_attributes }
 
       its(:state) { is_expected.to eq(nil) }
