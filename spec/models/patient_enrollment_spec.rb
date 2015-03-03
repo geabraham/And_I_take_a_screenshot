@@ -340,23 +340,23 @@ describe PatientEnrollment do
       its(:state) { is_expected.to eq(nil) }
     end
 
-    describe 'anonymize email' do
-      let(:patient_enrollment) { build :patient_enrollment, patient_enrollment_attributes }
-      
-      context 'when not an email' do
-        let(:email) { 'some-weird-string' }
-        its(:anonymized_email) { is_expected.to eq('so***************@***.') }
-      end
+  describe 'anonymize email' do
+    let(:patient_enrollment) { build :patient_enrollment, patient_enrollment_attributes }
+    
+    context 'when not an email' do
+      let(:email) { 'some-weird-string' }
+      its(:anonymized_email) { is_expected.to eq('so***************@***.') }
+    end
 
-      context 'when an empty string' do
-        let(:email) { '' }
-        its(:anonymized_email) { is_expected.to eq('') }
-      end
+    context 'when an empty string' do
+      let(:email) { '' }
+      its(:anonymized_email) { is_expected.to eq('') }
+    end
 
-      context 'when a short user' do
-        let(:email) { 'a@g.com' }
-        its(:anonymized_email) { is_expected.to eq('a***@g***.com') }
-      end
+    context 'when a short user' do
+      let(:email) { 'a@g.com' }
+      its(:anonymized_email) { is_expected.to eq('a***@g***.com') }
+    end
     end
   end
 end
