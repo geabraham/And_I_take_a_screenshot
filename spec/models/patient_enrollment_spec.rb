@@ -146,7 +146,7 @@ describe PatientEnrollment do
           [:uuid, :initials, :email, :enrollment_type, :activation_code, :language_code, :study_uuid, :study_site_uuid,
            :subject_id, :state, :tou_accepted_at, :created_at]
         end
-        let(:patient_enrollment_1) do
+        let(:patient_enrollment) do
           build :patient_enrollment,
                 uuid: "25c06a8b-47ed-4382-a44f-9b45ea87216a",
                 initials: 'TD',
@@ -176,7 +176,7 @@ describe PatientEnrollment do
                 tou_accepted_at: Time.now.to_s,
                 created_at: '2015-02-26 18:49:30 UTC'
         end
-        let(:patient_enrollments) { [patient_enrollment_1, patient_enrollment_2] }
+        let(:patient_enrollments) { [patient_enrollment, patient_enrollment_2] }
         let(:response_body)       { patient_enrollments.each{ |pe| Hash[attribute_list.zip(attribute_list.map{ |a| pe.send(a) } )] }.to_json }
         let(:response_status)     { 200 }
 
@@ -306,11 +306,11 @@ describe PatientEnrollment do
       }
     end
     
-    subject { patient_enrollment_1 }
-    before { patient_enrollment_1.grid_formatted }
+    subject { patient_enrollment }
+    before { patient_enrollment.grid_formatted }
 
     context 'with all attributes' do
-      let(:patient_enrollment_1) { build :patient_enrollment, patient_enrollment_attributes }
+      let(:patient_enrollment) { build :patient_enrollment, patient_enrollment_attributes }
       
       its(:initials)        { is_expected.to eq(initials) }
       its(:email)           { is_expected.to eq('th******@gm***.com') }
@@ -322,21 +322,21 @@ describe PatientEnrollment do
       
     context 'with missing email' do
       let(:missing_email_attributes) { patient_enrollment_attributes.merge!(email: nil) }
-      let(:patient_enrollment_1)     { build :patient_enrollment, missing_email_attributes }
+      let(:patient_enrollment)     { build :patient_enrollment, missing_email_attributes }
 
       its(:email) { is_expected.to eq(nil) }
     end
 
     context 'with missing created at' do
       let(:missing_created_at_attributes) { patient_enrollment_attributes.merge!(created_at: nil) }
-      let(:patient_enrollment_1)          { build :patient_enrollment, missing_created_at_attributes }
+      let(:patient_enrollment)          { build :patient_enrollment, missing_created_at_attributes }
 
       its(:created_at) { is_expected.to eq(nil) }
     end
 
     context 'with missing state' do
       let(:missing_state_attributes) { patient_enrollment_attributes.merge!(state: nil) }
-      let(:patient_enrollment_1)     { build :patient_enrollment, missing_state_attributes }
+      let(:patient_enrollment)     { build :patient_enrollment, missing_state_attributes }
 
       its(:state) { is_expected.to eq(nil) }
     end
