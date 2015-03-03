@@ -1,12 +1,12 @@
 - content_for :page_body do
   .panel.panel-default.center-block.col-sm-4.pull-none.light-grey-border
-    %h3.form_header.text-center='Please choose a study and a site.'
+    %h3.form_header.text-center= t("patient_management.choose_study_and_site")
     %hr
     = fields_for 'patient_management' do |f|
       .form-group.col-sm-10.center-block.pull-none.margin-bottom-thirty
-        = f.select :study, @study_or_studies, {include_blank: 'Study'}, {:class => 'form-control'}
+        = f.select :study, @study_or_studies, {include_blank: t("patient_management.study")}, {:class => 'form-control'}
       .form-group.col-sm-10.center-block.pull-none.margin-bottom-thirty
-        = f.select :study_site, [], {include_blank: 'Site'}, {:class => 'form-control'}
+        = f.select :study_site, [], {include_blank: t("patient_management.site")}, {:class => 'form-control'}
       %hr
       %a#launch-link.form-group.col-sm-10.center-block.pull-none.margin-bottom-thirty
-        = f.submit 'Launch', class: 'btn btn-primary btn-block', disabled: true, id: 'launch-patient-management'
+        = f.submit t("application.btn_launch"), class: 'btn btn-primary btn-block', disabled: true, id: 'launch-patient-management'
