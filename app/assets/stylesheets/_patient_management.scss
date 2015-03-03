@@ -1,12 +1,27 @@
 #invite-form {
   .form-group {
-    margin-right: 15px;
-    min-width: 200px;
+    margin-right: 10px;
+    width: 170px;
     label { display: block; }
     select, input { width: 100%; }
   }
   .required label:after {
     color: #a94442;
     content: ' *'
+  }
+}
+
+.validation_error {
+  margin-right: 15px;
+  color: red;
+}
+
+@media (max-width: 1200px) {
+  #invite-form {
+    .form-group {
+      display: block;
+      margin-bottom: 15px;
+      width: 100%;
+    }
   }
 }

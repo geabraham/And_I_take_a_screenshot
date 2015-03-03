@@ -146,7 +146,7 @@ describe PatientEnrollment do
           [:uuid, :initials, :email, :enrollment_type, :activation_code, :language_code, :study_uuid, :study_site_uuid,
            :subject_id, :state, :tou_accepted_at, :created_at]
         end
-        let(:patient_enrollment_1) do
+        let(:patient_enrollment) do
           build :patient_enrollment,
                 uuid: "25c06a8b-47ed-4382-a44f-9b45ea87216a",
                 initials: 'TD',
@@ -176,7 +176,7 @@ describe PatientEnrollment do
                 tou_accepted_at: Time.now.to_s,
                 created_at: '2015-02-26 18:49:30 UTC'
         end
-        let(:patient_enrollments) { [patient_enrollment_1, patient_enrollment_2] }
+        let(:patient_enrollments) { [patient_enrollment, patient_enrollment_2] }
         let(:response_body)       { patient_enrollments.each{ |pe| Hash[attribute_list.zip(attribute_list.map{ |a| pe.send(a) } )] }.to_json }
         let(:response_status)     { 200 }
 
@@ -285,6 +285,78 @@ describe PatientEnrollment do
           "Received unexpected response for tou_dpn_agreement. " <<
           "Response status: #{euresource_response_status}. Response body: #{euresource_response_body}")
       end
+    end
+  end
+  
+  describe 'grid_formatted' do
+    let(:initials)        { 'TD' }
+    let(:email)           { 'the-dude@gmail.com' }
+    let(:activation_code) { 'ABCDEFG' }
+    let(:subject_id)      { 'Subject-001' }
+    let(:state)           { 'invited' }
+    let(:created_at)      { '2015-02-26 18:47:07 UTC' }
+    let(:patient_enrollment_attributes) do
+      {
+        initials: initials,
+        email: email,
+        activation_code: activation_code,
+        subject_id: subject_id,
+        state: state,
+        created_at: created_at
+      }
+    end
+    
+    subject { patient_enrollment }
+
+    context 'with all attributes' do
+      let(:patient_enrollment) { (build :patient_enrollment, patient_enrollment_attributes).grid_formatted }
+      
+      its([:initials])        { is_expected.to eq(initials) }
+      its([:email])           { is_expected.to eq('th******@gm***.com') }
+      its([:activation_code]) { is_expected.to eq(activation_code) }
+      its([:subject_id])      { is_expected.to eq(subject_id) }
+      its([:state])           { is_expected.to eq('Invited') }
+      its([:created_at])      { is_expected.to eq('26-FEB-2015') }
+    end
+      
+    context 'with missing email' do
+      let(:missing_email_attributes) { patient_enrollment_attributes.merge(email: nil) }
+      let(:patient_enrollment)     { build :patient_enrollment, missing_email_attributes }
+
+      its(:email) { is_expected.to eq(nil) }
+    end
+
+    context 'with missing created at' do
+      let(:missing_created_at_attributes) { patient_enrollment_attributes.merge(created_at: nil) }
+      let(:patient_enrollment)          { build :patient_enrollment, missing_created_at_attributes }
+
+      its(:created_at) { is_expected.to eq(nil) }
+    end
+
+    context 'with missing state' do
+      let(:missing_state_attributes) { patient_enrollment_attributes.merge(state: nil) }
+      let(:patient_enrollment)     { build :patient_enrollment, missing_state_attributes }
+
+      its(:state) { is_expected.to eq(nil) }
+    end
+
+  describe 'anonymize email' do
+    let(:patient_enrollment) { build :patient_enrollment, patient_enrollment_attributes }
+    
+    context 'when not an email' do
+      let(:email) { 'some-weird-string' }
+      its(:anonymized_email) { is_expected.to eq('so***************@***.') }
+    end
+
+    context 'when an empty string' do
+      let(:email) { '' }
+      its(:anonymized_email) { is_expected.to eq('') }
+    end
+
+    context 'when a short user' do
+      let(:email) { 'a@g.com' }
+      its(:anonymized_email) { is_expected.to eq('a***@g***.com') }
+    end
     end
   end
 end
