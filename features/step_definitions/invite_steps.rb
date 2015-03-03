@@ -46,14 +46,14 @@ When(/^I invite a user with the following attributes:$/) do |table|
   select country_language['attribute_value'], from: 'patient_enrollment_country_language'
   
   params_for_patient_enrollment = { patient_enrollment:
-    { "email" => email['attribute_value'],
-      "initials" => initials['attribute_value'],
-      "country_code" => "ISR",
-      "language_code" => "ara",
-      "subject_id" => subject['attribute_value'],
-      "enrollment_type" => "in-person",
-      "study_uuid" => @current_site_object['study_uuid'],
-      "study_site_uuid" => @current_site_object['uuid'] } }
+    { email: email['attribute_value'],
+      initials: initials['attribute_value'],
+      country_code: "ISR",
+      language_code: "ara",
+      subject_id: subject['attribute_value'],
+      enrollment_type: "in-person",
+      study_uuid: @current_site_object['study_uuid'],
+      study_site_uuid: @current_site_object['uuid'] } }
   http_headers = { http_headers: { 'X-MWS-Impersonate' => @user_uuid } }
   
   @returned_enrollment = 
