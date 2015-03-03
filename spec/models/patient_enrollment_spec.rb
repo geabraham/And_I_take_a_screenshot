@@ -288,7 +288,7 @@ describe PatientEnrollment do
     end
   end
   
-  describe 'format_and_anonymize' do
+  describe 'grid_formatted' do
     let(:initials)        { 'TD' }
     let(:email)           { 'the-dude@gmail.com' }
     let(:activation_code) { 'ABCDEFG' }
@@ -297,7 +297,6 @@ describe PatientEnrollment do
     let(:created_at)      { '2015-02-26 18:47:07 UTC' }
     let(:patient_enrollment_attributes) do
       {
-        uuid: uuid,
         initials: initials,
         email: email,
         activation_code: activation_code,
@@ -306,12 +305,13 @@ describe PatientEnrollment do
         created_at: created_at
       }
     end
-    let(:patient_enrollment_1) { build :patient_enrollment, patient_enrollment_attributes }
     
     subject { patient_enrollment_1 }
-    before { patient_enrollment_1.format_and_anonymize }
+    before { patient_enrollment_1.grid_formatted }
 
     context 'with all attributes' do
+      let(:patient_enrollment_1) { build :patient_enrollment, patient_enrollment_attributes }
+      
       its(:initials)        { is_expected.to eq(initials) }
       its(:email)           { is_expected.to eq('th******@gm***.com') }
       its(:activation_code) { is_expected.to eq(activation_code) }
