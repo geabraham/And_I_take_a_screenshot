@@ -17,7 +17,7 @@ describe 'patient_management/_patient_invitation_list' do
     end
 
     it 'has the right headers' do
-      expect(rendered).to have_selector('th', text: 'Added on')
+      expect(rendered).to have_selector('th', text: 'Added On')
       expect(rendered).to have_selector('th', text: 'Subject I.D.')
       expect(rendered).to have_selector('th', text: 'Email')
       expect(rendered).to have_selector('th', text: 'Initials')
