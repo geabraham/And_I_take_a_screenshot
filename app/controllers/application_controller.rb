@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     Euresource::ResourceNotFound => :not_found,
     Faraday::Error::ConnectionFailed => :service_unavailable }
 
-  #rescue_from StandardError, with: :rescue_error_minotaur
+  rescue_from StandardError, with: :rescue_error_minotaur
 
   def logout
     reset_session
