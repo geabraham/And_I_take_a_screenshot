@@ -307,7 +307,7 @@ describe PatientEnrollment do
     end
     
     subject { patient_enrollment }
-    before { patient_enrollment.grid_formatted }
+    before { patient_enrollment = patient_enrollment.grid_formatted }
 
     context 'with all attributes' do
       let(:patient_enrollment) { build :patient_enrollment, patient_enrollment_attributes }
