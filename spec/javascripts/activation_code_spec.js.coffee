@@ -1,6 +1,4 @@
 describe 'activation code page', ->
-  getSpy = undefined
-  
   beforeEach ->
     loadFixtures 'activationCodeFixture.html'
     
