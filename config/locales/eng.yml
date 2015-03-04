@@ -26,6 +26,8 @@ eng:
     total_results: Total Result(s)
     per_page: Per page
     first: first
+    next: next
+    last: last
     previous: previous
     enter_a_valid_page_number: Enter a valid page number.
   patient_management:
