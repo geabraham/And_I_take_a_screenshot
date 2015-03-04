@@ -17,12 +17,12 @@ describe 'patient_management/_patient_invitation_list' do
     end
 
     it 'has the right headers' do
-      expect(rendered).to have_selector('th', text: 'Added On')
-      expect(rendered).to have_selector('th', text: 'Subject I.D.')
-      expect(rendered).to have_selector('th', text: 'Email')
-      expect(rendered).to have_selector('th', text: 'Initials')
-      expect(rendered).to have_selector('th', text: 'Activation Code')
-      expect(rendered).to have_selector('th', text: 'Registered')
+      expect(rendered).to have_selector('th', text: t("patient_management.enrollment_grid.headers.added_on"))
+      expect(rendered).to have_selector('th', text: t("patient_management.enrollment_grid.headers.subject"))
+      expect(rendered).to have_selector('th', text: t("patient_management.enrollment_grid.headers.email"))
+      expect(rendered).to have_selector('th', text: t("patient_management.enrollment_grid.headers.initials"))
+      expect(rendered).to have_selector('th', text: t("patient_management.enrollment_grid.headers.activation_code"))
+      expect(rendered).to have_selector('th', text: t("patient_management.enrollment_grid.headers.status"))
     end
 
     it 'displays the total patient enrollments count' do
