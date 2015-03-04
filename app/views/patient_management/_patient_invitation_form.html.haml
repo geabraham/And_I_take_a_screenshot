@@ -1,25 +1,26 @@
-.panel.panel-default.center-block.col-md-10.pull-none.light-grey-border
-  %h3.form_header= "#{t('patient_management.invitation_form.add_a_patient_to')} #{@study_site_name}."
-  %hr
-  = form_for 'patient_enrollment', url: {action: 'invite', study_uuid: @study_uuid, study_site_uuid: @study_site_uuid}, remote: true, html: {id: 'invite-form', class: 'form-inline margin-bottom-thirty', 'data-study_uuid' => @study_uuid, 'data-study_site_uuid' => @study_site_uuid} do |f|
-    %p.required
-      %label t("application.required")
-    .form-group.required
-      = f.label :subject
-      = f.select :subject, @available_subjects, {include_blank: @available_subjects.present? ? t("patient_management.invitation_form.subject") : t("patient_management.invitation_form.no_subjects_available")}, {class: 'form-control'}
-    .form-group.required
-      = f.label :country_language, t("patient_management.invitation_form.country_language")
-      = f.select :country_language, @tou_dpn_agreements, {include_blank: t("patient_management.invitation_form.country_language")}, {class: 'form-control'}
-    .form-group
-      = f.label :email, t("patient_management.invitation_form.subject_email")
-      = f.email_field :email, {class: 'form-control'}
-    .form-group
-      = f.label :initials, t("patient_management.invitation_form.subject_initials")
-      = f.text_field :initials, {class: 'form-control'}
-    .form-group
-      = f.label :submit, {class: 'invisible'}
-      = f.submit t("patient_management.invitation_form.btn_invite"), id: 'invite-button', class: 'btn btn-primary', disabled: true
-  .alert.alert-danger.hidden#invite-form-error
-    %span.sr-only Error:
-    %span.message
-    #error-x-button.pull-right X
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title="#{t('patient_management.invitation_form.add_a_patient_to')} #{@study_site_name}."
+  .panel-body
+    = form_for 'patient_enrollment', url: {action: 'invite', study_uuid: @study_uuid, study_site_uuid: @study_site_uuid}, remote: true, html: {id: 'invite-form', class: 'form-inline margin-bottom-thirty', 'data-study_uuid' => @study_uuid, 'data-study_site_uuid' => @study_site_uuid} do |f|
+      %p.required
+        %label= t("application.required")
+      .form-group.required
+        = f.label :subject
+        = f.select :subject, @available_subjects, {include_blank: @available_subjects.present? ? t("patient_management.invitation_form.subject") : t("patient_management.invitation_form.no_subjects_available")}, {class: 'form-control'}
+      .form-group.required
+        = f.label :country_language, t("patient_management.invitation_form.country_language")
+        = f.select :country_language, @tou_dpn_agreements, {include_blank: t("patient_management.invitation_form.country_language")}, {class: 'form-control'}
+      .form-group
+        = f.label :email, t("patient_management.invitation_form.subject_email")
+        = f.email_field :email, {class: 'form-control'}
+      .form-group
+        = f.label :initials, t("patient_management.invitation_form.subject_initials")
+        = f.text_field :initials, {class: 'form-control', maxlength: 3}
+      .form-group
+        = f.label :submit, {class: 'invisible'}
+        = f.submit t("patient_management.invitation_form.btn_invite"), id: 'invite-button', class: 'btn btn-primary', disabled: true
+    .alert.alert-danger.hidden#invite-form-error
+      %span.sr-only Error:
+      %span.message
+      #error-x-button.pull-right X

@@ -1,4 +1,4 @@
-Feature: A provider can invite a user to particpate in a study
+Feature: A provider can invite a user to participate in a study
   As a provider
   I want to invite patients to a study and study site
   So they can use the patient cloud
@@ -25,6 +25,7 @@ Feature: A provider can invite a user to particpate in a study
       | Subject002         |
       | Subject003         |
     And I am logged in
+    And no patient enrollments exist for site "DeepSpaceStation"
 
   @Release2015.1.0
   @PB130799-001
@@ -60,15 +61,7 @@ Feature: A provider can invite a user to particpate in a study
       | email            | lt-commander-data@mdsol.com |
       | subject          | Subject001                  |
       | country_language | Israel / Arabic             |
-    # REVIEW: This is pending - should it be Review[SQA] or Review[ENG]?
-    # Note: Pending patient management grid feature.
-    #  In the intermediary, manual tests should check subjects database for expected objects and attributes.
-    Then I should see a newly created patient enrollment for user LCD in the patient management grid with:
-      | attribute_name  | attribute_value             |
-      | state           | invited                     |
-      | activation_code | <activation_code>           |
-      | enrollment_type | in-person                   |
-      | email           | lt-commander-data@mdsol.com |
+    Then I should see a row for "Subject001" with an obscured email, an activation code, an invited status, a formatted date, subject and initials
     And the subject dropdown should get refreshed
 
   @Release2015.1.0

@@ -7,6 +7,7 @@ $(function() {
     resetErrors();
     clearUserFields();
     refreshSubjects();
+    updateGrid(data);
   }).on("ajax:error", function(e, xhr, status, error) {
     resetErrors();
     addError(xhr.responseText);
@@ -63,3 +64,9 @@ var refreshSubjects = function() {
     inviteButtonEnabledDisabled();
   });
 }
+
+$(document).ajaxStart(function() {
+  $('#loading-image').show();
+}).ajaxStop(function() {
+  $('#loading-image').hide();
+})

@@ -20,6 +20,38 @@ eng:
     btn_agree: I agree
     btn_next: Next
     btn_continue: Continue
+    btn_launch: Launch
+    required: Required
+  pagination:
+    total_results: Total Result(s)
+    per_page: Per page
+    first: first
+    previous: previous
+    enter_a_valid_page_number: Enter a valid page number.
+  patient_management:
+    choose_study_and_site: Please choose a study and a site.
+    study: Study
+    site: Site
+    invitation_form:
+      add_a_patient_to: Add a patient to
+      subject: Subject
+      no_subjects_available: No subjects available
+      country_language: Country / Language
+      subject_email: Subject email
+      subject_initials: Subject initials
+      btn_invite: Invite
+    enrollment_grid:
+      headers:
+        added_on: Added on
+        subject: Subject
+        email: Email
+        initials: Initials
+        activation_code: Activation Code
+        status: Status
+      statuses:
+        registered: Registered
+        invited: Invited
+        pending: Pending
   activation_codes:
     index:
       code_heading: Please enter your activation code
@@ -119,3 +151,8 @@ eng:
       message: "This email has already been registered, please register with a different email."
     registration_backend_error:
       message: "Internal server error. Please try again later."
+    no_patient_enrollments_message:
+      message: There are currently no patient enrollments for this study.
+    subject_not_availble_message:
+      message: Subject not available. Please try again.
+

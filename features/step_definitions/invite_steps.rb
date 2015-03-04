@@ -44,6 +44,40 @@ When(/^I invite a user with the following attributes:$/) do |table|
 
   country_language = attributes.find {|attr| attr['attribute_name'] == 'country_language'}
   select country_language['attribute_value'], from: 'patient_enrollment_country_language'
+  
+  params_for_patient_enrollment = { patient_enrollment:
+    { email: email['attribute_value'],
+      initials: initials['attribute_value'],
+      country_code: "ISR",
+      language_code: "ara",
+      subject_id: subject['attribute_value'],
+      enrollment_type: "in-person",
+      study_uuid: @current_site_object['study_uuid'],
+      study_site_uuid: @current_site_object['uuid'] } }
+  http_headers = { http_headers: { 'X-MWS-Impersonate' => @user_uuid } }
+  
+  @returned_enrollment = 
+    { initials: initials['attribute_value'],
+      email: email['attribute_value'],
+      enrollment_type: "in-person",
+      activation_code: "6VK7AW",
+      language_code: "ara",
+      state: "invited",
+      tou_accepted_at: nil,
+      study_uuid: @current_site_object['study_uuid'],
+      study_site_uuid: @current_site_object['uuid'],
+      subject_id: "MN003",
+      created_at: "2015-02-27 20:52:46 UTC" }
+  last_response = double('last object').tap { |lr| allow(lr).to receive(:body).and_return(@returned_enrollment.to_json) }
+  response_object = double('response object').tap { |ro| allow(ro).to receive(:last_response).and_return(last_response) }
+  
+  allow(Euresource::PatientEnrollment).to receive(:post!)
+    .with(params_for_patient_enrollment, http_headers)
+    .and_return(response_object)
+  allow(response_object).to receive(:is_a?).with(Euresource::PatientEnrollment).and_return(true)
+  
+  click_on 'Invite'
+  find('tr.patient_row') # this step will block until AJAX events complete and the row has rendered
 end
 
 When(/^I select a subject but I don't select a country \/ language pair$/) do

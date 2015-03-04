@@ -1,0 +1,58 @@
+.panel.panel-default
+  #patient-list
+    %table.table
+      %thead
+        %tr
+          %th= t("patient_management.enrollment_grid.headers.added_on")
+          %th= t("patient_management.enrollment_grid.headers.subject")
+          %th= t("patient_management.enrollment_grid.headers.email")
+          %th= t("patient_management.enrollment_grid.headers.initials")
+          %th= t("patient_management.enrollment_grid.headers.activation_code")
+          %th= t("patient_management.enrollment_grid.headers.status")
+      %tbody
+        / patient invitation elements are appended here!
+    .panel-footer
+      .paginate.clearfix
+        .total-results
+          %b#total-count=@patient_enrollments.count
+          Total Result(s)
+        .per-page
+          %span='Per page'
+          %ul
+            %li
+              %a#10-pp{href: '#'} 10
+            %li
+              %a.selected.disabled#25-pp{href: '#'} 25
+            %li
+              %a#50-pp{href: '#'} 50
+            %li
+              %a#100-pp{href: '#'} 100
+        %ul.controls
+          %li
+            .validation_error
+          %li
+            %a.disabled.first{href: '#'}
+              %i.fa.fa-angle-double-left
+              %span.sr-only first
+          %li
+            %a.disabled.previous{href: '#'}
+              %i.fa.fa-angle-left
+              %span.sr-only previous
+          %li.counter
+            %form#page-form
+              %input#current-page{name: 'current-page', size: '2', type: 'text', value: '1', maxlength: '2', autocomplete: 'off'}
+              of
+              %span#total-pages
+          %li
+            %a.disabled.next{href: '#'}
+              %i.fa.fa-angle-right
+              %span.sr-only next
+          %li
+            %a.disabled.last{href: '#'}
+              %i.fa.fa-angle-double-right
+              %span.sr-only last
+  #none-message.hidden= 'There are currently no patient enrollments for this study.'
+
+:javascript
+  var MUI = MUI || {};
+  MUI.patientEnrollments = #{@patient_enrollments.to_json}

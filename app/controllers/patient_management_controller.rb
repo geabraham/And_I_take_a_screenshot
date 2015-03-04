@@ -6,6 +6,7 @@ class PatientManagementController < ApplicationController
   layout 'patient_management'
   include IMedidataClient
   include PatientInvitationFormHelper
+  include PatientInvitationListHelper
   include PatientManagementPermissionsHelper
   before_filter :authorize_user
   before_filter :check_study_and_study_site_permissions!
@@ -15,6 +16,7 @@ class PatientManagementController < ApplicationController
       @tou_dpn_agreements = fetch_tou_dpn_agreements_for_select
       @available_subjects = fetch_available_subjects_for_select
       @study_site_name, @study_site_uuid, @study_uuid = @study_site['name'], @study_site['uuid'], params[:study_uuid]
+      @patient_enrollments = fetch_patient_enrollments
       return render 'patient_management_grid'
     end
     @study_or_studies = studies_selection_list
@@ -22,7 +24,7 @@ class PatientManagementController < ApplicationController
 
   def invite
     patient_enrollment = invite_or_raise!
-    render json: patient_enrollment, status: :created
+    render json: patient_enrollment.grid_formatted, status: :created
   rescue StandardError => e
     message, status = available_subjects_error(e)
     Rails.logger.error_with_data("Rescuing error during patient invitation.", error: e.inspect)
@@ -64,7 +66,7 @@ class PatientManagementController < ApplicationController
       patient_enrollment: clean_params_for_patient_enrollment(params)}, http_headers: impersonate_header)
     Rails.logger.info_with_data("Received response for patient invitation request.", invitation_response: invitation_response.inspect)
     raise Euresource::ResourceNotSaved.new() unless invitation_response.is_a?(Euresource::PatientEnrollment)
-    invitation_response
+    PatientEnrollment.new(JSON.parse(invitation_response.last_response.body))
   end
 
   # Request all TouDpnAgreements

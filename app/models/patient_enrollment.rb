@@ -47,6 +47,50 @@ class PatientEnrollment
   def script_direction
     RIGHT_TO_LEFT_LANGUAGE_CODES.include?(language_code) ? 'rtl' : 'ltr'
   end
+  
+  # stars out emails and formats dates for provider grid display
+  def grid_formatted
+    { created_at: self.created_at.blank? ? '' : self.formatted_date,
+      subject_id: self.subject_id,
+      email: self.email.blank? ? '' : self.anonymized_email,
+      initials: self.initials,
+      activation_code: self.activation_code,
+      state: self.state.blank? ? '' : self.state.capitalize }
+  end
+  
+  # anonymizes emails and caps their length if they are long
+  def anonymized_email
+    unless self.email.blank?
+      user, domain = self.email.split("@")
+      user, domain, tld = if domain.present?
+        domain = domain.split('.')
+        [user.chars, domain.first.chars, domain.from(1).join('.')]
+      else
+        [user.chars, ''.chars, '']
+      end
+      
+      if user.length >= 2
+        user = user.take(2).join << '*' * (user.length > 20 ? 18 : user.length - 2)
+      else
+        user = user.take(2).join << '***'
+      end
+      
+      if domain.length >= 2
+        domain = domain.take(2).join << '*' * (domain.length > 10 ? 8 : domain.length - 2)
+      else
+        domain = domain.take(2).join << '***'
+      end
+      
+      "#{user}@#{domain}.#{tld}"
+    else
+      ''
+    end
+  end
+  
+  # formats date for display in the patient management grid
+  def formatted_date
+    Date.strptime(self.created_at).strftime('%d-%^b-%Y')
+  end
 
   private
   # Returns the body of the remote tou dpn agreement.
@@ -78,7 +122,7 @@ class PatientEnrollment
         "Response status: #{response.status}. Response body: #{response.body}")
     end
   end
-
+  
   class PatientEnrollmentError < StandardError; end
   class RemotePatientEnrollmentError < StandardError; end
 end
