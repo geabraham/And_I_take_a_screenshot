@@ -66,22 +66,4 @@ describe 'activation code page', ->
           handleInput()
           expect($('#activate-button')).toHaveAttr('href', '/activation_codes/234567/validate')
 
-      sharedBehaviorForEvent = (event) ->
-        describe event.name, ->
-          beforeEach ->
-            getSpy = spyOn($.fn, 'get')
-            
-          describe 'when button is disabled', ->
-            it 'does nothing', ->
-              $(event.selector).trigger event
-              expect(getSpy).not.toHaveBeenCalled
-              
-          describe 'when button is enabled', ->
-            it 'submits the activation code', ->
-              $('#activate-button').removeClass('disabled')
-              $(event.selector).trigger event
-              expect(getSpy).not.toHaveBeenCalled
-                
-      sharedBehaviorForEvent(jQuery.Event('click', name: 'create account button click', selector: '#activate-button'))
-      sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
   return

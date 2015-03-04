@@ -462,8 +462,6 @@ GEM
       faraday (~> 0.8.1)
       jwt (>= 0.1.5)
       multi_json (>= 1.0.0)
-    simple-navigation (3.14.0)
-      activesupport (>= 2.3.2)
     simplecov (0.9.1)
       docile (~> 1.1.0)
       multi_json (~> 1.0)
@@ -559,7 +557,6 @@ DEPENDENCIES
   sass-rails (~> 4.0.3)
   selenium-webdriver (~> 2.43.0)
   shamus!
-  simple-navigation
   simplecov
   uglifier (>= 2.5.3)
   webmock (~> 1.20.0)

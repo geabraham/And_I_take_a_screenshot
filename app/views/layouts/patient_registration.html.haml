@@ -15,7 +15,7 @@
     = cdn_stylesheet_link_tag    'platform'
     = stylesheet_link_tag        'application'
     = csrf_meta_tags
-  %body{dir: "#{@script_direction}"}
+  %body.registration{dir: "#{@script_direction}"}
     #main.clearfix
       .patient
         = yield :page_body

@@ -1,4 +1,4 @@
-%h3.form_header= t("registration.security_question_form.dropdown_placeholder")
+%h3.form-header=t("registration.security_question_form.dropdown_placeholder")
 .form_instruction
   = t("registration.security_question_form.form_instruction")
   %strong= t("registration.security_question_form.form_instruction_bold")
@@ -8,5 +8,7 @@
     = f.label :security_question, 'Security Question', id: "question-label", class: 'invisible'
     = f.select :security_question, @security_questions, {include_blank:  t("registration.security_question_form.dropdown_placeholder")}, {class: 'form-control'}
   .form-group
-    = f.label :answer,  t("registration.security_question_form.answer_label")
-    = f.text_field :answer, class: 'registration-input form-control', placeholder:  t("registration.security_question_form.answer_placeholder")
+    = f.label :answer, t("registration.security_question_form.answer_label")
+    = f.text_field :answer, class: 'registration-input form-control', placeholder: t("registration.security_question_form.answer_placeholder"), autocomplete: 'off'
+
+  %input.btn.btn-primary.btn-block.disabled#create-account{ type: 'submit', value: t("registration.security_question_form.btn_create")}

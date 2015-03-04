@@ -8,9 +8,13 @@
 // compiled file, but it's generally better to create a new file per style scope.
 
 @import 'mixins';
-@import 'patient';
+
+@import 'registration';
 @import 'activation';
+
+// @import 'patient';
 @import 'desktop';
+
 @import 'patient_management';
 @import 'patient_management_error';
 // TODO refactor when sandman updates

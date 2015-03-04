@@ -1,4 +1,4 @@
-%h3.form_header
+%h3.form-header
   = t("registration.email_form.email_label")
 %p.form_instruction
   = t("registration.email_form.form_instruction")
@@ -10,4 +10,6 @@
   .form-group
     = f.label :login_confirmation, t("registration.email_form.reenter_label")
     = f.email_field :login_confirmation, class: 'registration-input form-control'
-.validation_error.invisible
+.validation_error
+
+%a.btn.btn-primary.btn-block.disabled#next-email(href="#registration-details" role="button")=t("application.btn_next")
