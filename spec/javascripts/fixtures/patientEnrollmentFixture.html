@@ -1,93 +1,142 @@
-<script>
-$(function() {
-  $('.carousel').carousel(); //initialize the carousel
-  
-  $('#reg-form').validate({ //initialize the form validator
-    errorPlacement: function(error, element) {
-      $('.active .validation_error').html(error);
-    },
-    rules: { //TODO add validation for email address
-      'patient_enrollment[login]': {
-        required: true,
-        email: true
-      },
-      'patient_enrollment[login_confirmation]' : {
-        equalTo: '#patient_enrollment_login' }
-    },
-    messages: {
-      'patient_enrollment[login]': 'Enter a valid email.',
-      'patient_enrollment[login_confirmation]': 'Your Emails do not match.'
-    },
-    invalidHandler: function() {
-      $('.active .validation_error').removeClass('invisible');
-      $('.active .registration-input, .active label').addClass('invalid');
-    }
-  })
-  
-  // custom validation for our password rules
-  $.validator.addMethod("pwcheck", function(value) { 
-    return  /[a-z]/.test(value) // has a lowercase letter
-      && /[A-Z]/.test(value) // has an uppercase letter
-      && /\d/.test(value) // has a digit
-      && !(/(  )/.test(value)) //doesn't have consecutive whitespace
-      && (value.indexOf(' ') !== 0) //doesn't start with whitespace
-      && (value.lastIndexOf(' ') !== value.length - 1) //doesn't end with whitespace
-  });
-  
-  // custom validation for dropdown
-  $.validator.addMethod("question_dd", function(value) {
-    return $('#patient_enrollment_security_question').val() !== '';
-  });
-  
-  $('#next-button').on('click', nextButtonClick);
+<script src='/assets/patient_flow/patient_enrollments.js'></script>
+<script src='/assets/patient_flow/validation.js'></script>
 
-  $('#agree-button').on('click', nextButtonClick);
-
-  $('.back_arrow').on('click', backClick);
-  
-  $('#patient_enrollment_answer').on('keyup', answerKeyup);
-  
-  $('#patient_enrollment_security_question').on('change', questionChange);
-});
-</script>
-
-<div class="header">
-  <a class="back_arrow hidden" />
-</div>
-<div class="progress hidden">
-  <div class="progress-bar progress-bar-default" />
-  <div class="progress-bar progress-bar-incomplete" />
-  <div class="progress-bar progress-bar-incomplete" />
-  <div class="progress-bar progress-bar-incomplete" />
-</div>
-  <form id="reg-form" method="post" novalidate="novalidate">
-    <div class="carousel slide" id="registration-details">
-      <div class="carousel-inner" role="listbox">
-        <div class="item" id="landing_page">
-          <div class="validation_error" style="display: none"/>
+<div class='clearfix' id='main'>
+  <div class='patient'>
+    <div class='patient-enrollment'>
+      <div class='header'>
+        <img alt="Medidata logo white rgb 2" src="/assets/Medidata_Logo_white_RGB_2.png" />
+        <a class='back-arrow pull-left hidden'>
+          <i class='fa fa-angle-left'></i>
+          <span class='sr-only'>Back</span>
+        </a>
+      </div>
+      <div class='progress-indicator hidden'>
+        <div class='step default'>
+          <span class='sr-only'>Page 1 of 4</span>
         </div>
-        <div class="item" id="tou_dpn_agreement">
-          <div class="validation_error" style="display: none"/>
+        <div class='step incomplete'>
+          <span class='sr-only'>Page 2 of 4</span>
         </div>
-        <div class="item" id="email">
-          <div class="validation_error" style="display: none"/>
+        <div class='step incomplete'>
+          <span class='sr-only'>Page 3 of 4</span>
         </div>
-        <div class="item" id="password">
-          <div class="validation_error" style="display: none"/>
-        </div>
-        <div class="item" id="security_question">
-          <select class="form-control" id="patient_enrollment_security_question" name="patient_enrollment[security_question]"><option value="">Security Question</option>
-                          <option value="What&#39;s the worst band in the world?">What&#39;s the worst band in the world?</option></select>
-                          <input class="registration-input" id="patient_enrollment_answer" name="patient_enrollment[answer]" placeholder="Enter your response to the question" type="text" />
-          <div class="validation_error" style="display: none"/>
+        <div class='step incomplete'>
+          <span class='sr-only'>Page 4 of 4</span>
         </div>
       </div>
+      <form accept-charset="UTF-8" action="/patient_enrollments/818e4dd2-c7b4-42d6-b368-aa2e05faed89/register" id="reg-form" method="post"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="91IajhoI8TR7wE+zWUR6k7mDgppxs0clVAC9tDpKJ10=" /></div>
+        <div class='clearfix' id='registration-details'>
+          <div class='item active' id='landing_page'>
+            <h3 class='form-header'>
+              Welcome to Patient Cloud
+            </h3>
+            <p class='form-instruction'>
+              You are only a few steps away from creating your log in credentials and downloading the Patient Cloud app.
+            </p>
+            <div class='row'>
+              <div class='col-xs-2'>
+                <img alt="Register" id="register" src="/assets/register.png" />
+              </div>
+              <div class='col-xs-8'>
+                <p>Review the Privacy Policy and Terms of Use</p>
+                <p>Create account information</p>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col-xs-2'>
+                <img alt="Download" id="download" src="/assets/download.png" />
+              </div>
+              <div class='col-xs-8'>
+                <p></p>
+                <p>Download the Patient Cloud app</p>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col-xs-2'>
+                <img alt="Login" id="login" src="/assets/login.png" />
+              </div>
+              <div class='col-xs-8'>
+                <p>Open Patient Cloud and use your account information to log in</p>
+              </div>
+            </div>
+            <a class='btn btn-primary btn-block' href='#registration-details' id='next-landing' role='button'>Create Account</a>
+          </div>
+          <div class='item' id='tou_dpn_agreement'>
+            <h3 class='form-header'>Privacy Policy / Terms of Use</h3>
+            <div class='tou_dpn_agreement' style='direction: ltr'><body><p>carboy alpha acid krausen grainy real ale brewhouse.</p></body></div>
+            <a class='btn btn-primary btn-block' href='#registration-details' id='next-agree' role='button'>I agree</a>
+          </div>
+          <div class='item' id='email'>
+            <h3 class='form-header'>
+              Email
+            </h3>
+            <p class='form_instruction'>
+              Enter and confirm your email address below.
+            </p>
+            <div class='form-group'>
+              <label for="patient_enrollment_login">Email</label>
+              <input class="registration-input form-control" id="patient_enrollment_login" name="patient_enrollment[login]" type="email" />
+            </div>
+            <div class='form-group'>
+              <label for="patient_enrollment_login_confirmation">Re-enter Email</label>
+              <input class="registration-input form-control" id="patient_enrollment_login_confirmation" name="patient_enrollment[login_confirmation]" type="email" />
+            </div>
+            <div class='validation_error'></div>
+            <a class='btn btn-primary btn-block disabled' href='#registration-details' id='next-email' role='button'>Next</a>
+          </div>
+          <div class='item' id='password'>
+            <h3 class='form-header'>Password</h3>
+            Enter and confirm a
+            <strong>Password</strong>
+            of your choosing that meets the below criteria:
+            <ul class='password-instructions'>
+              <li>At least 8 characters long</li>
+              <li>At least one upper-case letter</li>
+              <li>At least one lower-case letter</li>
+              <li>At least one numeric digit</li>
+            </ul>
+            <br>
+            <div class='form-group'>
+              <label for="patient_enrollment_password">Password</label>
+              <input class="registration-input form-control" id="patient_enrollment_password" name="patient_enrollment[password]" type="password" />
+            </div>
+            <div class='form-group'>
+              <label for="patient_enrollment_password_confirmation">Confirm Password</label>
+              <input class="registration-input form-control" id="patient_enrollment_password_confirmation" name="patient_enrollment[password_confirmation]" type="password" />
+            </div>
+            <div class='validation_error'></div>
+            <a class='btn btn-primary btn-block disabled' href='#registration-details' id='next-password' role='button'>Next</a>
+          </div>
+          <div class='item' id='security_question'>
+            <h3 class='form-header'>Security Question</h3>
+            <div class='form_instruction'>
+              Select a
+              <strong>security question.</strong>
+            </div>
+            <!-- label is included so capybara can find the control, but not displayed on the page -->
+            <div class='form-group'>
+              <label class="invisible" for="patient_enrollment_security_question" id="question-label">Security Question</label>
+              <select class="form-control" id="patient_enrollment_security_question" name="patient_enrollment[security_question]"><option value="">Security Question</option>
+                <option value="1">Hvilket år er du født?</option>
+                <option value="2">Sidste fire cifre i SSN?</option>
+                <option value="3">Hvad er din fars mellemnavn?</option>
+                <option value="4">Hvad var navnet på din første skole?</option>
+                <option value="5">Hvem var din barndomshelt?</option>
+                <option value="6">Hvad er din yndlingshobby?</option>
+                <option value="7">Hvad er dit yndlings-sportsteam?</option>
+                <option value="8">Hvad var din gymnasiemaskot?</option>
+                <option value="9">Hvad var mærket på din første bil eller cykel?</option>
+                <option value="10">Hvad hedder dit kæledyr?</option>
+                <option value="11">Hvad er din mors mellemnavn?</option></select>
+            </div>
+            <div class='form-group'>
+              <label for="patient_enrollment_answer">Security Answer</label>
+              <input autocomplete="off" class="registration-input form-control" id="patient_enrollment_answer" name="patient_enrollment[answer]" placeholder="Enter your response to the question" type="text" />
+            </div>
+            <input class='btn btn-primary btn-block disabled' id='create-account' type='submit' value='Create account'>
+          </div>
+        </div>
     </div>
-    <div class="next">
-      <a class="btn btn-primary hidden" id="agree-button" href="#registration-details" role="button">I agree</a>
-      <a class="btn btn-primary" id="next-button" href="#registration-details" role="button">Next</a>
-      <div class="submit" id="submit-button">
-        <input class="btn btn-primary hidden" disabled="disabled" id="create-account" name="commit" type="submit" value="Create account" />
-      </div>
-    </div>
-  </form>
+  </div>
+</div>
