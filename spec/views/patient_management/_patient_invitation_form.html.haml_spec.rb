@@ -18,13 +18,13 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
   end
 
   describe 'basic page' do
-    it('has a prompt') { expect(rendered).to have_text("Add a patient to #{study_site_name}.") }
+    it('has a prompt') { expect(rendered).to have_text("#{t('patient_management.invitation_form.add_a_patient_to')} #{study_site_name}.") }
     it('has a disabled invite button') { expect(rendered).to have_selector("input#invite-button[@disabled='disabled']") }
   end
 
   describe 'available subjects dropdown' do
     it 'has options with the expected text and values' do
-      expect(rendered).to have_selector("option[@value='']", text: 'Subject')
+      expect(rendered).to have_selector("option[@value='']", text: t("patient_management.invitation_form.subject"))
       available_subjects.each do |subject|
         expect(rendered).to have_selector("option[@value='#{subject[0]}']", text: subject[1])
       end
@@ -42,14 +42,14 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
       end
 
       it "has a default option of 'No subjects available'" do
-        expect(rendered).to have_selector("option[@value='']", text: 'No subjects available')
+        expect(rendered).to have_selector("option[@value='']", text: t("patient_management.invitation_form.no_subjects_available"))
       end
     end
   end
 
   describe 'tou_dpn_agreements dropdown' do
     it 'has all the options with the expected text and values' do
-      expect(rendered).to have_selector("option[@value='']", text: 'Country / Language')
+      expect(rendered).to have_selector("option[@value='']", text: t("patient_management.invitation_form.country_language"))
       expect(rendered).to have_selector("option[@value='#{tou_dpn_agreement_1[:value]}']", text: tou_dpn_agreement_1[:text])
       expect(rendered).to have_selector("option[@value='#{tou_dpn_agreement_2[:value]}']", text: tou_dpn_agreement_2[:text])
     end
@@ -64,13 +64,13 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
   end
 
   describe 'submit button' do
-    it('exists') { expect(rendered).to have_selector('input[@type="submit"][@value="Invite"]')}
+    it('exists') { expect(rendered).to have_selector("input[@type=\"submit\"][@value=\"#{t('patient_management.invitation_form.btn_invite')}\"]")}
   end
 
   describe 'the error div' do
     it('exists') { expect(rendered).to have_css('#invite-form-error') }
     it('is hidden') { expect(rendered).to have_css('#invite-form-error.hidden') }
-    it('has a sr-only span with error text') { expect(rendered).to have_css('#invite-form-error .sr-only', text: 'Error:') }
+    it('has a sr-only span with error text') { expect(rendered).to have_css('#invite-form-error .sr-only', text: t("error.error")) }
     it('has an empty message span') { expect(rendered).to have_css('#invite-form-error .message', text: nil) }
     it('has an x button') { expect(rendered).to have_css('#invite-form-error #error-x-button', text: 'X') }
   end
