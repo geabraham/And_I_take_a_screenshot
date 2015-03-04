@@ -2,13 +2,22 @@ require 'spec_helper'
 
 describe PatientManagementController do
   describe 'GET available_subjects' do
-    let(:verb)      { :get }
-    let(:action)    { :available_subjects }
-    let(:user_uuid) { '1f0e0d68-d679-4661-8689-b08311142ba0' }
+    let(:verb)            { :get }
+    let(:action)          { :available_subjects }
+    let(:user_uuid)       { '1f0e0d68-d679-4661-8689-b08311142ba0' }
+    let(:study_uuid)      { '7b0bc206-9609-45e5-8d8b-8fe067cba4ea' }
+    let(:study_site_uuid) { '39311a11-8310-47f3-9cea-e763c2381fec' }
+    let(:params)          { {study_uuid: study_uuid, study_site_uuid: study_site_uuid} }
 
     before do
       allow(CASClient::Frameworks::Rails::Filter).to receive(:filter).and_return(true)
       session[:cas_extra_attributes] = {user_email: 'testuser@gmail.com', user_uuid: user_uuid}.stringify_keys
+      mock_studies_request = IMedidataClient::StudiesRequest.new(user_uuid: user_uuid)
+      stub_request(:get, IMED_BASE_URL + mock_studies_request.path)
+        .to_return(status: 200, body: {studies: [{name: 'Study001', uuid: SecureRandom.uuid}]}.to_json)
+      mock_study_sites_request = IMedidataClient::StudySitesRequest.new(user_uuid: user_uuid, study_uuid: study_uuid)
+      stub_request(:get, IMED_BASE_URL + mock_study_sites_request.path)
+        .to_return(status: 200, body: {study_sites: [{name: 'StudySite001', uuid: study_site_uuid}]}.to_json)
     end
 
     context 'without study and study site parameters' do
@@ -21,10 +30,6 @@ describe PatientManagementController do
     end
 
     context 'with study and study site parameters' do
-      let(:study_uuid)      { '7b0bc206-9609-45e5-8d8b-8fe067cba4ea' }
-      let(:study_site_uuid) { '39311a11-8310-47f3-9cea-e763c2381fec' }
-      let(:params)          { {study_uuid: study_uuid, study_site_uuid: study_site_uuid} }
-
       context 'when request fails' do
         let(:expected_body)        { [].to_json }
         let(:expected_status_code) { 200 }

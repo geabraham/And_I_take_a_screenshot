@@ -1,0 +1,42 @@
+<script src='/spec/javascripts/helpers/grid-helper.js'></script> <!-- initializes some patient enrollments for test -->
+<script src='/assets/patient_management/list_pagination.js'></script>
+<script src='/assets/patient_management/validation.js'></script>
+<div class='panel panel-default'>
+  <div id='patient-list'>
+    <table class='table'>
+      <thead><tr><th>'Added on'</th><th>'Subject I.D.'</th><th>'Email'</th><th>'Initials'</th><th>'Activation Code'</th><th>'Registered'</th></tr></thead>
+      <tbody><!-- patient invitation elements are appended here! --></tbody>
+    </table>
+    <div class='panel-footer'>
+      <div class='paginate clearfix'>
+        <div class='total-results'>
+          <b id='total-count' />Total Result(s)
+        </div>
+        <div class='per-page'>
+          <span>Per page</span>
+          <ul>
+            <li><a id='10-pp' href='#'>10</a></li>
+            <li><a id='25-pp' href='#' class='selected disabled'>25</a></li>
+            <li><a id='50-pp' href='#'>50</a></li>
+            <li><a id='100-pp' href='#'>100</a></li>
+          </ul>
+        </div>
+          <ul class='controls'>
+            <li class='validation_error' />
+            <li><a class='disabled first' href='#'><i class='fa fa-angle-double-left' /><span class='sr-only'>first</span></a></li>
+            <li><a class='disabled previous' href='#'><i class='fa fa-angle-left' /><span class='sr-only'>previous</span></a></li>
+            <li class='counter'>
+              <form id='page-form'>
+                <input id='current-page' name='current-page' size='2' type='text' value='1' maxlength='2' autocomplete='off' />
+                of
+                <span id='total-pages' />
+              </form>
+            </li>
+            <li><a class='disabled next' href='#'><i class='fa fa-angle-right' /><span class='sr-only'>next</span></a></li>
+            <li><a class='disabled last' href='#'><i class='fa fa-angle-double-right' /><span class='sr-only'>last</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id='none-message' class='hidden'>There are currently no patient enrollments for this study.</div>
+  </div>

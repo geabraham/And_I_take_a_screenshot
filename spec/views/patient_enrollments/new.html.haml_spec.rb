@@ -9,7 +9,7 @@ describe 'patient_enrollments/new.html.haml' do
     assign(:patient_enrollment_uuid, SecureRandom.uuid)
     render
   end
-  
+
   context 'tou_dpn_agreement page' do
     it 'contains tou dpn agreement' do
       expect(html).to have_text('Consider yourself warned.')
@@ -25,11 +25,11 @@ describe 'patient_enrollments/new.html.haml' do
     it 'contains an email input' do
       expect(html).to have_field('Email', type: 'email', exact: true)
     end
-    
+
     it 'contains an email confirmation input' do
       expect(html).to have_field('Re-enter Email', type: 'email', exact: true)
     end
-    
+
     it 'contains a validation error div' do
       expect(html).to have_selector('#email div.validation_error', text: '')
     end
@@ -44,9 +44,9 @@ describe 'patient_enrollments/new.html.haml' do
     end
 
     it 'contains a password confirmation input' do
-      expect(html).to have_field('Confirm Password', type: 'password', exact: true)
+      expect(html).to have_field('Re-enter Password', type: 'password', exact: true)
     end
-    
+
     it 'contains a validation error div' do
       expect(html).to have_selector('#password div.validation_error', text: '')
     end
@@ -54,7 +54,7 @@ describe 'patient_enrollments/new.html.haml' do
       expect(html).to have_selector('#next-password', text: 'Next')
     end
   end
-  
+
   context 'security question page' do
     it 'contains a security question dropdown' do
       # TODO: Test that the blank option is selected. "selected: ''" and "selected: nil" didn't work.
@@ -65,8 +65,10 @@ describe 'patient_enrollments/new.html.haml' do
       expect(html).to have_field('Security Answer', type: 'text', exact: true)
     end
 
+
+
     it 'contains a submit button' do
-      expect(html).to have_selector('input[@type="submit"][@value="Create account"]')
+      expect(html).to have_selector('input[@type="submit"][@value="Create my account"]')
     end
 
   end
@@ -79,6 +81,9 @@ describe 'patient_enrollments/new.html.haml' do
     # end
   
     
+    # it 'contains an agree button' do
+    #   expect(html).to have_selector('#agree-button', text: 'I agree')
+    # end
 
     
   end

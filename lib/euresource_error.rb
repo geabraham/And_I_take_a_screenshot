@@ -1,0 +1,2 @@
+class EuresourceError < StandardError
+end

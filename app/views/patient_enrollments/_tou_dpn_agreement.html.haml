@@ -1,4 +1,4 @@
-%h3.form-header='Privacy Policy / Terms of Use'
+%h3.form-header=t("registration.terms_of_use.tou_header")
 - if @tou_dpn_agreement_body.present?
   .tou_dpn_agreement{style: "direction: #{@script_direction}"}= @tou_dpn_agreement_body
-%a.btn.btn-primary.btn-block#next-agree(href="#registration-details" role="button")='I agree'
+%a.btn.btn-primary.btn-block#next-agree(href="#registration-details" role="button")=t("application.btn_agree")

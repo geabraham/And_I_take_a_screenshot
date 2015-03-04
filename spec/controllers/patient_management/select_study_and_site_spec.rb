@@ -34,6 +34,8 @@ describe PatientManagementController do
           end
           let(:params)               { default_params }
           let(:expected_status_code) { error_status }
+          let(:log_message_1_args)   { ["Checking study authorizations for patient management.", {params: params.merge('user_uuid' => user_uuid)}] }
+          let(:expected_logs)        { [{log_method: :info_with_data, args: log_message_1_args}] }
 
           before do
             allow(controller).to receive(:request_studies!).with(default_params.merge(user_uuid: user_uuid))
@@ -42,6 +44,7 @@ describe PatientManagementController do
 
           it_behaves_like 'returns expected status'
           it_behaves_like 'assigns an ivar to its expected value', :status_code, 404
+          it_behaves_like 'logs the expected messages at the expected levels'
         end
 
         context 'when user has studies for patient management' do
@@ -67,13 +70,13 @@ describe PatientManagementController do
         let(:study_uuid)           { SecureRandom.uuid }
         let(:params)               { default_params.merge(study_uuid: study_uuid) }
         let(:study_attributes)     { {name: 'Mediflex', uuid: study_uuid} }
-        let(:study_response)       { {study: study_attributes}.deep_stringify_keys }
+        let(:study_response)       { {studies: [study_attributes]}.deep_stringify_keys }
         let(:expected_status_code) { 200 }
         let(:expected_ivars)       { [{name: 'study_or_studies', value: expected_ivar_value}] }
         let(:expected_ivar_value)  { [[study_attributes[:name], study_attributes[:uuid]]] }
 
         before do
-          allow(controller).to receive(:request_study!).with(params.merge(user_uuid: user_uuid)).and_return(study_response)
+          allow(controller).to receive(:request_studies!).with(params.merge(user_uuid: user_uuid)).and_return(study_response)
         end
 
         it_behaves_like 'returns expected status'
@@ -87,6 +90,12 @@ describe PatientManagementController do
         let(:study_site1)              { {uuid: '811692e7-2981-4512-b46c-fda6fbcae119', name: 'TestStudySite1'}.stringify_keys }
         let(:study_site2)              { {uuid: study_site_uuid, name: 'TestStudySite2'}.stringify_keys }
         let(:study_sites_response)     { {'study_sites' => [study_site1, study_site2]} }
+        let(:euresource_enrollments_params) do
+          {
+            params: { study_uuid: study_uuid, study_site_uuid: study_site_uuid },
+            http_headers: { 'X-MWS-Impersonate' => user_uuid }
+          }
+        end
 
         before do
           allow(Euresource::TouDpnAgreement).to receive(:get).with(:all).and_return([])
@@ -94,6 +103,7 @@ describe PatientManagementController do
             study_uuid: study_uuid,
             study_site_uuid: study_site_uuid,
             available: true}}).and_return([])
+          allow(Euresource::PatientEnrollments).to receive(:get).with(:all, euresource_enrollments_params).and_return([])
           session[:cas_extra_attributes] = {
             user_uuid: user_uuid,
             authorized_study_sites: [{name: 'TestSite', uuid: study_site_uuid}]
@@ -103,15 +113,15 @@ describe PatientManagementController do
 
         describe 'failure cases' do
           context 'when user has not been authorized for the study and site' do
-            let(:expected_template)  { 'select_study_and_site' }
+            let(:expected_template)  { 'error' }
             let(:params_with_user)   { params.merge(user_uuid: user_uuid).stringify_keys }
-            let(:log_message_1_args) { ["Checking for selected and authorized study site.", {params: params_with_user}] }
-            let(:log_message_2_args) { ["Not all params or insufficient permissions for patient management.", {params: params_with_user}] }
+            let(:log_message_1_args) { ["Checking study site authorizations for patient management.", {params: params_with_user}] }
+            let(:log_message_2_args) { ["No patient management permissions for user #{user_uuid} for study_site #{study_site_uuid}", {params: params_with_user}] }
             let(:expected_logs) do
               [{log_method: :info_with_data, args: log_message_1_args}, {log_method: :error_with_data, args: log_message_2_args}]
             end
             before do
-              allow(controller).to receive(:request_study_sites!).and_return([])
+              allow(controller).to receive(:request_study_sites!).and_return({study_sites: []}.stringify_keys)
               allow(controller).to receive(:studies_selection_list).and_return([])
             end
 
@@ -159,6 +169,8 @@ describe PatientManagementController do
           context 'when available subjects request fails' do
             let(:expected_template)    { 'patient_management_grid' }
             let(:expected_status_code) { 200 }
+            let(:last_response)   { double 'last object', status: 200, body: [].to_json}
+            let(:response_object) { double 'response object', last_response: last_response }
 
             before do
               allow(Euresource::Subject).to receive(:get)
@@ -167,6 +179,7 @@ describe PatientManagementController do
                   study_site_uuid: study_site_uuid,
                   available: true}})
                 .and_raise(Euresource::ResourceNotFound.new('Failed.'))
+              allow(Euresource::PatientEnrollments).to receive(:get).with(:all, euresource_enrollments_params).and_return(response_object)
             end
 
             it_behaves_like 'returns expected status'
@@ -191,6 +204,8 @@ describe PatientManagementController do
           let(:subject2)           { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject2_attrs)} }
           let(:subjects)           { [subject1, subject2] }
           let(:expected_template)  { 'patient_management_grid' }
+          let(:last_response)      { double 'last object', status: 200, body: [].to_json}
+          let(:response_object)    { double 'response object', last_response: last_response }
 
           it_behaves_like 'renders expected template'
 
@@ -200,6 +215,7 @@ describe PatientManagementController do
               study_uuid: study_uuid,
               study_site_uuid: study_site_uuid,
               available: true}}).and_return(subjects)
+            allow(Euresource::PatientEnrollments).to receive(:get).with(:all, euresource_enrollments_params).and_return(response_object)
           end
 
           it_behaves_like 'assigns an ivar to its expected value', :tou_dpn_agreements, [

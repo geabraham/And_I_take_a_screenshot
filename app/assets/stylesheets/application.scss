@@ -17,3 +17,7 @@
 
 @import 'patient_management';
 @import 'patient_management_error';
+// TODO refactor when sandman updates
+.panel-heading {
+  background-color: #f5f4f2 !important;
+}

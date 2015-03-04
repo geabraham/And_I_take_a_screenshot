@@ -1,7 +1,7 @@
 $(function () {
   var $form = $('#reg-form');
   // landing page - next button
-  $('#next-landing').on('click', function(e) {    
+  $('#next-landing').on('click', function(e) {
     $('#landing_page').hide().toggleClass('active');
     $('#tou_dpn_agreement').show().toggleClass('active');
     $('.progress-indicator').removeClass('hidden');
@@ -11,7 +11,7 @@ $(function () {
   // agreement
   $('#next-agree').on('click', function(e) {
     e.preventDefault();
-    var proceed = confirm("You acknowledge that you have read, understood, and agree to be bound by the Terms of Use and the Privacy Policy referenced herein.");
+    var proceed = confirm(window.t("registration.tou_agreement.modal_confirm"));
     if (proceed) {
       
       // hide agreement page

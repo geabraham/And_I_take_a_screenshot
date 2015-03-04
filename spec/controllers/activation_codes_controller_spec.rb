@@ -19,6 +19,7 @@ describe ActivationCodesController do
       let(:activation_code_attributes) do
         {"activation_code" => 'WLCMHK',
          "state" => 'active',
+         "language_code" => 'eng',
          "patient_enrollment_uuid" => 'xyz'}
       end
       let(:response_stub) do
@@ -40,6 +41,7 @@ describe ActivationCodesController do
         get(:validate, {id: 'WLCMHK'})
         expect(session['activation_code']).to eq('WLCMHK')
         expect(session['patient_enrollment_uuid']).to eq('xyz')
+        expect(session['language_code']).to eq('eng')
       end
 
       it "redirects to patient enrollment page" do

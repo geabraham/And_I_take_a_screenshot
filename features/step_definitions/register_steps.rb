@@ -1,8 +1,12 @@
-When(/^I fill in (a|an) (valid|invalid) activation code$/) do |_, validity|
+When(/^I fill in (a|an) (valid|invalid) activation code( with a language code of )?([a-z]{3})?$/) do |_, validity, _, lang|
   activation_code_response = if validity == 'valid'
     allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
     allow(SecurityQuestions).to receive(:find).and_return(@security_questions)
     double('activation_code').tap do |ac|
+      if lang
+        @activation_code_attrs["language_code"] = lang
+        I18n.locale = lang
+      end
       allow(ac).to receive(:attributes).and_return(@activation_code_attrs)
     end
   else
@@ -23,32 +27,32 @@ end
 
 When(/^I accept the TOU\/DPN$/) do
   # Move past the instructional steps page
-  click_on 'Create Account'
+  click_on I18n.t("application.btn_next")
   assert_text('We think in generalities, but we live in detail.')
   sleep(1)
-  click_on 'I agree'
+  click_on I18n.t("application.btn_agree")
   alert = page.driver.browser.switch_to.alert
   alert.send(:accept)
 end
 
 When(/^I submit registration info as a new subject$/) do
-  fill_in 'Email', with: @patient_enrollment.login
-  fill_in 'Re-enter Email', with: @patient_enrollment.login.upcase
+  fill_in I18n.t("registration.email_form.email_label"), with: @patient_enrollment.login
+  fill_in I18n.t("registration.email_form.reenter_label"), with: @patient_enrollment.login.upcase
   # FIXME.
   # Sleeps are bad.
   #   It appears click_on is suffering from something like a race condition, and without this sleep,
   #   the button is clicked but the transition is frozen.
   #   The test fails with error 'Unable to find field "Password" (Capybara::ElementNotFound)'
   sleep(1)
-  click_on 'Next'
+  click_on I18n.t("application.btn_next")
 
-  fill_in 'Password', with: @patient_enrollment.password
-  fill_in 'Confirm Password', with: @patient_enrollment.password
+  fill_in I18n.t("registration.password_form.password_label"), with: @patient_enrollment.password
+  fill_in I18n.t("registration.password_form.reenter_label"), with: @patient_enrollment.password
   sleep(1)
-  click_on 'Next'
+  click_on I18n.t("application.btn_next")
 
   select @security_question[:name], from: 'Security Question'
-  fill_in 'Security Answer', with: @patient_enrollment.answer
+  fill_in I18n.t("registration.security_question_form.answer_label"), with: @patient_enrollment.answer
 end
 
 When(/^the request to create account is successful$/) do
@@ -58,7 +62,7 @@ When(/^the request to create account is successful$/) do
     .with(:register, {uuid: @patient_enrollment_uuid}, {patient_enrollment: @patient_enrollment_register_params})
     .and_return(response_double)
 
-  click_on 'Create account'
+  click_on I18n.t("registration.security_question_form.btn_create")
 end
 
 When(/^the back\-end service returns an error$/) do
@@ -72,7 +76,7 @@ When(/^the back\-end service returns an error$/) do
     .with(:register, {uuid: @patient_enrollment_uuid}, {patient_enrollment: @patient_enrollment_register_params})
     .and_return(response_double)
 
-  click_on 'Create account'
+  click_on I18n.t("registration.security_question_form.btn_create")
 end
 
 Then(/^I should see a link to download the Patient Cloud app$/) do

@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   ERROR_CAUSE = {
     ActionController::UnpermittedParameters => :unprocessable_entity,
     ActionController::ParameterMissing => :unprocessable_entity,
+    PatientManagementPermissionsHelper::PermissionsError => :not_found,
     IMedidataClient::IMedidataClientError => :not_found,
     Euresource::ResourceNotFound => :not_found,
     Faraday::Error::ConnectionFailed => :service_unavailable }
@@ -31,7 +32,7 @@ class ApplicationController < ActionController::Base
   # Set user's locale from request, assuming it comes from Checkmate.
   #TODO in future locale may be in header instead of params, depending on Checkmate
   def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
+    I18n.locale = session[:language_code] || I18n.default_locale
   end
 
   def authorize_user
