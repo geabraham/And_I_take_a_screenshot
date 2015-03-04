@@ -38,8 +38,6 @@ describe 'patient_management/select_study_and_site.html.haml' do
   end
 
   describe 'submit button' do
-    #it('exists') { expect(html).to have_selector('input[@type="submit"][@value="Launch"]')}
     it('exists') { expect(html).to have_selector("input[@type=\"submit\"][@value=\"#{t('application.btn_launch')}\"]")}
-    # it('exists') { expect(html).to have_selector("input[@type=\"submit\"][@value=\"Launch\"]")}
   end
 end
