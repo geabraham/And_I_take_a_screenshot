@@ -155,6 +155,6 @@ eng:
       message: "Internal server error. Please try again later."
     no_patient_enrollments_message:
       message: There are currently no patient enrollments for this study.
-    subject_not_availble_message:
+    subject_not_available_message:
       message: Subject not available. Please try again.
 
