@@ -9,7 +9,6 @@ $(function() {
   
   $(document).keypress(function(e) {
       if (e.which == 13){
-        debugger
         $('#activate-button').click();
       }
   });
@@ -22,8 +21,6 @@ var getCodeString = function() {
 var handleInput = function() {
   var str = getCodeString(),
             codeInput = $('#code');
-            
-            debugger
   
   // update the string with upcased, trimmed value and prevent cursor from jumping to end
   selStart = codeInput.prop("selectionStart");

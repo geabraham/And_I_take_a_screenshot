@@ -1,4 +1,6 @@
 describe 'activation code page', ->
+  handleSpy = undefined
+  
   beforeEach ->
     loadFixtures 'activationCodeFixture.html'
     
@@ -12,6 +14,14 @@ describe 'activation code page', ->
       it 'determines the input string', ->
         expect(getCodeString()).toEqual 'HEYMAN'
     
+  describe 'when loaded via Back button', ->
+    it 'calls handleInput', ->
+      handleSpy = spyOn(window, 'handleInput')
+      # just for this test, we're reloading the fixture after we've set up the spy
+      # this enables us to assert that the handleInput() method is called on page load/reload
+      loadFixtures 'activationCodeFixture.html'
+      expect(handleSpy.calls.count()).toEqual(1)
+      
   describe 'on keyup event', ->
     describe 'for a character input', ->
       it 'calls getCodeString', ->
