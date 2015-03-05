@@ -12,7 +12,7 @@ describe 'patient_management/select_study_and_site.html.haml' do
   end
 
   describe 'basic page' do
-    it('has a prompt') { expect(html).to have_text('Please choose a study and a site.') }
+    it('has a prompt') { expect(html).to have_text(t("patient_management.choose_study_and_site")) }
 
     it 'contains a studies dropdown' do
       expect(html).to have_select('patient_management_study')
@@ -31,13 +31,13 @@ describe 'patient_management/select_study_and_site.html.haml' do
     let(:study_or_studies) { [[study1_title, study1_uuid], [study2_title, study2_uuid]] }
 
     it 'has all the options with the expected text and values' do
-      expect(html).to have_selector("option[@value='']", text: 'Study')
+      expect(html).to have_selector("option[@value='']", text: t("patient_management.study"))
       expect(html).to have_selector("option[@value='#{study1_uuid}']", text: study1_title)
       expect(html).to have_selector("option[@value='#{study2_uuid}']", text: study2_title)
     end
   end
 
   describe 'submit button' do
-    it('exists') { expect(html).to have_selector('input[@type="submit"][@value="Launch"]')}
+    it('exists') { expect(html).to have_selector("input[@type=\"submit\"][@value=\"#{t('application.btn_launch')}\"]")}
   end
 end

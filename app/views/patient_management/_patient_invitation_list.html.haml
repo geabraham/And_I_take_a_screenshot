@@ -3,21 +3,21 @@
     %table.table
       %thead
         %tr
-          %th= 'Added On'
-          %th= 'Subject I.D.'
-          %th= 'Email'
-          %th= 'Initials'
-          %th= 'Activation Code'
-          %th= 'Registered'
+          %th= t("patient_management.enrollment_grid.headers.added_on")
+          %th= t("patient_management.enrollment_grid.headers.subject")
+          %th= t("patient_management.enrollment_grid.headers.email")
+          %th= t("patient_management.enrollment_grid.headers.initials")
+          %th= t("patient_management.enrollment_grid.headers.activation_code")
+          %th= t("patient_management.enrollment_grid.headers.status")
       %tbody
         / patient invitation elements are appended here!
     .panel-footer
       .paginate.clearfix
         .total-results
           %b#total-count=@patient_enrollments.count
-          Total Result(s)
+          t("pagination.total_results")
         .per-page
-          %span='Per page'
+          %span= t("pagination.per_page")
           %ul
             %li
               %a#10-pp{href: '#'} 10
@@ -33,11 +33,11 @@
           %li
             %a.disabled.first{href: '#'}
               %i.fa.fa-angle-double-left
-              %span.sr-only first
+              %span.sr-only t("pagination.first")
           %li
             %a.disabled.previous{href: '#'}
               %i.fa.fa-angle-left
-              %span.sr-only previous
+              %span.sr-only t("pagination.previous")
           %li.counter
             %form#page-form
               %input#current-page{name: 'current-page', size: '2', type: 'text', value: '1', maxlength: '2', autocomplete: 'off'}
@@ -46,12 +46,12 @@
           %li
             %a.disabled.next{href: '#'}
               %i.fa.fa-angle-right
-              %span.sr-only next
+              %span.sr-only t("pagination.next")
           %li
             %a.disabled.last{href: '#'}
               %i.fa.fa-angle-double-right
-              %span.sr-only last
-  #none-message.hidden= 'There are currently no patient enrollments for this study.'
+              %span.sr-only t("pagination.last")
+  #none-message.hidden= t("error.no_patient_enrollments_message")
 
 :javascript
   var MUI = MUI || {};
