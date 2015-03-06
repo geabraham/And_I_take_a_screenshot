@@ -48,4 +48,8 @@ var handleInput = function() {
       $('#activate-button').addClass('disabled');
     }
   }
+  else { // can occur if a user deletes all input at once
+    $('#activate-button').prop('href', '')
+    $('#activate-button').addClass('disabled');
+  }
 }

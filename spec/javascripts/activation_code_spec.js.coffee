@@ -45,9 +45,21 @@ describe 'activation code page', ->
         expect($('.activation-code')).toHaveClass 'has-error'
         
   describe 'Activate button', ->      
-    describe 'when less than six characters are entered', ->
+    describe 'when one to five characters are entered', ->
       it 'is disabled', ->
         window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('N4')
+        handleInput()
+        expect($('#activate-button')).toHaveClass('disabled')
+        
+    describe 'when the number of characters entered changes from six to zero', ->
+      it 'is disabled', ->
+        # test for MCC-151993
+        # initially a valid code is entered and the button is enabled
+        window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('234567')
+        handleInput()
+        expect($('#activate-button')).not.toHaveClass('disabled')
+        # then, delete the entire code at once
+        window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('')
         handleInput()
         expect($('#activate-button')).toHaveClass('disabled')
   
