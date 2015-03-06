@@ -1,4 +1,4 @@
-When(/^I fill in (a|an) (valid|invalid) activation code( with a language code of )?([a-z]{3})?$/) do |_, validity, _, lang|
+When(/^I fill in (a|an) (valid|inactive|not_exist) activation code( with a language code of )?([a-z]{3})?$/) do |_, validity, _, lang|
   activation_code_response = if validity == 'valid'
     allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
     allow(SecurityQuestions).to receive(:find).and_return(@security_questions)
@@ -9,11 +9,18 @@ When(/^I fill in (a|an) (valid|invalid) activation code( with a language code of
       end
       allow(ac).to receive(:attributes).and_return(@activation_code_attrs)
     end
-  else
+  elsif validity=='inactive'
     @error_response_message = 'Activation Code must be in active state'
     double('activation_code').tap do |ac|
       allow(ac).to receive(:attributes).and_return(@invalid_activation_code_attrs)
     end
+  elsif validity=='not_exist'
+    @error_response_message = 'Response errors: Activation code not found..'
+    double('activation_code').tap do |ac|
+      allow(ac).to receive(:attributes).and_raise("Response errors: Activation code not found..")
+    end
+  else
+
   end
 
   allow(Euresource::ActivationCodes).to receive(:get)
@@ -22,7 +29,14 @@ When(/^I fill in (a|an) (valid|invalid) activation code( with a language code of
 
   visit '/'
   fill_in 'code', with: @activation_code
-  click_on 'Activate'
+end
+
+And(/^I click the activate button$/) do
+  click_on "Activate"
+end
+
+Then(/^I should see the "(.*?)" page$/) do |page|
+  #Do nothing
 end
 
 When(/^I accept the TOU\/DPN$/) do
@@ -35,9 +49,12 @@ When(/^I accept the TOU\/DPN$/) do
   alert.send(:accept)
 end
 
-When(/^I submit registration info as a new subject$/) do
+Then(/^I enter email information for a new subject$/) do
   fill_in I18n.t("registration.email_form.email_label"), with: @patient_enrollment.login
   fill_in I18n.t("registration.email_form.reenter_label"), with: @patient_enrollment.login.upcase
+end
+
+And(/^I click on the next button$/) do
   # FIXME.
   # Sleeps are bad.
   #   It appears click_on is suffering from something like a race condition, and without this sleep,
@@ -45,15 +62,20 @@ When(/^I submit registration info as a new subject$/) do
   #   The test fails with error 'Unable to find field "Password" (Capybara::ElementNotFound)'
   sleep(1)
   click_on I18n.t("application.btn_next")
+end
 
+Then(/^I enter password information for a new subject$/) do
   fill_in I18n.t("registration.password_form.password_label"), with: @patient_enrollment.password
   fill_in I18n.t("registration.password_form.reenter_label"), with: @patient_enrollment.password
-  sleep(1)
-  click_on I18n.t("application.btn_next")
 
+end
+
+Then(/I enter security question and answer for a new subject$/) do
   select @security_question[:name], from: 'Security Question'
   fill_in I18n.t("registration.security_question_form.answer_label"), with: @patient_enrollment.answer
 end
+
+
 
 When(/^the request to create account is successful$/) do
   response_double = double('response').tap {|res| allow(res).to receive(:status).and_return(200)}
@@ -65,7 +87,17 @@ When(/^the request to create account is successful$/) do
   click_on I18n.t("registration.security_question_form.btn_create")
 end
 
-When(/^the back\-end service returns an error$/) do
+And(/^I submit registration info as a new subject$/) do
+  steps %Q{
+        And I enter email information for a new subject
+        And I click on the next button
+        And I enter password information for a new subject
+        And I click on the next button
+        And I enter security question and answer for a new subject
+  }
+end
+
+When(/^the back\-end service returns an error due to User already existing$/) do
   @error_response_message = 'User already exists'
   response_double = double('response').tap do |res|
     allow(res).to receive(:status).and_return(409)
@@ -81,6 +113,10 @@ end
 
 Then(/^I should see a link to download the Patient Cloud app$/) do
   find_link 'Download for iOS'
+end
+
+Then(/^I should see a representation of the "(.*?)" from back\-end service$/) do |error|
+  expect(page).to have_content(error)
 end
 
 Then(/^I should see a representation of the error from back\-end service$/) do
