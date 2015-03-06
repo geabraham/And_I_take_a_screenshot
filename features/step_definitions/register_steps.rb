@@ -1,4 +1,4 @@
-When(/^I fill in (a|an) (valid|inactive|not_exist) activation code( with a language code of )?([a-z]{3})?$/) do |_, validity, _, lang|
+When(/^I fill in (a|an) (valid|inactive|not_exist|expired) activation code( with a language code of )?([a-z]{3})?$/) do |_, validity, _, lang|
   activation_code_response = if validity == 'valid'
     allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
     allow(SecurityQuestions).to receive(:find).and_return(@security_questions)
@@ -17,10 +17,13 @@ When(/^I fill in (a|an) (valid|inactive|not_exist) activation code( with a langu
   elsif validity=='not_exist'
     @error_response_message = 'Response errors: Activation code not found..'
     double('activation_code').tap do |ac|
-      allow(ac).to receive(:attributes).and_raise("Response errors: Activation code not found..")
+      allow(ac).to receive(:attributes).and_raise(@non_existant_activation_code_attrs)
     end
-  else
-
+  else  #for expired
+    @error_response_message = 'Response errors: Activation code not found..'
+    double('activation_code').tap do |ac|
+      allow(ac).to receive(:attributes).and_raise(@non_existant_activation_code_attrs)
+    end
   end
 
   allow(Euresource::ActivationCodes).to receive(:get)
@@ -97,8 +100,8 @@ And(/^I submit registration info as a new subject$/) do
   }
 end
 
-When(/^the back\-end service returns an error due to User already existing$/) do
-  @error_response_message = 'User already exists'
+When(/^the back\-end service returns an error "(.*?)"$/) do |error|
+  @error_response_message = error
   response_double = double('response').tap do |res|
     allow(res).to receive(:status).and_return(409)
     allow(res).to receive(:body).and_return(@error_response_message)
@@ -115,7 +118,8 @@ Then(/^I should see a link to download the Patient Cloud app$/) do
   find_link 'Download for iOS'
 end
 
-Then(/^I should see a representation of the "(.*?)" from back\-end service$/) do |error|
+
+Then(/^I should see a representation of the error "(.*?)" from back\-end service$/) do |error|
   expect(page).to have_content(error)
 end
 
@@ -126,3 +130,8 @@ end
 And(/^I should be registered for a study$/) do
   # Don't need to do anything
 end
+
+When(/^the back\-end service returns "(.*?)"$/) do |state|
+  # Don't need to do anything
+end
+
