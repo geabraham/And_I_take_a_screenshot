@@ -1,4 +1,4 @@
-When(/^I fill in (a|an) (valid|inactive|not_exist|expired|incorrect) activation code( with a language code of )?([a-z]{3})?$/) do |_, validity, _, lang|
+When(/^I fill in an? (valid|inactive|not_exist|expired|incorrect) activation code( with a language code of )?([a-z]{3})?$/) do | validity, _, lang|
   activation_code_response = if validity == 'valid'
     allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
     allow(SecurityQuestions).to receive(:find).and_return(@security_questions)
