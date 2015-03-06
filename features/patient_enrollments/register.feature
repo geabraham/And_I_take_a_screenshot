@@ -49,7 +49,7 @@ Feature: Patient Registration
     And the back-end service returns "<state>"
     Then I should see a representation of the error "<msg>" from back-end service
   Examples:
-    |validity            |  msg                                         | state         |
+    |validity            |  msg                                           | state         |
     |   inactive         | Activation Code must be in active state        |inactive       |
     |   not_exist        | Response errors: Activation code not found..   |exception      |
     |   expired          | Response errors: Activation code not found..   |exception      |

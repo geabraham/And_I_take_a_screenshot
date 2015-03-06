@@ -9,20 +9,18 @@ When(/^I fill in an? (valid|inactive|not_exist|expired|incorrect) activation cod
       end
       allow(ac).to receive(:attributes).and_return(@activation_code_attrs)
     end
-  elsif validity=='inactive'
-    @error_response_message = 'Activation Code must be in active state'
+  elsif validity == 'inactive'
     double('activation_code').tap do |ac|
       allow(ac).to receive(:attributes).and_return(@invalid_activation_code_attrs)
     end
-  elsif validity=='not_exist' || validity=='expired'
-    @error_response_message = 'Response errors: Activation code not found..'
+  elsif validity == 'not_exist' || validity == 'expired'
     double('activation_code').tap do |ac|
-      allow(ac).to receive(:attributes).and_raise(@non_existant_activation_code_attrs)
+      allow(ac).to receive(:attributes).and_raise(Euresource::ResourceNotFound.new(404,(@non_existant_activation_code_attrs)))
     end
-  else  #for incorrect
+  elsif validity == 'incorrect'
     @activation_code = '101010'
-    @error_response_message = 'This code is not correct. Consult with your provider'
   end
+
 
   allow(Euresource::ActivationCodes).to receive(:get)
     .with(activation_code: @activation_code)
@@ -123,10 +121,6 @@ end
 
 Then(/^I should see a representation of the "(.*?)"/) do |error|
   expect(find(".validation_error").text).to eq(error)
-end
-
-Then(/^I should see a representation of the error from back\-end service$/) do
-  expect(page).to have_content(@error_response_message)
 end
 
 And(/^I should be registered for a study$/) do
