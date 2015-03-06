@@ -1,4 +1,4 @@
-When(/^I fill in (a|an) (valid|inactive|not_exist|expired) activation code( with a language code of )?([a-z]{3})?$/) do |_, validity, _, lang|
+When(/^I fill in (a|an) (valid|inactive|not_exist|expired|incorrect) activation code( with a language code of )?([a-z]{3})?$/) do |_, validity, _, lang|
   activation_code_response = if validity == 'valid'
     allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
     allow(SecurityQuestions).to receive(:find).and_return(@security_questions)
@@ -14,16 +14,14 @@ When(/^I fill in (a|an) (valid|inactive|not_exist|expired) activation code( with
     double('activation_code').tap do |ac|
       allow(ac).to receive(:attributes).and_return(@invalid_activation_code_attrs)
     end
-  elsif validity=='not_exist'
+  elsif validity=='not_exist' || validity=='expired'
     @error_response_message = 'Response errors: Activation code not found..'
     double('activation_code').tap do |ac|
       allow(ac).to receive(:attributes).and_raise(@non_existant_activation_code_attrs)
     end
-  else  #for expired
-    @error_response_message = 'Response errors: Activation code not found..'
-    double('activation_code').tap do |ac|
-      allow(ac).to receive(:attributes).and_raise(@non_existant_activation_code_attrs)
-    end
+  else  #for incorrect
+    @activation_code = '101010'
+    @error_response_message = 'This code is not correct. Consult with your provider'
   end
 
   allow(Euresource::ActivationCodes).to receive(:get)
@@ -121,6 +119,10 @@ end
 
 Then(/^I should see a representation of the error "(.*?)" from back\-end service$/) do |error|
   expect(page).to have_content(error)
+end
+
+Then(/^I should see a representation of the "(.*?)"/) do |error|
+  expect(find(".validation_error").text).to eq(error)
 end
 
 Then(/^I should see a representation of the error from back\-end service$/) do

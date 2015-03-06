@@ -3,7 +3,7 @@ Feature: Patient Registration
   I want to submit registration info for a study
   So I can be registered for that study
 
-  @Review[ENG]
+  @Review[SQA]
   @Release2015.1.0
   @PB130359-001
   @Headed
@@ -25,12 +25,12 @@ Feature: Patient Registration
     Then I should see a link to download the Patient Cloud app
     And I should be registered for a study
 
-  @Review[ENG]
+  @Review[SQA]
   @Release2015.1.0
   @PB130359-002
   @Headed
   @PatientFlow
-  Scenario: A patient should not be able to register for a study if the back-end service returns a user exists error
+  Scenario: A patient should not be able to register for a study if the user email already exists
     When I fill in a valid activation code
     And I click the activate button
     And I accept the TOU/DPN
@@ -38,7 +38,7 @@ Feature: Patient Registration
     And the back-end service returns an error "User already exists"
     Then I should see a representation of the error "User already exists" from back-end service
 
-  @Review[ENG]
+  @Review[SQA]
   @Release2015.1.0
   @PB138064-001
   @Headed
@@ -54,7 +54,9 @@ Feature: Patient Registration
     |   not_exist        | Response errors: Activation code not found..   |exception      |
     |   expired          | Response errors: Activation code not found..   |exception      |
 
-  @Review[ENG]
+
+
+  @Review[SQA]
   @Release2015.1.0
   @PB130359-003
   @Headed
@@ -68,7 +70,7 @@ Feature: Patient Registration
     Then I should see a link to download the Patient Cloud app
     And I should be registered for a study
 
-  @Review[ENG]
+  @Review[SQA]
   @Release2015.1.0
   @PB130359-004
   @Headed
@@ -78,3 +80,13 @@ Feature: Patient Registration
     And I click the activate button
     And the back-end service returns "inactive"
     Then I should see a representation of the error "Activation Code must be in active state" from back-end service
+
+
+  @Review[SQA]
+  @Release2015.1.0
+  @PB130359-005
+  @Headed
+  @PatientFlow
+  Scenario: An activation that contains 1 or 0 should display an error message(e.g Activation_Code:101010)
+    Given I fill in an incorrect activation code
+    Then I should see a representation of the "This code is incorrect. Contact your provider."
