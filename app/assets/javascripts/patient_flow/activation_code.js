@@ -7,9 +7,8 @@ $(function() {
   
   $('#code').on('keyup', handleInput);
   
-  $(document).keypress(function(e){
+  $('.activation-code-content').on('keypress', function(e) {
       if (e.which == 13){
-        console.log($('#activate-button'));
         $('#activate-button')[0].click();
       }
   });
@@ -35,12 +34,12 @@ var handleInput = function() {
 
     if(str.length === 6) {
       if(regx.test(str)) {
-        $(".validation_error").hide();
+        $(".validation_error").addClass('invisible');
         $(".activation-code").removeClass('has-error');
         $('#activate-button').prop('href', '/activation_codes/' + str + '/validate')
         $('#activate-button').removeClass('disabled');
       } else {
-        $(".validation_error").show();
+        $(".validation_error").removeClass('invisible');
         $(".activation-code").addClass('has-error');
         $('#activate-button').prop('href', '')
         $('#activate-button').addClass('disabled');
@@ -48,5 +47,9 @@ var handleInput = function() {
     } else {
       $('#activate-button').addClass('disabled');
     }
+  }
+  else { // can occur if a user deletes all input at once
+    $('#activate-button').prop('href', '')
+    $('#activate-button').addClass('disabled');
   }
 }

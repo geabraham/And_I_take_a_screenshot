@@ -71,3 +71,4 @@ Feature: Patient Registration
   Scenario: An activation code with an invalid language code displays an error message
     When I fill in a invalid activation code with a language code of xxx
     Then I should see a representation of the error from back-end service
+

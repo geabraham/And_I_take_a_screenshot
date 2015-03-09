@@ -8,6 +8,13 @@ $(function () {
     e.preventDefault();
   });
 
+  // binding Enter key to next button
+  $(document).on('keypress', function(e) {
+    if (e.which === 13) {
+      $('.active .btn').click();
+    }
+  });
+
   // agreement
   $('#next-agree').on('click', function(e) {
     e.preventDefault();
