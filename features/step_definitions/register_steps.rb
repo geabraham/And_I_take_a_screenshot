@@ -30,12 +30,12 @@ When(/^I enter an? (valid|inactive|not_exist|expired|incorrect) activation code(
   fill_in 'code', with: @activation_code
 end
 
-And(/^I submit the activation code$/) do
-  click_on "Activate"
+When(/^the back\-end service returns "(.*?)"$/) do |state|
+  # Don't need to do anything
 end
 
-Then(/^I should see the "(.*?)" page$/) do |page|
-  #Do nothing
+When(/^I submit the activation code$/) do
+  click_on "Activate"
 end
 
 When(/^I accept the TOU\/DPN$/) do
@@ -48,12 +48,7 @@ When(/^I accept the TOU\/DPN$/) do
   alert.send(:accept)
 end
 
-Then(/^I enter email information for a new subject$/) do
-  fill_in I18n.t("registration.email_form.email_label"), with: @patient_enrollment.login
-  fill_in I18n.t("registration.email_form.reenter_label"), with: @patient_enrollment.login.upcase
-end
-
-And(/^I submit "(.*?)" information$/) do  |page|
+When(/^I submit "(.*?)" information$/) do  |page|
   # FIXME.
   # Sleeps are bad.
   #   It appears click_on is suffering from something like a race condition, and without this sleep,
@@ -63,30 +58,18 @@ And(/^I submit "(.*?)" information$/) do  |page|
   click_on I18n.t("application.btn_next")
 end
 
-Then(/^I enter password information for a new subject$/) do
+When(/^I enter password information for a new subject$/) do
   fill_in I18n.t("registration.password_form.password_label"), with: @patient_enrollment.password
   fill_in I18n.t("registration.password_form.reenter_label"), with: @patient_enrollment.password
 
 end
 
-Then(/I enter security question and answer for a new subject$/) do
+When(/I enter security question and answer for a new subject$/) do
   select @security_question[:name], from: 'Security Question'
   fill_in I18n.t("registration.security_question_form.answer_label"), with: @patient_enrollment.answer
 end
 
-
-
-When(/^the request to create account is successful$/) do
-  response_double = double('response').tap {|res| allow(res).to receive(:status).and_return(200)}
-
-  allow(Euresource::PatientEnrollments).to receive(:invoke)
-    .with(:register, {uuid: @patient_enrollment_uuid}, {patient_enrollment: @patient_enrollment_register_params})
-    .and_return(response_double)
-
-  click_on I18n.t("registration.security_question_form.btn_create")
-end
-
-And(/^I submit registration info as a new subject$/) do
+When(/^I submit registration info as a new subject$/) do
   steps %Q{
         And I enter email information for a new subject
         And I submit "email" information
@@ -96,7 +79,17 @@ And(/^I submit registration info as a new subject$/) do
   }
 end
 
-When(/^the back\-end service returns an error "(.*?)"$/) do |error|
+Then(/^the request to create account is successful$/) do
+  response_double = double('response').tap {|res| allow(res).to receive(:status).and_return(200)}
+
+  allow(Euresource::PatientEnrollments).to receive(:invoke)
+                                               .with(:register, {uuid: @patient_enrollment_uuid}, {patient_enrollment: @patient_enrollment_register_params})
+                                               .and_return(response_double)
+
+  click_on I18n.t("registration.security_question_form.btn_create")
+end
+
+Then(/^the back\-end service returns an error "(.*?)"$/) do |error|
   @error_response_message = error
   response_double = double('response').tap do |res|
     allow(res).to receive(:status).and_return(409)
@@ -114,7 +107,6 @@ Then(/^I should see a link to download the Patient Cloud app$/) do
   find_link 'Download for iOS'
 end
 
-
 Then(/^I should see a representation of the error "(.*?)" from back\-end service$/) do |error|
   expect(page).to have_content(error)
 end
@@ -123,11 +115,15 @@ Then(/^I should see a representation of the "(.*?)"/) do |error|
   expect(find(".validation_error").text).to eq(error)
 end
 
-And(/^I should be registered for a study$/) do
+Then(/^I should be registered for a study$/) do
   # Don't need to do anything
 end
 
-When(/^the back\-end service returns "(.*?)"$/) do |state|
-  # Don't need to do anything
+Then(/^I should see the "(.*?)" page$/) do |page|
+  #Do nothing
 end
 
+Then(/^I enter email information for a new subject$/) do
+  fill_in I18n.t("registration.email_form.email_label"), with: @patient_enrollment.login
+  fill_in I18n.t("registration.email_form.reenter_label"), with: @patient_enrollment.login.upcase
+end
