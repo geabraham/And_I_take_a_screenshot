@@ -46,6 +46,25 @@ describe ApplicationController do
     end
   end
 
+  describe 'set_in_app_browser' do
+    controller { def index; end }
+
+    context "when user agent contains 'PatientCloud'" do
+      before { request.headers['HTTP_USER_AGENT'] = "Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11A465 #{MOBILE_APP_USER_AGENT_STRING} for iPhone"}
+      it 'is true' do
+        get :index
+        expect(assigns(:in_app_browser)).to eq(true)
+      end
+    end
+
+    context "when user agent does not contain 'PatientCloud'" do
+      it 'is false' do
+        get :index
+        expect(assigns(:in_app_browser)).to eq(false)
+      end
+    end
+  end
+
   describe 'GET /logout' do
     before do
       user_uuid = SecureRandom.uuid
