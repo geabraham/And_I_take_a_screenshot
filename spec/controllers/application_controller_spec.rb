@@ -2,7 +2,12 @@ require 'spec_helper'
 
 describe ApplicationController do
   describe 'set_locale' do
-    controller { def index; end }
+    controller do
+      def index
+        render json: 'ok', status: :ok
+      end
+    end
+
     after { I18n.locale = I18n.default_locale }
 
     context 'when no language_code parameter provided' do
@@ -16,6 +21,11 @@ describe ApplicationController do
       it 'uses the default locale' do
         get :index, language_code: :boo
         expect(I18n.locale).to eq(I18n.default_locale)
+      end
+
+      it 'returns ok' do
+        get :index, language_code: :boo
+        expect(response.status).to eq(200)
       end
     end
 
