@@ -1,4 +1,8 @@
 $(function() {
+  if ($('#code').length > 0) {
+    handleInput(); // fix for MCC-151106
+  }
+  
   $('#code').focus();
   
   $('#code').on('keyup', handleInput);
