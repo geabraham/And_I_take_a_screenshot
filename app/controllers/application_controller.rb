@@ -33,8 +33,8 @@ class ApplicationController < ActionController::Base
   #TODO in future locale may be in header instead of params, depending on Checkmate
   def set_locale
     # Prefer the session's language code over the one set in params.
-    session[:language_code] = I18n.locale_available?(session[:language_code]) ? session[:language_code] : nil
-    params[:language_code] = I18n.locale_available?(params[:language_code]) ? params[:language_code] : nil
+    session[:language_code] = I18n.locale_available?(session[:language_code]) ? session[:language_code] : nil if session[:acivation_code]
+    params[:language_code] = I18n.locale_available?(params[:language_code]) ? params[:language_code] : nil if params[:language_code]
     I18n.locale = session[:language_code] || params[:language_code] || I18n.default_locale
   end
 
