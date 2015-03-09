@@ -13,3 +13,7 @@
       %span.sr-only='Download for iOS'
   #login-screen-img
     =image_tag 'phone.png'
+
+  - if @in_app_browser
+    :javascript
+      document.location.href = 'patient-cloud:registration-complete'

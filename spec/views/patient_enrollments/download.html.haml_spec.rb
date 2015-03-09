@@ -13,4 +13,23 @@ describe 'patient_enrollments/download.html.haml' do
   it 'contains an iTunes Store download link' do
     expect(html).to have_selector('a.download-ios')
   end
+
+  describe 'dismiss browser script' do
+    context 'when in app browser' do
+      before do
+        assign(:in_app_browser, true)
+        render
+      end
+
+      it 'includes a script' do
+        expect(html).to have_content("document.location.href = 'patient-cloud:registration-complete'")
+      end
+    end
+
+    context 'when not in app browser' do
+      it 'does not include the script' do
+        expect(html).not_to have_content("document.location.href = 'patient-cloud:registration-complete'")
+      end
+    end
+  end
 end
