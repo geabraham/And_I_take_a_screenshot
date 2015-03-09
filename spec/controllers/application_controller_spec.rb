@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe ApplicationController do
-  describe 'localization' do
+  describe 'set_locale' do
     controller { def index; end }
     after { I18n.locale = I18n.default_locale }
+
     context 'when no language_code parameter provided' do
       it 'uses the default locale' do
         get :index
