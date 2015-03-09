@@ -1,0 +1,1 @@
+MOBILE_APP_USER_AGENT_STRING="<%= configured[:production].mobile_app_user_agent_string || 'PatientCloud' %>"
