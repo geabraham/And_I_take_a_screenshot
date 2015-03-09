@@ -59,6 +59,8 @@ Given(/^the request for patient enrollments returns an error$/) do
 end
 
 Then(/^I should see a row for "(.*?)" with an obscured email, an activation code, an? (invited|registered) status, a formatted date, subject and initials$/) do |subject_id, status|
+  click_on 'Invite'
+  find('tr.patient_row') # this step will block until AJAX events complete and the row has rendered
   expect(page).to have_text(PatientEnrollment.new(created_at: @returned_enrollment[:created_at]).formatted_date)
   expect(page).to have_text(PatientEnrollment.new(email: @returned_enrollment[:email]).anonymized_email)
   expect(page).to have_text(@returned_enrollment[:activation_code])

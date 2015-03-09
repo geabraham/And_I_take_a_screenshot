@@ -84,7 +84,8 @@ end
 
 Then(/^I should be redirected to the login page$/) do
   url = "#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{@current_path}"
-  "#{CAS_BASE_URL}/login?service=#{CGI.escape(url)}"
+  cas_url = "#{CAS_BASE_URL}/login?service=#{CGI.escape(url)}"
+  expect(current_path).to eq(cas_url)
 end
 
 Then(/^I should see a not found error page$/) do
