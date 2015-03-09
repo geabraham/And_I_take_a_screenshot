@@ -13,6 +13,8 @@ describe ActivationCodesController do
   end
 
   describe "GET patient_enrollment" do
+
+
     context 'with a valid and active activation code' do
       let(:activation_code_attributes) do
         {"activation_code" => 'WLCMHK',
