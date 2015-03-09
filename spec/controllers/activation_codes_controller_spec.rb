@@ -10,29 +10,6 @@ describe ActivationCodesController do
 
     it_behaves_like 'returns expected status'
     it_behaves_like 'renders expected template'
-
-    describe 'localization' do
-      context 'when no language_code parameter provided' do
-        it 'uses the default locale' do
-          get :index
-          expect(I18n.locale).to eq(I18n.default_locale)
-        end
-      end
-
-      context 'when an invalid language_code parameter is provided' do
-        it 'uses the default locale' do
-          get :index, language_code: :boo
-          expect(I18n.locale).to eq(I18n.default_locale)
-        end
-      end
-
-      context 'when a valid language_code' do
-        it 'is localized' do
-          get :index, language_code: :rus
-          expect(I18n.locale).to eq(:rus)
-        end
-      end
-    end
   end
 
   describe "GET patient_enrollment" do

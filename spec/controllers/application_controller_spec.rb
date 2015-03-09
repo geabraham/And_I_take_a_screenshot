@@ -1,6 +1,40 @@
 require 'spec_helper'
 
 describe ApplicationController do
+  describe 'localization' do
+    controller { def index; end }
+
+    context 'when no language_code parameter provided' do
+      it 'uses the default locale' do
+        get :index
+        expect(I18n.locale).to eq(I18n.default_locale)
+      end
+    end
+
+    context 'when an invalid language_code parameter is provided' do
+      it 'uses the default locale' do
+        get :index, language_code: :boo
+        expect(I18n.locale).to eq(I18n.default_locale)
+      end
+    end
+
+    context 'when a valid language_code' do
+      it 'is localized' do
+        get :index, language_code: :rus
+        expect(I18n.locale).to eq(:rus)
+      end
+    end
+
+    context 'when a session value is set' do
+      before { session[:language_code] = :kor }
+
+      it 'overrides the url parameter' do
+        get :index, language_code: :rus
+        expect(I18n.locale).to eq(:kor)
+      end
+    end
+  end
+
   describe 'GET /logout' do
     before do
       user_uuid = SecureRandom.uuid
