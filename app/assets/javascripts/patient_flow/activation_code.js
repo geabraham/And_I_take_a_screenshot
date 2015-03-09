@@ -9,7 +9,8 @@ $(function() {
   
   $(document).keypress(function(e){
       if (e.which == 13){
-        $('#activate-button').click();
+        console.log($('#activate-button'));
+        $('#activate-button')[0].click();
       }
   });
 });
