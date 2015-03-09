@@ -16,4 +16,6 @@
 
   - if @in_app_browser
     :javascript
-      document.location.href = 'patient-cloud:registration-complete'
+      setTimeout(function() {
+        window.location.assign("patient-cloud:registration-complete")
+      }, 5000);
