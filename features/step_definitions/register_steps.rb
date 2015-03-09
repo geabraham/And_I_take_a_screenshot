@@ -1,4 +1,4 @@
-When(/^I fill in an? (valid|inactive|not_exist|expired|incorrect) activation code( with a language code of )?([a-z]{3})?$/) do | validity, _, lang|
+When(/^I enter an? (valid|inactive|not_exist|expired|incorrect) activation code( with a language code of )?([a-z]{3})?$/) do | validity, _, lang|
   activation_code_response = if validity == 'valid'
     allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
     allow(SecurityQuestions).to receive(:find).and_return(@security_questions)
@@ -30,7 +30,7 @@ When(/^I fill in an? (valid|inactive|not_exist|expired|incorrect) activation cod
   fill_in 'code', with: @activation_code
 end
 
-And(/^I click the activate button$/) do
+And(/^I submit the activation code$/) do
   click_on "Activate"
 end
 
@@ -53,7 +53,7 @@ Then(/^I enter email information for a new subject$/) do
   fill_in I18n.t("registration.email_form.reenter_label"), with: @patient_enrollment.login.upcase
 end
 
-And(/^I click on the next button$/) do
+And(/^I submit "(.*?)" information$/) do  |page|
   # FIXME.
   # Sleeps are bad.
   #   It appears click_on is suffering from something like a race condition, and without this sleep,
@@ -89,9 +89,9 @@ end
 And(/^I submit registration info as a new subject$/) do
   steps %Q{
         And I enter email information for a new subject
-        And I click on the next button
+        And I submit "email" information
         And I enter password information for a new subject
-        And I click on the next button
+        And I submit "password" information
         And I enter security question and answer for a new subject
   }
 end
