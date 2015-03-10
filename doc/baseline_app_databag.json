@@ -32,6 +32,7 @@
     "IMEDIDATA_BASE_URL": "https://<STAGE(none if production)>.imedidata.<TOP_LEVEL_DOMAIN>",
     "HTTP_PORT": "3000",
     "MAUTH_APP_UUID": "<MAUTH_APP_UUID>",
+    "USE_ARANEA": "true",
     "MAUTH_URL": "https://mauth-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
     "PRIVATE_KEY": "<MAUTH_PRIVATE_KEY>",
     "CAS_BASE_URL": "https://login-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
