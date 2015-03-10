@@ -100,16 +100,6 @@ When(/^the backend service does not respond due to imedidata or subject service 
   click_on 'Invite'
 end
 
-When(/^I am not authorized to access a study site$/) do
-  site = @study_sites.sample
-  @site_name, @study_name = site['name'], @studies.find{|s| s['uuid'] == site['study_uuid']}['name']
-
-  if @user_uuid
-    mock_study_sites_request = IMedidataClient::StudySitesRequest.new(user_uuid: @user_uuid, study_uuid: site['study_uuid'])
-    stub_request(:get, IMED_BASE_URL + mock_study_sites_request.path).to_return(status: 404, body: 'Not found')
-  end
-end
-
 When(/^I am not authorized to access a study site and logged in$/) do
   step %Q(I am logged in)
   site = @study_sites.sample
@@ -121,16 +111,9 @@ When(/^I am not authorized to access a study site and logged in$/) do
   end
 end
 
-
-
-When(/^I navigate to patient management for a study site$/) do
+When(/^I navigate to patient management for a study site by directly placing the url in the browser$/) do
   @study_name='TestStudy001'
   @site_name='DeepSpaceStation'
-  step %Q(I navigate to patient management via study "#{@study_name}" and site "#{@site_name}")
-end
-
-
-When(/^I navigate to patient management for a study site by directly placing the url in the browser$/) do
   step %Q(I navigate to patient management via study "#{@study_name}" and site "#{@site_name}")
 end
 

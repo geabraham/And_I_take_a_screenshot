@@ -135,5 +135,5 @@ Feature: A provider can invite a user to participate in a study
   @Review[SQA]
   Scenario: A user who is not logged in attempts to access patient management and is redirected to login.
     Given I am not logged in
-    And I navigate to patient management for a study site
-    Then I should be redirected to the login page
+    And I navigate to patient management for a study site by directly placing the url in the browser
+    And I should be redirected to the login page
