@@ -79,6 +79,9 @@ $(function () {
 
   $('.back-arrow').on('click', progressBar.reverse);
 
+  $('#reg-form').on('submit', function() {
+    $('#create-account').addClass('disabled');
+  });
 });
 
 

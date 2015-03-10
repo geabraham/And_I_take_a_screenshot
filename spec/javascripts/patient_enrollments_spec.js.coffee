@@ -329,6 +329,20 @@ describe 'patient enrollments form', ->
     #        it 'hides the "Create account" button', ->
     #          $('.back-arrow').trigger 'click'
     #          expect($('#security_question')).not.toHaveClass('active')
+    describe 'submit button', ->
+      describe 'on click', ->
+        beforeEach ->
+          $('#patient_enrollment_security_question').val('1')
+          $('#patient_enrollment_answer').val('1234')
+          $('#patient_enrollment_answer').trigger 'keyup'
+
+
+        it 'is disabled', ->
+          submitCallback = jasmine.createSpy('spy').and.returnValue(false)
+          $('#reg-form').submit(submitCallback)
+
+          $('#create-account').click()
+          expect($('#create-account')).toHaveClass('disabled')
 
     sharedBehaviorForEvent = (event) ->
       describe event.name, ->
