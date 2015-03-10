@@ -50,15 +50,19 @@ describe ApplicationController do
     controller { def index; end }
 
     context "when user agent contains 'PatientCloud'" do
-      before { request.headers['HTTP_USER_AGENT'] = "Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11A465 #{MOBILE_APP_USER_AGENT_STRING} for iPhone"}
-      it 'is true' do
+      before do
+        request.headers['HTTP_USER_AGENT'] = "Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Mobile/11A465 " <<
+          "#{MOBILE_APP_USER_AGENT_STRING} for iPhone"
+      end
+
+      it 'assigns in_app_browser as true' do
         get :index
         expect(assigns(:in_app_browser)).to eq(true)
       end
     end
 
     context "when user agent does not contain 'PatientCloud'" do
-      it 'is false' do
+      it 'assigns in_app_browser as false' do
         get :index
         expect(assigns(:in_app_browser)).to eq(false)
       end
