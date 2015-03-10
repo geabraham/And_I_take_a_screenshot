@@ -22,13 +22,13 @@ describe 'patient_enrollments/download.html.haml' do
       end
 
       it 'includes a script' do
-        expect(html).to have_content("document.location.href = 'patient-cloud:registration-complete'")
+        expect(html).to have_content("setTimeout(function() { window.location.assign(\"patient-cloud:registration-complete\") }, 5000);")
       end
     end
 
     context 'when not in app browser' do
       it 'does not include the script' do
-        expect(html).not_to have_content("document.location.href = 'patient-cloud:registration-complete'")
+        expect(html).not_to have_content("setTimeout(function() { window.location.assign(\"patient-cloud:registration-complete\") }, 5000);")
       end
     end
   end
