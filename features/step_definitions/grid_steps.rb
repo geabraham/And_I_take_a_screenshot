@@ -21,6 +21,9 @@ Given(/^patient enrollments exist for "(.*?)" and "(.*?)"$/) do |subject_id_1, s
 end
 
 Given(/^no patient enrollments exist for site "(.*?)"$/) do |site_name|
+  if !@user_uuid
+    @user_uuid=SecureRandom.uuid
+  end
   site_object = study_or_site_object(site_name, 'sites')
   mock_last_response = double('last response', status: 200, body: [].to_json)
   mock_response = double('response', last_response: mock_last_response)

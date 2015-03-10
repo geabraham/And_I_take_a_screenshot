@@ -27,7 +27,7 @@ end
 
 When(/^I navigate to patient management via study "(.*?)" and site "(.*?)"$/) do |_, site_name|
   @current_site_object = study_or_site_object(site_name, 'sites')
-  @current_path = "/patient_management?study_uuid=#{@current_site_object['study_uuid']}&study_site_uuid=#{@current_site_object['uuid']}"
+  @current_path = "/patient_management?study_site_uuid=#{@current_site_object['uuid']}&study_uuid=#{@current_site_object['study_uuid']}"
   visit @current_path
 end
 
@@ -109,6 +109,19 @@ When(/^I am not authorized to access a study site$/) do
     stub_request(:get, IMED_BASE_URL + mock_study_sites_request.path).to_return(status: 404, body: 'Not found')
   end
 end
+
+When(/^I am not authorized to access a study site and logged in$/) do
+  step %Q(I am logged in)
+  site = @study_sites.sample
+  @site_name, @study_name = site['name'], @studies.find{|s| s['uuid'] == site['study_uuid']}['name']
+
+  if @user_uuid
+    mock_study_sites_request = IMedidataClient::StudySitesRequest.new(user_uuid: @user_uuid, study_uuid: site['study_uuid'])
+    stub_request(:get, IMED_BASE_URL + mock_study_sites_request.path).to_return(status: 404, body: 'Not found')
+  end
+end
+
+
 
 When(/^I navigate to patient management for a study site$/) do
   @study_name='TestStudy001'
