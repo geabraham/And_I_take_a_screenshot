@@ -99,12 +99,12 @@ Then(/^I should see a link to download the Patient Cloud app$/) do
   find_link 'Download for iOS'
 end
 
-Then(/^I should see a representation of the error "(.*?)" from back\-end service$/) do |error|
-  expect(page).to have_content(error)
-end
-
-Then(/^I should see a representation of the "(.*?)"/) do |error|
-  expect(find(".validation_error").text).to eq(error)
+Then(/^I should see a representation of the error "(.*?)" from the (back\-end service|form validation)$/) do |error,error_source|
+  if error_source=='form validation'
+    expect(find(".validation_error").text).to eq(error)
+  else
+    expect(page).to have_content(error)
+  end
 end
 
 Then(/^I should be registered for a study$/) do

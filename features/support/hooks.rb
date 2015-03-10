@@ -11,7 +11,7 @@ Before('@PatientFlow') do
     activation_code: @activation_code
   }.stringify_keys
   @invalid_activation_code_attrs ||= @activation_code_attrs.merge({'state' => 'inactive'})
-  @non_existant_activation_code_attrs ||= "Response status: 404.  Response errors: Activation code not found.."
+  @non_existant_activation_code_attrs ||= "Response status: 404.  Response errors: Activation code not found."
   @tou_dpn_agreement ||= {
     html: '<html><body>We think in generalities, but we live in detail.</body></html>',
     language_code: 'eng'
