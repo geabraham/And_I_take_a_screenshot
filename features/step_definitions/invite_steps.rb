@@ -31,7 +31,7 @@ When(/^I navigate to patient management via study "(.*?)" and site "(.*?)"$/) do
   visit @current_path
 end
 
-When(/I invite a user with the following attributes for a user:$/) do |table|
+When(/I invite a user with the following attributes:$/) do |table|
   attributes = table.hashes
   initials = attributes.find {|attr| attr['attribute_name'] == 'initials'}
   fill_in 'patient_enrollment_initials', with: initials ? initials['attribute_value'] : nil

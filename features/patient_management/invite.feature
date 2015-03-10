@@ -54,7 +54,7 @@ Feature: A provider can invite a user to participate in a study
   Scenario: An authorized provider is able to invite a patient.
     Given I am authorized to manage patients for study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
-    When I invite a user with the following attributes for a user:
+    When I invite a user with the following attributes:
       | attribute_name   | attribute_value             |
       | initials         | LCD                         |
       | email            | lt-commander-data@mdsol.com |
