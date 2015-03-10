@@ -1,4 +1,4 @@
-When(/^I fill in (a|an) (valid|invalid) activation code( with a language code of )?([a-z]{3})?$/) do |_, validity, _, lang|
+When(/^I fill in (a|an) (valid|invalid) activation code( with a language code of )?([a-z]{3})?(| and press Enter)$/) do |_, validity, _, lang, control|
   activation_code_response = if validity == 'valid'
     allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
     allow(SecurityQuestions).to receive(:find).and_return(@security_questions)
@@ -6,6 +6,8 @@ When(/^I fill in (a|an) (valid|invalid) activation code( with a language code of
       if lang
         @activation_code_attrs["language_code"] = lang
         I18n.locale = lang
+      else
+        I18n.locale = 'eng'
       end
       allow(ac).to receive(:attributes).and_return(@activation_code_attrs)
     end
@@ -22,47 +24,87 @@ When(/^I fill in (a|an) (valid|invalid) activation code( with a language code of
 
   visit '/'
   fill_in 'code', with: @activation_code
-  click_on 'Activate'
+
+  if control == 'and press Enter'
+    driver = Capybara.current_session.driver
+    driver.browser.action.send_keys(:enter).perform
+  else
+    click_on 'Activate'
+  end
 end
 
-When(/^I accept the TOU\/DPN$/) do
+When(/^I accept the TOU\/DPN(| using the Enter key)$/) do |control|
   # Move past the instructional steps page
-  click_on I18n.t("application.btn_next")
+  sleep(1)
+
+  if control == ' using the Enter key'
+    driver = Capybara.current_session.driver
+    driver.browser.action.send_keys(:enter).perform
+  else
+    click_on I18n.t("application.btn_next")
+  end
+
   assert_text('We think in generalities, but we live in detail.')
   sleep(1)
-  click_on I18n.t("application.btn_agree")
+
+  if control == ' using the Enter key'
+    driver = Capybara.current_session.driver
+    driver.browser.action.send_keys(:enter).perform
+  else
+    click_on I18n.t("application.btn_agree")
+  end
+
   alert = page.driver.browser.switch_to.alert
   alert.send(:accept)
 end
 
-When(/^I submit registration info as a new subject$/) do
+When(/^I submit registration info as a new subject(| using the Enter key)$/) do |control|
   fill_in I18n.t("registration.email_form.email_label"), with: @patient_enrollment.login
   fill_in I18n.t("registration.email_form.reenter_label"), with: @patient_enrollment.login.upcase
+  
   # FIXME.
   # Sleeps are bad.
   #   It appears click_on is suffering from something like a race condition, and without this sleep,
   #   the button is clicked but the transition is frozen.
   #   The test fails with error 'Unable to find field "Password" (Capybara::ElementNotFound)'
   sleep(1)
-  click_on I18n.t("application.btn_next")
+
+  if control == ' using the Enter key'
+    driver = Capybara.current_session.driver
+    driver.browser.action.send_keys(:enter).perform
+  else
+    click_on I18n.t("application.btn_next")
+  end
+
+  sleep(1)
 
   fill_in I18n.t("registration.password_form.password_label"), with: @patient_enrollment.password
   fill_in I18n.t("registration.password_form.reenter_label"), with: @patient_enrollment.password
-  sleep(1)
-  click_on I18n.t("application.btn_next")
+
+  if control == ' using the Enter key'
+    driver = Capybara.current_session.driver
+    driver.browser.action.send_keys(:enter).perform
+  else
+    click_on I18n.t("application.btn_next")
+  end
 
   select @security_question[:name], from: 'Security Question'
   fill_in I18n.t("registration.security_question_form.answer_label"), with: @patient_enrollment.answer
 end
 
-When(/^the request to create account is successful$/) do
+When(/^the request to create account is successful(| using the Enter key)$/) do |control|
   response_double = double('response').tap {|res| allow(res).to receive(:status).and_return(200)}
 
   allow(Euresource::PatientEnrollments).to receive(:invoke)
     .with(:register, {uuid: @patient_enrollment_uuid}, {patient_enrollment: @patient_enrollment_register_params})
     .and_return(response_double)
 
-  click_on I18n.t("registration.security_question_form.btn_create")
+  if control == ' using the Enter key'
+    driver = Capybara.current_session.driver
+    driver.browser.action.send_keys(:enter).perform
+  else
+    click_on I18n.t("registration.security_question_form.btn_create")
+  end
 end
 
 When(/^the back\-end service returns an error$/) do

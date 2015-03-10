@@ -72,3 +72,15 @@ Feature: Patient Registration
     When I fill in a invalid activation code with a language code of xxx
     Then I should see a representation of the error from back-end service
 
+  @Review[SQA]
+  @Release2015.1.0
+  @PB151748-001
+  @Headed
+  @PatientFlow
+  Scenario: A new iMedidata user should be able to navigate through the registration flow using the Enter key
+    When I fill in a valid activation code and press Enter
+    And I accept the TOU/DPN using the Enter key
+    And I submit registration info as a new subject using the Enter key
+    And the request to create account is successful using the Enter key
+    Then I should see a link to download the Patient Cloud app
+    And I should be registered for a study
