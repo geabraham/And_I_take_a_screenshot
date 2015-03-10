@@ -35,20 +35,20 @@ end
 
 When(/^I accept the TOU\/DPN(| using the Enter key)$/) do |control|
   # Move past the instructional steps page
-  sleep(1)
-
   if control == ' using the Enter key'
     driver = Capybara.current_session.driver
+    driver.browser.switch_to.default_content
     driver.browser.action.send_keys(:enter).perform
+    sleep(5)
   else
     click_on I18n.t("application.btn_next")
   end
 
+  # now on the TOU/DPN agreement
   assert_text('We think in generalities, but we live in detail.')
   sleep(1)
 
   if control == ' using the Enter key'
-    driver = Capybara.current_session.driver
     driver.browser.action.send_keys(:enter).perform
   else
     click_on I18n.t("application.btn_agree")
