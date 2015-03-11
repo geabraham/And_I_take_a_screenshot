@@ -27,8 +27,8 @@ Both of the following should be selected
 | Attribute           | Value                                                       |
 | -------------       | ---------------                                             |
 | Role                | app                                                         |
-| AMI                 | Custom -  ami-be68cbd6                                        |
-| Instance type /size | m1.medium                                                   |
+| AMI                 | Medidata Ubuntu 14.04 + Ruby v2.1.2                         |
+| Instance type /size | m3.large                                                   |
 | HTTP(S) Access Level| public                                                      |
 | Chef client v.      | 11.12.4                                                     |
 | Chef runlist        | mdsol_base, mdsol_logging, twelve_factor                    |
