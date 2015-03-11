@@ -31,3 +31,4 @@ config/imedidata.yml
 config/initializers/cas.rb
 
 .irbrc
+config/initializers/mobile_app_user_agent_string.rb
