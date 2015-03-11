@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_in_app_browser
-    @in_app_browser ||= request.headers['HTTP_USER_AGENT'].include?(MOBILE_APP_USER_AGENT_STRING)
+    @in_app_browser = request.headers['HTTP_USER_AGENT'].include?(MOBILE_APP_USER_AGENT_STRING)
   end
 
   def authorize_user
