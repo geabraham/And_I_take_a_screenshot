@@ -39,7 +39,7 @@ describe 'patient enrollments form', ->
 
   describe 'tou_dpn_page', ->
     beforeEach ->
-      $('#tou_dpn_page').addClass('active')
+      $('#tou_dpn_agreement').addClass('active')
 
     describe 'back arrow', ->
       # TODO fix wording and verify cases in MCC-151111
@@ -64,17 +64,15 @@ describe 'patient enrollments form', ->
           confirmSpy = spyOn(window, 'confirm').and.returnValue(true)
           $('#next-agree').trigger 'click'
 
-        it 'shows the tou_dpn_page is not active', ->
+        it 'hides the tou_dpn_agreement', ->
           expect($('#tou_dpn_agreement')).not.toHaveClass('active')
 
-        it 'shows the email page is active', ->
+        it 'shows the email page', ->
           expect($('#email')).toHaveClass('active')
 
+        #TODO this should probably be nested under email page specs
         it 'shows the next email button is disabled', ->
           expect($('#next-email')).toHaveClass('disabled')
-
-        it 'shows the progress bar is enabled', ->
-          expect($('.progress-indicator')).not.toHaveClass('hidden')
 
         it 'advances the progress bar', ->
           expect($('.progress-indicator').find('.incomplete').length).toEqual 2
@@ -85,6 +83,7 @@ describe 'patient enrollments form', ->
           $('#next-agree').trigger 'click'
 
         it 'tou_dpn_page is active', ->
+          debugger
           expect($('#tou_dpn_agreement')).toHaveClass('active')
 
         it 'shows the email page is not active', ->
