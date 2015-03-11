@@ -1,10 +1,11 @@
-When(/^I enter an? (valid|inactive|not_exist|expired|incorrect) activation code( with a language code of )?([a-z]{3})?$/) do | validity, _, lang|
+When(/^I enter an? (valid|inactive|not_exist|expired|incorrect) activation code(?: with a language code of)?([\sa-z]{4})?$/) do |validity, lang|
   activation_code_response = case validity
   when 'valid'
     allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
     allow(SecurityQuestions).to receive(:find).and_return(@security_questions)
     double('activation_code').tap do |ac|
       if lang
+        lang.lstrip!
         @activation_code_attrs["language_code"] = lang
         I18n.locale = lang
       else
