@@ -77,10 +77,6 @@ Feature: Patient Registration
   @PB151748-001
   @Headed
   @PatientFlow
-  Scenario: A new iMedidata user should be able to navigate through the registration flow using the Enter key
+  Scenario: A user should be able to submit an activation code using the Enter key
     When I fill in a valid activation code and press Enter
-    And I accept the TOU/DPN using the Enter key
-    And I submit registration info as a new subject using the Enter key
-    And the request to create account is successful using the Enter key
-    Then I should see a link to download the Patient Cloud app
-    And I should be registered for a study
+    Then I should be on the welcome page
