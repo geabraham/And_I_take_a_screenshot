@@ -70,10 +70,6 @@ describe 'patient enrollments form', ->
         it 'shows the email page', ->
           expect($('#email')).toHaveClass('active')
 
-        #TODO this should probably be nested under email page specs
-        it 'shows the next email button is disabled', ->
-          expect($('#next-email')).toHaveClass('disabled')
-
         it 'advances the progress bar', ->
           expect($('.progress-indicator').find('.incomplete').length).toEqual 2
 
