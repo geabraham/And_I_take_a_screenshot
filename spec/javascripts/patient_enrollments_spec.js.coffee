@@ -78,18 +78,12 @@ describe 'patient enrollments form', ->
           confirmSpy = spyOn(window, 'confirm').and.returnValue(false)
           $('#next-agree').trigger 'click'
 
-        it 'tou_dpn_page is active', ->
-          debugger
+        it 'remains on the tou_dpn_agreement', ->
           expect($('#tou_dpn_agreement')).toHaveClass('active')
-
-        it 'shows the email page is not active', ->
           expect($('#email')).not.toHaveClass('active')
 
-        it 'shows the next agree button is enabled', ->
-          expect($('#next-agree')).not.toHaveClass('disabled')
-
-        it 'does not advances the progress bar', ->
-          expect($('.progress-indicator').find('.incomplete').length).toEqual 3
+        it 'does not advance the progress bar', ->
+          expect($('.progress-indicator .incomplete').length).toEqual 3
 
 
   describe 'email page', ->
