@@ -19,7 +19,7 @@
       "bundle exec rake release"
     ],
     "processes": {
-      "web": "bundle exec rails s -p $HTTP_PORT"
+      "web": "bundle exec rails s -p $HTTP_PORT -e production"
     },
     "ssl_cert": "/etc/secrets/ssl/private/crt.crt",
     "ssl_cert_key": "/etc/secrets/ssl/private/key.key"
