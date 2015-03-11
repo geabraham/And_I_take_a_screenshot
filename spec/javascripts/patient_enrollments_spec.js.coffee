@@ -18,7 +18,6 @@ describe 'patient enrollments form', ->
       it 'is disabled', ->
         $('.back-arrow').trigger 'click'
         expect($('.back-arrow')).toHaveClass('hidden')
-#        expect(reverseProgressBarSpy.calls.any()).toEqual false
 
     sharedBehaviorForEvent = (event) ->
       describe event.name, ->
@@ -50,10 +49,12 @@ describe 'patient enrollments form', ->
 
     sharedBehaviorForEvent = (event) ->
       describe event.name, ->
-        it 'confirms acceptance of the TOU/DPN', ->
-          confirmTermsSpy = spyOn(window, 'confirm')
+        beforeEach ->
+          confirmSpy = spyOn(window, 'confirm').and.returnValue(false)
+
+        it 'pops up a dialog confirming acceptance of the TOU/DPN', ->
           $(event.selector).trigger event
-          expect(confirmTermsSpy.calls.count()).toEqual 1
+          expect(confirmSpy.calls.count()).toEqual 1
 
     sharedBehaviorForEvent(jQuery.Event('click', name: 'agree button click', selector: '#next-agree'))
     #sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
@@ -85,13 +86,10 @@ describe 'patient enrollments form', ->
         it 'does not advance the progress bar', ->
           expect($('.progress-indicator .incomplete').length).toEqual 3
 
-
   describe 'email page', ->
     beforeEach ->
-      confirmSpy = spyOn(window, 'confirm').and.returnValue(true)
-      $('#tou_dpn_agreement').addClass('active')
-      $('#next-agree').removeClass('disabled')
-      $('#next-agree').trigger 'click'
+      $('#email').addClass('active')
+      progressBar.advance(1)
 
     describe 'back arrow', ->
       it 'is disabled', ->
@@ -129,7 +127,7 @@ describe 'patient enrollments form', ->
         #            expect($('.validation_error')).not.toHaveClass('invisible')
         #            expect($('.validation_error')).toHaveText('Enter a valid email.')
         #
-        describe 'for not inputting confirmation email', ->
+        describe 'for missing confirmation email', ->
           it 'shows the next button is disabled', ->
             $('#patient_enrollment_login_confirmation').val("not_an_email")
             $('#patient_enrollment_login, #patient_enrollment_login_confirmation').trigger 'keyup'
@@ -140,15 +138,11 @@ describe 'patient enrollments form', ->
           it 'advances to the password page', ->
             passwordRulesSpy = spyOn(window, 'addPasswordRules')
             spyAdvance = spyOn(progressBar, 'advance')
-            #            validSpy= spyOn($.fn, 'valid').and.returnValue(true)
             $('#patient_enrollment_login').val("gee@g.com")
             $('#patient_enrollment_login_confirmation').val("gee@g.com")
-            $('#patient_enrollment_login, #patient_enrollment_login_confirmation').trigger 'keyup'
-            expect($('#next-email')).not.toHaveClass('disabled')
-            $('#next-email').trigger 'click'
+            $(event.selector).trigger event
             expect(addPasswordRules).toHaveBeenCalled()
             expect($('#password')).toHaveClass('active')
-            it 'advances the progress bar', ->
             expect($('.progress-indicator').find('.incomplete').length).toEqual 2
             expect(spyAdvance.calls.count()).toEqual 1
 
@@ -309,32 +303,25 @@ describe 'patient enrollments form', ->
     #          $('.back-arrow').trigger 'click'
     #          expect($('#security_question')).not.toHaveClass('active')
 
-    sharedBehaviorForEvent = (event) ->
-      describe event.name, ->
-        describe 'when security question is blank', ->
-          it 'is disabled', ->
-            $('#patient_enrollment_answer').val("the worst band is...")
-            $('#patient_enrollment_answer').trigger 'keyup'
-            expect($('#create-account')).toHaveClass('disabled')
-
-        describe 'when security answer is whitespace', ->
-          it 'is disabled', ->
-            $('#patient_enrollment_security_question').val("What's the worst band in the world?")
-            $('#patient_enrollment_answer').val("   ")
-            $('#patient_enrollment_answer').trigger 'keyup'
-            expect($('#create-account')).toHaveClass('disabled')
-
-        describe 'when both fields are filled', ->
-          it 'is enabled', ->
-            $('#patient_enrollment_security_question').val(1)
-            $('#patient_enrollment_answer').val("....")
-            #            jasmine.createSpyObj('reg-form',['valid']).andReturn(true)
-            #            spyOn(reg-form,'valid').andReturn(true);
-            $('#patient_enrollment_answer').trigger 'keyup'
-            expect($('#create-account')).not.toHaveClass('disabled')
-
-    sharedBehaviorForEvent(jQuery.Event('click', name: 'create account button click', selector: '#create-account'))
-    sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
+      describe 'when security question is blank', ->
+        it 'is disabled', ->
+          $('#patient_enrollment_answer').val("the worst band is...")
+          $('#patient_enrollment_answer').trigger 'keyup'
+          expect($('#create-account')).toHaveClass('disabled')
+      describe 'when security answer is whitespace', ->
+        it 'is disabled', ->
+          $('#patient_enrollment_security_question').val("What's the worst band in the world?")
+          $('#patient_enrollment_answer').val("   ")
+          $('#patient_enrollment_answer').trigger 'keyup'
+          expect($('#create-account')).toHaveClass('disabled')
+      describe 'when both fields are filled', ->
+        it 'is enabled', ->
+          $('#patient_enrollment_security_question').val(1)
+          $('#patient_enrollment_answer').val("....")
+          #            jasmine.createSpyObj('reg-form',['valid']).andReturn(true)
+          #            spyOn(reg-form,'valid').andReturn(true);
+          $('#patient_enrollment_answer').trigger 'keyup'
+          expect($('#create-account')).not.toHaveClass('disabled')
 
   #TODO Tests not working
   #  describe 'advanceProgressBar', ->
