@@ -11,8 +11,7 @@ describe 'patient enrollments form', ->
 
   describe 'landing_page', ->
     beforeEach ->
-      # unlike on the actual page, set the fixture's active div manually since we're
-      # mocking the jQuery carousel call that would normally do so
+      # set the fixture's active div ("screen") manually
       $('#landing_page').addClass('active')
 
     describe 'back arrow', ->
@@ -23,11 +22,11 @@ describe 'patient enrollments form', ->
 
     sharedBehaviorForEvent = (event) ->
       describe event.name, ->
-        it 'shows the landing page is no longer showing', ->
+        it 'hides the landing page', ->
           $(event.selector).trigger event
           expect($('#landing_page')).not.toHaveClass('active')
 
-        it 'shows the tou_dpn_agreement page is active', ->
+        it 'shows the tou_dpn_agreement page', ->
           $(event.selector).trigger event
           expect($('#tou_dpn_agreement')).toHaveClass('active')
 
@@ -36,37 +35,28 @@ describe 'patient enrollments form', ->
           expect($('.progress')).not.toHaveClass('hidden')
 
     sharedBehaviorForEvent(jQuery.Event('click', name: 'next button click', selector: '#next-landing'))
-  # TODO RELATED TO BUG - MCC-151748
-  #   sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
+    sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
 
   describe 'tou_dpn_page', ->
     beforeEach ->
-      $('#landing_page').addClass('active')
-      $('#next-landing').trigger 'click'
+      $('#tou_dpn_page').addClass('active')
 
     describe 'back arrow', ->
+      # TODO fix wording and verify cases in MCC-151111
+      # we may want to add/test a disabled class depending on implementation of the fix
       it 'is disabled', ->
         $('.back-arrow').trigger 'click'
         expect($('.back-arrow')).toHaveClass('hidden')
 
-      it 'shows the tou_dpn_page is active', ->
-        expect($('#tou_dpn_agreement')).toHaveClass('active')
-
-      it 'shows the progress indicator is not hidden', ->
-        expect($('.progress')).not.toHaveClass('hidden')
-
     sharedBehaviorForEvent = (event) ->
       describe event.name, ->
-        beforeEach ->
+        it 'confirms acceptance of the TOU/DPN', ->
           confirmTermsSpy = spyOn(window, 'confirm')
-
-        it 'calls confirmTerms()', ->
           $(event.selector).trigger event
           expect(confirmTermsSpy.calls.count()).toEqual 1
 
     sharedBehaviorForEvent(jQuery.Event('click', name: 'agree button click', selector: '#next-agree'))
-    # TODO RELATED TO BUG - MCC-151748
-    #    sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
+    #sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
 
     describe 'when user is asked to confirm agreement with TOU/DPN', ->
       describe 'when user clicks "OK"', ->
