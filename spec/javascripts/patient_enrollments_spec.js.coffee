@@ -335,14 +335,19 @@ describe 'patient enrollments form', ->
           $('#patient_enrollment_security_question').val('1')
           $('#patient_enrollment_answer').val('1234')
           $('#patient_enrollment_answer').trigger 'keyup'
+          submitCallback = jasmine.createSpy('spy').and.returnValue(false)
+          $('#reg-form').submit(submitCallback)
+          $('#create-account').click()
 
 
         it 'is disabled', ->
-          submitCallback = jasmine.createSpy('spy').and.returnValue(false)
-          $('#reg-form').submit(submitCallback)
-
-          $('#create-account').click()
           expect($('#create-account')).toHaveClass('disabled')
+
+        it 'disables the security question dropdown', ->
+          expect($('#patient_enrollment_security_question')).toHaveClass('disabled')
+
+        it 'disables the security question answer box', ->
+          expect($('#patient_enrollment_answer')).toHaveClass('disabled')
 
     sharedBehaviorForEvent = (event) ->
       describe event.name, ->
