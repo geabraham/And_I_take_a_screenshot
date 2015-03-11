@@ -15,6 +15,7 @@ describe 'patient_enrollments/download.html.haml' do
   end
 
   describe 'dismiss browser script' do
+    let(:script) { "setTimeout(function() { window.location.assign(\"patient-cloud:registration-complete\") }, 5000);" }
     context 'when in app browser' do
       before do
         assign(:in_app_browser, true)
@@ -22,13 +23,13 @@ describe 'patient_enrollments/download.html.haml' do
       end
 
       it 'includes a script' do
-        expect(html).to have_content("setTimeout(function() { window.location.assign(\"patient-cloud:registration-complete\") }, 5000);")
+        expect(html).to have_content(script)
       end
     end
 
     context 'when not in app browser' do
       it 'does not include the script' do
-        expect(html).not_to have_content("setTimeout(function() { window.location.assign(\"patient-cloud:registration-complete\") }, 5000);")
+        expect(html).not_to have_content(script)
       end
     end
   end
