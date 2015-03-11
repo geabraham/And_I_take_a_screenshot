@@ -15,7 +15,7 @@
       .paginate.clearfix
         .total-results
           %b#total-count=@patient_enrollments.count
-          t("pagination.total_results")
+          =t("pagination.total_results")
         .per-page
           %span= t("pagination.per_page")
           %ul

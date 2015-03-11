@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   respond_to :html
 
   before_filter :set_locale
+  before_filter :set_in_app_browser
 
   ERROR_CAUSE = {
     ActionController::UnpermittedParameters => :unprocessable_entity,
@@ -32,7 +33,14 @@ class ApplicationController < ActionController::Base
   # Set user's locale from request, assuming it comes from Checkmate.
   #TODO in future locale may be in header instead of params, depending on Checkmate
   def set_locale
-    I18n.locale = session[:language_code] || I18n.default_locale
+    # Prefer the session's language code over the one set in params.
+    session[:language_code] = I18n.locale_available?(session[:language_code]) ? session[:language_code] : nil if session[:acivation_code]
+    params[:language_code] = I18n.locale_available?(params[:language_code]) ? params[:language_code] : nil if params[:language_code]
+    I18n.locale = session[:language_code] || params[:language_code] || I18n.default_locale
+  end
+
+  def set_in_app_browser
+    @in_app_browser = request.headers['HTTP_USER_AGENT'].include?(MOBILE_APP_USER_AGENT_STRING)
   end
 
   def authorize_user
