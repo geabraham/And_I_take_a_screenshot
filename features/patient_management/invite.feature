@@ -124,7 +124,7 @@ Feature: A provider can invite a user to participate in a study
   @Headed
   @Review[SQA]
   Scenario: A unauthorized user attempts to access patient management sees an error page.
-    Given I am not authorized to access a study site and logged in
+    Given I am logged in but not authorized to access a study site
     And I navigate to patient management for a study site by directly placing the url in the browser
     Then I should see an error page with the message:
       | The link or URL you used either doesn't exist or you don't have permission to view it. |
