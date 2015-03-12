@@ -57,7 +57,12 @@ When(/^I accept the TOU\/DPN(| using the Enter key)$/) do |control|
   # now on the TOU/DPN agreement
   assert_text('We think in generalities, but we live in detail.')
   click_on I18n.t("application.btn_agree")
-  alert = page.driver.browser.switch_to.alert
+  
+  if control == ' using the Enter key'
+    alert = driver.browser.switch_to.alert
+  else
+    alert = page.driver.browser.switch_to.alert
+  end
   alert.send(:accept)
 end
 
