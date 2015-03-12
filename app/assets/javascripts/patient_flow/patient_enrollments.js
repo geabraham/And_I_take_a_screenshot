@@ -79,6 +79,11 @@ $(function () {
 
   $('.back-arrow').on('click', progressBar.reverse);
 
+  $('#reg-form').on('submit', function() {
+    $('#create-account').addClass('disabled');
+    $('#patient_enrollment_security_question').addClass('disabled');
+    $('#patient_enrollment_answer').addClass('disabled');
+  });
 });
 
 

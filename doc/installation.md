@@ -6,6 +6,11 @@ This document specifies the how to configure the [Minotaur](https://github.com/m
 
 ## Environment Settings
 
+AWS account should be one of:
+
+- aws-green
+- aws-red if production or innovate
+
 New Relic Account should be one of:
 
 - Medidata PaaS Development
@@ -22,14 +27,12 @@ Both of the following should be selected
 | Attribute           | Value                                                       |
 | -------------       | ---------------                                             |
 | Role                | app                                                         |
-| AWS Account         | aws-green (aws-red if production or innovate)               |
 | AMI                 | Medidata Ubuntu 14.04 + Ruby v2.1.2                         |
-| Instance type /size | m1.medium                                                    |
-| Chef bootstrap Type | omnibus - new mdsol_base                                    |
+| Instance type /size | m3.large                                                   |
+| HTTP(S) Access Level| public                                                      |
 | Chef client v.      | 11.12.4                                                     |
-| Ruby version        | no-ruby                                                     |
 | Chef runlist        | mdsol_base, mdsol_logging, twelve_factor                    |
-| Chef Data Bag       | twelve_factor_environment                                   |
+| 12-Factor Deployments? | true                                                 |
 
 ### Chef override values
 
