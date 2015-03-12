@@ -47,25 +47,27 @@ end
 
 When(/^I accept the TOU\/DPN(| using the Enter key)$/) do |control|
   # Move past the instructional steps page
-  if control == ' using the Enter key'
-    driver = Capybara.current_session.driver
-    driver.browser.action.send_keys(:enter).perform
-  else
+  #if control == ' using the Enter key'
+  #  driver = Capybara.current_session.driver
+  #  driver.browser.action.send_keys(:enter).perform
+  #else
     click_on I18n.t("application.btn_next")
-  end
+  #end
 
   # now on the TOU/DPN agreement
   assert_text('We think in generalities, but we live in detail.')
 
-  if control == ' using the Enter key'
-    driver = Capybara.current_session.driver
-    driver.browser.action.send_keys(:enter).perform
-  else
+  #if control == ' using the Enter key'
+  #  driver = Capybara.current_session.driver
+  #  driver.browser.action.send_keys(:enter).perform
+  #  binding.pry
+  #  alert = driver.browser.switch_to.alert
+  #  alert.send_keys(:enter)
+  #else
     click_on I18n.t("application.btn_agree")
-  end
-  
-  alert = page.driver.browser.switch_to.alert
-  alert.send(:accept)
+    alert = page.driver.browser.switch_to.alert
+    alert.send(:accept)
+  #end
 end
 
 When(/^I submit "(.*?)" information(| using the Enter key)$/) do |_, control|
