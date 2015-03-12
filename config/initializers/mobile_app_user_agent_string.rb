@@ -1,1 +1,0 @@
-MOBILE_APP_USER_AGENT_STRING="PatientCloud"
