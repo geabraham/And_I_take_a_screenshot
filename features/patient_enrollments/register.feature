@@ -98,8 +98,6 @@ Feature: Patient Registration
   Scenario: A user should be able to submit an activation code using the Enter key
     When I enter a valid activation code
     And I submit the activation code using the Enter key
-    Then I should be on the welcome page
-    And I press the Enter key
     And I accept the TOU/DPN using the Enter key
     Then I should see the "email" page
     Then I enter email information for a new subject
