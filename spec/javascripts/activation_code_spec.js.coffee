@@ -75,6 +75,11 @@ describe 'activation code page', ->
           handleInput()
           expect($('#activate-button')).toHaveAttr('href', '')
 
+        it 'shows a validation error', ->
+          window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('NOOO0!')
+          handleInput()
+          expect($('.validation_error')).toBeVisible()
+
       describe 'with no invalid characters present', ->
         it 'is enabled', ->
           window.getCodeString = jasmine.createSpy('getCodeString spy').and.returnValue('234567')
