@@ -98,4 +98,17 @@ Feature: Patient Registration
   Scenario: A user should be able to submit an activation code using the Enter key
     When I enter a valid activation code
     And I submit the activation code using the Enter key
-    Then I should be on the welcome page
+    Then I should see the "welcome" page
+    And I press the Enter key
+    And I accept the TOU/DPN using the Enter key
+    Then I should see the "email page"
+    Then I enter email information for a new subject
+    And I submit "email" information using the Enter key
+    Then I should see the "password" page
+    Then I enter password information for a new subject 
+    And I submit "password" information using the Enter key
+    Then I should see the "security questions" page
+    Then I enter security question and answer for a new subject using the Enter key
+    And the request to create account is successful
+    Then I should see a link to download the Patient Cloud app
+    And I should be registered for a study
