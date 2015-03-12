@@ -87,8 +87,8 @@ Then(/^I should see the message "(.*?)"$/) do |message|
 end
 
 Then(/^I should be redirected to the login page$/) do
-  url = "#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{@current_path}"
-  cas_url="#{CAS_BASE_URL}/login?service=http%3A%2F%2F#{CGI.escape(url)}"
+  url = "http://#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{@current_path}"
+  cas_url="#{CAS_BASE_URL}/login?service=#{CGI.escape(url)}"
   expect(current_url).to eq(cas_url)
 end
 
