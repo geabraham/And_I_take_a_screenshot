@@ -45,9 +45,14 @@ When(/^I submit the activation code(| using the Enter key)$/) do |control|
   end
 end
 
-When(/^I accept the TOU\/DPN$/) do
+When(/^I accept the TOU\/DPN(| using the Enter key)$/) do |control|
   # Move past the instructional steps page
-  click_on I18n.t("application.btn_next")
+  if control == ' using the Enter key'
+    driver = Capybara.current_session.driver
+    driver.browser.action.send_keys(:enter).perform
+  else
+    click_on I18n.t("application.btn_next")
+  end
 
   # now on the TOU/DPN agreement
   assert_text('We think in generalities, but we live in detail.')
@@ -56,8 +61,13 @@ When(/^I accept the TOU\/DPN$/) do
   alert.send(:accept)
 end
 
-When(/^I submit "(.*?)" information$/) do |page|
-  click_on I18n.t("application.btn_next")
+When(/^I submit "(.*?)" information(| using the Enter key)$/) do |_, control|
+  if control == ' using the Enter key'
+    driver = Capybara.current_session.driver
+    driver.browser.action.send_keys(:enter).perform
+  else
+    click_on I18n.t("application.btn_next")
+  end
 end
 
 When(/^I enter password information for a new subject$/) do
@@ -80,14 +90,19 @@ When(/^I submit registration info as a new subject$/) do
   }
 end
 
-Then(/^the request to create account is successful$/) do
+Then(/^the request to create account is successful(| using the Enter key)$/) do |control|
   response_double = double('response').tap {|res| allow(res).to receive(:status).and_return(200)}
 
   allow(Euresource::PatientEnrollments).to receive(:invoke)
     .with(:register, {uuid: @patient_enrollment_uuid}, {patient_enrollment: @patient_enrollment_register_params})
     .and_return(response_double)
 
-  click_on I18n.t("registration.security_question_form.btn_create")
+  if control == ' using the Enter key'
+    driver = Capybara.current_session.driver
+    driver.browser.action.send_keys(:enter).perform
+  else
+    click_on I18n.t("registration.security_question_form.btn_create")
+  end
 end
 
 Then(/^the back\-end service returns an error "(.*?)"$/) do |error|
@@ -118,6 +133,11 @@ end
 
 Then(/^I should be on the welcome page$/) do
   assert_text('Registration Details')
+end
+
+Then(/^I press the Enter key$/) do
+  driver = Capybara.current_session.driver
+  driver.browser.action.send_keys(:enter).perform
 end
 
 Then(/^I should be registered for a study$/) do
