@@ -46,15 +46,16 @@ When(/^I submit the activation code(| using the Enter key)$/) do |control|
 end
 
 When(/^I accept the TOU\/DPN(| using the Enter key)$/) do |control|
-  # Move past the instructional steps page
-  #if control == ' using the Enter key'
-  #  driver = Capybara.current_session.driver
-  #  driver.browser.action.send_keys(:enter).perform
-  #else
+   # Move past the instructional steps page
+  if control == ' using the Enter key'
+    driver = Capybara.current_session.driver
+    driver.browser.action.send_keys(:enter).perform
+  else
     click_on I18n.t("application.btn_next")
-  #end
+  end
 
   # now on the TOU/DPN agreement
+  find('.tou_dpn_agreement')
   assert_text('We think in generalities, but we live in detail.')
 
   #if control == ' using the Enter key'
