@@ -79,7 +79,7 @@ Feature: A provider can invite a user to participate in a study
   @Review[SQA]
   Scenario: An authorized provider sees an error message when subject is already registered.
     Given I am authorized to manage patients for study "TestStudy001"
-    And I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     When I invite a user with all required attributes
     And the backend service returns an error response due to subject id already existing
     Then I should see an error message: "Subject not available. Please try again."
@@ -91,7 +91,7 @@ Feature: A provider can invite a user to participate in a study
   @Review[SQA]
   Scenario: An authorized provider sees an error message when imedidata/subject service is down.
     Given I am authorized to manage patients for study "TestStudy001"
-    And I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     When I invite a user with all required attributes
     And the backend service does not respond due to imedidata or subject service being down
     Then I should see an error message: "Service unavailable, please try again later."
