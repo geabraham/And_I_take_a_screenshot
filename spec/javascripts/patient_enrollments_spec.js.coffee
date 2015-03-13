@@ -215,6 +215,7 @@ describe 'patient enrollments form', ->
           $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw rd')
           $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
           expect($('#next-password')).not.toHaveClass('disabled')
+
       describe 'for a valid input', ->
         it 'advances to the security question page', ->
           spyAdvance = spyOn(progressBar, 'advance')
@@ -225,6 +226,7 @@ describe 'patient enrollments form', ->
           expect($('.progress-indicator').find('.incomplete').length).toEqual 2
           expect($('#security_question')).toHaveClass('active')
           expect(spyAdvance.calls.count()).toEqual 1
+
         it 'shows the password page not as active', ->
           validSpy= spyOn($.fn, 'valid').and.returnValue(true)
           $('#next-password').trigger 'click'
@@ -296,12 +298,14 @@ describe 'patient enrollments form', ->
           $('#patient_enrollment_answer').val("the worst band is...")
           $('#patient_enrollment_answer').trigger 'keyup'
           expect($('#create-account')).toHaveClass('disabled')
+
       describe 'when security answer is whitespace', ->
         it 'is disabled', ->
           $('#patient_enrollment_security_question').val("What's the worst band in the world?")
           $('#patient_enrollment_answer').val("   ")
           $('#patient_enrollment_answer').trigger 'keyup'
           expect($('#create-account')).toHaveClass('disabled')
+          
       describe 'when both fields are filled', ->
         it 'is enabled', ->
           $('#patient_enrollment_security_question').val(1)
