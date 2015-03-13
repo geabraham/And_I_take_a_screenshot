@@ -142,8 +142,7 @@ describe 'patient enrollments form', ->
       $('#next-email').trigger 'click'
       addPasswordRules()
 
-    sharedBehaviorForEvent = (event) ->
-      describe event.name, ->
+    describe 'next button click', ->
     #TODO BUG - Password has same value does not throw error
 #        describe 'for a blank input', ->
 #          it 'shows a validation error', ->
@@ -196,37 +195,32 @@ describe 'patient enrollments form', ->
 #            expect($('.validation_error')).not.toHaveClass('invisible')
 #            expect($('.validation_error')).toHaveText('Enter a valid password.')
 
-        describe 'for a password with one space not on either end', ->
-          it 'shows the next button is enabled', ->
-            spyAdvance = spyOn(progressBar, 'advance')
-            $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw rd')
-            $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw rd')
-            $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
-            expect($('#next-password')).not.toHaveClass('disabled')
-
-        describe 'for a valid input', ->
-          it 'advances to the security question page', ->
-            spyAdvance = spyOn(progressBar, 'advance')
-            $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw0rd')
-            $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw0rd')
-            $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
-            $(event.selector).trigger event
-            expect($('.progress-indicator').find('.incomplete').length).toEqual 2
-            expect($('#security_question')).toHaveClass('active')
-            expect(spyAdvance.calls.count()).toEqual 1
-
-          it 'shows the password page not as active', ->
-            validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-            $(event.selector).trigger event
-            expect($('#password')).not.toHaveClass('active')
-
-          it 'displays the "Create account" button disabled', ->
-            validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-            $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
-            $(event.selector).trigger event
-            expect($('#create-account')).toHaveClass('disabled')
-
-    sharedBehaviorForEvent(jQuery.Event('click', name: 'next button click', selector: '#next-password'))
+      describe 'for a password with one space not on either end', ->
+        it 'shows the next button is enabled', ->
+          spyAdvance = spyOn(progressBar, 'advance')
+          $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw rd')
+          $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw rd')
+          $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
+          expect($('#next-password')).not.toHaveClass('disabled')
+      describe 'for a valid input', ->
+        it 'advances to the security question page', ->
+          spyAdvance = spyOn(progressBar, 'advance')
+          $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw0rd')
+          $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw0rd')
+          $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
+          $('#next-password').trigger 'click'
+          expect($('.progress-indicator').find('.incomplete').length).toEqual 2
+          expect($('#security_question')).toHaveClass('active')
+          expect(spyAdvance.calls.count()).toEqual 1
+        it 'shows the password page not as active', ->
+          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+          $('#next-password').trigger 'click'
+          expect($('#password')).not.toHaveClass('active')
+        it 'displays the "Create account" button disabled', ->
+          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
+          $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
+          $('#next-password').trigger 'click'
+          expect($('#create-account')).toHaveClass('disabled')
 
   #TODO BUG - MCC-151111
   #    describe 'back arrow', ->
