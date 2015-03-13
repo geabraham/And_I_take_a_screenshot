@@ -36,9 +36,6 @@ When(/I invite a user with the following attributes:$/) do |table|
   initials = attributes.find {|attr| attr['attribute_name'] == 'initials'}
   fill_in 'patient_enrollment_initials', with: initials ? initials['attribute_value'] : nil
 
-  email = attributes.find {|attr| attr['attribute_name'] == 'email'}
-  fill_in 'patient_enrollment_email', with: email ? email['attribute_value'] : nil
-
   subject = attributes.find {|attr| attr['attribute_name'] == 'subject'}
   select subject['attribute_value'], from: 'patient_enrollment_subject'
 
@@ -46,7 +43,7 @@ When(/I invite a user with the following attributes:$/) do |table|
   select country_language['attribute_value'], from: 'patient_enrollment_country_language'
   
   params_for_patient_enrollment = { patient_enrollment:
-    { email: email['attribute_value'],
+    { email: '',
       initials: initials['attribute_value'],
       country_code: "ISR",
       language_code: "ara",
@@ -58,7 +55,7 @@ When(/I invite a user with the following attributes:$/) do |table|
   
   @returned_enrollment = 
     { initials: initials['attribute_value'],
-      email: email['attribute_value'],
+      email: '',
       enrollment_type: "in-person",
       activation_code: "6VK7AW",
       language_code: "ara",
