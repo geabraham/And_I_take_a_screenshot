@@ -1,7 +1,7 @@
 #invite-form {
   .form-group {
     margin-right: 10px;
-    width: 170px;
+    width: 215px;
     label { display: block; }
     select, input { width: 100%; }
   }
@@ -22,4 +22,14 @@
 
 .light-grey-border {
   border: 1px solid #ccc;
+}
+
+@media (max-width: 1200px) {
+  #invite-form {
+    .form-group {
+      display: block;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+  }
 }
