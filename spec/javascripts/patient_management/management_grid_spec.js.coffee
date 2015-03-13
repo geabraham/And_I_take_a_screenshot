@@ -34,7 +34,7 @@ describe 'patient management grid', ->
       expect($('tr.patient_row').first().children().eq(4).text()).toEqual(subjectData.activation_code)
 
     it 'has the state', ->
-      expect($('tr.patient_row').first().children().eq(5).text()).toEqual(subjectData.statef)
+      expect($('tr.patient_row').first().children().eq(5).text()).toEqual(subjectData.state)
 
   describe 'pagination controls', ->
     describe 'when disabled', -> #share examples here
