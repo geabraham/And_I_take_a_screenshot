@@ -90,7 +90,7 @@ describe 'patient enrollments form', ->
         expect($('.back-arrow')).toHaveClass('hidden')
         expect(progressBarSpy.calls.any()).toEqual false
 
-     describe 'next button click', ->
+    describe 'next button click', ->
        #TODO localization for text not setup for tests
 #       describe 'for a blank input', ->
 #         it 'shows a validation error', ->
@@ -118,22 +118,35 @@ describe 'patient enrollments form', ->
        #            expect($('.validation_error')).not.toHaveClass('invisible')
        #            expect($('.validation_error')).toHaveText('Enter a valid email.')
        #
-       describe 'for missing confirmation email', ->
-         it 'shows the next button is disabled', ->
-           $('#patient_enrollment_login_confirmation').val("not_an_email")
-           $('#patient_enrollment_login, #patient_enrollment_login_confirmation').trigger 'keyup'
+      describe 'for missing confirmation email', ->
+        beforeEach ->
+          $('#patient_enrollment_login_confirmation').val("not_an_email")
+          $('#patient_enrollment_login, #patient_enrollment_login_confirmation').trigger 'keyup'
+
+        it 'does not enable the next button', ->
            expect($('#next-email')).toHaveClass('disabled')
-       describe 'for a valid input', ->
-         it 'advances to the password page', ->
-           passwordRulesSpy = spyOn(window, 'addPasswordRules')
-           spyAdvance = spyOn(progressBar, 'advance')
-           $('#patient_enrollment_login').val("gee@g.com")
-           $('#patient_enrollment_login_confirmation').val("gee@g.com")
-           $('#next-email').trigger 'click'
-           expect(addPasswordRules).toHaveBeenCalled()
-           expect($('#password')).toHaveClass('active')
-           expect($('.progress-indicator').find('.incomplete').length).toEqual 2
-           expect(spyAdvance.calls.count()).toEqual 1
+
+        it 'remains on the email page', ->
+          expect($('#email')).toHaveClass('active')
+          expect($('#password')).not.toHaveClass('active')
+
+      describe 'for a valid input', ->
+        beforeEach ->
+          passwordRulesSpy = spyOn(window, 'addPasswordRules')
+          spyAdvance = spyOn(progressBar, 'advance')
+          $('#patient_enrollment_login').val("gee@g.com")
+          $('#patient_enrollment_login_confirmation').val("gee@g.com")
+          $('#next-email').trigger 'click'
+
+        it 'advances to the password page', ->
+          expect($('#password')).toHaveClass('active')
+
+        it 'advances the progress bar', ->
+          expect($('.progress-indicator').find('.incomplete').length).toEqual 2
+          expect(spyAdvance.calls.count()).toEqual 1
+
+        it 'adds validation rules for the password page', ->
+          expect(addPasswordRules).toHaveBeenCalled()
 
   describe 'password page', ->
     beforeEach ->
