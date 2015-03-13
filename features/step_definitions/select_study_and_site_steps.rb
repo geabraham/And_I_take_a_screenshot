@@ -9,9 +9,7 @@ Given(/^patient management is a part of the following (studies|sites):$/) do |ob
 end
 
 Given(/^I am logged in$/) do
-  if !@user_uuid
-    @user_uuid = SecureRandom.uuid
-  end
+  @user_uuid ||= SecureRandom.uuid
   user_email = 'lt-commander-data@gmail.com'
   cas_extra_attributes = {user_uuid: @user_uuid, user_email: user_email}.stringify_keys
   session = Capybara::Session.new(:culerity)
