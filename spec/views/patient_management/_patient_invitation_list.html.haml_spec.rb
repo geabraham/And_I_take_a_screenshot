@@ -25,6 +25,10 @@ describe 'patient_management/_patient_invitation_list' do
       expect(rendered).to have_selector('th', text: t("patient_management.enrollment_grid.headers.status"))
     end
 
+    it 'email header is hidden' do
+      expect(rendered).to have_selector('th', text: t("patient_management.enrollment_grid.headers.email"), visible: false)
+    end
+
     it 'displays the total patient enrollments count' do
       expect(rendered).to have_selector('#total-count', text: 0)
     end
