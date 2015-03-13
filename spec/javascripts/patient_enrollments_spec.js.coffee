@@ -209,7 +209,7 @@ describe 'patient enrollments form', ->
 #            expect($('.validation_error')).toHaveText('Enter a valid password.')
 
       describe 'for a password with one space not on either end', ->
-        it 'shows the next button is enabled', ->
+        it 'enables the next button', ->
           spyAdvance = spyOn(progressBar, 'advance')
           $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw rd')
           $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw rd')
@@ -227,15 +227,10 @@ describe 'patient enrollments form', ->
           expect($('#security_question')).toHaveClass('active')
           expect(spyAdvance.calls.count()).toEqual 1
 
-        it 'shows the password page not as active', ->
+        it 'hides the password page', ->
           validSpy= spyOn($.fn, 'valid').and.returnValue(true)
           $('#next-password').trigger 'click'
           expect($('#password')).not.toHaveClass('active')
-        it 'displays the "Create account" button disabled', ->
-          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-          $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
-          $('#next-password').trigger 'click'
-          expect($('#create-account')).toHaveClass('disabled')
 
   #TODO BUG - MCC-151111
   #    describe 'back arrow', ->
