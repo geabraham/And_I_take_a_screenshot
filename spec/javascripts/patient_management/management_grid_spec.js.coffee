@@ -1,7 +1,41 @@
 describe 'patient management grid', ->  
   beforeEach ->
     loadFixtures 'patient_management/grid.html'
-    
+
+  describe 'new patient enrollment row', ->
+    subjectData =
+      created_at: new Date()
+      subject_id: 'Subject-001'
+      email: 'subject@gmail.com'
+      initials: 'SB'
+      activation_code: '93GX22'
+      state: 'invited'
+
+    beforeEach ->
+      updateGrid(subjectData)
+
+    it 'has created_at', ->
+      expect($('tr.patient_row').first().children().eq(0).text()).toEqual(subjectData.created_at.toString())
+
+    it 'has subject_id', ->
+      expect($('tr.patient_row').first().children().eq(1).text()).toEqual(subjectData.subject_id)
+
+    describe 'email', ->
+      it 'has the email', ->
+        expect($('tr.patient_row').first().children().eq(2).text()).toEqual(subjectData.email)
+
+      it 'hides the email', ->
+        expect($('tr.patient_row').first().children().eq(2)).toHaveClass('hidden')
+
+    it 'has initials', ->
+      expect($('tr.patient_row').first().children().eq(3).text()).toEqual(subjectData.initials)
+
+    it 'has the activation_code', ->
+      expect($('tr.patient_row').first().children().eq(4).text()).toEqual(subjectData.activation_code)
+
+    it 'has the state', ->
+      expect($('tr.patient_row').first().children().eq(5).text()).toEqual(subjectData.statef)
+
   describe 'pagination controls', ->
     describe 'when disabled', -> #share examples here
       it 'stays on the current page', ->
