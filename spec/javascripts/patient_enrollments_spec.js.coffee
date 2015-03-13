@@ -1,6 +1,5 @@
 describe 'patient enrollments form', ->
   progressBarSpy = undefined
-  confirmTermsSpy = undefined
   confirmSpy = undefined
   validSpy = undefined
   spyAdvance = undefined
@@ -123,7 +122,6 @@ describe 'patient enrollments form', ->
          it 'shows the next button is disabled', ->
            $('#patient_enrollment_login_confirmation').val("not_an_email")
            $('#patient_enrollment_login, #patient_enrollment_login_confirmation').trigger 'keyup'
-#           expect(progressBarSpy.calls.any()).toEqual false
            expect($('#next-email')).toHaveClass('disabled')
        describe 'for a valid input', ->
          it 'advances to the password page', ->
@@ -200,7 +198,6 @@ describe 'patient enrollments form', ->
 
         describe 'for a password with one space not on either end', ->
           it 'shows the next button is enabled', ->
-#            validSpy= spyOn($form,'valid').and.returnValue(true)
             spyAdvance = spyOn(progressBar, 'advance')
             $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw rd')
             $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw rd')
@@ -222,17 +219,14 @@ describe 'patient enrollments form', ->
             validSpy= spyOn($.fn, 'valid').and.returnValue(true)
             $(event.selector).trigger event
             expect($('#password')).not.toHaveClass('active')
-          ##
-          it 'displays the "Create account" button disabled', ->
 
+          it 'displays the "Create account" button disabled', ->
             validSpy= spyOn($.fn, 'valid').and.returnValue(true)
             $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
             $(event.selector).trigger event
             expect($('#create-account')).toHaveClass('disabled')
 
     sharedBehaviorForEvent(jQuery.Event('click', name: 'next button click', selector: '#next-password'))
-  #TODO Enter button not working
-  #    sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
 
   #TODO BUG - MCC-151111
   #    describe 'back arrow', ->
@@ -305,24 +299,7 @@ describe 'patient enrollments form', ->
         it 'is enabled', ->
           $('#patient_enrollment_security_question').val(1)
           $('#patient_enrollment_answer').val("....")
-          #            jasmine.createSpyObj('reg-form',['valid']).andReturn(true)
-          #            spyOn(reg-form,'valid').andReturn(true);
           $('#patient_enrollment_answer').trigger 'keyup'
           expect($('#create-account')).not.toHaveClass('disabled')
-
-  #TODO Tests not working
-  #  describe 'advanceProgressBar', ->
-  #    it 'fills in the next segment of the bar', ->
-  #      advanceProgressBarSpy.and.callThrough()
-  #      expect($('.progress-bar-default').length).toEqual 1
-  #      advanceProgressBar()
-  #      expect($('.progress-bar-default').length).toEqual 2
-  #
-  #  describe 'reverseProgressBar', ->
-  #    it 'empties the last filled segment of the bar', ->
-  #      reverseProgressBarSpy.and.callThrough()
-  #      expect($('.progress-bar-default').length).toEqual 1
-  #      do reverseProgressBar
-  #      expect($('.progress-bar-default').length).toEqual 0
 
   return
