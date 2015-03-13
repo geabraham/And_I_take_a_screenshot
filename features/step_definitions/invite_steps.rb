@@ -27,11 +27,11 @@ end
 
 When(/^I navigate to patient management via study "(.*?)" and site "(.*?)"$/) do |_, site_name|
   @current_site_object = study_or_site_object(site_name, 'sites')
-  @current_path = "/patient_management?study_uuid=#{@current_site_object['study_uuid']}&study_site_uuid=#{@current_site_object['uuid']}"
+  @current_path = "/patient_management?study_site_uuid=#{@current_site_object['uuid']}&study_uuid=#{@current_site_object['study_uuid']}"
   visit @current_path
 end
 
-When(/^I invite a user with the following attributes:$/) do |table|
+When(/I invite a user with the following attributes:$/) do |table|
   attributes = table.hashes
   initials = attributes.find {|attr| attr['attribute_name'] == 'initials'}
   fill_in 'patient_enrollment_initials', with: initials ? initials['attribute_value'] : nil
@@ -66,7 +66,7 @@ When(/^I invite a user with the following attributes:$/) do |table|
       tou_accepted_at: nil,
       study_uuid: @current_site_object['study_uuid'],
       study_site_uuid: @current_site_object['uuid'],
-      subject_id: "MN003",
+      subject_id: subject['attribute_value'],
       created_at: "2015-02-27 20:52:46 UTC" }
   last_response = double('last object').tap { |lr| allow(lr).to receive(:body).and_return(@returned_enrollment.to_json) }
   response_object = double('response object').tap { |ro| allow(ro).to receive(:last_response).and_return(last_response) }
@@ -76,8 +76,6 @@ When(/^I invite a user with the following attributes:$/) do |table|
     .and_return(response_object)
   allow(response_object).to receive(:is_a?).with(Euresource::PatientEnrollment).and_return(true)
   
-  click_on 'Invite'
-  find('tr.patient_row') # this step will block until AJAX events complete and the row has rendered
 end
 
 When(/^I select a subject but I don't select a country \/ language pair$/) do
@@ -92,26 +90,35 @@ When(/^I invite a user with all required attributes$/) do
   select country_language_string, from: 'patient_enrollment_country_language'
 end
 
-When(/^the backend service returns an error response$/) do
+When(/^the backend service returns an error response due to subject id already existing$/) do
   mock_invite_error_response_with(StandardError.new())
   click_on 'Invite'
 end
 
-When(/^the backend service does not respond$/) do
+When(/^the backend service does not respond due to imedidata or subject service being down$/) do
   mock_invite_error_response_with(Faraday::Error::ConnectionFailed.new('Cannot connect.'))
   click_on 'Invite'
 end
 
-When(/^I navigate to patient management for a study site for which I am not authorized$/) do
+When(/^I am logged in but not authorized to access a study site$/) do
+  step %Q(I am logged in)
   site = @study_sites.sample
-  site_name, study_name = site['name'], @studies.find{|s| s['uuid'] == site['study_uuid']}['name']
-
   if @user_uuid
     mock_study_sites_request = IMedidataClient::StudySitesRequest.new(user_uuid: @user_uuid, study_uuid: site['study_uuid'])
     stub_request(:get, IMED_BASE_URL + mock_study_sites_request.path).to_return(status: 404, body: 'Not found')
   end
+end
 
-  step %Q(I navigate to patient management via study "#{study_name}" and site "#{site_name}")
+When(/^I navigate to patient management for a study site by directly placing the url in the browser$/) do
+  @study_name='TestStudy001'
+  @site_name='DeepSpaceStation'
+  step %Q(I navigate to patient management via study "#{@study_name}" and site "#{@site_name}")
+end
+
+When(/^I navigate to patient management for a study site for which I am not authorized$/) do
+  steps %Q{And I am authorized to manage patients for study "TestStudy001"
+           And I navigate to patient management for a study site by directly placing the url in the browser
+  }
 end
 
 Then(/^I am unable to invite a patient$/) do

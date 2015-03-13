@@ -9,7 +9,8 @@ Given(/^patient management is a part of the following (studies|sites):$/) do |ob
 end
 
 Given(/^I am logged in$/) do
-  @user_uuid, user_email = SecureRandom.uuid, 'lt-commander-data@gmail.com'
+  @user_uuid ||= SecureRandom.uuid
+  user_email = 'lt-commander-data@gmail.com'
   cas_extra_attributes = {user_uuid: @user_uuid, user_email: user_email}.stringify_keys
   session = Capybara::Session.new(:culerity)
   page.set_rack_session(cas_extra_attributes: cas_extra_attributes)
@@ -26,6 +27,7 @@ Given(/^I am not logged in$/) do
 end
 
 Given(/^I am authorized to manage patients for (?:study|studies) "(.*?)"$/) do |studies|
+  step %Q(I am logged in)
   my_studies = studies.split(', ')
   my_studies = @studies.select {|s| my_studies.include?(s['name'])}
   mock_studies_request = IMedidataClient::StudiesRequest.new(user_uuid: @user_uuid)
@@ -83,8 +85,9 @@ Then(/^I should see the message "(.*?)"$/) do |message|
 end
 
 Then(/^I should be redirected to the login page$/) do
-  url = "#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{@current_path}"
-  "#{CAS_BASE_URL}/login?service=#{CGI.escape(url)}"
+  url = "http://#{Capybara.current_session.server.host}:#{Capybara.current_session.server.port}#{@current_path}"
+  cas_url="#{CAS_BASE_URL}/login?service=#{CGI.escape(url)}"
+  expect(current_url).to eq(cas_url)
 end
 
 Then(/^I should see a not found error page$/) do
