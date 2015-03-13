@@ -95,7 +95,7 @@ Feature: Patient Registration
   @PB151748-001
   @Headed
   @PatientFlow
-  Scenario: A user should be able to submit an activation code using the Enter key
+  Scenario: A user should be able to register for a study using the Enter key
     When I enter a valid activation code
     And I submit the activation code using the Enter key
     And I accept the TOU/DPN # this should also be tested with the Enter button, but for this step it fails on CI. why?
