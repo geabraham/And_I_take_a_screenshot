@@ -293,24 +293,25 @@ describe 'patient enrollments form', ->
     #          $('.back-arrow').trigger 'click'
     #          expect($('#security_question')).not.toHaveClass('active')
 
-      describe 'when security question is blank', ->
-        it 'is disabled', ->
-          $('#patient_enrollment_answer').val("the worst band is...")
-          $('#patient_enrollment_answer').trigger 'keyup'
-          expect($('#create-account')).toHaveClass('disabled')
-
-      describe 'when security answer is whitespace', ->
-        it 'is disabled', ->
-          $('#patient_enrollment_security_question').val("What's the worst band in the world?")
-          $('#patient_enrollment_answer').val("   ")
-          $('#patient_enrollment_answer').trigger 'keyup'
-          expect($('#create-account')).toHaveClass('disabled')
-          
-      describe 'when both fields are filled', ->
-        it 'is enabled', ->
-          $('#patient_enrollment_security_question').val(1)
-          $('#patient_enrollment_answer').val("....")
-          $('#patient_enrollment_answer').trigger 'keyup'
-          expect($('#create-account')).not.toHaveClass('disabled')
+      describe 'create account button', ->
+        describe 'when security question is blank', ->
+          it 'is disabled', ->
+            $('#patient_enrollment_answer').val("the worst band is...")
+            $('#patient_enrollment_answer').trigger 'keyup'
+            expect($('#create-account')).toHaveClass('disabled')
+  
+        describe 'when security answer is whitespace', ->
+          it 'is disabled', ->
+            $('#patient_enrollment_security_question').val("What's the worst band in the world?")
+            $('#patient_enrollment_answer').val("   ")
+            $('#patient_enrollment_answer').trigger 'keyup'
+            expect($('#create-account')).toHaveClass('disabled')
+  
+        describe 'when both fields are filled', ->
+          it 'is enabled', ->
+            $('#patient_enrollment_security_question').val(1)
+            $('#patient_enrollment_answer').val("....")
+            $('#patient_enrollment_answer').trigger 'keyup'
+            expect($('#create-account')).not.toHaveClass('disabled')
 
   return
