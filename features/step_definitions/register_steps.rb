@@ -80,7 +80,7 @@ When(/^I submit registration info as a new subject$/) do
   }
 end
 
-Then(/^the request to create account is successful(| using the Enter key)$/) do |control|
+When(/^the request to create account is successful(| using the Enter key)$/) do |control|
   response_double = double('response').tap {|res| allow(res).to receive(:status).and_return(200)}
 
   allow(Euresource::PatientEnrollments).to receive(:invoke)
