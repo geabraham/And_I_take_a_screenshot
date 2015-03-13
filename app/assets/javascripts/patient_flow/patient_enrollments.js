@@ -31,7 +31,7 @@ $(function () {
       $('#patient_enrollment_login, #patient_enrollment_login_confirmation').on('keyup', function() {
         if($form.valid()) {
 
-          $('#next-email').removeClass('disabled').focus();
+          $('#next-email').removeClass('disabled');
         }
       });
     }
@@ -55,7 +55,7 @@ $(function () {
     $('#patient_enrollment_password, #patient_enrollment_password_confirmation').on('keyup', function() {
       if($form.valid()) {
         // hideErrors();
-        $('#next-password').removeClass('disabled').focus();
+        $('#next-password').removeClass('disabled');
       }
     });
   });
