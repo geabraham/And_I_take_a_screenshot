@@ -120,7 +120,7 @@ Then(/^I should see a representation of the error "(.*?)" from the (back\-end se
   end
 end
 
-Then(/^I press the Enter key$/) do
+When(/^I press the Enter key$/) do
   driver = Capybara.current_session.driver
   driver.browser.action.send_keys(:enter).perform
 end

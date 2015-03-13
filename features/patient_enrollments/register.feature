@@ -98,7 +98,7 @@ Feature: Patient Registration
   Scenario: A user should be able to register for a study using the Enter key
     When I enter a valid activation code
     And I submit "activation code" information using the Enter key
-    And I accept the TOU/DPN 
+    And I accept the TOU/DPN
     # this should also be tested with the Enter button, but for this step it fails on CI. why?
     Then I should see the "email" page
     Then I enter email information for a new subject
