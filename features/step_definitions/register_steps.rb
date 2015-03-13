@@ -120,10 +120,6 @@ Then(/^I should see a representation of the error "(.*?)" from the (back\-end se
   end
 end
 
-Then(/^I should be on the welcome page$/) do
-  assert_text('Registration Details')
-end
-
 Then(/^I press the Enter key$/) do
   driver = Capybara.current_session.driver
   driver.browser.action.send_keys(:enter).perform
