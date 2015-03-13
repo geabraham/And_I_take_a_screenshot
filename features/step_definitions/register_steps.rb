@@ -50,8 +50,7 @@ end
 
 When(/^I submit "(.*?)" information(| using the Enter key)$/) do |screen, control|
   if control == ' using the Enter key'
-    driver = Capybara.current_session.driver
-    driver.browser.action.send_keys(:enter).perform
+    step 'I press the Enter key'
   else
     if screen == 'activation code'
       click_on 'Activate'
@@ -89,8 +88,7 @@ Then(/^the request to create account is successful(| using the Enter key)$/) do 
     .and_return(response_double)
 
   if control == ' using the Enter key'
-    driver = Capybara.current_session.driver
-    driver.browser.action.send_keys(:enter).perform
+    step 'I press the Enter key'
   else
     click_on I18n.t("registration.security_question_form.btn_create")
   end
