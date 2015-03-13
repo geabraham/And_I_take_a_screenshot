@@ -36,15 +36,6 @@ When(/^the back\-end service returns "(.*?)"$/) do |state|
   # Don't need to do anything
 end
 
-When(/^I submit the activation code(| using the Enter key)$/) do |control|
-  if control == ' using the Enter key'
-    driver = Capybara.current_session.driver
-    driver.browser.action.send_keys(:enter).perform
-  else
-    click_on 'Activate'
-  end
-end
-
 When(/^I accept the TOU\/DPN$/) do
    # Move past the instructional steps page
   click_on I18n.t("application.btn_next")
@@ -57,12 +48,16 @@ When(/^I accept the TOU\/DPN$/) do
   alert.send(:accept)
 end
 
-When(/^I submit "(.*?)" information(| using the Enter key)$/) do |_, control|
+When(/^I submit "(.*?)" information(| using the Enter key)$/) do |screen, control|
   if control == ' using the Enter key'
     driver = Capybara.current_session.driver
     driver.browser.action.send_keys(:enter).perform
   else
-    click_on I18n.t("application.btn_next")
+    if screen == 'activation code'
+      click_on 'Activate'
+    else
+      click_on I18n.t("application.btn_next")
+    end
   end
 end
 
