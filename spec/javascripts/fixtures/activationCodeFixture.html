@@ -1,14 +1,13 @@
+<script src='/assets/jquery-readyselector.js'></script>
 <script src='/assets/patient_flow/activation_code.js'></script>
 
-<div id="activation_code">
-  <img />
-  <h2 id="code_enter">Please enter your activation code</h2>
-  <div id="code_instruction">If you have already registered, please return to the Patient Cloud App. If you have not registered and do not have an activation code or email invite please contact your doctor.</div>
-  <!-- we'll test the inputs here by loading them separately per test -->
+<div class="activation-header" />
+<div class="activation-code-content">
+  <h3>Please enter your activation code</h3>
+  <p>If you have already registered, please return to the Patient Cloud App. If you have not registered and do not have an activation code or email invite please contact your provider.</p>
   <div class="activation-code" >
-    <input id="code" maxlength="6" value="heyman" />
+    <input id="code" tabindex="1" maxlength="6" value="heyman" />
   </div>
-  
-  <div class="validation_error">Invalid code. Contact your provider.</div>
   <a class="btn btn-primary btn-block disabled" id="activate-button" href="" role="button">Activate</a>
+  <div class="validation_error" style="display: none;">Incorrect code. Please contact your provider.</div>
 </div>
