@@ -1,3 +1,5 @@
+require 'imedidata/request.rb'
+
 # request = IMedidataClient::StudySitesRequest.new(user_uuid: '0e39dd40-9fe2-11df-a531-12313900d531', study_uuid: 'fda08b50-9fe1-11df-a531-12313900d531')
 #
 # pp JSON.parse(request.response.body)
@@ -25,6 +27,6 @@ module IMedidataClient
 
     def http_method
       :get
-    end 
+    end
   end
 end
