@@ -35,7 +35,7 @@ Feature: Patient Management Study Site Selection
       | DeepSpaceStation     |
       | GalacticQuadrantBeta |
     When I select "DeepSpaceStation" from the list of sites
-    Then I should be see an active launch button
+    Then I should see an active launch button
 
   @Validation
   @Release2015.1.0
@@ -51,7 +51,7 @@ Feature: Patient Management Study Site Selection
       | DeepSpaceStation     |
       | GalacticQuadrantBeta |
     When I select "GalacticQuadrantBeta" from the list of sites
-    Then I should be see an active launch button
+    Then I should see an active launch button
 
   @Validation
   @Release2015.1.0
