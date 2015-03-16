@@ -56,11 +56,17 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
   end
 
   it 'has a subject initials field' do
-    expect(rendered).to have_selector('input#patient_enrollment_email')
+    expect(rendered).to have_selector('input#patient_enrollment_initials')
   end
 
-  it 'has a subject email field' do
-    expect(rendered).to have_selector('input#patient_enrollment_initials')
+  describe 'email field' do
+    it 'is present' do
+      expect(rendered).to have_selector('input#patient_enrollment_email')
+    end
+
+    it 'is hidden' do
+      expect(rendered).to have_selector('input#patient_enrollment_email', visible: false)
+    end
   end
 
   describe 'submit button' do

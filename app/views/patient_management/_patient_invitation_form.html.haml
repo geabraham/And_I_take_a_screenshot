@@ -11,7 +11,7 @@
       .form-group.required
         = f.label :country_language, t("patient_management.invitation_form.country_language")
         = f.select :country_language, @tou_dpn_agreements, {include_blank: t("patient_management.invitation_form.country_language")}, {class: 'form-control'}
-      .form-group
+      .form-group.hidden
         = f.label :email, t("patient_management.invitation_form.subject_email")
         = f.email_field :email, {class: 'form-control'}
       .form-group

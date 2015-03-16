@@ -70,7 +70,7 @@ $(function() {
 var renderEnrollments = function(pageNumber) {
   $('.validation_error').addClass('invisible');
   
-  var compiled = _.template('<tr class="patient_row"><td><%= created_at %></td><td><%= subject_id %></td><td><%= email %></td><td><%= initials %></td><td><%= activation_code %></td><td><%= state %></td></tr>'),
+  var compiled = _.template('<tr class="patient_row"><td><%= created_at %></td><td><%= subject_id %></td><td class="hidden"><%= email %></td><td><%= initials %></td><td><%= activation_code %></td><td><%= state %></td></tr>'),
       first = 0,
       last = 0;
   

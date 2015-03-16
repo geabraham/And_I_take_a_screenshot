@@ -57,7 +57,6 @@ Feature: A provider can invite a user to participate in a study
     When I invite a user with the following attributes:
       | attribute_name   | attribute_value             |
       | initials         | LCD                         |
-      | email            | lt-commander-data@mdsol.com |
       | subject          | Subject001                  |
       | country_language | Israel / Arabic             |
     Then I should see a row for "Subject001" with an obscured email, an activation code, an invited status, a formatted date, subject and initials
