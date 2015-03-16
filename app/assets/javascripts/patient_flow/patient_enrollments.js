@@ -1,4 +1,4 @@
-$(function () {
+$('.patient-enrollment').ready(function () {
   var $form = $('#reg-form');
   // landing page - next button
   $('#next-landing').on('click', function(e) {

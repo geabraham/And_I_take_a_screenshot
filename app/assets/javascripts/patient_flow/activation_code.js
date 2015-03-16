@@ -1,4 +1,4 @@
-$(function() {
+$('.activation-code-content').ready(function() {
   if ($('#code').length > 0) {
     handleInput(); // fix for MCC-151106
   }
