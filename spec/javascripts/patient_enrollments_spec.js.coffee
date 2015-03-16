@@ -121,27 +121,23 @@ describe 'patient enrollments form', ->
 
   describe 'password page', ->
     beforeEach ->
-      $('#email').addClass('active')
-      $('#next-email').trigger 'click'
+      $('#password').addClass('active')
       addPasswordRules()
 
     describe 'next button click', ->
     #new specs here
 
       describe 'for a valid input', ->
-        it 'advances to the security question page', ->
-          spyAdvance = spyOn(progressBar, 'advance')
+        beforeEach ->
           $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw0rd')
           $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw0rd')
-          $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
           $('#next-password').trigger 'click'
+
+        it 'advances to the security question page', ->
           expect($('.progress-indicator').find('.incomplete').length).toEqual 2
           expect($('#security_question')).toHaveClass('active')
-          expect(spyAdvance.calls.count()).toEqual 1
 
         it 'hides the password page', ->
-          validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-          $('#next-password').trigger 'click'
           expect($('#password')).not.toHaveClass('active')
 
   #TODO BUG - MCC-151111
@@ -180,7 +176,6 @@ describe 'patient enrollments form', ->
     beforeEach ->
       $('#password').addClass('active')
       $('#next-password').trigger 'click'
-
 
     #describe 'back arrow', ->
     #  describe 'on click', ->

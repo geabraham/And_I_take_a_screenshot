@@ -13,7 +13,7 @@ $(function () {
     if (e.which === 13) {
       $('.active .btn').click();
     }
-  });
+  }); 
 
   // agreement
   $('#next-agree').on('click', function(e) {
