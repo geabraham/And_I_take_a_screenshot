@@ -258,10 +258,10 @@ describe 'patient enrollments form', ->
       $('#next-password').trigger 'click'
 
 
-    describe 'back arrow', ->
-      describe 'on click', ->
-        it 'returns to the previous page', ->
-          $('.back-arrow').trigger 'click'
+    #describe 'back arrow', ->
+    #  describe 'on click', ->
+    #    it 'returns to the previous page', ->
+    #      $('.back-arrow').trigger 'click'
     #          expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
     #TODO Add progress bar test
     #          expect(reverseProgressBarSpy.calls.count()).toEqual 1
