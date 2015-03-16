@@ -91,33 +91,7 @@ describe 'patient enrollments form', ->
         expect(progressBarSpy.calls.any()).toEqual false
 
     describe 'next button click', ->
-       #TODO localization for text not setup for tests
-#       describe 'for a blank input', ->
-#         it 'shows a validation error', ->
-#           debugger
-#           spyAdvance = spyOn(progressBar, 'advance')
-#           $('#patient_enrollment_login').val(" ")
-#           $('#patient_enrollment_login_confirmation').val(" ")
-#           $('#patient_enrollment_login, #patient_enrollment_login_confirmation').trigger 'keyup'
-#           $(event.selector).trigger event
-#      #TODO This is because on the page if we do click from javascript for a disabled button it works.
-#           # This could be because validation on click is removed RELATED TO BUG - MCC-151748
-#           #            expect(spyAdvance.calls.count()).toEqual 0
-#           #            expect(progressBarSpy.calls.any()).toEqual false
-#           expect($('.validation_error')).not.toHaveClass('invisible')
-#           expect($('.validation_error')).toHaveText('Enter a valid email.')
-       #TODO - MCC-151926
-       #        describe 'for an invalid input', ->
-       #          it 'shows a validation error', ->
-       #            $('#patient_enrollment_login').val("not_an_email")
-       #            $('#patient_enrollment_login_confirmation').val("not_an_email")
-       #            $('#patient_enrollment_login, #patient_enrollment_login_confirmation').trigger 'keyup'
-       ##            $(event.selector).trigger event
-       ##            expect(carouselSpy.calls.any()).toEqual false
-       ##            expect(advanceProgressBarSpy.calls.any()).toEqual false
-       #            expect($('.validation_error')).not.toHaveClass('invisible')
-       #            expect($('.validation_error')).toHaveText('Enter a valid email.')
-       #
+      # new specs here!
       describe 'for missing confirmation email', ->
         beforeEach ->
           $('#patient_enrollment_login_confirmation').val("not_an_email")
@@ -152,57 +126,7 @@ describe 'patient enrollments form', ->
       addPasswordRules()
 
     describe 'next button click', ->
-    #TODO BUG - Password has same value does not throw error
-#        describe 'for a blank input', ->
-#          it 'shows a validation error', ->
-#            debugger
-#            spyAdvance = spyOn(progressBar, 'advance')
-#            $('#patient_enrollment_password').val("")
-#            $('#patient_enrollment_password_confirmation').val("")
-#            $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
-#            $(event.selector).trigger event
-#            expect($('.validation_error')).not.toHaveClass('invisible')
-#            expect($('.validation_error')).toHaveText('Enter a valid password.')
-    # TODO RELATED TO Validation on Next button(when we click disabled next it goes to next page)
-        #            expect(spyAdvance.calls.count()).toEqual 0
-#     TODO BUG  MCC-152706 - Password has same value does not throw error
-#        describe 'for a weak password', ->
-#          it 'shows a validation error', ->
-#            debugger
-#            $('#patient_enrollment_password').attr('value', 'Notagoodpassword')
-#            $('#patient_enrollment_password_confirmation').attr('value', 'Notagoodpassword')
-#            expect(progressBarSpy.calls.any()).toEqual false
-#            $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
-#            $(event.selector).trigger event
-#            expect($('.validation_error')).not.toHaveClass('invisible')
-#            expect($('.validation_error')).toHaveText('Enter a valid password.')
-
-#        describe 'for a password with leading whitespace', ->
-#          it 'shows a validation error', ->
-#            $('#patient_enrollment_password').attr('value', ' AB4ddPasswrd')
-#            $('#patient_enrollment_password_confirmation').attr('value', ' AB4ddPasswrd')
-#            expect(progressBarSpy.calls.any()).toEqual false
-#            $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
-#            expect($('.validation_error')).not.toHaveClass('invisible')
-#            expect($('.validation_error')).toHaveText('Enter a valid password.')
-#
-#        describe 'for a password with trailing whitespace', ->
-#          it 'shows a validation error', ->
-#            $('#patient_enrollment_password').attr('value', 'AB4ddPasswrd ')
-#            $('#patient_enrollment_password_confirmation').attr('value', 'AB4ddPasswrd ')
-#            expect(progressBarSpy.calls.any()).toEqual false
-#            $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
-#            expect($('.validation_error')).not.toHaveClass('invisible')
-#            expect($('.validation_error')).toHaveText('Enter a valid password.')
-#
-#        describe 'for a password with multiple consecutive spaces', ->
-#          it 'shows a validation error', ->
-#            $('#patient_enrollment_password').attr('value', 'Notag  dpassw0rd')
-#            $('#patient_enrollment_password_confirmation').attr('value', 'Notag  dpassw0rd')
-#            expect(progressBarSpy.calls.any()).toEqual false
-#            $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
-#            expect($('.validation_error')).not.toHaveClass('invisible')
-#            expect($('.validation_error')).toHaveText('Enter a valid password.')
+    #new specs here
 
       describe 'for a valid input', ->
         it 'advances to the security question page', ->
