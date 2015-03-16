@@ -12,5 +12,6 @@
 //
 //= require jquery.validate
 //= require jquery_ujs
+//= require jquery-readyselector
 //= require_tree ./patient_flow
 //= require_tree ./patient_management
