@@ -27,13 +27,6 @@ $(function () {
       $('#email').show().toggleClass('active');
       
       progressBar.advance(1);
-
-      $('#patient_enrollment_login, #patient_enrollment_login_confirmation').on('keyup', function() {
-        if($form.valid()) {
-
-          $('#next-email').removeClass('disabled');
-        }
-      });
     }
   });
 
@@ -42,46 +35,43 @@ $(function () {
     
     e.preventDefault();
     
-    // hide email page
-    $('#email').hide().toggleClass('active');
-    //show password page
-    $('#password').show().toggleClass('active');
-    
-    // $('.back-arrow').removeClass('hidden');
-
-    progressBar.advance(2);
-    // validate password
-    addPasswordRules();
-    $('#patient_enrollment_password, #patient_enrollment_password_confirmation').on('keyup', function() {
-      if($form.valid()) {
-        // hideErrors();
-        $('#next-password').removeClass('disabled');
-      }
-    });
+    if ($form.valid()) {
+      // hide email page
+      $('#email').hide().toggleClass('active');
+      //show password page
+      $('#password').show().toggleClass('active');
+      
+      // $('.back-arrow').removeClass('hidden');
+  
+      progressBar.advance(2);
+      addPasswordRules();
+    }
   });
 
   // password
   $('#next-password').on('click', function(e) {
     e.preventDefault();
-    $('#password').hide().toggleClass('active');
-      //show password page
-    $('#security_question').show().toggleClass('active');
 
-    progressBar.advance(3);
-    $('#patient_enrollment_security_question').focus()
-    $('#patient_enrollment_answer').on('keyup', function() {
-      // validate security question
-      if (validateSecurityQuestions() && $('#reg-form').valid()) {
-        $('#create-account').removeAttr('disabled').removeClass('disabled');
-      } else {
+    if ($form.valid()) {
+      $('#password').hide().toggleClass('active');
+        //show password page
+      $('#security_question').show().toggleClass('active');
+  
+      progressBar.advance(3);
+      $('#patient_enrollment_security_question').focus()
+      $('#patient_enrollment_answer').on('keyup', function() {
+        // validate security question
+        if (validateSecurityQuestions() && $('#reg-form').valid()) {
+          $('#create-account').removeAttr('disabled').removeClass('disabled');
+        } else {
+          $('#create-account').attr('disabled', true).addClass('disabled');
+        }
+      });
+      $('#patient_enrollment_security_question').on('change', function() {
+        $('#patient_enrollment_answer').val('');
         $('#create-account').attr('disabled', true).addClass('disabled');
-      }
-    });
-    $('#patient_enrollment_security_question').on('change', function() {
-      $('#patient_enrollment_answer').val('');
-      $('#create-account').attr('disabled', true).addClass('disabled');
-    });
-
+      });
+    }
   });
 
   $('.back-arrow').on('click', progressBar.reverse);
