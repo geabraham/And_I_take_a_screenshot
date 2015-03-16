@@ -21,7 +21,7 @@ deu:
     btn_continue: "Fortsetzen"
   activation_codes:
     index:
-      code_heading: "Bitte geben Sie Ihren Aktivierungscode ein."
+      code_heading: "Bitte geben Sie Ihren Aktivierungscode ein"
       code_instruction: "Wenn Sie sich bereits registriert haben, so kehren Sie zur Patienten-Cloud-App zurück. Wenden Sie sich an Ihren Anbieter, wenn Sie sich noch nicht registriert haben und weder über einen Aktivierungscode noch über eine E-Mail-Einladung verfügen.\n"
       validation_error: "Dieser Code ist nicht korrekt. Wenden Sie sich an Ihren Anbieter."
   registration:
