@@ -18,22 +18,16 @@ describe 'patient enrollments form', ->
         $('.back-arrow').trigger 'click'
         expect($('.back-arrow')).toHaveClass('hidden')
 
-    sharedBehaviorForEvent = (event) ->
-      describe event.name, ->
-        it 'hides the landing page', ->
-          $(event.selector).trigger event
-          expect($('#landing_page')).not.toHaveClass('active')
-
-        it 'shows the tou_dpn_agreement page', ->
-          $(event.selector).trigger event
-          expect($('#tou_dpn_agreement')).toHaveClass('active')
-
-        it 'shows the Progress bar', ->
-          $(event.selector).trigger event
-          expect($('.progress')).not.toHaveClass('hidden')
-
-    sharedBehaviorForEvent(jQuery.Event('click', name: 'next button click', selector: '#next-landing'))
-    sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
+    describe 'next button click', ->
+      it 'hides the landing page', ->
+        $('#next-landing').trigger 'click'
+        expect($('#landing_page')).not.toHaveClass('active')
+      it 'shows the tou_dpn_agreement page', ->
+        $('#next-landing').trigger 'click'
+        expect($('#tou_dpn_agreement')).toHaveClass('active')
+      it 'shows the Progress bar', ->
+        $('#next-landing').trigger 'click'
+        expect($('.progress')).not.toHaveClass('hidden')
 
   describe 'tou_dpn_page', ->
     beforeEach ->
