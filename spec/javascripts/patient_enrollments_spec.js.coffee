@@ -123,9 +123,6 @@ describe 'patient enrollments form', ->
           $('#patient_enrollment_login_confirmation').val("not_an_email")
           $('#patient_enrollment_login, #patient_enrollment_login_confirmation').trigger 'keyup'
 
-        it 'does not enable the next button', ->
-           expect($('#next-email')).toHaveClass('disabled')
-
         it 'remains on the email page', ->
           expect($('#email')).toHaveClass('active')
           expect($('#password')).not.toHaveClass('active')
@@ -151,7 +148,6 @@ describe 'patient enrollments form', ->
   describe 'password page', ->
     beforeEach ->
       $('#email').addClass('active')
-      $('#next-email').removeClass('disabled')
       $('#next-email').trigger 'click'
       addPasswordRules()
 
@@ -208,14 +204,6 @@ describe 'patient enrollments form', ->
 #            expect($('.validation_error')).not.toHaveClass('invisible')
 #            expect($('.validation_error')).toHaveText('Enter a valid password.')
 
-      describe 'for a password with one space not on either end', ->
-        it 'enables the next button', ->
-          spyAdvance = spyOn(progressBar, 'advance')
-          $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw rd')
-          $('#patient_enrollment_password_confirmation').attr('value', 'ASup3rG00dPassw rd')
-          $('#patient_enrollment_password, #patient_enrollment_password_confirmation').trigger 'keyup'
-          expect($('#next-password')).not.toHaveClass('disabled')
-
       describe 'for a valid input', ->
         it 'advances to the security question page', ->
           spyAdvance = spyOn(progressBar, 'advance')
@@ -267,7 +255,6 @@ describe 'patient enrollments form', ->
   describe 'security question page', ->
     beforeEach ->
       $('#password').addClass('active')
-      $('#next-password').removeClass('disabled')
       $('#next-password').trigger 'click'
 
 
@@ -296,7 +283,6 @@ describe 'patient enrollments form', ->
           submitCallback = jasmine.createSpy('spy').and.returnValue(false)
           $('#reg-form').submit(submitCallback)
           $('#create-account').click()
-
 
         it 'is disabled', ->
           expect($('#create-account')).toHaveClass('disabled')
