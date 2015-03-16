@@ -91,15 +91,32 @@ describe 'patient enrollments form', ->
         expect(progressBarSpy.calls.any()).toEqual false
 
     describe 'next button click', ->
-      # new specs here!
-      describe 'for missing confirmation email', ->
-        beforeEach ->
-          $('#patient_enrollment_login_confirmation').val("not_an_email")
-          $('#patient_enrollment_login, #patient_enrollment_login_confirmation').trigger 'keyup'
+      # it wasn't immediately clear how to hook up i18n with Jasmine,
+      # so for now these specs verify that the correct unlocalized strings appear
+      describe 'for a blank input', ->
+        it 'shows a validation error', ->
+          $('#next-email').trigger 'click'
+          expect($('.validation_error')).toHaveText('[registration.email_form.validation_error]')
 
-        it 'remains on the email page', ->
-          expect($('#email')).toHaveClass('active')
-          expect($('#password')).not.toHaveClass('active')
+      describe 'for missing confirmation email', ->
+        it 'shows a mismatch error', ->
+          $('#patient_enrollment_login').val("gee@g.com")
+          $('#next-email').trigger 'click'
+          expect($('.validation_error')).toHaveText('[registration.email_form.mismatch_error]')
+
+      describe 'for an invalid input', ->
+        it 'shows a validation error', ->
+          $('#patient_enrollment_login').val("not_an_email")
+          $('#patient_enrollment_login_confirmation').val("not_an_email")
+          $('#next-email').trigger 'click'
+          expect($('.validation_error')).toHaveText('[registration.email_form.validation_error]')
+
+      describe 'for a mismatching input', ->
+        it 'shows a misatch error', ->
+          $('#patient_enrollment_login').val("gee@g.com")
+          $('#patient_enrollment_login_confirmation').val("something else!")
+          $('#next-email').trigger 'click'
+          expect($('.validation_error')).toHaveText('[registration.email_form.mismatch_error]')
 
       describe 'for a valid input', ->
         beforeEach ->
@@ -125,7 +142,32 @@ describe 'patient enrollments form', ->
       addPasswordRules()
 
     describe 'next button click', ->
-    #new specs here
+      describe 'for a blank input', ->
+        # it wasn't immediately clear how to hook up i18n with Jasmine,
+        # so for now these specs verify that the correct unlocalized strings appear
+        it 'shows a validation error', ->
+          $('#next-password').trigger 'click'
+          expect($('.validation_error')).toHaveText('[registration.password_form.validation_error]')
+
+      describe 'for a blank confirmation input', ->
+        it 'shows a mismatch error', ->
+          $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw0rd')
+          $('#next-password').trigger 'click'
+          expect($('.validation_error')).toHaveText('[registration.password_form.mismatch_error]')
+
+      describe 'for an invalid input', ->
+        it 'shows a validation error', ->
+          $('#patient_enrollment_password').attr('value', 'weakpass')
+          $('#patient_enrollment_password_confirmation').attr('value', 'weakpass')
+          $('#next-password').trigger 'click'
+          expect($('.validation_error')).toHaveText('[registration.password_form.validation_error]')
+
+      describe 'for mismatching passwords', ->
+        it 'shows a mismatch error', ->
+          $('#patient_enrollment_password').attr('value', 'Password1')
+          $('#patient_enrollment_password_confirmation').attr('value', 'Password2')
+          $('#next-password').trigger 'click'
+          expect($('.validation_error')).toHaveText('[registration.password_form.mismatch_error]')
 
       describe 'for a valid input', ->
         beforeEach ->
