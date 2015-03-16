@@ -1,12 +1,15 @@
-When(/^I enter an? (valid|inactive|not_exist|expired|incorrect) activation code( with a language code of )?([a-z]{3})?$/) do | validity, _, lang|
+When(/^I enter an? (valid|inactive|not_exist|expired|incorrect) activation code(?: with a language code of)?([\sa-z]{4})?$/) do |validity, lang|
   activation_code_response = case validity
   when 'valid'
     allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
     allow(SecurityQuestions).to receive(:find).and_return(@security_questions)
     double('activation_code').tap do |ac|
       if lang
+        lang.lstrip!
         @activation_code_attrs["language_code"] = lang
         I18n.locale = lang
+      else
+        I18n.locale = 'eng'
       end
       allow(ac).to receive(:attributes).and_return(@activation_code_attrs)
     end
@@ -33,27 +36,33 @@ When(/^the back\-end service returns "(.*?)"$/) do |state|
   # Don't need to do anything
 end
 
-When(/^I submit the activation code$/) do
-  click_on "Activate"
-end
-
 When(/^I accept the TOU\/DPN$/) do
-  # Move past the instructional steps page
+   # Move past the instructional steps page
   click_on I18n.t("application.btn_next")
+
+  # now on the TOU/DPN agreement
   assert_text('We think in generalities, but we live in detail.')
+
   click_on I18n.t("application.btn_agree")
   alert = page.driver.browser.switch_to.alert
   alert.send(:accept)
 end
 
-When(/^I submit "(.*?)" information$/) do  |page|
-  click_on I18n.t("application.btn_next")
+When(/^I submit "(.*?)" information(| using the Enter key)$/) do |screen, control|
+  if control == ' using the Enter key'
+    step 'I press the Enter key'
+  else
+    if screen == 'activation code'
+      click_on 'Activate'
+    else
+      click_on I18n.t("application.btn_next")
+    end
+  end
 end
 
 When(/^I enter password information for a new subject$/) do
   fill_in I18n.t("registration.password_form.password_label"), with: @patient_enrollment.password
   fill_in I18n.t("registration.password_form.reenter_label"), with: @patient_enrollment.password
-
 end
 
 When(/I enter security question and answer for a new subject$/) do
@@ -71,14 +80,18 @@ When(/^I submit registration info as a new subject$/) do
   }
 end
 
-Then(/^the request to create account is successful$/) do
+When(/^the request to create account is successful(| using the Enter key)$/) do |control|
   response_double = double('response').tap {|res| allow(res).to receive(:status).and_return(200)}
 
   allow(Euresource::PatientEnrollments).to receive(:invoke)
     .with(:register, {uuid: @patient_enrollment_uuid}, {patient_enrollment: @patient_enrollment_register_params})
     .and_return(response_double)
 
-  click_on I18n.t("registration.security_question_form.btn_create")
+  if control == ' using the Enter key'
+    step 'I press the Enter key'
+  else
+    click_on I18n.t("registration.security_question_form.btn_create")
+  end
 end
 
 Then(/^the back\-end service returns an error "(.*?)"$/) do |error|
@@ -105,6 +118,11 @@ Then(/^I should see a representation of the error "(.*?)" from the (back\-end se
   else
     expect(page).to have_content(error)
   end
+end
+
+When(/^I press the Enter key$/) do
+  driver = Capybara.current_session.driver
+  driver.browser.action.send_keys(:enter).perform
 end
 
 Then(/^I should be registered for a study$/) do

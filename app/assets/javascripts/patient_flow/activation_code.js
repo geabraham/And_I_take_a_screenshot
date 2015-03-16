@@ -7,9 +7,9 @@ $(function() {
   
   $('#code').on('keyup', handleInput);
   
-  $(document).keypress(function(e) {
+  $('.activation-code-content').on('keypress', function(e) {
       if (e.which == 13){
-        $('#activate-button').click();
+        $('#activate-button')[0].click();
       }
   });
 });

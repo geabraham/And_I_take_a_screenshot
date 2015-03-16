@@ -8,6 +8,13 @@ $(function () {
     e.preventDefault();
   });
 
+  // binding Enter key to next button
+  $(document).on('keypress', function(e) {
+    if (e.which === 13) {
+      $('.active .btn').click();
+    }
+  });
+
   // agreement
   $('#next-agree').on('click', function(e) {
     e.preventDefault();
@@ -24,7 +31,7 @@ $(function () {
       $('#patient_enrollment_login, #patient_enrollment_login_confirmation').on('keyup', function() {
         if($form.valid()) {
 
-          $('#next-email').removeClass('disabled').focus();
+          $('#next-email').removeClass('disabled');
         }
       });
     }
@@ -48,7 +55,7 @@ $(function () {
     $('#patient_enrollment_password, #patient_enrollment_password_confirmation').on('keyup', function() {
       if($form.valid()) {
         // hideErrors();
-        $('#next-password').removeClass('disabled').focus();
+        $('#next-password').removeClass('disabled');
       }
     });
   });
