@@ -60,14 +60,14 @@ $(function () {
       $('#patient_enrollment_answer').on('keyup', function() {
         // validate security question
         if (validateSecurityQuestions() && $('#reg-form').valid()) {
-          $('#create-account').removeAttr('disabled').removeClass('disabled');
+          $('#create-account').removeClass('disabled');
         } else {
-          $('#create-account').attr('disabled', true).addClass('disabled');
+          $('#create-account').addClass('disabled');
         }
       });
       $('#patient_enrollment_security_question').on('change', function() {
         $('#patient_enrollment_answer').val('');
-        $('#create-account').attr('disabled', true).addClass('disabled');
+        $('#create-account').addClass('disabled');
       });
     }
   });
