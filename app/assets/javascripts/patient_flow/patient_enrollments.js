@@ -40,8 +40,6 @@ $(function () {
       $('#email').hide().toggleClass('active');
       //show password page
       $('#password').show().toggleClass('active');
-      
-      // $('.back-arrow').removeClass('hidden');
   
       progressBar.advance(2);
       addPasswordRules();
