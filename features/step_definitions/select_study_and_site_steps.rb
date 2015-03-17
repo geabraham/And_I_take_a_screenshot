@@ -71,8 +71,8 @@ Then(/^I should see a list of (studies|sites):$/) do |object_type, table|
   end
 end
 
-Then(/^I should be see an active launch button$/) do
-  expect(page.should have_button('Launch')).to eq(true)
+Then(/^I should see an active launch button$/) do
+  expect(page).to have_button('Launch')
   expect(html).to have_xpath("//a[@href='/patient_management?study_uuid=#{@selected_study_uuid}&study_site_uuid=#{@selected_site_uuid}']")
 end
 
