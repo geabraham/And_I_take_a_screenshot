@@ -32,7 +32,7 @@ describe 'patient enrollments form', ->
           $(event.selector).trigger event
           expect($('.progress')).not.toHaveClass('hidden')
 
-    sharedBehaviorForEvent(jQuery.Event('click', name: 'next button click', selector: '#next-landing'))
+    sharedBehaviorForEvent(jQuery.Event('click', name: 'clicking the next button', selector: '#next-landing'))
     sharedBehaviorForEvent(jQuery.Event('keypress', name: 'pressing the Enter key', selector: document, which: 13))
 
   describe 'tou_dpn_page', ->
@@ -46,7 +46,7 @@ describe 'patient enrollments form', ->
         $('.back-arrow').trigger 'click'
         expect($('.back-arrow')).toHaveClass('hidden')
 
-    describe 'agree button click', ->
+    describe 'clicking the argee button', ->
       it 'pops up a dialog confirming acceptance of the TOU/DPN', ->
         confirmSpy = spyOn(window, 'confirm').and.returnValue(false)
         $('#next-agree').trigger 'click'
@@ -90,7 +90,7 @@ describe 'patient enrollments form', ->
         expect($('.back-arrow')).toHaveClass('hidden')
         expect(progressBarSpy.calls.any()).toEqual false
 
-    describe 'next button click', ->
+    describe 'clicking the next button', ->
       # it wasn't immediately clear how to hook up i18n with Jasmine,
       # so for now these specs verify that the correct unlocalized strings appear
       describe 'for a blank input', ->
@@ -141,7 +141,7 @@ describe 'patient enrollments form', ->
       $('#password').addClass('active')
       addPasswordRules()
 
-    describe 'next button click', ->
+    describe 'clicking the next button', ->
       describe 'for a blank input', ->
         # it wasn't immediately clear how to hook up i18n with Jasmine,
         # so for now these specs verify that the correct unlocalized strings appear
