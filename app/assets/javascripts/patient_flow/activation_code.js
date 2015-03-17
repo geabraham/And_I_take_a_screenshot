@@ -1,4 +1,4 @@
-$(function() {
+$('.activation-code-content').ready(function() {
   if ($('#code').length > 0) {
     handleInput(); // fix for MCC-151106
   }
@@ -7,7 +7,7 @@ $(function() {
   
   $('#code').on('keyup', handleInput);
   
-  $('.activation-code-content').on('keypress', function(e) {
+  $(document).on('keypress', function(e) {
       if (e.which == 13){
         $('#activate-button')[0].click();
       }
