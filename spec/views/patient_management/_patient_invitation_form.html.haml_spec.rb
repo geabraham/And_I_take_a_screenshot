@@ -70,7 +70,7 @@ describe 'patient_management/_patient_invitation_form.html.haml' do
   end
 
   describe 'submit button' do
-    it('exists') { expect(rendered).to have_selector("input[@type=\"submit\"][@value=\"#{t('patient_management.invitation_form.btn_invite')}\"]")}
+    it('exists') { expect(rendered).to have_selector("input[@type=\"submit\"][@value=\"#{t('patient_management.invitation_form.btn_add')}\"]")}
   end
 
   describe 'the error div' do

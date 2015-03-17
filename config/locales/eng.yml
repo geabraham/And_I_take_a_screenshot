@@ -41,7 +41,7 @@ eng:
       country_language: Country / Language
       subject_email: Subject email
       subject_initials: Subject initials
-      btn_invite: Invite
+      btn_add: Add
     enrollment_grid:
       headers:
         added_on: Added on

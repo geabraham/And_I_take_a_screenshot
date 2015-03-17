@@ -19,7 +19,7 @@
         = f.text_field :initials, {class: 'form-control', maxlength: 3}
       .form-group
         = f.label :submit, {class: 'invisible'}
-        = f.submit t("patient_management.invitation_form.btn_invite"), id: 'invite-button', class: 'btn btn-primary', disabled: true
+        = f.submit t("patient_management.invitation_form.btn_add"), id: 'invite-button', class: 'btn btn-primary', disabled: true
     .alert.alert-danger.hidden#invite-form-error
       %span.sr-only Error:
       %span.message
