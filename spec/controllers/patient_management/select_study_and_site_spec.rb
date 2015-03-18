@@ -189,8 +189,8 @@ describe PatientManagementController do
         end
 
         context 'when both tou dpn agreement request and subjects requests succeed' do
-          let(:tou_dpn_agreement1_attrs) { {language_code: 'eng', country_code: 'usa', country: 'United States', language: 'English', uuid: SecureRandom.uuid}.stringify_keys }
-          let(:tou_dpn_agreement2_attrs) { {language_code: 'spa', country_code: 'usa', country: 'United States', language: 'Spanish', uuid: SecureRandom.uuid}.stringify_keys }
+          let(:tou_dpn_agreement1_attrs) { {language_code: 'spa', country_code: 'usa', country: 'United States', language: 'Spanish', uuid: SecureRandom.uuid}.stringify_keys }
+          let(:tou_dpn_agreement2_attrs) { {language_code: 'eng', country_code: 'usa', country: 'United States', language: 'English', uuid: SecureRandom.uuid}.stringify_keys }
           let(:tou_dpn_agreement3_attrs) { {language_code: 'ara', country_code: 'ara', country: 'Israel', language: 'Arabic', uuid: SecureRandom.uuid}.stringify_keys }
           let(:tou_dpn_agreement1)       { double('agreement', attributes: tou_dpn_agreement1_attrs) }
           let(:tou_dpn_agreement2)       { double('agreement', attributes: tou_dpn_agreement2_attrs) }
