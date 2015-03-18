@@ -3,7 +3,6 @@ $(function() {
   $form.validate({ //initialize the form validator
     errorClass: 'invalid',
     errorPlacement: function(error, element) {
-      // debugger
       if (error.text().length > 0) { // prevents overwriting the error message on multiple valid() passes
         $form.find('.active .validation_error').html(error);
         $(element).parent().addClass('invalid');
