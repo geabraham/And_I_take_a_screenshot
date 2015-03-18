@@ -24,7 +24,7 @@ nld:
       code_heading: "Voer uw activatiecode in"
       code_instruction: "Als u zich al hebt geregistreerd, keert u terug naar de Patient Cloud-app. Als u zich niet hebt geregistreerd en u hebt geen activatiecode of e-mail ontvangen, neemt u best contact op met uw zorgverlener.\n"
       validation_error: "Deze code is niet juist. Neem contact op met uw zorgverlener."
-      btn_activate:
+      btn_activate: Activeren
   registration:
     form_heading: "Registratiegegevens"
     welcome:

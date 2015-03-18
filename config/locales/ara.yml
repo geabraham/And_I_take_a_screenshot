@@ -24,7 +24,7 @@ ara:
       code_heading: "الرجاء إدخال رمز التنشيط الخاص بك"
       code_instruction: "إذا كنت مسجّلا بالفعل، فقم بالعودة إلى تطبيق Patient Cloud. وإذا لم تكن قد قمت بالتسجيل وليس لديك رمز تنشيط أو دعوة بالبريد الإلكتروني، فالرجاء الاتصال بالمقدم الخاص بك.\n"
       validation_error: "هذا الرمز غير صحيح. اتصل بالمقدم الخاص بك."
-      btn_activate:
+      btn_activate: تنشيط
   registration:
     form_heading: "تفاصيل التسجيل"
     welcome:

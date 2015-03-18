@@ -24,7 +24,7 @@ fra:
       code_heading: "Veuillez saisir votre code d’activation"
       code_instruction: "Si vous êtes déjà inscrit, retournez à l’application Patient Cloud. Si vous n’êtes pas inscrit et que vous n’avez pas reçu de code d’activation ou d’invitation par courriel, veuillez communiquer avec votre fournisseur.\n"
       validation_error: "Ce code est incorrect. Communiquez avec votre fournisseur."
-      btn_activate:
+      btn_activate: Activer
   registration:
     form_heading: "Détails de l’inscription"
     welcome:
