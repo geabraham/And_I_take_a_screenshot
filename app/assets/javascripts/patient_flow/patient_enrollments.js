@@ -30,6 +30,10 @@ $('.patient-enrollment').ready(function () {
     }
   });
 
+  $('#reg-form').on("ajax:success", function(e, data, status, xhr) {
+    window.location.assign("patient-cloud:registration-complete")
+  })//.on("ajax:error", function(e, xhr, status, error))
+
   // email
   $('#next-email').on('click', function(e) {
     
