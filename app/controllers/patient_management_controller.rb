@@ -78,6 +78,7 @@ class PatientManagementController < ApplicationController
     tou_dpn_agreements = Euresource::TouDpnAgreement.get(:all)
     Rails.logger.info_with_data("Received response for TouDpnAgreements request.", tou_dpn_agreements_response: tou_dpn_agreements.inspect)
     languages_and_countries = attributes_or_empty_array(tou_dpn_agreements, tou_dpn_agreement_attributes)
+    languages_and_countries.sort! { |lc1, lc2| [lc1['country'], lc1['language']] <=> [lc2['country'], lc2['language']]}
     languages_and_countries.map { |lc| ["#{lc['country']} / #{lc['language']}", lc.slice('language_code', 'country_code').to_json] }
   end
 

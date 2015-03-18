@@ -189,23 +189,21 @@ describe PatientManagementController do
         end
 
         context 'when both tou dpn agreement request and subjects requests succeed' do
-          let(:tou_dpn_agreement1_attrs) { {language_code: 'ara', country_code: 'ara', country: 'Israel', language: 'Arabic', uuid: SecureRandom.uuid}.stringify_keys }
-          let(:tou_dpn_agreement2_attrs) { {language_code: 'cze', country_code: 'cze', country: 'Czech Republic', language: 'Czech', uuid: SecureRandom.uuid}.stringify_keys }
-          let(:tou_dpn_agreement1) do
-            double('agreement').tap {|a| allow(a).to receive(:attributes).and_return(tou_dpn_agreement1_attrs)}
-          end
-          let(:tou_dpn_agreement2) do
-            double('agreement').tap {|a| allow(a).to receive(:attributes).and_return(tou_dpn_agreement2_attrs)}
-          end
-          let(:tou_dpn_agreements) { [tou_dpn_agreement1, tou_dpn_agreement2]}
-          let(:subject1_attrs)     { {uuid: SecureRandom.uuid, subject_identifier: 'Subject001'}.stringify_keys }
-          let(:subject2_attrs)     { {uuid: SecureRandom.uuid, subject_identifier: 'Subject002'}.stringify_keys }
-          let(:subject1)           { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject1_attrs)} }
-          let(:subject2)           { double('subject').tap {|s| allow(s).to receive(:attributes).and_return(subject2_attrs)} }
-          let(:subjects)           { [subject1, subject2] }
-          let(:expected_template)  { 'patient_management_grid' }
-          let(:last_response)      { double 'last object', status: 200, body: [].to_json}
-          let(:response_object)    { double 'response object', last_response: last_response }
+          let(:tou_dpn_agreement1_attrs) { {language_code: 'eng', country_code: 'usa', country: 'United States', language: 'English', uuid: SecureRandom.uuid}.stringify_keys }
+          let(:tou_dpn_agreement2_attrs) { {language_code: 'spa', country_code: 'usa', country: 'United States', language: 'Spanish', uuid: SecureRandom.uuid}.stringify_keys }
+          let(:tou_dpn_agreement3_attrs) { {language_code: 'ara', country_code: 'ara', country: 'Israel', language: 'Arabic', uuid: SecureRandom.uuid}.stringify_keys }
+          let(:tou_dpn_agreement1)       { double('agreement', attributes: tou_dpn_agreement1_attrs) }
+          let(:tou_dpn_agreement2)       { double('agreement', attributes: tou_dpn_agreement2_attrs) }
+          let(:tou_dpn_agreement3)       { double('agreement', attributes: tou_dpn_agreement3_attrs) }
+          let(:tou_dpn_agreements)       { [tou_dpn_agreement1, tou_dpn_agreement2, tou_dpn_agreement3]}
+          let(:subject1_attrs)           { {uuid: SecureRandom.uuid, subject_identifier: 'Subject001'}.stringify_keys }
+          let(:subject2_attrs)           { {uuid: SecureRandom.uuid, subject_identifier: 'Subject002'}.stringify_keys }
+          let(:subject1)                 { double('subject', attributes: subject1_attrs) }
+          let(:subject2)                 { double('subject', attributes: subject2_attrs) }
+          let(:subjects)                 { [subject1, subject2] }
+          let(:expected_template)        { 'patient_management_grid' }
+          let(:last_response)            { double 'last object', status: 200, body: [].to_json}
+          let(:response_object)          { double 'response object', last_response: last_response }
 
           it_behaves_like 'renders expected template'
 
@@ -220,7 +218,8 @@ describe PatientManagementController do
 
           it_behaves_like 'assigns an ivar to its expected value', :tou_dpn_agreements, [
               ['Israel / Arabic', {language_code: 'ara', country_code: 'ara'}.to_json],
-              ['Czech Republic / Czech', {language_code: 'cze', country_code: 'cze'}.to_json]
+              ['United States / English', {language_code: 'eng', country_code: 'usa'}.to_json],
+              ['United States / Spanish', {language_code: 'spa', country_code: 'usa'}.to_json]
             ]
           it_behaves_like 'assigns an ivar to its expected value', :available_subjects, [['Subject001','Subject001'], ['Subject002','Subject002']]
           it_behaves_like 'assigns an ivar to its expected value', :study_site_name, 'TestStudySite2'
