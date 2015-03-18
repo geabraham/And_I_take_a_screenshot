@@ -12,6 +12,7 @@ end
 
 After do
   WebMock.reset!
+  I18n.locale = I18n.default_locale
 end
 
 World(FactoryGirl::Syntax::Methods)
