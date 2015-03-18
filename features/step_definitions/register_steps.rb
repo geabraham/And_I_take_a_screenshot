@@ -43,16 +43,11 @@ When(/^I accept the TOU\/DPN$/) do
 end
 
 When(/^I submit "(.*?)" information(| using the Enter key)$/) do |screen, control|
-  if control == ' using the Enter key'
-    step 'I press the Enter key'
-    I18n.locale = @activation_code_attrs['language_code'] if screen == 'activation_code'
+  if screen == 'activation code'
+    control == ' using the Enter key' ? step('I press the Enter key') : click_on(I18n.t("activation_codes.index.btn_activate"))
+    I18n.locale = @activation_code_attrs['language_code']
   else
-    if screen == 'activation code'
-      click_on I18n.t("activation_codes.index.btn_activate")
-      I18n.locale = @activation_code_attrs['language_code']
-    else
-      click_on I18n.t("application.btn_next")
-    end
+    control == ' using the Enter key' ? step('I press the Enter key') : click_on(I18n.t("application.btn_next"))
   end
 end
 
