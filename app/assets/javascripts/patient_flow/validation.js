@@ -11,6 +11,7 @@ $(function() {
         email: true
       },
       'patient_enrollment[login_confirmation]' : {
+        required: true,
         email: true,
         equalToIgnoreCase: '#patient_enrollment_login' }
     },
@@ -18,6 +19,7 @@ $(function() {
         'patient_enrollment[login]': window.t("registration.email_form.validation_error"),
         'patient_enrollment[login_confirmation]': {
           email: window.t("registration.email_form.validation_error"),
+          required: window.t("registration.email_form.validation_error"),
           equalToIgnoreCase: window.t("registration.email_form.mismatch_error")}
     },
     showErrors: function(errorMap, errorList) {
@@ -62,9 +64,15 @@ var addPasswordRules = function() {
   });
 
   $('#patient_enrollment_password_confirmation').rules('add', {
+    required: true,
+    minlength: 8,
+    pwcheck: true,
     equalTo: '#patient_enrollment_password',
     messages: {
-        equalTo: window.t("registration.password_form.mismatch_error")
+      required: window.t("registration.password_form.validation_error"),
+      minlength: window.t("registration.password_form.validation_error"),
+      pwcheck: window.t("registration.password_form.validation_error"),
+      equalTo: window.t("registration.password_form.mismatch_error")
     }
   });
 
