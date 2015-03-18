@@ -24,7 +24,7 @@ chi:
       code_heading: "請輸入您的啟用碼"
       code_instruction: "若您已進行過註冊，請返回 Patient Cloud 應用程式。若您尚未註冊，且並未獲得啟用碼或電子郵件邀請，請連絡您的提供者。\n"
       validation_error: "此代碼不正確。請連絡您的提供者。"
-      btn_activate:
+      btn_activate: 啟用
   registration:
     form_heading: "註冊詳細資訊"
     welcome:
