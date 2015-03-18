@@ -11,11 +11,14 @@ $(function() {
         email: true
       },
       'patient_enrollment[login_confirmation]' : {
+        email: true,
         equalToIgnoreCase: '#patient_enrollment_login' }
     },
     messages: {
         'patient_enrollment[login]': window.t("registration.email_form.validation_error"),
-        'patient_enrollment[login_confirmation]': window.t("registration.email_form.mismatch_error")
+        'patient_enrollment[login_confirmation]': {
+          email: window.t("registration.email_form.validation_error"),
+          equalToIgnoreCase: window.t("registration.email_form.mismatch_error")}
     },
     showErrors: function(errorMap, errorList) {
       $form.find('.invalid').removeClass('invalid');

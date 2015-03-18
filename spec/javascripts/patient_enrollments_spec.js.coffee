@@ -108,9 +108,9 @@ describe 'patient enrollments form', ->
           expect($('.validation_error')).toHaveText('[registration.email_form.validation_error]')
 
       describe 'for a mismatching input', ->
-        it 'shows a misatch error', ->
+        it 'shows a mismatch error', ->
           $('#patient_enrollment_login').val("gee@g.com")
-          $('#patient_enrollment_login_confirmation').val("something else!")
+          $('#patient_enrollment_login_confirmation').val("gee@g2.com")
           $('#next-email').trigger 'click'
           expect($('.validation_error')).toHaveText('[registration.email_form.mismatch_error]')
 
