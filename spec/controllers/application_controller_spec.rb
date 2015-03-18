@@ -39,9 +39,20 @@ describe ApplicationController do
     context 'when a session value is set' do
       before { session[:language_code] = :kor }
 
-      it 'overrides the parameter' do
-        get :index, language_code: :rus
-        expect(I18n.locale).to eq(:kor)
+      context 'when valid' do
+        it 'overrides the parameter' do
+          get :index, language_code: :rus
+          expect(I18n.locale).to eq(:kor)
+        end
+      end
+
+      context 'when invalid' do
+        before { session[:language_code] = :lol }
+
+        it 'uses the default value' do
+          get :index
+          expect(I18n.locale).to eq(I18n.default_locale)
+        end
       end
     end
   end
