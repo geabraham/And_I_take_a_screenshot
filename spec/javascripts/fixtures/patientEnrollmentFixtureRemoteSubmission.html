@@ -1,0 +1,143 @@
+<script src='/assets/jquery-readyselector.js'></script>
+<script src='/assets/patient_flow/patient_enrollments.js'></script>
+<script src='/assets/patient_flow/validation.js'></script>
+
+<div class='clearfix' id='main'>
+  <div class='patient'>
+    <div class='patient-enrollment'>
+      <div class='header'>
+        <img alt="Medidata logo white rgb 2" src="/assets/Medidata_Logo_white_RGB_2.png" />
+        <a class='back-arrow pull-left hidden'>
+          <i class='fa fa-angle-left'></i>
+          <span class='sr-only'>Back</span>
+        </a>
+      </div>
+      <div class='progress-indicator hidden'>
+        <div class='step default'>
+          <span class='sr-only'>Page 1 of 4</span>
+        </div>
+        <div class='step incomplete'>
+          <span class='sr-only'>Page 2 of 4</span>
+        </div>
+        <div class='step incomplete'>
+          <span class='sr-only'>Page 3 of 4</span>
+        </div>
+        <div class='step incomplete'>
+          <span class='sr-only'>Page 4 of 4</span>
+        </div>
+      </div>
+      <form accept-charset="UTF-8" data-remote="true" action="/patient_enrollments/0c948408-43e9-428f-8f07-d1fca081e751/register" id="reg-form" method="post"><div style="display:none"></div>
+        <div class='clearfix' id='registration-details'>
+          <div class='item' id='landing_page'>
+            <h3 class='form-header'>
+              Welcome to Patient Cloud
+            </h3>
+            <p class='form-instruction'>
+              You are only a few steps away from creating your log in credentials and downloading the Patient Cloud app.
+            </p>
+            <div class='row'>
+              <div class='col-xs-2'>
+                <img alt="Register" id="register" src="/assets/register.png" />
+              </div>
+              <div class='col-xs-8'>
+                <p>Review the Privacy Policy and Terms of Use</p>
+                <p>Create account information</p>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col-xs-2'>
+                <img alt="Download" id="download" src="/assets/download.png" />
+              </div>
+              <div class='col-xs-8'>
+                <p></p>
+                <p>Download the Patient Cloud app</p>
+              </div>
+            </div>
+            <div class='row'>
+              <div class='col-xs-2'>
+                <img alt="Login" id="login" src="/assets/login.png" />
+              </div>
+              <div class='col-xs-8'>
+                <p>Open Patient Cloud and use your account information to log in</p>
+              </div>
+            </div>
+            <a class='btn btn-primary btn-block' href='#registration-details' id='next-landing' role='button'>Create Account</a>
+          </div>
+          <div class='item' id='tou_dpn_agreement'>
+            <h3 class='form-header'>Privacy Policy / Terms of Use</h3>
+            <div class='tou_dpn_agreement' style='direction: ltr'><body><p>carboy alpha acid krausen grainy real ale brewhouse.</p></body></div>
+            <a class='btn btn-primary btn-block' href='#registration-details' id='next-agree' role='button'>I agree</a>
+          </div>
+          <div class='item' id='email'>
+            <h3 class='form-header'>
+              Email
+            </h3>
+            <p class='form_instruction'>
+              Enter and confirm your email address below.
+            </p>
+            <div class='form-group'>
+              <label for="patient_enrollment_login">Email</label>
+              <input class="registration-input form-control" id="patient_enrollment_login" name="patient_enrollment[login]" type="email" />
+            </div>
+            <div class='form-group'>
+              <label for="patient_enrollment_login_confirmation">Re-enter Email</label>
+              <input class="registration-input form-control" id="patient_enrollment_login_confirmation" name="patient_enrollment[login_confirmation]" type="email" />
+            </div>
+            <div class='validation_error'></div>
+            <a class='btn btn-primary btn-block' href='#registration-details' id='next-email' role='button'>Next</a>
+          </div>
+          <div class='item' id='password'>
+            <h3 class='form-header'>Password</h3>
+            Enter and confirm a
+            <strong>Password</strong>
+            of your choosing that meets the below criteria:
+            <ul class='password-instructions'>
+              <li>At least 8 characters long</li>
+              <li>At least one upper-case letter</li>
+              <li>At least one lower-case letter</li>
+              <li>At least one numeric digit</li>
+            </ul>
+            <br>
+            <div class='form-group'>
+              <label for="patient_enrollment_password">Password</label>
+              <input class="registration-input form-control" id="patient_enrollment_password" name="patient_enrollment[password]" type="password" />
+            </div>
+            <div class='form-group'>
+              <label for="patient_enrollment_password_confirmation">Confirm Password</label>
+              <input class="registration-input form-control" id="patient_enrollment_password_confirmation" name="patient_enrollment[password_confirmation]" type="password" />
+            </div>
+            <div class='validation_error'></div>
+            <a class='btn btn-primary btn-block' href='#registration-details' id='next-password' role='button'>Next</a>
+          </div>
+          <div class='item' id='security_question'>
+            <h3 class='form-header'>Security Question</h3>
+            <div class='form_instruction'>
+              Select a
+              <strong>security question.</strong>
+            </div>
+            <!-- label is included so capybara can find the control, but not displayed on the page -->
+            <div class='form-group'>
+              <label class="invisible" for="patient_enrollment_security_question" id="question-label">Security Question</label>
+              <select class="form-control" id="patient_enrollment_security_question" name="patient_enrollment[security_question]"><option value="">Security Question</option>
+                <option value="1">Hvilket år er du født?</option>
+                <option value="2">Sidste fire cifre i SSN?</option>
+                <option value="3">Hvad er din fars mellemnavn?</option>
+                <option value="4">Hvad var navnet på din første skole?</option>
+                <option value="5">Hvem var din barndomshelt?</option>
+                <option value="6">Hvad er din yndlingshobby?</option>
+                <option value="7">Hvad er dit yndlings-sportsteam?</option>
+                <option value="8">Hvad var din gymnasiemaskot?</option>
+                <option value="9">Hvad var mærket på din første bil eller cykel?</option>
+                <option value="10">Hvad hedder dit kæledyr?</option>
+                <option value="11">Hvad er din mors mellemnavn?</option></select>
+            </div>
+            <div class='form-group'>
+              <label for="patient_enrollment_answer">Security Answer</label>
+              <input autocomplete="off" class="registration-input form-control" id="patient_enrollment_answer" name="patient_enrollment[answer]" placeholder="Enter your response to the question" type="text" />
+            </div>
+            <input class='btn btn-primary btn-block disabled' id='create-account' type='submit' value='Create account'>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

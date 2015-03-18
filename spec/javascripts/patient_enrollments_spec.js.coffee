@@ -271,4 +271,31 @@ describe 'patient enrollments form', ->
             $('#patient_enrollment_answer').trigger 'keyup'
             expect($('#create-account')).not.toHaveClass('disabled')
 
+  describe 'when using ajax for form submission', ->
+    windowLocationSpy = undefined
+    registrationResponse =
+        status: 201
+        contentType: 'text/plain'
+        responseText: ''
+
+    beforeEach ->
+      loadFixtures 'patientEnrollmentFixtureRemoteSubmission.html'
+      jasmine.Ajax.install()
+      windowLocationSpy = spyOn(window.location, 'assign')
+      $('#reg-form').submit()
+
+    afterEach ->
+      windowLocationSpy.calls.reset()
+      jasmine.Ajax.uninstall()
+
+    describe 'success', ->
+      it 'calls the registration route', ->
+        expect(jasmine.Ajax.requests.mostRecent().url).toBe('/patient_enrollments/0c948408-43e9-428f-8f07-d1fca081e751/register')
+
+      it 'triggers patient-cloud:registration-complete', ->
+        jasmine.Ajax.requests.mostRecent().response registrationResponse
+        expect(windowLocationSpy).toHaveBeenCalled()
+
+    #describe 'failure', ->
+
   return
