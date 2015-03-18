@@ -4,13 +4,7 @@ When(/^I enter an? (valid|inactive|not_exist|expired|incorrect) activation code(
     allow_any_instance_of(PatientEnrollment).to receive(:tou_dpn_agreement).and_return(@tou_dpn_agreement)
     allow(SecurityQuestions).to receive(:find).and_return(@security_questions)
     double('activation_code').tap do |ac|
-      if lang
-        lang.lstrip!
-        @activation_code_attrs["language_code"] = lang
-        I18n.locale = lang
-      else
-        I18n.locale = 'eng'
-      end
+      @activation_code_attrs.merge!({"language_code" => lang.lstrip!}) if lang
       allow(ac).to receive(:attributes).and_return(@activation_code_attrs)
     end
   when 'inactive'
@@ -54,6 +48,7 @@ When(/^I submit "(.*?)" information(| using the Enter key)$/) do |screen, contro
   else
     if screen == 'activation code'
       click_on I18n.t("activation_codes.index.btn_activate")
+      I18n.locale = @activation_code_attrs['language_code']
     else
       click_on I18n.t("application.btn_next")
     end
