@@ -13,9 +13,3 @@
       %span.sr-only='Download for iOS'
   #login-screen-img
     =image_tag 'phone.png'
-
-  - if @in_app_browser
-    :javascript
-      setTimeout(function() {
-        window.location.assign("patient-cloud:registration-complete")
-      }, 5000);
