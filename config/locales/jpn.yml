@@ -24,6 +24,7 @@ jpn:
       code_heading: "有効化コードを入力してください"
       code_instruction: "登録済みの場合はPatient Cloudアプリに戻ってください。登録を完了しておらず、有効化コードまたは電子メール招待を受け取っていない場合には、施設スタッフに連絡してください。\n"
       validation_error: "コードが正しくありません。施設スタッフに連絡してください。"
+      btn_activate:
   registration:
     form_heading: "登録詳細"
     welcome:

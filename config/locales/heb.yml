@@ -24,6 +24,7 @@ heb:
       code_heading: "אנא הזן את קוד ההפעלה שלך"
       code_instruction: "אם כבר נרשמת, חזור אל היישום Patient Cloud. אם לא נרשמת ואין לך קוד הפעלה או הזמנה בדוא\"ל, פנה אל הספק שלך.\n"
       validation_error: "קוד זה שגוי. פנה אל הספק שלך."
+      btn_activate:
   registration:
     form_heading: "פרטי הרשמה"
     welcome:

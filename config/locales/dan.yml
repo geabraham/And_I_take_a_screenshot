@@ -24,6 +24,7 @@ dan:
       code_heading: "Indtast venligst din aktiveringskode"
       code_instruction: "Hvis du allerede har registreret dig, kan du gå tilbage til Patient Cloud-app'en. Hvis du ikke har registreret dig og ikke har fået en aktiveringskode eller invitation via e-mail, bedes du kontakte din tjenesteudbyder.\n"
       validation_error: "Koden er forkert. Kontakt din tjenesteudbyder."
+      btn_activate:
   registration:
     form_heading: "Registreringsoplysninger"
     welcome:

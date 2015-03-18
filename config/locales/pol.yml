@@ -24,6 +24,7 @@ pol:
       code_heading: "Wpisz kod aktywacyjny"
       code_instruction: "Jeśli jesteś już zarejestrowanym użytkownikiem, wróć do aplikacji Patient Cloud. Jeśli nie jesteś zarejestrowanym użytkownikiem i nie masz kodu aktywacyjnego ani zaproszenia e-mail, skontaktuj się z dostawcą usług medycznych.\n"
       validation_error: "Kod jest nieprawidłowy. Skontaktuj się z dostawcą usług medycznych."
+      btn_activate:
   registration:
     form_heading: "Szczegóły rejestracji"
     welcome:

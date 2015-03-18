@@ -24,6 +24,7 @@ vie:
       code_heading: "Vui lòng nhập mã kích hoạt của bạn"
       code_instruction: "Nếu bạn đã đăng ký, quay lại Ứng dụng Patient Cloud. Nếu bạn chưa đăng ký và không có mã kích hoạt hoặc email thư mời, vui lòng liên hệ với nhà cung cấp của bạn.\n"
       validation_error: "Mã này không chính xác. Liên hệ với nhà cung cấp của bạn."
+      btn_activate:
   registration:
     form_heading: "Chi tiết đăng ký"
     welcome:

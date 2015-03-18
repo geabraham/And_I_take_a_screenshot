@@ -24,6 +24,7 @@ zho:
       code_heading: "请输入您的激活码"
       code_instruction: "如果您已注册，请返回Patient Cloud应用程序。如果您尚未注册，也没有激活码和电子邮件邀请，请联系您的主管医师。\n"
       validation_error: "此代码不正确。联系您的主管医师。"
+      btn_activate:
   registration:
     form_heading: "注册详情"
     welcome:

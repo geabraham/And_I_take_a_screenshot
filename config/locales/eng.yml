@@ -61,6 +61,7 @@ eng:
         If you have already registered, return to the Patient Cloud App. If you have not registered and
         do not have an activation code or email invite please contact your provider.
       validation_error: This code is incorrect. Contact your provider.
+      btn_activate: Activate
   registration:
     form_heading: Registration Details
     welcome:

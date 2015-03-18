@@ -24,6 +24,7 @@ kor:
       code_heading: "활성화 코드를 입력하십시오"
       code_instruction: "이미 등록되어 있으면 Patient Cloud 앱으로 돌아가십시오. 등록되어 있지 않고 활성화 코드 또는 이메일 초대가 없으면 제공업체에 문의하십시오.\n"
       validation_error: "이 코드는 잘못되었습니다. 제공업체에 문의하십시오."
+      btn_activate:
   registration:
     form_heading: "등록 세부정보"
     welcome:
