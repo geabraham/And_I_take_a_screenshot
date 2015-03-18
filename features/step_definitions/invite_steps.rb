@@ -89,12 +89,12 @@ end
 
 When(/^the backend service returns an error response due to subject id already existing$/) do
   mock_invite_error_response_with(StandardError.new())
-  click_on 'Add'
+  I18n.t('application.btn_add')
 end
 
 When(/^the backend service does not respond due to imedidata or subject service being down$/) do
   mock_invite_error_response_with(Faraday::Error::ConnectionFailed.new('Cannot connect.'))
-  click_on 'Add'
+  I18n.t('application.btn_add')
 end
 
 When(/^I am logged in but not authorized to access a study site$/) do
