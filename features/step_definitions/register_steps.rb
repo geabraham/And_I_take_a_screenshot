@@ -45,6 +45,7 @@ end
 When(/^I submit "(.*?)" information(| using the Enter key)$/) do |screen, control|
   if control == ' using the Enter key'
     step 'I press the Enter key'
+    I18n.locale = @activation_code_attrs['language_code'] if screen == 'activation_code'
   else
     if screen == 'activation code'
       click_on I18n.t("activation_codes.index.btn_activate")
