@@ -53,7 +53,7 @@ When(/^I submit "(.*?)" information(| using the Enter key)$/) do |screen, contro
     step 'I press the Enter key'
   else
     if screen == 'activation code'
-      click_on 'Activate'
+      click_on I18n.t("activation_codes.index.btn_activate")
     else
       click_on I18n.t("application.btn_next")
     end
