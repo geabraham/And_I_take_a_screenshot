@@ -70,20 +70,21 @@ describe 'patient_enrollments/new.html.haml' do
     end
 
     describe 'form html' do
+      let(:remote_form_selector) { 'form[@data-remote="true"]' }
+
       context 'when in-app browser' do
-        let(:remote_selector) { 'form[@data-remote="true"]' }
         before { assign(:in_app_browser, true); render }
 
         it 'data-remote set to true' do
-          expect(html).to have_selector('form[@data-remote="true"]')
+          expect(html).to have_selector(remote_form_selector)
         end
       end
 
-      context 'when native browser' do
+      context 'when other browser' do
         before { assign(:in_app_browser, nil); render }
 
-        it 'data-remote set to true' do
-          expect(html).not_to have_selector('form[@data-remote="true"]')
+        it 'data-remote not present' do
+          expect(html).not_to have_selector(remote_form_selector)
         end
       end
     end
