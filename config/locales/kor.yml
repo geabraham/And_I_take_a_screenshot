@@ -1,56 +1,100 @@
 # Korean (ko)
 kor:
   security_questions:
-    - {id: 1, name: '태어난 해가 언제입니까?'}
-    - {id: 2, name: '사회보장번호의 마지막 4자리가 무엇입니까?'}
-    - {id: 3, name: '아버지의 고향은 어디입니까?'}
-    - {id: 4, name: '귀하가 입학한 초등학교의 이름은 무엇입니까?'}
-    - {id: 5, name: '어린 시절의 영웅이 누구였습니까?'}
-    - {id: 6, name: '가장 좋아하는 취미가 무엇입니까?'}
-    - {id: 7, name: '가장 좋아하는 스포츠팀이 무엇입니까?'}
-    - {id: 8, name: '고등학교 시절의 마스코트가 무엇입니까?'}
-    - {id: 9, name: '소유했던 첫 자동차나 자전거가 무엇입니까?'}
-    - {id: 10, name: '애완동물 이름이 무엇입니까?'}
-    - {id: 11, name: '어머니의 고향은 어디입니까?'}
+  - id: "1"
+    name: "태어난 해가 언제입니까?"
+  - id: "2"
+    name: "SSN의 마지막 네 자리가 무엇입니까?(U.S.만 해당)"
+  - id: "3"
+    name: "아버지의 중간 이름은 무엇입니까?"
+  - id: "4"
+    name: "최초 학교의 이름이 무엇입니까?"
+  - id: "5"
+    name: "어린 시절의 영웅이 누구였습니까?"
+  - id: "6"
+    name: "가장 좋아하는 취미가 무엇입니까?"
+  - id: "7"
+    name: "가장 좋아하는 스포츠팀이 어디입니까?"
+  - id: "8"
+    name: "고등학교 시절의 마스코트가 무엇입니까?"
+  - id: "9"
+    name: "소유했던 최초의 자동차나 자전거가 무엇입니까?"
+  - id: "10"
+    name: "애완동물 이름이 무엇입니까?"
+  - id: "11"
+    name: "어머니의 중간 이름은 무엇입니까?"
   application:
-    title: "Minotaur"
+    title: "Patient Cloud 등록"
+    patient_management: "환자 관리"
     btn_cancel: "취소"
     btn_open: "열기"
     btn_agree: "동의함"
     btn_next: "다음"
     btn_continue: "계속"
+    btn_launch: "시작"
+    required: "필수"
+  pagination:
+    total_results: "총 결과"
+    per_page: "페이지당"
+    first: "처음"
+    next: "다음"
+    last: "마지막"
+    previous: "이전"
+    enter_a_valid_page_number: "유효한 페이지 번호를 입력하십시오."
+  patient_management:
+    choose_study_and_site: "임상시험 및 기관을 선택하십시오."
+    study: "임상시험"
+    site: "기관"
+    invitation_form:
+      add_a_patient_to: "다음에 환자 추가"
+      subject: "시험대상자"
+      no_subjects_available: "사용 가능한 시험대상자 없음"
+      country_language: "국가/언어"
+      subject_email: "시험대상자 이메일"
+      subject_initials: "시험대상자 이니셜"
+      btn_invite: "초대"
+    enrollment_grid:
+      headers:
+        added_on: "다음에 추가됨"
+        subject: "시험대상자"
+        email: "이메일"
+        initials: "이니셜"
+        activation_code: "활성화 코드"
+        status: "상태"
+      statuses:
+        registered: "등록됨"
+        invited: "초대됨"
+        pending: "보류 중"
   activation_codes:
     index:
-      code_heading: "활성화 코드를 입력하십시오"
+      code_heading: "활성화 코드를 입력하십시오."
       code_instruction: "이미 등록되어 있으면 Patient Cloud 앱으로 돌아가십시오. 등록되어 있지 않고 활성화 코드 또는 이메일 초대가 없으면 제공업체에 문의하십시오.\n"
       validation_error: "이 코드는 잘못되었습니다. 제공업체에 문의하십시오."
-      btn_activate: 활성화
   registration:
-    form_heading: "등록 세부정보"
+    form_heading: "등록 세부 정보"
     welcome:
       header: "Patient Cloud에 오신 것을 환영합니다."
-      welcome_message: "로그인 자격 증명을 생성한 다음 몇 단계만 거치면 Patient Cloud 앱을 다운로드할 수 있습니다.\n"
+      welcome_message: "Patient Cloud 등록에 오신 것을 환영합니다. 로그인 자격 증명을 생성한 다음 몇 단계만 거치면 Patient Cloud 앱을 다운로드할 수 있습니다. 시간을 내어 이용약관과 데이터 개인정보 공지를 읽은 다음 시작하려면 동의함을 클릭하거나 누르십시오.\n"
       register_1: "개인정보보호정책 및 이용약관 검토"
       register_2: "계정 정보 생성"
       download: "Patient Cloud 앱 다운로드"
       login: "Patient Cloud를 열고 계정 정보를 사용하여 로그인하십시오."
     terms_of_use:
-      tou_header: "개인정보보호정책/이용약관"
-      tou_instruction: "아래에서 사용자 계정 및 이 애플리케이션을 사용할 때 적용되는 권한을 요약한 개인정보보호정책 및 이용약관 전문을 읽어 보십시오.\n"
+      tou_header: "Medidata Patient Cloud 앱 및 개인정보 공지 소개"
     tou_agreement:
-      modal_confirm: "본인은 여기에 승인된 이용약관과 개인정보보호정책을 읽고 이해했으며, 이를 준수하는 데 동의합니다.\n"
+      modal_confirm: "이용약관과 데이터 개인정보 공지에 동의하십니까?"
       modal_cancel: "'취소'를 누르면 전자 환자 보고 결과에 임상시험 참여자로 등록되지 않고 입력한 정보가 삭제됩니다. 등록 프로세스를 계속하려면 '계속'을 누르십시오.\n"
     email_form:
-      form_instruction: "아래에 이메일 주소를 입력하고 확인하십시오."
+      form_instruction: "사용자 이름 필드에 이메일 주소를 입력하고 확인하십시오."
       email_label: "이메일"
       reenter_label: "이메일 재입력"
       validation_error: "유효한 이메일을 입력하십시오."
       mismatch_error: "이메일이 일치하지 않습니다."
-      modal_already_registered: "이 이메일 계정은 이 임상시험에 이미 등록되어 있습니다. 제공업체에 문의하십시오.\n"
+      modal_already_registered: "이 임상시험의 참여자로 이미 등록되어 있으며 다른 참여자로 등록할 수 없습니다. 담당 의료기관에 알려 주십시오.\n"
     password_form:
-      form_instruction_1: "아래 조건을 충족하는 사용자가 선택한"
+      form_instruction_1_2: "선택한"
       form_instruction_1_bold: "패스워드"
-      form_instruction_1_2: "입력하고 확인하십시오."
+      form_instruction_1: "를 입력하고 확인하십시오."
       ul_1: "8자 이상의 문자"
       ul_2: "하나 이상의 대문자"
       ul_3: "하나 이상의 소문자"
@@ -60,15 +104,52 @@ kor:
       mismatch_error: "패스워드가 일치하지 않습니다."
       validation_error: "유효한 패스워드를 입력하십시오."
     security_question_form:
-      form_instruction: "보안 질문을"
-      form_instruction_bold: "선택하십시오."
+      form_instruction_bold: "보안 질문"
+      form_instruction: "을 선택하십시오."
       dropdown_placeholder: "보안 질문"
       answer_label: "보안 답변"
-      answer_placeholder: "질문에 대한 답변 입력"
-      btn_create: "계정 생성"
-      modal_error: "등록할 수 없음을 담당 의료기관에 알려 주십시오.\n"
+      answer_placeholder: "질문에 대한 답변을 입력하십시오."
+      btn_create: "내 계정 생성"
+      modal_error: "임상시험의 시험대상자로서 사용자 레코드를 등록할 수 없다는 것을 담당 의료기관에 알려 주십시오.\n"
       modal_error_ok: "확인"
   download:
-    header: "축하합니다. 이 임상시험의 참여자로 등록되었습니다. 이제 Patient Cloud 앱에서 다운로드할 수 있습니다.\n"
+    header: "이제 이 임상시험의 참여자로 등록되었습니다. 마지막 단계에서 Patient Cloud 앱을 다운로드하고 로그인합니다.\n"
     modal_open: "Patient Cloud 앱을 여시겠습니까?"
     modal_download: "앱 스토어에서 Patient Cloud 앱을 다운로드하시겠습니까?"
+  error:
+    error: "오류"
+    wrong: "이 페이지에 문제가 발생한 것 같습니다."
+    helpdesk_html: "도움이 더 필요하면 <a href='%{help_desk_url}'>고객 지원 센터</a>에 문의하거나 <a href='%{home_button_url}'>홈페이지</a>로 돌아가십시오."
+    timeout: "탐색 바에 시간 초과 오류가 발생했습니다."
+    status_403:
+      heading: "403 액세스 거부됨"
+      message: "사용된 링크 또는 URL이 사용자가 볼 수 있는 권한이 없는 페이지에 액세스하려고 했습니다."
+    status_404:
+      heading: "404 찾을 수 없음"
+      message: "사용된 링크 또는 URL이 존재하지 않거나 사용자가 볼 수 있는 권한이 없습니다."
+    status_422:
+      heading: "422 항목 처리 불가"
+      message: "요청을 처리하는 데 문제가 발생했습니다. 검토 후 다시 시도하십시오."
+    status_500:
+      heading: "500 시스템 오류"
+      message: "사용된 링크 또는 URL에 시스템 오류가 발생하여 요청한 정보를 표시할 수 없습니다."
+    status_:
+      heading: "500 시스템 오류"
+      message: "사용된 링크 또는 URL에 시스템 오류가 발생하여 요청한 정보를 표시할 수 없습니다."
+    status_503:
+      heading: "503 서비스 사용 불가"
+      message: "서비스를 사용할 수 없습니다. 나중에 다시 시도하십시오."
+    activation_code_invalid_error:
+      message: "활성화 코드를 찾을 수 없습니다. 다시 시도하십시오."
+    activation_code_backend_error:
+      message: "내부 서버 오류. 잠시 후에 다시 시도하십시오."
+    invalid_subject_id_registration_error:
+      message: "오류가 발생하여 등록할 수 없습니다. 제공업체에 문의하십시오."
+    existing_email_registration_error:
+      message: "이 이메일은 이미 등록되어 있습니다. 다른 이메일을 등록하십시오."
+    registration_backend_error:
+      message: "내부 서버 오류. 잠시 후에 다시 시도하십시오."
+    no_patient_enrollments_message:
+      message: "현재 이 임상시험에 대한 환자 등록이 없습니다."
+    subject_not_available_message:
+      message: "사용 가능한 시험대상자가 없습니다. 다시 시도하십시오."

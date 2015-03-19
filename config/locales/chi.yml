@@ -1,74 +1,155 @@
 # Chinese Traditional (zh-Hant)
 chi:
   security_questions:
-    - {id: 1, name: 您哪一年出生？}
-    - {id: 2, name: SSN 的後四位數字？}
-    - {id: 3, name: 您父親的中間名是什麽？}
-    - {id: 4, name: 您第一所學校的名字是什麽？}
-    - {id: 5, name: 您兒時的英雄是誰？}
-    - {id: 6, name: 您最愛的娛樂是什麽？}
-    - {id: 7, name: 歷來您最愛的運動小組是什麽？}
-    - {id: 8, name: 您所就讀的高中的吉祥物是什麽？}
-    - {id: 9, name: 您第一輛汽車或自行車的牌子是什麽？}
-    - {id: 10, name: 您寵物的名字是什麽？}
-    - {id: 11, name: 您母親的中間名是什麽？}
+  - id: "1"
+    name: "您的出生年份為何？"
+  - id: "2"
+    name: "SSN 的後四位數字為何？"
+  - id: "3"
+    name: "您父親的中間名為何？"
+  - id: "4"
+    name: "您第一所學校的名字為何？"
+  - id: "5"
+    name: "您兒時的英雄是誰？"
+  - id: "6"
+    name: "您最愛的娛樂為何？"
+  - id: "7"
+    name: "歷來您最愛的運動團隊為何？"
+  - id: "8"
+    name: "您所就讀高中的吉祥物為何？"
+  - id: "9"
+    name: "您的第一輛汽車或自行車是什麼品牌？"
+  - id: "10"
+    name: "您寵物的名字為何？"
+  - id: "11"
+    name: "您母親的中間名為何？"
   application:
-    title: "Minotaur"
+    title: "Patient Cloud 註冊"
+    patient_management: "病人管理"
     btn_cancel: "取消"
     btn_open: "開啟"
     btn_agree: "我同意"
     btn_next: "下一步"
     btn_continue: "繼續"
+    btn_launch: "啟動"
+    required: "必要"
+  pagination:
+    total_results: "結果總計："
+    per_page: "每頁："
+    first: "第一頁"
+    next: "下一頁"
+    last: "最後一頁"
+    previous: "上一頁"
+    enter_a_valid_page_number: "請輸入有效頁數。"
+  patient_management:
+    choose_study_and_site: "請選擇研究和站點。"
+    study: "研究"
+    site: "站點"
+    invitation_form:
+      add_a_patient_to: "將病人新增至"
+      subject: "科目"
+      no_subjects_available: "沒有可用的科目"
+      country_language: "國家 (地區) / 語言"
+      subject_email: "科目電子郵件"
+      subject_initials: "科目縮寫"
+      btn_invite: "邀請"
+    enrollment_grid:
+      headers:
+        added_on: "已新增於"
+        subject: "科目"
+        email: "電子郵件"
+        initials: "縮寫"
+        activation_code: "啟用碼"
+        status: "狀態"
+      statuses:
+        registered: "已註冊"
+        invited: "已邀請"
+        pending: "擱置中"
   activation_codes:
     index:
       code_heading: "請輸入您的啟用碼"
-      code_instruction: "若您已進行過註冊，請返回 Patient Cloud 應用程式。若您尚未註冊，且並未獲得啟用碼或電子郵件邀請，請連絡您的提供者。\n"
+      code_instruction: "若您已進行過註冊，請返回 Patient Cloud 應用程式。若您尚未註冊，且未獲得啟用碼或電子郵件邀請，請連絡您的提供者。\n"
       validation_error: "此代碼不正確。請連絡您的提供者。"
-      btn_activate: 啟用
   registration:
     form_heading: "註冊詳細資訊"
     welcome:
-      header: "歡迎加入 Patient Cloud"
-      welcome_message: "您很快便能完成建立您的登入認證及下載 Patient Cloud 應用程式。\n"
+      header: "歡迎使用 Patient Cloud"
+      welcome_message: "歡迎使用 Patient Cloud 註冊。您只需再進行幾個步驟，就能建立登入認證並下載 Patient Cloud 應用程式。請花幾分鐘時間閱讀使用條款及資料隱私權聲明，再按一下或點選「我同意」以開始使用。\n"
       register_1: "檢閱隱私權原則與使用條款"
       register_2: "建立帳戶資訊"
       download: "下載 Patient Cloud 應用程式"
       login: "開啟 Patient Cloud 並使用您的帳戶資訊登入"
     terms_of_use:
-      tou_header: "隱私權原則 / 使用條款"
-      tou_instruction: "請閱讀以下適用於您的帳戶及對本應用程式的使用而對您享有的權力有所闡述的完整隱私權原則與使用條款。\n"
+      tou_header: "Medidata Patient Cloud 應用程式簡介及隱私權聲明"
     tou_agreement:
-      modal_confirm: "您確認已閱讀、理解並同意遵守使用條款及此處所述隱私權原則。\n"
-      modal_cancel: "如果您點選「取消」，則無法註冊為研究參與者以獲得電子病人報告結果，且您輸入的資訊均將被清除。如果您希望繼續註冊流程，請點選「繼續」。\n"
+      modal_confirm: "您同意使用條款及資料隱私權聲明嗎？"
+      modal_cancel: "如果您點選「取消」，則無法註冊為研究參與者以獲得電子病人報告結果，且您輸入的資訊都將遭到清除。如果您希望繼續註冊流程，請點選「繼續」。\n"
     email_form:
-      form_instruction: "請在下方輸入並確認您的電子郵件地址。"
+      form_instruction: "在使用者欄位中輸入電子郵件地址並進行確認。"
       email_label: "電子郵件"
       reenter_label: "重新輸入電子郵件"
-      validation_error: "輸入有效電子郵件。"
-      mismatch_error: "您的電子郵件不匹配。"
-      modal_already_registered: "本電子郵件帳號已在此研究中進行了註冊。請連絡您的提供者。\n"
+      validation_error: "請輸入有效電子郵件。"
+      mismatch_error: "您的電子郵件不相符。"
+      modal_already_registered: "您已註冊為此研究中的參與者，無法以另一名參與者的身分進行註冊。請通知您的醫療保健提供者。\n"
     password_form:
-      form_instruction_1: "輸入並確認一組"
-      form_instruction_1_bold: "密碼"
-      form_instruction_1_2: "，由您自訂且能夠符合下方規則"
+      form_instruction_1: "輸入並確認"
+      form_instruction_1_2: "所選"
+      form_instruction_1_bold: "密碼。"
       ul_1: "長度至少 8 個字元"
       ul_2: "至少包含一個大寫字母"
       ul_3: "至少包含一個小寫字母"
       ul_4: "至少包含一個數字"
       password_label: "密碼"
-      reenter_label: "重新輸入您的密碼。"
-      mismatch_error: "您的密碼不匹配。"
-      validation_error: "輸入有效密碼。"
+      reenter_label: "重新輸入您的密碼"
+      mismatch_error: "您的密碼不相符"
+      validation_error: "輸入有效密碼"
     security_question_form:
       form_instruction: "選取"
       form_instruction_bold: "安全問題。"
       dropdown_placeholder: "安全問題"
       answer_label: "安全問題答案"
-      answer_placeholder: "輸入您對此問題的回答。"
+      answer_placeholder: "輸入您對此問題的回答"
       btn_create: "建立帳戶"
-      modal_error: "請告知您的醫療保健提供者您無法註冊。\n"
+      modal_error: "請通知您的醫療保健提供者，您無法以研究參與者身分註冊使用者記錄。\n"
       modal_error_ok: "確定"
   download:
-    header: "恭喜您，您已在此研究中註冊為參與者。現在請下載 Patient Cloud 應用程式\n"
+    header: "現在您已經註冊為研究參與者。最後一個步驟是下載 Patient Cloud 應用程式並登入。\n"
     modal_open: "開啟 Patient Cloud 應用程式？"
     modal_download: "從應用程式商店下載 Patient Cloud 應用程式？"
+  error:
+    error: "錯誤"
+    wrong: "此頁面發生錯誤。"
+    helpdesk_html: "如需進一步協助，請連絡<a href='%{help_desk_url}'>服務台</a>或返回<a href='%{home_button_url}'>主頁</a>。"
+    timeout: "瀏覽列發生逾時錯誤。"
+    status_403:
+      heading: "403 拒絕存取"
+      message: "您必須經過授權，才能使用此連結或 URL 嘗試存取並查看該頁面。"
+    status_404:
+      heading: "404 找不到網頁"
+      message: "您使用的連結或 URL 不存在，或是您未獲得檢視許可。"
+    status_422:
+      heading: "422 無法處理的資料實體"
+      message: "您的請求發生錯誤。請檢閱請求並重試。"
+    status_500:
+      heading: "500 系統錯誤"
+      message: "您使用的連結或 URL 導致系統錯誤，而我們無法顯示您請求的資訊。"
+    status_:
+      heading: "500 系統錯誤"
+      message: "您使用的連結或 URL 導致系統錯誤，而我們無法顯示您請求的資訊。"
+    status_503:
+      heading: "503 服務無法使用"
+      message: "服務無法使用，請稍後重試。"
+    activation_code_invalid_error:
+      message: "找不到啟用碼。請重試。"
+    activation_code_backend_error:
+      message: "內部伺服器發生錯誤。請稍後重試。"
+    invalid_subject_id_registration_error:
+      message: "發生錯誤，而且您無法註冊，請與提供者連絡。"
+    existing_email_registration_error:
+      message: "此電子郵件已經註冊，請以另一個電子郵件進行註冊。"
+    registration_backend_error:
+      message: "內部伺服器發生錯誤。請稍後重試。"
+    no_patient_enrollments_message:
+      message: "目前沒有任何病人註冊這個研究。"
+    subject_not_available_message:
+      message: "科目無法使用。請重試。"

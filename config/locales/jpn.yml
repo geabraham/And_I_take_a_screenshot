@@ -1,56 +1,100 @@
 # Japanese (ja)
 jpn:
   security_questions:
-    - {id: 1, name: 生まれた年を入力してください。}
-    - {id: 2, name: SSNの最後の4桁を入力してください。}
-    - {id: 3, name: 父親のミドルネームは何ですか？}
-    - {id: 4, name: 最初に通った学校の名前を入力してください。}
-    - {id: 5, name: 子供の頃のヒーローを入力してください。}
-    - {id: 6, name: 趣味を入力してください。}
-    - {id: 7, name: お気に入りのスポーツチームを入力してください。}
-    - {id: 8, name: '高校時代のマスコットは何ですか?'}
-    - {id: 9, name: 最初に購入した車/バイクのメーカーを入力してください。}
-    - {id: 10, name: ペットの名前を入力してください。}
-    - {id: 11, name: '母親の旧姓は何ですか?'}
+  - id: "1"
+    name: "生まれた年を入力してください。"
+  - id: "2"
+    name: "SSNの最後の4桁を入力してください。"
+  - id: "3"
+    name: "父親のミドルネームは何ですか？"
+  - id: "4"
+    name: "最初に通った学校の名前を入力してください。"
+  - id: "5"
+    name: "子供の頃のヒーローを入力してください。"
+  - id: "6"
+    name: "趣味を入力してください。"
+  - id: "7"
+    name: "お気に入りのスポーツチームを入力してください。"
+  - id: "8"
+    name: "高校時代のマスコットは何ですか?"
+  - id: "9"
+    name: "最初に購入した車/バイクのメーカーを入力してください。"
+  - id: "10"
+    name: "ペットの名前を入力してください。"
+  - id: "11"
+    name: "母親の旧姓は何ですか?"
   application:
-    title: "Minotaur"
+    title: "Patient Cloud登録"
+    patient_management: "参加者管理"
     btn_cancel: "取消"
     btn_open: "未回答"
     btn_agree: "同意する"
     btn_next: "次へ"
     btn_continue: "続ける"
+    btn_launch: "開始する"
+    required: "必須"
+  pagination:
+    total_results: "件（合計）"
+    per_page: "ページ内表示件数"
+    first: "最初"
+    next: "次へ"
+    last: "最後"
+    previous: "前へ"
+    enter_a_valid_page_number: "有効なページ番号を入力してください。"
+  patient_management:
+    choose_study_and_site: "スタディと施設を選択してください。"
+    study: "スタディ"
+    site: "施設"
+    invitation_form:
+      add_a_patient_to: "に患者を追加"
+      subject: "被験者"
+      no_subjects_available: "選択可能な被験者はいません"
+      country_language: "国／言語"
+      subject_email: "被験者の電子メールアドレス"
+      subject_initials: "被験者のイニシャル"
+      btn_invite: "招待"
+    enrollment_grid:
+      headers:
+        added_on: "追加日"
+        subject: "被験者"
+        email: "電子メール"
+        initials: "イニシャル"
+        activation_code: "有効化コード"
+        status: "ステータス"
+      statuses:
+        registered: "登録状況"
+        invited: "招待済"
+        pending: "登録保留"
   activation_codes:
     index:
       code_heading: "有効化コードを入力してください"
-      code_instruction: "登録済みの場合はPatient Cloudアプリに戻ってください。登録を完了しておらず、有効化コードまたは電子メール招待を受け取っていない場合には、施設スタッフに連絡してください。\n"
-      validation_error: "コードが正しくありません。施設スタッフに連絡してください。"
-      btn_activate: 有効化
+      code_instruction: "登録済みの場合はPatient Cloudアプリに戻ってください。登録を完了しておらず、有効化コードまたは電子メール招待を受け取っていない場合には、医療機関の担当者に連絡してください。\n"
+      validation_error: "コードが正しくありません。医療機関の担当者に連絡してください。"
   registration:
     form_heading: "登録詳細"
     welcome:
       header: "Patient Cloudへようこそ"
-      welcome_message: "簡単な操作でログイン認証の作成とPatient Cloudアプリのダウンロードができます。\n"
+      welcome_message: "Patient Cloud登録へようこそログイン認証を作成し、Patient Cloudアプリケーションをダウンロードするために必要な手順はわずかです。利用規約とデータプライバシーに関する声明の内容を確認し、同意するをクリックまたはタップして開始します。\n"
       register_1: "プライバシーポリシーと利用規約を確認"
       register_2: "アカウント情報を作成"
       download: "Patient Cloudアプリをダウンロード"
       login: "Patient Cloudを開き、アカウント情報を使用してログイン"
     terms_of_use:
-      tou_header: "プライバシーポリシー / 利用規約"
-      tou_instruction: "あなたのアカウントとこのアプリの使用に際し適用されるあなたの権利については、以下のプライバシーポリシーと利用規約をお読みください。\n"
+      tou_header: "Medidata Patient Cloudアプリケーションのご紹介とプライバシーに関する声明"
     tou_agreement:
-      modal_confirm: "あなたの確認をもって、あなたが利用規約とプライバシーポリシーを読み、内容を理解し、各条項に同意したとみなされます。\n"
+      modal_confirm: "利用規約およびプライバシーに関する声明に同意しますか？"
       modal_cancel: "[取消]をタップすると、電子患者報告システムの参加者として登録されず、入力した情報は削除されます。登録プロセスを続けるには、[続ける]をタップしてください。\n"
     email_form:
-      form_instruction: "以下に電子メールアドレスを入力し、確認のために再度入力します。"
+      form_instruction: "ユーザ名フィールドに電子メールアドレスと確認を入力します。"
       email_label: "電子メール"
       reenter_label: "電子メール（確認用）"
       validation_error: "有効な電子メールを入力してください。"
       mismatch_error: "電子メールが一致しません。"
-      modal_already_registered: "この電子メールアカウントはすでに試験に登録されています。施設スタッフに連絡してください。\n"
+      modal_already_registered: "あなたは既に参加者としてこの治験に登録されており、他の参加者として登録することはできません。医療機関の担当者に連絡してください。\n"
     password_form:
-      form_instruction_1: "以下の条件を満たす"
+      form_instruction_1: "設定する"
       form_instruction_1_bold: "パスワード"
-      form_instruction_1_2: "を入力し、確認のために再度入力します。"
+      form_instruction_1_2: "を両方のフィールドに入力してください。"
       ul_1: "8文字以上の英数字"
       ul_2: "1つ以上の大文字を含む"
       ul_3: "1つ以上の小文字を含む"
@@ -60,15 +104,52 @@ jpn:
       mismatch_error: "パスワードが一致しません。"
       validation_error: "有効なパスワードを入力してください。"
     security_question_form:
-      form_instruction: "選択を行います："
+      form_instruction: "選択してください："
       form_instruction_bold: "セキュリティ質問"
       dropdown_placeholder: "セキュリティ質問"
       answer_label: "質問の回答"
       answer_placeholder: "質問に対する回答を入力します。"
       btn_create: "アカウントを作成"
-      modal_error: "登録に失敗したことを施設スタッフに連絡してください。\n"
+      modal_error: "あなたのユーザ情報をスタディ参加者として登録できなかったことを医療機関の担当者に伝えてください。\n"
       modal_error_ok: "OK"
   download:
-    header: "この試験に参加者として登録されました。Patient Cloudアプリをダウンロードする準備ができました。\n"
+    header: "このスタディに参加者として登録されました。最後の手順は、Patient Cloudアプリケーションをダウンロードしてログインすることです。\n"
     modal_open: "Patient Cloudアプリを開きますか？"
     modal_download: "Patient CloudをApp Storeからダウンロードしますか？"
+  error:
+    error: "エラー"
+    wrong: "ページ上でエラーが発生しています。"
+    helpdesk_html: "詳細は、<a href='%{help_desk_url}'>ヘルプデスク</a>に問い合わせるか<a href='%{home_button_url}'>ホームページ</a>に戻ってください。"
+    timeout: "ナビゲーションバーでタイムアウトエラーが発生しました。"
+    status_403:
+      heading: "403 アクセス拒否"
+      message: "要求されたリンクまたはURLを閲覧するには、権限が必要です。"
+    status_404:
+      heading: "404 ページが見つかりません"
+      message: "要求されたリンクまたはURLは、存在しないか表示する権限がありません。"
+    status_422:
+      heading: "422 処理できないエンティティ"
+      message: "リクエストで問題が発生しました。確認して再試行してください。"
+    status_500:
+      heading: "500 システムエラー"
+      message: "要求されたリンクまたはURLでシステムエラーが発生しているため、表示できません。"
+    status_:
+      heading: "500 システムエラー"
+      message: "要求されたリンクまたはURLでシステムエラーが発生しているため、表示できません。"
+    status_503:
+      heading: "503 サービス利用不可"
+      message: "現在サービスは利用できません。後で再試行してください。"
+    activation_code_invalid_error:
+      message: "有効化コードが見つかりません。もう一度やり直してください。"
+    activation_code_backend_error:
+      message: "内部サーバーエラー後で再試行してください。"
+    invalid_subject_id_registration_error:
+      message: "エラーが発生したため登録できません。医療機関の担当者に連絡してください。"
+    existing_email_registration_error:
+      message: "この電子メールはすでに登録されています。別の電子メールで登録を行ってください。"
+    registration_backend_error:
+      message: "内部サーバーエラー後で再試行してください。"
+    no_patient_enrollments_message:
+      message: "現在このスタディに登録されている患者はいません。"
+    subject_not_available_message:
+      message: "選択可能な被験者はいません。もう一度やり直してください。"
