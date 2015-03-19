@@ -33,9 +33,10 @@ class ApplicationController < ActionController::Base
   # Set user's locale from request, assuming it comes from Checkmate.
   #TODO in future locale may be in header instead of params, depending on Checkmate
   def set_locale
+    # Only permit a key / value for language code if it is already present and valid.
+    session[:language_code] = nil unless I18n.locale_available?(session[:language_code]) if session[:language_code]
+    params[:language_code] = nil unless I18n.locale_available?(params[:language_code]) if params[:language_code]
     # Prefer the session's language code over the one set in params.
-    session[:language_code] = I18n.locale_available?(session[:language_code]) ? session[:language_code] : nil if session[:language_code]
-    params[:language_code] = I18n.locale_available?(params[:language_code]) ? params[:language_code] : nil if params[:language_code]
     I18n.locale = session[:language_code] || params[:language_code] || I18n.default_locale
   end
 
