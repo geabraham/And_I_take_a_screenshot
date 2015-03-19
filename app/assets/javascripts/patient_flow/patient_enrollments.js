@@ -27,6 +27,8 @@ $('.patient-enrollment').ready(function () {
       $('#email').show().toggleClass('active');
       
       progressBar.advance(1);
+
+      $('#patient_enrollment_login').focus();
     }
   });
 
@@ -43,6 +45,8 @@ $('.patient-enrollment').ready(function () {
   
       progressBar.advance(2);
       addPasswordRules();
+
+      $('#patient_enrollment_password').focus();
     }
   });
 
