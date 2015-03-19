@@ -6,6 +6,6 @@
     %p= t("activation_codes.index.code_instruction")
     .activation-code
       %input#code{maxlength: 6, tabindex: 1, size: 6}
-    %a.btn.btn-primary.btn-block.disabled#activate-button(href="" role="button")='Activate'
+    %a.btn.btn-primary.btn-block.disabled#activate-button(href="" role="button")= t("activation_codes.index.btn_activate")
     .validation_error=t("activation_codes.index.validation_error")
 

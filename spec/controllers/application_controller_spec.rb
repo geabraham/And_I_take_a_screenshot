@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe ApplicationController do
   describe 'set_locale' do
+    let(:bad_language_code) { :lol }
+
+    before { allow(I18n).to receive(:locale_available?).and_call_original }
+
     controller do
       def index
         render json: 'ok', status: :ok
@@ -18,13 +22,18 @@ describe ApplicationController do
     end
 
     context 'when an invalid language_code parameter is provided' do
+      it 'checks the language_code is valid' do
+        expect(I18n).to receive(:locale_available?).with(bad_language_code.to_s)
+        get :index, language_code: bad_language_code
+      end
+
       it 'uses the default locale' do
-        get :index, language_code: :boo
+        get :index, language_code: bad_language_code
         expect(I18n.locale).to eq(I18n.default_locale)
       end
 
       it 'returns ok' do
-        get :index, language_code: :boo
+        get :index, language_code: bad_language_code
         expect(response.status).to eq(200)
       end
     end
@@ -39,9 +48,25 @@ describe ApplicationController do
     context 'when a session value is set' do
       before { session[:language_code] = :kor }
 
-      it 'overrides the parameter' do
-        get :index, language_code: :rus
-        expect(I18n.locale).to eq(:kor)
+      context 'when valid' do
+        it 'overrides the parameter' do
+          get :index, language_code: :rus
+          expect(I18n.locale).to eq(:kor)
+        end
+      end
+
+      context 'when invalid' do
+        before { session[:language_code] = bad_language_code }
+
+        it 'checks the language_code is valid' do
+          expect(I18n).to receive(:locale_available?).with(bad_language_code)
+          get :index
+        end
+
+        it 'uses the default value' do
+          get :index
+          expect(I18n.locale).to eq(I18n.default_locale)
+        end
       end
     end
   end

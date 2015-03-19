@@ -24,6 +24,7 @@ hun:
       code_heading: "Adja meg az aktiválási kódot"
       code_instruction: "Ha már regisztrált, térjen vissza a Patient Cloud alkalmazáshoz. Ha még nem regisztrált, és nem rendelkezik az aktiválási kóddal vagy e-maillel, vegye fel a kapcsolatot a szolgáltatójával.\n"
       validation_error: "A megadott kód hibás. Vegye fel a kapcsolatot a szolgáltatójával."
+      btn_activate: Aktiválás
   registration:
     form_heading: "Regisztrációs adatok"
     welcome:

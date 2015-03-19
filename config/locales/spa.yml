@@ -24,6 +24,7 @@ spa:
       code_heading: "Ingrese su código de activación"
       code_instruction: "Si ya se ha registrado, vuelva a la Aplicación Patient Cloud. Si no se ha registrado y no tiene un código de activación o invitación por correo electrónico, contacte a su proveedor.\n"
       validation_error: "El código es incorrecto. Contacte a su proveedor."
+      btn_activate: Activar
   registration:
     form_heading: "Detalles del registro"
     welcome:

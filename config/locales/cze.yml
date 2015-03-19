@@ -25,6 +25,7 @@ cze:
       code_heading: "Please enter your activation code"
       code_instruction: "If you have already registered, return to the Patient Cloud App. If you have not registered and do not have an activation code or email invite please contact your provider.\n"
       validation_error: "This code is incorrect. Contact your provider."
+      btn_activate: Aktivovat
   registration:
     form_heading: "Registration Details"
     welcome:
