@@ -3,7 +3,10 @@ $(function() {
   $form.validate({ //initialize the form validator
     errorClass: 'invalid',
     errorPlacement: function(error, element) {
-      $form.find('.active .validation_error').html(error);
+      if (error.text().length > 0) { // prevents overwriting the error message on multiple valid() passes
+        $form.find('.active .validation_error').html(error);
+        $(element).parent().addClass('invalid');
+      }
     },
     rules: {
       'patient_enrollment[login]': {
@@ -11,19 +14,19 @@ $(function() {
         email: true
       },
       'patient_enrollment[login_confirmation]' : {
+        required: true,
+        email: true,
         equalToIgnoreCase: '#patient_enrollment_login' }
     },
     messages: {
         'patient_enrollment[login]': window.t("registration.email_form.validation_error"),
-        'patient_enrollment[login_confirmation]': window.t("registration.email_form.mismatch_error")
+        'patient_enrollment[login_confirmation]': {
+          email: window.t("registration.email_form.validation_error"),
+          required: window.t("registration.email_form.validation_error"),
+          equalToIgnoreCase: window.t("registration.email_form.mismatch_error")}
     },
-    showErrors: function(errorMap, errorList) {
-      $form.find('.invalid').removeClass('invalid');
-      $form.find('.validation_error:visible').html('');
-      if(errorList.length) {
-        $form.find('.validation_error:visible').html(errorList[0]['message']);
-        $(errorList[0]['element']).parents('.form-group').addClass('invalid');
-      }
+    success: function(label, element) {
+      $(element).parent().removeClass('invalid');
     }
   });
 
@@ -59,9 +62,15 @@ var addPasswordRules = function() {
   });
 
   $('#patient_enrollment_password_confirmation').rules('add', {
+    required: true,
+    minlength: 8,
+    pwcheck: true,
     equalTo: '#patient_enrollment_password',
     messages: {
-        equalTo: window.t("registration.password_form.mismatch_error")
+      required: window.t("registration.password_form.validation_error"),
+      minlength: window.t("registration.password_form.validation_error"),
+      pwcheck: window.t("registration.password_form.validation_error"),
+      equalTo: window.t("registration.password_form.mismatch_error")
     }
   });
 

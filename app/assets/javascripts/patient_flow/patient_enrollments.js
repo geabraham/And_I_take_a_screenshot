@@ -9,7 +9,7 @@ $('.patient-enrollment').ready(function () {
   });
 
   // binding Enter key to next button
-  $(document).on('keypress', function(e) {
+  $(document).on('keyup', function(e) {
     if (e.which === 13) {
       $('.active .btn').click();
     }

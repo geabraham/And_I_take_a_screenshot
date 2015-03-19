@@ -95,10 +95,10 @@ describe 'patient enrollments form', ->
           expect($('.validation_error')).toHaveText('[registration.email_form.validation_error]')
 
       describe 'for missing confirmation email', ->
-        it 'shows a mismatch error', ->
+        it 'shows a validation error', ->
           $('#patient_enrollment_login').val("gee@g.com")
           $('#next-email').trigger 'click'
-          expect($('.validation_error')).toHaveText('[registration.email_form.mismatch_error]')
+          expect($('.validation_error')).toHaveText('[registration.email_form.validation_error]')
 
       describe 'for an invalid input', ->
         it 'shows a validation error', ->
@@ -108,9 +108,9 @@ describe 'patient enrollments form', ->
           expect($('.validation_error')).toHaveText('[registration.email_form.validation_error]')
 
       describe 'for a mismatching input', ->
-        it 'shows a misatch error', ->
+        it 'shows a mismatch error', ->
           $('#patient_enrollment_login').val("gee@g.com")
-          $('#patient_enrollment_login_confirmation').val("something else!")
+          $('#patient_enrollment_login_confirmation').val("gee@g2.com")
           $('#next-email').trigger 'click'
           expect($('.validation_error')).toHaveText('[registration.email_form.mismatch_error]')
 
@@ -146,10 +146,10 @@ describe 'patient enrollments form', ->
           expect($('.validation_error')).toHaveText('[registration.password_form.validation_error]')
 
       describe 'for a blank confirmation input', ->
-        it 'shows a mismatch error', ->
+        it 'shows a validation error', ->
           $('#patient_enrollment_password').attr('value', 'ASup3rG00dPassw0rd')
           $('#next-password').trigger 'click'
-          expect($('.validation_error')).toHaveText('[registration.password_form.mismatch_error]')
+          expect($('.validation_error')).toHaveText('[registration.password_form.validation_error]')
 
       describe 'for an invalid input', ->
         it 'shows a validation error', ->
