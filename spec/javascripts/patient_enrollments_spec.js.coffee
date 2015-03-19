@@ -271,8 +271,9 @@ describe 'patient enrollments form', ->
             $('#patient_enrollment_answer').trigger 'keyup'
             expect($('#create-account')).not.toHaveClass('disabled')
 
-  describe 'when using ajax for form submission', ->
+  describe 'using ajax for form submission', ->
     windowLocationSpy = undefined
+    spy = undefined
     registrationResponse =
         status: 201
         contentType: 'text/plain'
@@ -282,20 +283,31 @@ describe 'patient enrollments form', ->
       loadFixtures 'patientEnrollmentFixtureRemoteSubmission.html'
       jasmine.Ajax.install()
       windowLocationSpy = spyOn(window.location, 'assign')
+      spy = spyOn($.fn, 'html')
       $('#reg-form').submit()
 
     afterEach ->
       windowLocationSpy.calls.reset()
       jasmine.Ajax.uninstall()
 
-    describe 'success', ->
-      it 'calls the registration route', ->
-        expect(jasmine.Ajax.requests.mostRecent().url).toBe('/patient_enrollments/0c948408-43e9-428f-8f07-d1fca081e751/register')
+    it 'calls the registration route', ->
+      expect(jasmine.Ajax.requests.mostRecent().url).toBe('/patient_enrollments/0c948408-43e9-428f-8f07-d1fca081e751/register')
 
+    describe 'success', ->
       it 'triggers patient-cloud:registration-complete', ->
         jasmine.Ajax.requests.mostRecent().response registrationResponse
-        expect(windowLocationSpy).toHaveBeenCalled()
+        expect(windowLocationSpy).toHaveBeenCalledWith("patient-cloud:registration-complete")
 
-    #describe 'failure', ->
+    # Show plain text error message on failure.
+    describe 'failure', ->
+      serviceUnavailable = 'Service Unavailable'
+      registrationErrorResponse =
+          status: 503
+          contentType: 'text/plain'
+          statusText: serviceUnavailable
+
+      it 'renders the error in the body of the document', ->
+        jasmine.Ajax.requests.mostRecent().response registrationErrorResponse
+        expect(spy).toHaveBeenCalledWith(serviceUnavailable)
 
   return
