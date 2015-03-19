@@ -273,7 +273,7 @@ describe 'patient enrollments form', ->
 
   describe 'using ajax for form submission', ->
     windowLocationSpy = undefined
-    spy = undefined
+    htmlSpy = undefined
     registrationResponse =
         status: 201
         contentType: 'text/plain'
@@ -283,7 +283,7 @@ describe 'patient enrollments form', ->
       loadFixtures 'patientEnrollmentFixtureRemoteSubmission.html'
       jasmine.Ajax.install()
       windowLocationSpy = spyOn(window.location, 'assign')
-      spy = spyOn($.fn, 'html')
+      htmlSpy = spyOn($.fn, 'html')
       $('#reg-form').submit()
 
     afterEach ->
@@ -308,6 +308,6 @@ describe 'patient enrollments form', ->
 
       it 'renders the error in the body of the document', ->
         jasmine.Ajax.requests.mostRecent().response registrationErrorResponse
-        expect(spy).toHaveBeenCalledWith(serviceUnavailable)
+        expect(htmlSpy).toHaveBeenCalledWith(serviceUnavailable)
 
   return
