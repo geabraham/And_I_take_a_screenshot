@@ -280,7 +280,6 @@ describe 'patient enrollments form', ->
         responseText: ''
 
     beforeEach ->
-      loadFixtures 'patientEnrollmentFixtureRemoteSubmission.html'
       jasmine.Ajax.install()
       windowLocationSpy = spyOn(window.location, 'assign')
       htmlSpy = spyOn($.fn, 'html')
