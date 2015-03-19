@@ -297,8 +297,8 @@ describe 'patient enrollments form', ->
         jasmine.Ajax.requests.mostRecent().response registrationResponse
         expect(windowLocationSpy).toHaveBeenCalledWith("patient-cloud:registration-complete")
 
-    # Show plain text error message on failure.
-    describe 'failure', ->
+    # Show plain text error on failure.
+    describe 'error', ->
       serviceUnavailable = 'Service Unavailable'
       registrationErrorResponse =
           status: 503
