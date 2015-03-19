@@ -304,7 +304,8 @@ describe 'patient enrollments form', ->
           status: 503
           contentType: 'text/plain'
           statusText: serviceUnavailable
-
+      
+      # Use a spy becausing testing the actual html prevents the jasmine process from exiting at the end of the test suite.
       it 'renders the error in the body of the document', ->
         jasmine.Ajax.requests.mostRecent().response registrationErrorResponse
         expect(htmlSpy).toHaveBeenCalledWith(serviceUnavailable)
