@@ -34,7 +34,6 @@ $('.patient-enrollment').ready(function () {
     window.location.assign("patient-cloud:registration-complete")
   }).on("ajax:error", function(e, xhr, status, error) {
     $('body').html(xhr.statusText)
-    return
   });
 
   // email
