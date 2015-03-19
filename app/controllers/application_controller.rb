@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
     # Only permit a key / value for language code if it is already present and valid.
     session[:language_code] = nil unless I18n.locale_available?(session[:language_code]) if session[:language_code]
     params[:language_code] = nil unless I18n.locale_available?(params[:language_code]) if params[:language_code]
-    # Prefer the session's language code over the one set in params.
+    # Prefer the session's language code over parameters.
     I18n.locale = session[:language_code] || params[:language_code] || I18n.default_locale
   end
 
