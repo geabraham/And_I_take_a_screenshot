@@ -175,6 +175,9 @@ describe 'patient enrollments form', ->
 
     describe 'when the back arrow is clicked', ->
       beforeEach ->
+        # NOTE: In order to use the Back button properly, the JavaScript maintains internal state of what page the user
+        # is on. This can't be easily changed from the outside, so this drives the forms forward to test the button
+
         # All forms are assumed to be valid for this test
         spyOn($.fn, 'valid').and.returnValue(true)
         $('#next-landing').trigger 'click'
@@ -246,6 +249,9 @@ describe 'patient enrollments form', ->
 
     describe 'when the back arrow is clicked', ->
       beforeEach ->
+        # NOTE: In order to use the Back button properly, the JavaScript maintains internal state of what page the user
+        # is on. This can't be easily changed from the outside, so this drives the forms forward to test the button
+        
         # All forms are assumed to be valid for this test
         spyOn($.fn, 'valid').and.returnValue(true)
         $('#next-landing').trigger 'click'
