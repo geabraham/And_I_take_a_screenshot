@@ -1,5 +1,13 @@
 $('.patient-enrollment').ready(function () {
   var $form = $('#reg-form');
+
+  var TOU_DPN_INDEX = 0,
+      EMAIL_INDEX = 1,
+      PASSWORD_INDEX = 2,
+      SECURITY_QUESTION_INDEX = 3;
+
+  var currentIndex = TOU_DPN_INDEX;
+
   // landing page - next button
   $('#next-landing').on('click', function(e) {
     $('#landing_page').hide().toggleClass('active');
@@ -20,14 +28,14 @@ $('.patient-enrollment').ready(function () {
     e.preventDefault();
     var proceed = confirm(window.t("registration.tou_agreement.modal_confirm"));
     if (proceed) {
-      
+
       // hide agreement page
       $('#tou_dpn_agreement').hide().toggleClass('active');
       //show email page
       $('#email').show().toggleClass('active');
-      
-      progressBar.advance(1);
 
+      currentIndex = EMAIL_INDEX;
+      progressBar.advance(currentIndex);
       $('#patient_enrollment_login').focus();
     }
   });
@@ -48,7 +56,7 @@ $('.patient-enrollment').ready(function () {
 
   // email
   $('#next-email').on('click', function(e) {
-    
+
     e.preventDefault();
     
     if ($form.valid()) {
@@ -56,8 +64,11 @@ $('.patient-enrollment').ready(function () {
       $('#email').hide().toggleClass('active');
       //show password page
       $('#password').show().toggleClass('active');
-  
-      progressBar.advance(2);
+      //show back arrow
+      $('.back-arrow').toggleClass('hidden');
+
+      currentIndex = PASSWORD_INDEX;
+      progressBar.advance(currentIndex);
       addPasswordRules();
 
       $('#patient_enrollment_password').focus();
@@ -72,8 +83,9 @@ $('.patient-enrollment').ready(function () {
       $('#password').hide().toggleClass('active');
         //show password page
       $('#security_question').show().toggleClass('active');
-  
-      progressBar.advance(3);
+
+      currentIndex = SECURITY_QUESTION_INDEX;
+      progressBar.advance(currentIndex);
       $('#patient_enrollment_security_question').focus()
       $('#patient_enrollment_answer').on('keyup', function() {
         // validate security question
@@ -90,7 +102,30 @@ $('.patient-enrollment').ready(function () {
     }
   });
 
-  $('.back-arrow').on('click', progressBar.reverse);
+  $('.back-arrow').on('click', function(){
+    switch(currentIndex){
+      case PASSWORD_INDEX:
+        // hide password page
+        $('#password').hide().toggleClass('active');
+        //show email page
+        $('#email').show().toggleClass('active');
+        //hide back arrow
+        $('.back-arrow').toggleClass('hidden');
+
+        progressBar.reverse(currentIndex);
+        currentIndex = EMAIL_INDEX;
+        break;
+      case SECURITY_QUESTION_INDEX:
+        // hide security question page
+        $('#security_question').hide().toggleClass('active');
+        //show password page
+        $('#password').show().toggleClass('active');
+
+        progressBar.reverse(currentIndex);
+        currentIndex = PASSWORD_INDEX;
+        break;
+    }
+  });
 
   $('#reg-form').on('submit', function() {
     $('#create-account').addClass('disabled');
@@ -114,8 +149,8 @@ var progressBar = (function() {
       $progressIndicators.eq(index)
         .removeClass('incomplete');
     },
-    reverse = function() {
-      console.log('reverse')
+    reverse = function(index) {
+      $progressIndicators.eq(index).addClass('incomplete');
     },
     getCurrentPage = function() {
       return $('.item.active').attr('id');

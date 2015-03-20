@@ -15,7 +15,6 @@ describe 'patient enrollments form', ->
 
     describe 'back arrow', ->
       it 'is disabled', ->
-        $('.back-arrow').trigger 'click'
         expect($('.back-arrow')).toHaveClass('hidden')
 
     describe 'next button click', ->
@@ -35,14 +34,7 @@ describe 'patient enrollments form', ->
     beforeEach ->
       $('#tou_dpn_agreement').addClass('active')
 
-    describe 'back arrow', ->
-      # TODO fix wording and verify cases in MCC-151111
-      # we may want to add/test a disabled class depending on implementation of the fix
-      it 'is disabled', ->
-        $('.back-arrow').trigger 'click'
-        expect($('.back-arrow')).toHaveClass('hidden')
-
-    describe 'clicking the argee button', ->
+    describe 'clicking the agree button', ->
       it 'pops up a dialog confirming acceptance of the TOU/DPN', ->
         confirmSpy = spyOn(window, 'confirm').and.returnValue(false)
         $('#next-agree').trigger 'click'
@@ -82,12 +74,6 @@ describe 'patient enrollments form', ->
     beforeEach ->
       $('#email').addClass('active')
       progressBar.advance(1)
-
-    describe 'back arrow', ->
-      it 'is disabled', ->
-        $('.back-arrow').trigger 'click'
-        expect($('.back-arrow')).toHaveClass('hidden')
-        expect(progressBarSpy.calls.any()).toEqual false
 
     describe 'clicking the next button', ->
       # it wasn't immediately clear how to hook up i18n with Jasmine,
@@ -138,15 +124,18 @@ describe 'patient enrollments form', ->
         it 'focuses on the first password field', ->
           expect(document.activeElement).toEqual $('#patient_enrollment_password')[0]
 
-  describe 'password page', ->
-    beforeEach ->
-      $('#password').addClass('active')
-      addPasswordRules()
+        it 'displays the back arrow', ->
+          expect($('.back-arrow')).not.toHaveClass('hidden')
 
+  describe 'password page', ->
     describe 'clicking the next button', ->
+      beforeEach ->
+        $('#password').addClass('active')
+        addPasswordRules()
+
       describe 'for a blank input', ->
         # it wasn't immediately clear how to hook up i18n with Jasmine,
-        # so for now these specs verify that the correct unlocalized strings appear
+        # so for now these specs verify that the correct non-localized strings appear
         it 'shows a validation error', ->
           $('#next-password').trigger 'click'
           expect($('.validation_error')).toHaveText('[registration.password_form.validation_error]')
@@ -184,60 +173,41 @@ describe 'patient enrollments form', ->
         it 'hides the password page', ->
           expect($('#password')).not.toHaveClass('active')
 
-  #TODO BUG - MCC-151111
-  #    describe 'back arrow', ->
-  #      describe 'on click', ->
-  #        describe 'for a blank input', ->
-  #          it 'returns to the previous page', ->
-  #            $('.back_arrow').trigger 'click'
-  #            expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
-  #            expect(reverseProgressBarSpy.calls.count()).toEqual 1
-  #
-  #          it 'is hidden', ->
-  #            $('.back_arrow').trigger 'click'
-  #            expect($('.back_arrow')).toHaveClass 'hidden'
-  #
-  #        describe 'for an invalid input', ->
-  #          it 'stays on the current page', ->
-  #            $('#patient_enrollment_password').attr('value', 'badpass')
-  #            validSpy= spyOn($.fn, 'valid').and.returnValue(false)
-  #            $('.back_arrow').trigger 'click'
-  #            expect(carouselSpy.calls.any()).toEqual false # carousel should not change divs
-  #            expect(reverseProgressBarSpy.calls.any()).toEqual false
-  #
-  #        describe 'for a valid input', ->
-  #          it 'returns to the previous page', ->
-  #            validSpy= spyOn($.fn, 'valid').and.returnValue(true)
-  #            $('.back_arrow').trigger 'click'
-  #            expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
-  #            expect(reverseProgressBarSpy.calls.count()).toEqual 1
-  #
-  #          it 'is hidden', ->
-  #            $('.back_arrow').trigger 'click'
-  #            expect($('.back_arrow')).toHaveClass 'hidden'
+    describe 'when the back arrow is clicked', ->
+      beforeEach ->
+        # NOTE: In order to use the Back button properly, the JavaScript maintains internal state of what page the user
+        # is on. This can't be easily changed from the outside, so this drives the forms forward to test the button
+
+        # All forms are assumed to be valid for this test
+        spyOn($.fn, 'valid').and.returnValue(true)
+        $('#next-landing').trigger 'click'
+
+        # Accept the TOU/DPN
+        confirmSpy = spyOn(window, 'confirm').and.returnValue(true)
+        $('#next-agree').trigger 'click'
+
+        $('#next-email').trigger 'click'
+        $('.back-arrow').trigger 'click'
+
+      it 'hides the back arrow', ->
+        expect($('.back-arrow')).toHaveClass('hidden')
+
+      it 'hides the password page', ->
+        expect($('#password')).not.toHaveClass('active')
+
+      it 'displays the email page', ->
+        expect($('#email')).toHaveClass('active')
+
+      it 'moves the progress bar back by 1', ->
+        expect($('.progress-indicator .incomplete').length).toEqual 2
+
 
   describe 'security question page', ->
-    beforeEach ->
-      $('#password').addClass('active')
-      $('#next-password').trigger 'click'
-
-    #describe 'back arrow', ->
-    #  describe 'on click', ->
-    #    it 'returns to the previous page', ->
-    #      $('.back-arrow').trigger 'click'
-    #          expect(carouselSpy.calls.allArgs()).toEqual [['prev']]
-    #TODO Add progress bar test
-    #          expect(reverseProgressBarSpy.calls.count()).toEqual 1
-    #TODO BUG - MCC-151111
-    #        it 'displays the "Next" button', ->
-    #          debugger
-    #          $('.back-arrow').trigger 'click'
-    #          expect($('#password')).toHaveClass('active')
-
-    #        it 'hides the "Create account" button', ->
-    #          $('.back-arrow').trigger 'click'
-    #          expect($('#security_question')).not.toHaveClass('active')
     describe 'submit button', ->
+      beforeEach ->
+        $('#password').addClass('active')
+        $('#next-password').trigger 'click'
+
       describe 'on click', ->
         beforeEach ->
           $('#patient_enrollment_security_question').val('1')
@@ -277,6 +247,32 @@ describe 'patient enrollments form', ->
             $('#patient_enrollment_answer').trigger 'keyup'
             expect($('#create-account')).not.toHaveClass('disabled')
 
+    describe 'when the back arrow is clicked', ->
+      beforeEach ->
+        # NOTE: In order to use the Back button properly, the JavaScript maintains internal state of what page the user
+        # is on. This can't be easily changed from the outside, so this drives the forms forward to test the button
+        
+        # All forms are assumed to be valid for this test
+        spyOn($.fn, 'valid').and.returnValue(true)
+        $('#next-landing').trigger 'click'
+
+        # Accept the TOU/DPN
+        confirmSpy = spyOn(window, 'confirm').and.returnValue(true)
+        $('#next-agree').trigger 'click'
+
+        $('#next-email').trigger 'click'
+        $('#next-password').trigger 'click'
+        $('.back-arrow').trigger 'click'
+
+      it 'hides the security question page', ->
+        expect($('#security_question')).not.toHaveClass('active')
+
+      it 'displays the password page', ->
+        expect($('#password')).toHaveClass('active')
+
+      it 'moves the progress bar back by 1', ->
+        expect($('.progress-indicator .incomplete').length).toEqual 1
+
   describe 'using ajax for form submission', ->
     windowLocationSpy = undefined
     htmlSpy = undefined
@@ -315,5 +311,4 @@ describe 'patient enrollments form', ->
       it 'renders the error in the body of the document', ->
         jasmine.Ajax.requests.mostRecent().response registrationErrorResponse
         expect(htmlSpy).toHaveBeenCalledWith(serviceUnavailable)
-
   return
