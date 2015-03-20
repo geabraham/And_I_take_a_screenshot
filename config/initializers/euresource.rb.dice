@@ -23,7 +23,7 @@ Euresource.configure do
     end
 
 <% if use_aranea %>
-  <% if Rails.env.production? && URI.parse(eureka_url).host.split('-').last != 'sandbox.imedidata.net' %>
+  <% if Rails.env.production? && URI.parse(eureka_uri).host.split('-').last != 'sandbox.imedidata.net' %>
     <% raise(RuntimeError, "Aranea being used but host domain not allowed") %>
   <% end %>
   defaults.use Aranea::Faraday::FailureSimulator
