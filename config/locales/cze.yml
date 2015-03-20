@@ -1,75 +1,61 @@
-# Czech (cs) 
+# Czech (cze)
 cze:
-  security_questions:
-    - {id: 1, name: 'V kterém roce jste se narodil(a)?'}
-    - {id: 2, name: 'Poslední čtyři číslice SSN?'}
-    - {id: 3, name: 'Jaké je prostřední jméno vašeho otce?'}
-    - {id: 4, name: 'Jak se jmenovala vaše první škola?'}
-    - {id: 5, name: 'Kdo byl hrdinou vašeho dětství?'}
-    - {id: 6, name: 'Co děláte rád(a) ve volném čase?'}
-    - {id: 7, name: 'Jaký je váš nejoblíbenější sportovní tým?'}
-    - {id: 8, name: 'Jaký byl maskot vaší střední školy?'}
-    - {id: 9, name: 'Jakou značku mělo vaše první auto nebo motorka?'}
-    - {id: 10, name: 'Jak se jmenuje vaše domácí zvíře?'}
-    - {id: 11, name: 'Jaké je prostřední jméno vaší matky?'}
-
   application:
     title: "Minotaur"
     btn_cancel: "Storno"
-    btn_open: "Open"
-    btn_agree: "I agree"
+    btn_open: "Otevřít"
+    btn_agree: "Souhlasím"
     btn_next: "Další"
     btn_continue: "Pokračovat"
   activation_codes:
     index:
-      code_heading: "Please enter your activation code"
-      code_instruction: "If you have already registered, return to the Patient Cloud App. If you have not registered and do not have an activation code or email invite please contact your provider.\n"
-      validation_error: "This code is incorrect. Contact your provider."
-      btn_activate: Aktivovat
+      code_heading: "Zadejte svůj aktivační kód"
+      code_instruction: "Pokud jste již registrováni, vraťte se zpět k&nbsp;aplikaci Patient Cloud. Pokud zatím nejste registrováni ani nevlastníte aktivační kód nebo e-mail s&nbsp;pozvánkou, obraťte se na svého poskytovatele.\n"
+      validation_error: "Tento kód je neplatný. Obraťte se na svého poskytovatele."
   registration:
-    form_heading: "Registration Details"
+    form_heading: "Podrobnosti o&nbsp;registraci"
     welcome:
-      header: "Welcome to Patient Cloud"
-      welcome_message: "You are only a few steps away from creating your log in credentials and downloading the Patient Cloud app.\n"
-      register_1: "Review the Privacy Policy and Terms of Use"
-      register_2: "Create account information"
-      download: "Download the Patient Cloud app"
-      login: "Open Patient Cloud and use your account information to log in"
+      header: "Vítá vás aplikace Patient Cloud"
+      welcome_message: "Od vytvoření přihlašovacích údajů a&nbsp;stažení aplikace Patient Cloud vás dělí jen několik kroků.\n"
+      register_1: "Přečtěte si zásady ochrany osobních údajů a&nbsp;podmínky používání"
+      register_2: "Vytvořte si účet a&nbsp;zadejte vyžadované informace"
+      download: "Stáhněte si aplikaci Patient Cloud"
+      login: "Otevřete aplikaci Patient Cloud a&nbsp;přihlaste se pomocí informací z&nbsp;vašeho účtu"
     terms_of_use:
-      tou_header: "Privacy Policy / Terms of Use"
+      tou_header: "Zásady ochrany osobních údajů / Podmínky používání"
       tou_instruction: "Níže si prosím přečtěte zásady ochrany osobních údajů a podmínky používání, ve kterých jsou uvedena vaše práva platná pro váš účet a pro používání této aplikace.\n"
     tou_agreement:
-      modal_confirm: "You acknowledge that you have read, understood, and agree to be bound by the Terms of Use and Privacy Policy referenced herein.\n"
+      modal_confirm: "Potvrzujete, že jste si přečetli zde uvedené podmínky používání a&nbsp;zásady ochrany osobních údajů, rozumíte jim a&nbsp;vyjadřujete svůj souhlas s&nbsp;jejich zněním.\n"
       modal_cancel: "Když klepnete na tlačítko ‚Storno‘, nebudete registrován(a) jako účastník studie k odesílání elektronických hlášení pacienta a vámi zadané informace budou vymazány. Chcete-li pokračovat v registraci, klepněte na tlačítko ‚Pokračovat‘.\n"
     email_form:
-      form_instruction: "Enter and confirm your email address below."
-      email_label: "Email"
-      reenter_label: "Re-enter Email"
-      validation_error: "Enter a valid email."
-      mismatch_error: "Your Emails do not match."
-      modal_already_registered: "This email account is already registered for this study. Please contact your provider.\n"
+      form_instruction: "V&nbsp;následujících polích zadejte a&nbsp;potvrďte svoji e-mailovou adresu."
+      email_label: "E-mail"
+      reenter_label: "E-mail znovu"
+      validation_error: "Zadejte platný e-mail."
+      mismatch_error: "E-mailové adresy se neshodují."
+      modal_already_registered: "Zadaný e-mailový účet je již v&nbsp;rámci této studie registrován. Obraťte se na svého poskytovatele.\n"
     password_form:
-      form_instruction_1: "Enter and confirm a"
+      form_instruction_1: "Zadejte a&nbsp;potvrďte své"
       form_instruction_1_bold: "Heslo"
-      form_instruction_1_2: "of your choosing that meets the below criteria"
-      ul_1: "At least 8 characters long"
-      ul_2: "At least one upper-case letter"
-      ul_3: "At least one lower-case letter"
-      ul_4: "At least one numeric digit"
+      form_instruction_1_2: "splňující níže uvedené požadavky"
+      ul_1: "Obsahuje alespoň 8&nbsp;znaků"
+      ul_2: "Obsahuje alespoň jedno velké písmeno"
+      ul_3: "Obsahuje alespoň jedno malé písmeno"
+      ul_4: "Obsahuje alespoň jednu číslici"
       password_label: "Heslo"
-      reenter_label: "Re-enter Password"
-      mismatch_error: "Your passwords do not match."
-      validation_error: "Enter a valid Password."
+      reenter_label: "Heslo znovu"
+      mismatch_error: "Hesla se neshodují."
+      validation_error: "Zadejte platné heslo."
     security_question_form:
-      form_instruction: "Select a"
-      form_instruction_bold: "security question."
+      form_instruction: "Vyberte"
+      form_instruction_bold: "zabezpečovací otázku."
       dropdown_placeholder: "Zabezpečovací otázka"
-      answer_label: "Security Answer"
+      answer_label: "Zabezpečovací odpověď"
       answer_placeholder: "Zadejte odpověď na otázku."
-      btn_create: "Create account"
-      modal_error: "Please let your healthcare provider know that you are unable to register.\n"
+      btn_create: "Vytvořit účet"
+      modal_error: "Uvědomte svého poskytovatele zdravotní péče, že se vám nepodařilo registraci dokončit.\n"
       modal_error_ok: "OK"
   download:
-    header: "Congratulations, you are registered as a participant in this study. Now it's time to download the Patient Cloud app.\n"
-    modal_open: "Open the Patient Cloud app?"
-    modal_download: "Download the Patient Cloud app from the app store?"
+    header: "Blahopřejeme, byli jste zaregistrováni jako účastník této studie. Nyní si stáhněte aplikaci Patient Cloud.\n"
+    modal_open: "Otevřít aplikaci Patient Cloud?"
+    modal_download: "Stáhnout aplikaci Patient Cloud z&nbsp;obchodu s&nbsp;aplikacemi?"
