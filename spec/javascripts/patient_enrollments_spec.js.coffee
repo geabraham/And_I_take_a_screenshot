@@ -277,4 +277,43 @@ describe 'patient enrollments form', ->
             $('#patient_enrollment_answer').trigger 'keyup'
             expect($('#create-account')).not.toHaveClass('disabled')
 
+  describe 'using ajax for form submission', ->
+    windowLocationSpy = undefined
+    htmlSpy = undefined
+    registrationResponse =
+        status: 201
+        contentType: 'text/plain'
+        responseText: ''
+
+    beforeEach ->
+      jasmine.Ajax.install()
+      windowLocationSpy = spyOn(window.location, 'assign')
+      htmlSpy = spyOn($.fn, 'html')
+      $('#reg-form').submit()
+
+    afterEach ->
+      windowLocationSpy.calls.reset()
+      jasmine.Ajax.uninstall()
+
+    it 'calls the registration route', ->
+      expect(jasmine.Ajax.requests.mostRecent().url).toBe('/patient_enrollments/0c948408-43e9-428f-8f07-d1fca081e751/register')
+
+    describe 'success', ->
+      it 'triggers patient-cloud:registration-complete', ->
+        jasmine.Ajax.requests.mostRecent().response registrationResponse
+        expect(windowLocationSpy).toHaveBeenCalledWith("patient-cloud:registration-complete")
+
+    # Show plain text error on failure.
+    describe 'error', ->
+      serviceUnavailable = 'Service Unavailable'
+      registrationErrorResponse =
+          status: 503
+          contentType: 'text/plain'
+          statusText: serviceUnavailable
+      
+      # Use a spy becausing testing the actual html prevents the jasmine process from exiting at the end of the test suite.
+      it 'renders the error in the body of the document', ->
+        jasmine.Ajax.requests.mostRecent().response registrationErrorResponse
+        expect(htmlSpy).toHaveBeenCalledWith(serviceUnavailable)
+
   return

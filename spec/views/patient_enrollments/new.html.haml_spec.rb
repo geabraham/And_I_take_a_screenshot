@@ -65,12 +65,29 @@ describe 'patient_enrollments/new.html.haml' do
       expect(html).to have_field('Security Answer', type: 'text', exact: true)
     end
 
-
-
     it 'contains a submit button' do
       expect(html).to have_selector('input[@type="submit"][@value="Create my account"]')
     end
 
+    describe 'form html' do
+      let(:remote_form_selector) { 'form[@data-remote="true"]' }
+
+      context 'when in-app browser' do
+        before { assign(:in_app_browser, true); render }
+
+        it 'data-remote is true' do
+          expect(html).to have_selector(remote_form_selector)
+        end
+      end
+
+      context 'when other browser' do
+        before { assign(:in_app_browser, nil); render }
+
+        it 'data-remote is not present' do
+          expect(html).not_to have_selector(remote_form_selector)
+        end
+      end
+    end
   end
   
   context 'shared controls' do

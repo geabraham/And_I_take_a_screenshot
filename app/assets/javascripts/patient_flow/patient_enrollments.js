@@ -32,6 +32,20 @@ $('.patient-enrollment').ready(function () {
     }
   });
 
+  // When the registration form is being submitted via ajax, there is a data-remote="true"
+  //  html attribute on the form which means we are in an in-app browser.
+  //  This is kind of like being in the matrix in there is a greater dimension
+  //  controlling our system.
+  // Anyways, if the request to register is successful, we trigger a
+  //  registration-complete event to the greater dimension and
+  //  if it fails we show the error in plain text.
+  //
+  $('#reg-form').on("ajax:success", function(e, data, status, xhr) {
+    window.location.assign("patient-cloud:registration-complete")
+  }).on("ajax:error", function(e, xhr, status, error) {
+    $('body').html(xhr.statusText)
+  });
+
   // email
   $('#next-email').on('click', function(e) {
     
