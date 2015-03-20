@@ -4,11 +4,18 @@
       =image_tag 'Medidata_Logo_white_RGB_2.png'
 
     %p#download-instruction= t("download.header")
-    =image_tag 'Progress_bar_download.png', id: 'progress-img'
-    %ul
-      %li
-      %li
-      %li
+    #progress-graphic
+      .progress-item
+        =image_tag 'register.png'
+        .caption Register
+      .grey-line
+      .progress-item
+        =image_tag 'download.png'
+        .caption Download
+      .grey-line
+      .progress-item
+        =image_tag 'login.png'
+        .caption Login
     .downloads
       %a.download-android
         =image_tag 'app_badge_google.png', class: 'badge-img', id: 'android-badge'

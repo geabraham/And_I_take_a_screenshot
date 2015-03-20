@@ -154,14 +154,37 @@ $desktop: 400px;
 #download-instruction {
   font-family: Helvetica Neue;
   font-weight: 200;
-  font-size: 1.25em;
+  font-size: 1.33em;
   text-align: center;
-  padding: 15px;
+  padding: 15px 15px 0px;
 }
 
-#progress-img { 
-  margin: 0px auto;
-  display: table;
+.grey-line {
+  width: 17%;
+  vertical-align: middle;
+  display: inline-block;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+
+#progress-graphic {
+  margin: 15px;
+  .progress-item {
+    vertical-align: middle;
+    display: inline-block;
+    text-align: center;
+    width: 20%;
+    img {
+      height: 60px;
+    }
+    .caption {
+      font-size: 1.33em;
+      font-family: Helvetica Neue;
+      font-weight: 200;
+      display: block;
+      padding-top: 5px;
+    }
+  } 
 }
 
 .downloads {
