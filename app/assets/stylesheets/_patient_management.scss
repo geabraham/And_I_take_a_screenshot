@@ -1,3 +1,5 @@
+// Custom patient management invitation form styles to go here
+//
 #invite-form {
   .form-group {
     margin-right: 10px;
@@ -30,6 +32,19 @@
       display: block;
       margin-bottom: 15px;
       width: 100%;
+    }
+  }
+}
+
+// Custom patient management grid styles to go here
+.paginate {
+  .controls {
+    li a {
+      // Bumped the default height by 1px to fix vertical alignment in Firefox.
+      height: 23px;
+      i.fa {
+        vertical-align: middle;
+      }
     }
   }
 }
