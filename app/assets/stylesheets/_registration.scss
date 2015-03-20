@@ -148,3 +148,31 @@ $desktop: 400px;
   color: red;
   min-height: 1em;
 }
+
+// Download page styling
+
+#download-instruction {
+  font-family: Helvetica Neue;
+  font-weight: 200;
+  font-size: 1.25em;
+  text-align: center;
+  padding: 15px;
+}
+
+#progress-img { 
+  margin: 0px auto;
+  display: table;
+}
+
+.downloads {
+  margin: 0px auto;
+  display: table;
+}
+
+#login-screen-img {
+  img {
+    max-width: 60%;
+    display: block;
+    margin: 0px auto;
+  }
+}
