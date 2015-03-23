@@ -1,5 +1,10 @@
 // Custom patient management invitation form styles to go here
 //
+// TODO refactor when sandman updates
+.panel-heading {
+  background-color: #f5f4f2 !important;
+}
+
 #invite-form {
   .form-group {
     margin-right: 10px;
