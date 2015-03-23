@@ -76,9 +76,9 @@ describe 'patient enrollments form', ->
       # it wasn't immediately clear how to hook up i18n with Jasmine,
       # so for now these specs verify that the correct unlocalized strings appear
       describe 'for a blank input', ->
-        it 'shows a validation error', ->
+        it 'does not show a validation error', ->
           $('#next-email').trigger 'click'
-          expect($('.validation_error')).toHaveText('[registration.email_form.validation_error]')
+          expect($('.validation_error')).not.toHaveText('[registration.email_form.validation_error]')
 
       describe 'for missing confirmation email', ->
         it 'shows a validation error', ->
@@ -253,6 +253,7 @@ describe 'patient enrollments form', ->
         confirmSpy = spyOn(window, 'confirm').and.returnValue(true)
         $('#next-agree').trigger 'click'
 
+        $('#patient_enrollment_login').val('a')
         $('#next-email').trigger 'click'
         $('#next-password').trigger 'click'
         $('.back-arrow').trigger 'click'

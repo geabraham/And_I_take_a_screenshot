@@ -57,18 +57,22 @@ $('.patient-enrollment').ready(function () {
   $('#next-email').on('click', function(e) {
 
     e.preventDefault();
-    
-    if ($form.valid()) {
-      // hide email page
-      $('#email').hide().toggleClass('active');
-      //show password page
-      $('#password').show().toggleClass('active');
-      //show back arrow
-      $('.back-arrow').toggleClass('hidden');
 
-      currentIndex = PASSWORD_INDEX;
-      progressBar.advance(currentIndex);
-      addPasswordRules();
+    // prevent a Firefox/Safari Enter button propagation from setting off the validator
+    // by not validating the email field if both inputs are empty
+    if ($('#patient_enrollment_login').val() || $('#patient_enrollment_login_confirmation').val()) {
+      if ($form.valid()) {
+        // hide email page
+        $('#email').hide().toggleClass('active');
+        //show password page
+        $('#password').show().toggleClass('active');
+        //show back arrow
+        $('.back-arrow').toggleClass('hidden');
+  
+        currentIndex = PASSWORD_INDEX;
+        progressBar.advance(currentIndex);
+        addPasswordRules();
+      }
     }
   });
 
