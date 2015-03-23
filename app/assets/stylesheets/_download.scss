@@ -21,6 +21,15 @@
       display: block;
       padding-top: 5px;
     }
+    &.register {
+      color: $gold;
+    }
+    &.download {
+      color: $ocean
+    }
+    &.login {
+      color: $light-warm-gray;
+    }
   }
   .gray-line {
     width: 17%;

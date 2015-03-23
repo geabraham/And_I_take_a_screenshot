@@ -5,17 +5,17 @@
 
     %p#download-instruction= t("download.header")
     #progress-graphic
-      .progress-item
+      .progress-item.register
         =image_tag 'register.png'
-        .caption.gold Register
+        .caption Register
       .gray-line
-      .progress-item
+      .progress-item.download
         =image_tag 'download.png'
-        .caption.ocean Download
+        .caption Download
       .gray-line
-      .progress-item
+      .progress-item.login
         =image_tag 'login.png'
-        .caption.light-warm-gray Login
+        .caption Login
     #download-links
       %a.download-android
         =image_tag 'app_badge_google.png', class: 'badge-img', id: 'android-badge'
