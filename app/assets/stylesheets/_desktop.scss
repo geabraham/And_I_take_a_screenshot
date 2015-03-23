@@ -1,7 +1,7 @@
 $desktop: 400px;
 
 body {
-  @media screen and (min-width: $desktop) and (min-resolution: 1dppx) {
+  @media screen and (min-width: $desktop), (min-resolution: 1dppx) {
     &.registration {
       background-color: #eee;
     }
