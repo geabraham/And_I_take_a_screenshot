@@ -55,9 +55,6 @@ describe 'patient enrollments form', ->
         it 'advances the progress bar', ->
           expect($('.progress-indicator').find('.incomplete').length).toEqual 2
 
-        it 'focuses on the first email field', ->
-          expect(document.activeElement).toEqual $('#patient_enrollment_login')[0]
-
       describe 'when user clicks "Cancel"', ->
         beforeEach ->
           confirmSpy = spyOn(window, 'confirm').and.returnValue(false)
@@ -79,9 +76,9 @@ describe 'patient enrollments form', ->
       # it wasn't immediately clear how to hook up i18n with Jasmine,
       # so for now these specs verify that the correct unlocalized strings appear
       describe 'for a blank input', ->
-        it 'shows a validation error', ->
+        it 'does not show a validation error', ->
           $('#next-email').trigger 'click'
-          expect($('.validation_error')).toHaveText('[registration.email_form.validation_error]')
+          expect($('.validation_error')).not.toHaveText('[registration.email_form.validation_error]')
 
       describe 'for missing confirmation email', ->
         it 'shows a validation error', ->
@@ -120,9 +117,6 @@ describe 'patient enrollments form', ->
 
         it 'adds validation rules for the password page', ->
           expect(addPasswordRules).toHaveBeenCalled()
-
-        it 'focuses on the first password field', ->
-          expect(document.activeElement).toEqual $('#patient_enrollment_password')[0]
 
         it 'displays the back arrow', ->
           expect($('.back-arrow')).not.toHaveClass('hidden')
@@ -201,7 +195,6 @@ describe 'patient enrollments form', ->
       it 'moves the progress bar back by 1', ->
         expect($('.progress-indicator .incomplete').length).toEqual 2
 
-
   describe 'security question page', ->
     describe 'submit button', ->
       beforeEach ->
@@ -260,6 +253,7 @@ describe 'patient enrollments form', ->
         confirmSpy = spyOn(window, 'confirm').and.returnValue(true)
         $('#next-agree').trigger 'click'
 
+        $('#patient_enrollment_login').val('a')
         $('#next-email').trigger 'click'
         $('#next-password').trigger 'click'
         $('.back-arrow').trigger 'click'
