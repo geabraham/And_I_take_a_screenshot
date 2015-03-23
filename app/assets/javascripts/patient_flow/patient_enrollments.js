@@ -36,7 +36,6 @@ $('.patient-enrollment').ready(function () {
 
       currentIndex = EMAIL_INDEX;
       progressBar.advance(currentIndex);
-      $('#patient_enrollment_login').focus();
     }
   });
 
@@ -70,8 +69,6 @@ $('.patient-enrollment').ready(function () {
       currentIndex = PASSWORD_INDEX;
       progressBar.advance(currentIndex);
       addPasswordRules();
-
-      $('#patient_enrollment_password').focus();
     }
   });
 

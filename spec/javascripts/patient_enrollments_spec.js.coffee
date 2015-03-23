@@ -55,9 +55,6 @@ describe 'patient enrollments form', ->
         it 'advances the progress bar', ->
           expect($('.progress-indicator').find('.incomplete').length).toEqual 2
 
-        it 'focuses on the first email field', ->
-          expect(document.activeElement).toEqual $('#patient_enrollment_login')[0]
-
       describe 'when user clicks "Cancel"', ->
         beforeEach ->
           confirmSpy = spyOn(window, 'confirm').and.returnValue(false)
@@ -120,9 +117,6 @@ describe 'patient enrollments form', ->
 
         it 'adds validation rules for the password page', ->
           expect(addPasswordRules).toHaveBeenCalled()
-
-        it 'focuses on the first password field', ->
-          expect(document.activeElement).toEqual $('#patient_enrollment_password')[0]
 
         it 'displays the back arrow', ->
           expect($('.back-arrow')).not.toHaveClass('hidden')
@@ -200,7 +194,6 @@ describe 'patient enrollments form', ->
 
       it 'moves the progress bar back by 1', ->
         expect($('.progress-indicator .incomplete').length).toEqual 2
-
 
   describe 'security question page', ->
     describe 'submit button', ->
