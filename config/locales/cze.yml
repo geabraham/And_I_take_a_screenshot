@@ -1,5 +1,17 @@
 # Czech (cze)
 cze:
+  security_questions:
+    - {id: 1, name: 'V kterém roce jste se narodil(a)?'}
+    - {id: 2, name: 'Poslední čtyři číslice SSN?'}
+    - {id: 3, name: 'Jaké je prostřední jméno vašeho otce?'}
+    - {id: 4, name: 'Jak se jmenovala vaše první škola?'}
+    - {id: 5, name: 'Kdo byl hrdinou vašeho dětství?'}
+    - {id: 6, name: 'Co děláte rád(a) ve volném čase?'}
+    - {id: 7, name: 'Jaký je váš nejoblíbenější sportovní tým?'}
+    - {id: 8, name: 'Jaký byl maskot vaší střední školy?'}
+    - {id: 9, name: 'Jakou značku mělo vaše první auto nebo motorka?'}
+    - {id: 10, name: 'Jak se jmenuje vaše domácí zvíře?'}
+    - {id: 11, name: 'Jaké je prostřední jméno vaší matky?'}
   application:
     title: "Minotaur"
     btn_cancel: "Storno"

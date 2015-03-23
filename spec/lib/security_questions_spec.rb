@@ -40,8 +40,7 @@ describe SecurityQuestions do
       it 'returns security questions' do
         expect(SecurityQuestions.find('ara')).to eq(ara_security_questions)
         expect(SecurityQuestions.find('chi')).to eq(chi_security_questions)
-        # TODO: add security questions for cze
-        # expect(SecurityQuestions.find('cze')).to eq(cze_security_questions)
+        expect(SecurityQuestions.find('cze')).to eq(cze_security_questions)
         expect(SecurityQuestions.find('dan')).to eq(dan_security_questions)
         expect(SecurityQuestions.find('deu')).to eq(deu_security_questions)
         expect(SecurityQuestions.find('eng')).to eq(eng_security_questions)
