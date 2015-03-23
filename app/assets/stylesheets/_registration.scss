@@ -12,6 +12,8 @@ $desktop: 400px;
 
   // enrollments
   .patient-enrollment {
+    font-family: 'Helvetica Neue', arial, sans-serif;
+    font-weight: 200;
     .header {
       background-color: #002855;
       color: #ffffff;
@@ -152,8 +154,6 @@ $desktop: 400px;
 // Download page styling
 
 #download-instruction {
-  font-family: Helvetica Neue;
-  font-weight: 200;
   font-size: 1.33em;
   text-align: center;
   padding: 15px 15px 0px;
@@ -179,7 +179,6 @@ $desktop: 400px;
     }
     .caption {
       font-size: 1.33em;
-      font-family: Helvetica Neue;
       font-weight: 200;
       display: block;
       padding-top: 5px;

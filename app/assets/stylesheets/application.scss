@@ -7,19 +7,17 @@
 // You're free to add application-wide styles to this file and they'll appear at the top of the
 // compiled file, but it's generally better to create a new file per style scope.
 
+// Extendable styles
 @import 'variables';
 @import 'mixins';
-
-@import 'registration';
-@import 'activation';
-
-// @import 'patient';
 @import 'desktop';
 
+// Custom minotaur styles
+@import 'minotaur';
+
+// Per-page styles
+@import 'registration';
+@import 'activation';
+// @import 'patient';
 @import 'patient_management';
 @import 'patient_management_error';
-
-// TODO refactor when sandman updates
-.panel-heading {
-  background-color: #f5f4f2 !important;
-}
