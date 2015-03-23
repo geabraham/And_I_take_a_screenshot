@@ -12,8 +12,6 @@ $desktop: 400px;
 
   // enrollments
   .patient-enrollment {
-    font-family: 'Helvetica Neue', arial, sans-serif;
-    font-weight: 200;
     .header {
       background-color: #002855;
       color: #ffffff;
@@ -152,7 +150,7 @@ $desktop: 400px;
 }
 
 // Download page styling
-
+//
 #download-instruction {
   font-size: 1.33em;
   text-align: center;
@@ -179,7 +177,6 @@ $desktop: 400px;
     }
     .caption {
       font-size: 1.33em;
-      font-weight: 200;
       display: block;
       padding-top: 5px;
     }
@@ -197,16 +194,4 @@ $desktop: 400px;
     display: block;
     margin: 0px auto;
   }
-}
-
-.gold {
-  color: $gold;
-}
-
-.ocean {
-  color: $ocean
-}
-
-.light-warm-gray {
-  color: $light-warm-gray;
 }

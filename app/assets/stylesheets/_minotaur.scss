@@ -8,6 +8,7 @@
 body {
   color: #666;
   font-family: 'Helvetica Neue', arial, sans-serif;
+  font-weight: 200;
 }
 
 h1 {
@@ -20,4 +21,16 @@ h1 {
 a {
   color: #428bca;
   text-decoration: none;
+}
+
+.gold {
+  color: $gold;
+}
+
+.ocean {
+  color: $ocean
+}
+
+.light-warm-gray {
+  color: $light-warm-gray;
 }
