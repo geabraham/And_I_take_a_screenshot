@@ -113,7 +113,7 @@ $desktop: 400px;
   }
 
   #tou_dpn_agreement {
-    // FIX for German TOU / DPN title which colors outside the container
+    // FIX for German TOU / DPN title which colors outside the lines
     // i.e.: 'Datenschutzrichtlinie/Nutzungsbestimmungen'
     //
     h3 { word-wrap: break-word; }
