@@ -12,14 +12,15 @@
     ],
     "cmd_build": [
       "gem install bundler",
-      "bundle install",
-      "bundle exec rake config"
+      "bundle install --deployment --without development test",
+      "bundle exec passenger-install-nginx-module --auto --auto-download --languages ruby --prefix=vendor/nginx",
+      "echo 'daemon off;' >> vendor/nginx/nginx.conf"
     ],
     "cmd_release": [
       "bundle exec rake release"
     ],
     "processes": {
-      "web": "bundle exec rails s -p $HTTP_PORT -e production"
+      "web": "bundle exec passenger start -p $HTTP_PORT -e production --max-pool-size 10 --min-instances 2"
     },
     "ssl_cert": "/etc/secrets/ssl/private/crt.crt",
     "ssl_cert_key": "/etc/secrets/ssl/private/key.key"
@@ -35,6 +36,7 @@
     "MAUTH_URL": "https://mauth-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
     "PRIVATE_KEY": "<MAUTH_PRIVATE_KEY>",
     "CAS_BASE_URL": "https://login-<STAGE>.imedidata.<TOP_LEVEL_DOMAIN>",
+    "RAILS_ENV": "production",
     "SECRET_KEY_BASE": "<generate a key with `bundle exec rake secret`>",
     "SANDMAN_HOST": "dsw6ye8s2ocl7.cloudfront.net"
   }
