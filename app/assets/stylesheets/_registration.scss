@@ -159,12 +159,12 @@ $desktop: 400px;
   padding: 15px 15px 0px;
 }
 
-.grey-line {
+.gray-line {
   width: 17%;
   vertical-align: middle;
   display: inline-block;
   text-align: center;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid $light-warm-gray;
 }
 
 #progress-graphic {
@@ -198,4 +198,16 @@ $desktop: 400px;
     display: block;
     margin: 0px auto;
   }
+}
+
+.gold {
+  color: $gold;
+}
+
+.ocean {
+  color: $ocean
+}
+
+.light-warm-gray {
+  color: $light-warm-gray;
 }
