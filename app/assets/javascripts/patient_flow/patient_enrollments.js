@@ -87,7 +87,6 @@ $('.patient-enrollment').ready(function () {
 
       currentIndex = SECURITY_QUESTION_INDEX;
       progressBar.advance(currentIndex);
-      $('#patient_enrollment_security_question').focus()
       $('#patient_enrollment_answer').on('keyup', function() {
         // validate security question
         if (validateSecurityQuestions() && $('#reg-form').valid()) {
