@@ -26,8 +26,10 @@ Feature: A provider can view patient enrollments in a study
     Given I am authorized to manage patients for study "TestStudy001"
     And patient enrollments exist for "Subject001" and "Subject002"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    And I take a screenshot
     Then I should see a row for each subject with an obscured email, an activation code, an invited status, a formatted date, subject and initials
-   
+    And I take a screenshot
+
   @Release2015.1.0
   @PB130352-002
   @Headed
@@ -36,7 +38,9 @@ Feature: A provider can view patient enrollments in a study
     Given I am authorized to manage patients for study "TestStudy001"
     And no patient enrollments exist for site "DeepSpaceStation"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    And I take a screenshot
     Then I should see a message saying "There are currently no patient enrollments for this study."
+    And I take a screenshot
 
   @Draft
   @Release2015.1.0
@@ -47,8 +51,10 @@ Feature: A provider can view patient enrollments in a study
     Given I am authorized to manage patients for study "TestStudy001"
     And the request for patient enrollments returns an error 
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    And I take a screenshot
     #TODO figure out error message and localize
     Then I should see a message saying "<some error string>"
+    And I take a screenshot
 
   @Release2015.1.0
   @PB130352-004
@@ -58,9 +64,12 @@ Feature: A provider can view patient enrollments in a study
     Given I am authorized to manage patients for study "TestStudy001"
     And 70 patient enrollments exist for site "DeepSpaceStation"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    And I take a screenshot
     Then I should see that I am on page 1 of 3
     And 25 patient enrollments are displayed
+    And I take a screenshot
     And patient enrollments are ordered by date
     And there is an active Next Page button
     And there is an inactive Previous Page button
+    And I take a screenshot
                                           

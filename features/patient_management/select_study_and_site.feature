@@ -25,17 +25,20 @@ Feature: Patient Management Study Site Selection
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001, TestStudy002"
     When I navigate to patient management via the apps pane in iMedidata
+    And I take a screenshot
     Then I should see a list of studies:
       | name         |
       | TestStudy001 |
       | TestStudy002 |
     When I select "TestStudy001" from the list of studies
+    And I take a screenshot
     Then I should see a list of sites:
       | name                 |
       | DeepSpaceStation     |
       | GalacticQuadrantBeta |
     When I select "DeepSpaceStation" from the list of sites
     Then I should see an active launch button
+    And I take a screenshot
 
   @Validation
   @Release2015.1.0
@@ -45,13 +48,16 @@ Feature: Patient Management Study Site Selection
     Given I am logged in
     And I am authorized to manage patients for studies "TestStudy001, TestStudy002"
     When I navigate to patient management via study "TestStudy001" in iMedidata
+    And I take a screenshot
     Then I should see "TestStudy001" pre-selected in the list of studies
+    And I take a screenshot
     And I should see a list of sites:
       | name                 |
       | DeepSpaceStation     |
       | GalacticQuadrantBeta |
     When I select "GalacticQuadrantBeta" from the list of sites
     Then I should see an active launch button
+    And I take a screenshot
 
   @Validation
   @Release2015.1.0
@@ -61,6 +67,7 @@ Feature: Patient Management Study Site Selection
     Given I am logged in
     When I navigate to patient management via the apps pane in iMedidata
     Then I should see a not found error page
+    And I take a screenshot
 
   @Validation
   @Release2015.1.0
@@ -70,3 +77,4 @@ Feature: Patient Management Study Site Selection
     Given I am not logged in
     When I navigate to patient management by directly placing the url in the browser
     Then I should be redirected to the login page
+    And I take a screenshot

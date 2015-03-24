@@ -33,6 +33,7 @@ Feature: A provider can invite a user to participate in a study
   Scenario: An authorized provider can select a country/language pair and a subject when inviting a new patient.
     Given I am authorized to manage patients for study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    And I take a screenshot
     Then I should be able to select from the following country / language pairs:
       | pair             |
       | USA / English    |
@@ -41,6 +42,7 @@ Feature: A provider can invite a user to participate in a study
       | Canada / French  |
       | Israel / Arabic  |
       | Israel / Hebrew  |
+    And I take a screenshot
     And I should be able to select from the following subjects:
       | subject    |
       | Subject001 |
@@ -54,13 +56,16 @@ Feature: A provider can invite a user to participate in a study
   Scenario: An authorized provider is able to invite a patient.
     Given I am authorized to manage patients for study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    And I take a screenshot
     When I invite a user with the following attributes:
       | attribute_name   | attribute_value             |
       | initials         | LCD                         |
       | subject          | Subject001                  |
       | country_language | Israel / Arabic             |
+    And I take a screenshot
     Then I should see a row for "Subject001" with an obscured email, an activation code, an invited status, a formatted date, subject and initials
     And the subject dropdown should get refreshed
+    And I take a screenshot
 
   @Release2015.1.0
   @PB130799-003
@@ -69,8 +74,11 @@ Feature: A provider can invite a user to participate in a study
   Scenario: An authorized provider is unable to invite a patient until all required attributes are provided.
     Given I am authorized to manage patients for study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    And I take a screenshot
     And I select a subject but I don't select a country / language pair
+    And I take a screenshot
     Then I am unable to invite a patient
+    And I take a screenshot
 
   @Release2015.1.0
   @PB130799-004
@@ -79,10 +87,14 @@ Feature: A provider can invite a user to participate in a study
   Scenario: An authorized provider sees an error message when subject is already registered.
     Given I am authorized to manage patients for study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    And I take a screenshot
     When I invite a user with all required attributes
+    And I take a screenshot
     And the backend service returns an error response due to subject id already existing
     Then I should see an error message: "Subject not available. Please try again."
+    And I take a screenshot
     And the subject dropdown should get refreshed
+
 
   @Release2015.1.0
   @PB130799-005
@@ -91,9 +103,12 @@ Feature: A provider can invite a user to participate in a study
   Scenario: An authorized provider sees an error message when imedidata/subject service is down.
     Given I am authorized to manage patients for study "TestStudy001"
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
+    And I take a screenshot
     When I invite a user with all required attributes
+    And I take a screenshot
     And the backend service does not respond due to imedidata or subject service being down
     Then I should see an error message: "Service unavailable, please try again later."
+    And I take a screenshot
 
   @Release2015.1.0
   @PB130799-006
@@ -101,9 +116,11 @@ Feature: A provider can invite a user to participate in a study
   @Review[SQA]
   Scenario: An authorized provider sees an informative message when there are are no subjects available.
     Given I am authorized to manage patients for study "TestStudy001"
+    And I take a screenshot
     And the request for available subjects for site "DeepSpaceStation" does not return any subjects
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then the only subject option should read "No subjects available"
+    And I take a screenshot
 
   # REVIEW: We haven't covered the case where available subjects request gets a failed connection / service down error.
   #   Should we add scenario and functionality for service down when requesting available subjects?
@@ -117,6 +134,7 @@ Feature: A provider can invite a user to participate in a study
     And the request for available subjects for site "DeepSpaceStation" returns any error
     When I navigate to patient management via study "TestStudy001" and site "DeepSpaceStation"
     Then the only subject option should read "No subjects available"
+    And I take a screenshot
 
   @Release2015.1.0
   @PB130799-008
@@ -127,6 +145,7 @@ Feature: A provider can invite a user to participate in a study
     When I navigate to patient management for a study site by directly placing the url in the browser
     Then I should see an error page with the message:
       | The link or URL you used either doesn't exist or you don't have permission to view it. |
+    And I take a screenshot
 
   @Release2015.1.0
   @PB130799-009
@@ -136,3 +155,4 @@ Feature: A provider can invite a user to participate in a study
     Given I am not logged in
     When I navigate to patient management for a study site by directly placing the url in the browser
     Then I should be redirected to the login page
+    And I take a screenshot

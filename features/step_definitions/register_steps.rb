@@ -128,3 +128,7 @@ Then(/^I enter email information for a new subject$/) do
   fill_in I18n.t("registration.email_form.email_label"), with: @patient_enrollment.login
   fill_in I18n.t("registration.email_form.reenter_label"), with: @patient_enrollment.login.upcase
 end
+
+And(/^I take a screenshot$/) do
+  take_screenshot
+end
