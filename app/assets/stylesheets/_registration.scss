@@ -1,7 +1,8 @@
 // activation and enrollments layouts
 $desktop: 400px;
 .registration {
-  
+  font-family: 'Helvetica Neue', arial, sans-serif;
+  font-weight: 300;
   background-color: #fff;
 
   .patient {
@@ -112,6 +113,10 @@ $desktop: 400px;
   }
 
   #tou_dpn_agreement {
+    // FIX for German TOU / DPN title which colors outside the lines
+    // i.e.: 'Datenschutzrichtlinie/Nutzungsbestimmungen'
+    //
+    h3 { word-wrap: break-word; }
     .tou_dpn_agreement {    
       max-height: 400px;
       overflow: scroll;
